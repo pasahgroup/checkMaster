@@ -8,7 +8,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb bg-white mb-0 px-0 py-2">
                                     <li class="breadcrumb-item active" aria-current="page">General Settings</li>
-                                    <li class="breadcrumb-item active" aria-current="page">Metadata</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Add User</li>
                                 </ol>
                             </nav>
                         </div>
@@ -22,7 +22,8 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-lg-12 col-xl-12">
-                                            <div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
+                                           <!--  <div class="card card-custom gutter-b bg-transparent shadow-none border-0" > -->
+                                                  <div class="card card-custom bg-transparent shadow-none border-1" >
                                                 <div class="card-header align-items-center  border-bottom-dark px-0">
                                                     <div class="card-title mb-0">
                                                         <h3 class="card-label mb-0 font-weight-bold text-body">User List
@@ -80,7 +81,7 @@
                                                                     <tr>
                                                                         <th>ID</th>
                                                                         <th >Full Name</th>
-                                                                        <th >Site</th>
+                                                                        <th >Property Name</th>
                                                                         <th >Department</th>
                                                                         <th >Email</th>
                                                                             
@@ -92,23 +93,24 @@
                                                                     <tr class="kt-table-row kt-table-row-level-0">
                                                                         <td >{{ $user->id }}</td>
                                                                         <td>{{ $user->name }}</td>
-
-                                                                       @foreach ($sites as $site)
-                                                                        @if($user->site_id==$site->id)
-                                                                        <td>{{ $site->site_name }}</td>
+ <td>
+                                                                       @foreach ($properties as $property)
+                                                                        @if($user->property_id==$property->id)
+                                                                       {{ $property->property_name }}
                                                                         @endif
                                                                     @endforeach
-                                                                      
+                                                                    </td>
+
+                                                                       <td>
                                                                         @foreach ($departments as $department)
                                                                         @isset($user->department_id)
                                                                         @if($user->department_id==$department->id)
-                                                                        <td>{{ $department->unit_name }}</td>
-                                                                        @else
-                                                                         <td>mm</td>
+                                                                       {{ $department->unit_name }}
+                                                                     
                                                                         @endif
                                                                         @endisset
                                                                     @endforeach
-                                                                       
+                                                                       </td>
                                                                         <td>{{ $user->email }}</td>
                                                                         
                                                                         <td>
@@ -136,12 +138,16 @@
                             <small  class="form-text text-muted">please edit user name</small>
                         </div>  
                                   <div class="form-group">
-                        <label class="text-dark" >Edit Site/Accommodation</label>
-                        <select name="site" id="site" class="form-control">
+                        <label class="text-dark" >Edit Property/Accommodation</label>
+                        <select name="property" id="property" class="form-control">
                    
-                                        <option value="{{$user->id}}">{{$user->id}}</option>
-                                         @foreach ($sites as $site)
-                                          <option value="{{$site->id}}">{{$site->site_name}}</option>
+                                        <option value="{{$user->property_id}}">  @foreach ($properties as $property)
+                                                                        @if($user->property_id==$property->id)
+                                                                       {{ $property->property_name }}
+                                                                        @endif
+                                                                    @endforeach</option>
+                                         @foreach ($properties as $property)
+                                          <option value="{{$property->id}}">{{$property->property_name}}</option>
                                      
                                        @endforeach
                         </select>
@@ -151,9 +157,16 @@
                         <label class="text-dark" >Department</label>
                         <select name="department" id="" class="form-control">
                    
-                                        <option value="{{$user->department_id}}">{{$user->department_name}}</option>
+                                        <option value="{{$user->department_id}}">   @foreach ($departments as $department)
+                                                                        @isset($user->department_id)
+                                                                        @if($user->department_id==$department->id)
+                                                                       {{ $department->unit_name }}
+                                                                     
+                                                                        @endif
+                                                                        @endisset
+                                                                    @endforeach</option>
                                          @foreach ($departments as $department)
-                                          <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                          <option value="{{$department->id}}">{{$department->unit_name}}</option>
                                      
                                        @endforeach
                         </select>
@@ -223,7 +236,7 @@
 
 
 
-    <div  class="offcanvas offcanvas-right kt-color-panel p-5 kt_notes_panel">
+    <div  class="offcanvas offcanvas-right kt-color-panel p-1 kt_notes_panel">
         <div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
             <h4 class="font-size-h4 font-weight-bold m-0">Register user
             </h4>
@@ -234,8 +247,9 @@
             </a>
         </div>
       
+        <div class="row col-xl-12 col-md-12"> 
+<div class="card-body"  style="background-color:#b2ca5d !important">
 <x-guest-layout>
-    <x-jet-authentication-card>
  <form method="POST" action="{{ route('user-register.store') }}">
             @csrf
 
@@ -244,11 +258,11 @@
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
               <div>
-                <x-jet-label for="site" value="{{ __('Site/Accommodation') }}" />
- <select name="site" id="site" class="block mt-1 w-full" required>
-                        <option value="">--- Select Site ---</option>
-                            @foreach ($sites as $site)
-                       <option value="{{$site->id}}">{{$site->site_name}}</option>
+                <x-jet-label for="property" value="{{ __('Property/Accommodation') }}" />
+ <select name="property" id="property" class="block mt-1 w-full" required>
+                        <option value="">--- Select Property ---</option>
+                            @foreach ($properties as $property)
+                       <option value="{{$property->id}}">{{$property->property_name}}</option>
 
                             @endforeach
                         </select>
@@ -308,9 +322,9 @@
                 </x-jet-button>
             </div>
         </form>
-    </x-jet-authentication-card>
 </x-guest-layout>
-
+</div>
+</div>
     </div>
     <iframe name="print_frame" width="0" height="0"  src="about:blank"></iframe>
 

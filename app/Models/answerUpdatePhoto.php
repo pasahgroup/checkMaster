@@ -11,7 +11,12 @@ class answerUpdatePhoto extends Model
     protected $fillable = [
     	'index_id',
     	'index_count',
+      'property_id',
+      'asset_id',
+      'metaname_id',
+      'indicator_id',
     	'answer_id',
+        'user_id',
           'description',
          'image',
         'status'

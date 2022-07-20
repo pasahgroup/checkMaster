@@ -16,9 +16,16 @@ class CreateAnswerUpdatePhotosTable extends Migration
         Schema::create('answer_update_photos', function (Blueprint $table) {
          $table->bigIncrements('id');
          $table->integer('index_id')->nullable();
-         $table->integer('answer_id')->nullable();
-            $table->string('description',250)->nullable();
+
+          $table->integer('property_id')->nullable();
+          $table->integer('asset_id')->nullable();
+
+          $table->integer('metaname_id')->nullable();
+          $table->integer('indicator_id')->nullable();
+         $table->integer('answer_id')->nullable();          
+            $table->string('description',700)->nullable();
            $table->string('image',120)->nullable();
+           $table->integer('user_id')->unsigned();
             $table->string('status')->default('Active');
             $table->timestamps();
         });

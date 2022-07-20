@@ -2,7 +2,7 @@
 
 <div>
 
-            <div class="row">
+            <div class="row container">
                 <div class="col-xl-4 col-md-4  ">
                     <div class="card card-custom gutter-b bg-white border-0">
                         <div class="card-body">

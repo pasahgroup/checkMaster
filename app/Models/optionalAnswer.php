@@ -11,6 +11,7 @@ class optionalAnswer extends Model
       protected $fillable  = [
         'indicator_id',
         'answer',
+        'answer_classification',
         'datatype',
         'status',
         'user_id',

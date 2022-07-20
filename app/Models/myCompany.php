@@ -10,11 +10,13 @@ class myCompany extends Model
     use HasFactory;
     protected $fillable = [
         'company_name',
+        'tin',
+        'vrn',
         'logo',
         'address',
         'phone_number',
-        'package',
+        'email',
         'status',
-        'renew_at',
+        'user_id',
     ];
 }

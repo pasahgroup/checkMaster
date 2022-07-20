@@ -12,6 +12,8 @@ use App\Models\direct_expenses;
 use App\Models\expenseCategory;
 use App\Models\order;
 use App\Models\orderItem;
+use App\Models\Property;
+
 use App\Models\payment;
 use App\Models\purchase;
 use App\Models\purchaseOrder;
@@ -25,6 +27,16 @@ use App\Models\warehouse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+
+ // use PHPJasperXML\PHPJasperXML as PHPJasperXML;
+// include_once(app_path().'/jrf/tcpdf/tcpdf.php');
+include_once(app_path().'/jrf/PHPJasperXML.inc.php');
+// include_once(app_path().'/jrf/version/1.1/PHPJasperXML.inc.php');
+
+use PHPJasper\PHPJasper;
+//require __DIR__ . '/vendor/autoload.php';
+//require_once('../vendor/autoload.php');
 
 class reportController extends Controller
 {
@@ -33,37 +45,161 @@ class reportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //require_once(app_path()."/reports/vendor/autoload.php");
+
     public function index()
     {
+
+     // $report='';
+      // require __DIR__ . '/vendor/autoload.php';
         //
-        $sales = sale::join('customers','customers.id','sales.customer_id')
-        ->join('users','sales.user_id','users.id')
-        ->select('sales.*','customers.customer_name','users.name','customers.id as cid')
-        ->where('sales.status','!=','Deleted')
-        ->whereDate('sales.created_at', Carbon::today())
-        ->get();
+        // $sales = sale::join('customers','customers.id','sales.customer_id')
+        // ->join('users','sales.user_id','users.id')
+        // ->select('sales.*','customers.customer_name','users.name','customers.id as cid')
+        // ->where('sales.status','!=','Deleted')
+        // ->whereDate('sales.created_at', Carbon::today())
+        // ->get();
 
-        $totals = sale::rightjoin('customers','customers.id','sales.customer_id')
-        ->select(['sales.*','customers.customer_name',
-        DB::raw('COUNT(customers.customer_name) as total_customers'),
-        DB::raw('SUM(sales.amount) as total_revenue'),
-        DB::raw('SUM(sales.paid) as total_cash'),
-        DB::raw('SUM(sales.balance) as total_credit')
-        ])
-        ->where('sales.status','!=','Deleted')
-        ->whereDate('sales.created_at', Carbon::today())
-        ->first();
+        // $totals = sale::rightjoin('customers','customers.id','sales.customer_id')
+        // ->select(['sales.*','customers.customer_name',
+        // DB::raw('COUNT(customers.customer_name) as total_customers'),
+        // DB::raw('SUM(sales.amount) as total_revenue'),
+        // DB::raw('SUM(sales.paid) as total_cash'),
+        // DB::raw('SUM(sales.balance) as total_credit')
+        // ])
+        // ->where('sales.status','!=','Deleted')
+        // ->whereDate('sales.created_at', Carbon::today())
+        // ->first();
 
-        $total_customers = customer::select(['*',
-        DB::raw('COUNT(customer_name) as total_customers')
-        ])
-        ->whereDate('customers.created_at', Carbon::today())
-        ->first();
+        // $total_customers = customer::select(['*',
+        // DB::raw('COUNT(customer_name) as total_customers')
+        // ])
+        // ->whereDate('customers.created_at', Carbon::today())
+        // ->first();
 
-        $customers = customer::get();
-        $salespeople = User::get();
+        // $customers = customer::get();
+        // $salespeople = User::get();
 
-        return view('admin.reports.sales',compact('sales','customers','salespeople','totals','total_customers'));
+        // return view('admin.reports.sales',compact('sales','customers','salespeople','totals','total_customers'));
+
+// $report ='location';
+
+// if ($report == 'location') {
+//    //dd($report);
+//   $param1=1;
+//    //$jasper = new JasperPHP;
+//                    // $param1 = Input::get('id');
+//                    // $PHPJasperXML = new PHPJasperXML();
+//                       $PHPJasperXML = new JasperPHP();
+
+//                     //Enabling this will let you see the generated SQL (with parameters in place and all)
+//                     //$PHPJasperXML->debugsql=true; 
+
+//                     //Array of parameters eg. array("param1"  => $param1, "param2"=>$param2);
+//                     //Here we assume that the report has a parameter called "param1"
+//                     $PHPJasperXML->arrayParameter=array("id"  => $param1);
+                  
+
+//               $PHPJasperXML->load_xml_file(app_path()."/includes/reports/".$report.".jrxml");
+        
+//                 $PHPJasperXML->transferDBtoArray();
+//                 //Clean the end of the buffer before outputting the PDF
+//                 ob_end_clean();
+
+//                 //page output method I:standard output  D:Download file
+//                 return Response::make($PHPJasperXML->outpage("I"));
+
+
+//                   }
+
+$server="localhost";
+$db="ucrtdb";
+$user="root";
+$pass="";
+$version="1.1";
+
+$pgport=3306; //only for postgresql
+
+
+// include_once("../PHPJasperXMLSubReport.inc.php");
+//include_once("../PHPJasperXML.inc.php");
+// include_once("../PHPJasperXML.inc.php");
+//include_once ('setting.php');
+
+$PHPJasperXML = new PHPJasper();
+// $PHPJasperXML->load_xml_file("report2.jrxml");
+$PHPJasperXML->load_xml_file("locationv.jrxml");
+$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+$PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
+
+    }
+
+  public function dailyReport(Request $request,$id){
+    $current_date = date('Y-m-d');
+      $reportTime="Daily Reports";
+$segments = request()->segments();
+$last_segment  = end($segments);
+$first_segment = reset($segments);
+
+
+	if($id>0)
+	{
+		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'"');
+	  $property=Property::where('id',$id)->first();
+	}else{
+		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and a.datex="'.$current_date.'"');
+	$property=Property::where('id',request('property_id'))->first();
+	}
+	
+        return view('reports.daily-report',compact('reportDailyData','reportDailyData','property','reportTime'));
+    }
+
+
+    public function weeklyReport(Request $request,$id){
+    $current_date = date('Y-m-d');
+      $reportTime="Weekly Reports";
+	  
+	  $segments = request()->segments();
+      $last_segment  = end($segments);
+      $first_segment = reset($segments);
+
+    
+	
+	if($id>0)
+	{
+	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and WEEK(a.datex)=WEEK(NOW())');
+
+	$property=Property::where('id',$id)->first();
+	}else{
+ $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and WEEK(a.datex)=WEEK(NOW())');
+	$property=Property::where('id',request('property_id'))->first();
+	}
+       
+        return view('reports.weekly-report',compact('reportWeeklyData','property','reportTime'));
+    }
+
+
+    public function monthlyReport(Request $request,$id){
+    $current_date = date('Y-m-d');
+      $reportTime="Monthly Reports";
+    
+	  $segments = request()->segments();
+      $last_segment  = end($segments);
+      $first_segment = reset($segments);
+
+       
+if($id>0)
+	{
+	
+ $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and MONTH(a.datex)=MONTH(NOW())');
+
+	$property=Property::where('id',$id)->first();
+	}else{
+ $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and MONTH(a.datex)=MONTH(NOW())');
+	$property=Property::where('id',request('property_id'))->first();
+	}
+
+        return view('reports.monthly-report',compact('reportMonthlyData','property','reportTime'));
     }
 
     public function expensesReport(){
@@ -1017,15 +1153,64 @@ if( $warehouse_name != 'All'){
         //
     }
 
+
+public function anyViewreport($report='')
+  {
+                if ($report == 'testreport') {
+                    $param1 = Input::get('id');
+
+                    $PHPJasperXML = new PHPJasperXML();
+
+                    //Enabling this will let you see the generated SQL (with parameters in place and all)
+                    //$PHPJasperXML->debugsql=true; 
+
+                    //Array of parameters eg. array("param1"  => $param1, "param2"=>$param2);
+                    //Here we assume that the report has a parameter called "param1"
+                    $PHPJasperXML->arrayParameter=array("param1"  => $param1);
+                    }
+
+                $PHPJasperXML->load_xml_file(app_path()."/includes/reports/location.jrxml");
+                // $PHPJasperXML->load_xml_file(app_path()."/includes/reports/".$report.".jrxml");
+        
+                $PHPJasperXML->transferDBtoArray();
+                //Clean the end of the buffer before outputting the PDF
+                ob_end_clean();
+
+                //page output method I:standard output  D:Download file
+                return Response::make($PHPJasperXML->outpage("I"));
+  }
+
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$report='')
     {
-        //
+     if ($report == 'location') {
+                    $param1 = Input::get('param1');
+
+                    $PHPJasperXML = new PHPJasperXML();
+
+                    //Enabling this will let you see the generated SQL (with parameters in place and all)
+                    //$PHPJasperXML->debugsql=true; 
+
+                    //Array of parameters eg. array("param1"  => $param1, "param2"=>$param2);
+                    //Here we assume that the report has a parameter called "param1"
+                    $PHPJasperXML->arrayParameter=array("param1"  => $param1);
+                  
+
+              $PHPJasperXML->load_xml_file(app_path()."/includes/reports/".$report.".jrxml");
+        
+                $PHPJasperXML->transferDBtoArray();
+                //Clean the end of the buffer before outputting the PDF
+                ob_end_clean();
+
+                //page output method I:standard output  D:Download file
+                return Response::make($PHPJasperXML->outpage("I"));
+                  }
     }
 
     /**

@@ -3,15 +3,16 @@
 				<!--begin::Content-->
 				<div class="content d-flex flex-column flex-column-fluid" id="tc_content">
 					<!--begin::Subheader-->
-					<!-- <div class="subheader py-2 py-lg-6 subheader-solid">
+					<div class="subheader py-2 py-lg-6 subheader-solid">
 						<div class="container-fluid">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb bg-white mb-0 px-0 py-2">
-									<li class="breadcrumb-item active" aria-current="page">Metadata</li>
+									<li class="breadcrumb-item active" aria-current="page">Metaname Settings</li>
+									<li class="breadcrumb-item active" aria-current="page">Metaname</li>
 								</ol>
 							</nav>
 						</div>
-					</div> -->
+					</div>
 					<!--end::Subheader-->
 					<!--begin::Entry-->
 					<div class="d-flex flex-column-fluid">
@@ -24,8 +25,8 @@
 											<div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
 												<div class="card-header align-items-center  border-bottom-dark px-0">
 													<div class="card-title mb-0">
-														<h3 class="card-label mb-0 font-weight-bold text-body">Metaname List
-														</h3>
+														<h5 class="card-label mb-0 font-weight-bold text-body">Metaname List
+														</h5>
 													</div>
 												    <div class="icons d-flex">
 														<button  class="btn ml-2 p-0 kt_notes_panel_toggle"
@@ -83,18 +84,18 @@
 																		<th >Description</th>
 																		<th >Status</th>
 																			
-																		<th class="no-sort text-right">Action</th>
+						<th class="no-sort text-right">Action</th>
 																	</tr>
 																</thead>
-																<tbody class="kt-table-tbody text-dark">
-                                                                    @foreach ($metanames as $metaname)
-																	<tr class="kt-table-row kt-table-row-level-0">
-																		<td >{{ $metaname->id }}</td>
+					<tbody class="kt-table-tbody text-dark">
+                    @foreach ($metanames as $metaname)
+				<tr class="kt-table-row kt-table-row-level-0">
+				<td >{{ $metaname->id }}</td>
 																		
-																		<td>{{ $metaname->metaname_name }}</td>
-																		<td>{{ $metaname->metaname_description }}</td>
-																		<td>{{ $metaname->status }}</td>
-																		<td>
+					<td>{{ $metaname->metaname_name }}</td>
+					<td>{{ $metaname->metaname_description }}</td>
+					<td>{{ $metaname->status }}</td>
+				<td>
 																	
  <!-- start Modal -->           
   <div class="modal fade" id="issue{{ $metaname->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +122,16 @@
                        <div class="form-group">
                         <label class="text-dark">Description</label>
                         <textarea class="form-control" rows="3" id="metaname_description" name="metaname_description">{{ $metaname->metaname_description }}</textarea>
-                  </div>                
+                  </div> 
+
+                  		<div class="col-12">				
+   @foreach ($metadatas as $metadata)
+   <label class="text-center" >{{$metadata->metadata_name}} | 
+                                      <input type="checkbox" name="metadata_name[]" class="form-control" value="{{$metadata->id}}"></label>
+                                   
+                                       @endforeach
+
+					</div>               
                     </div>
                 </div>
 
@@ -148,9 +158,9 @@
 																				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton2"  style="position: absolute; transform: translate3d(1001px, 111px, 0px); top: 0px; left: 0px; will-change: transform;">
 
                                                                                 @if(($metaname->status)!="Stop")
-                                                                                    <a href="javascript:void(0)" class="btn-success dropdown-item click-edit" id="click-edit1" data-toggle="modal" data-target="#issue{{ $metaname->id }}">Edit</a>
-
-                                                                                     <a href="{{ route('delete-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1" onclick="return confirm(id='Are you sure you want to delete this  {{$metaname->metadata_name}}')">Delete</a>
+ <a href="javascript:void(0)" class="btn-success dropdown-item click-edit" id="click-edit1" data-toggodal" data-target="#issue{{ $metaname->id }}">Edit</a>
+ <a href="{{ route('edit-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1">Edit2</a>
+<a href="{{ route('delete-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1" onclick="return confirm(id='Are you sure you want to delete this  {{$metaname->metadata_name}}')">Delete</a>
                                                                                
                                                                             @endif
 																				</div>
@@ -184,7 +194,7 @@
 
 	<div  class="offcanvas offcanvas-right kt-color-panel p-5 kt_notes_panel">
 		<div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
-			<h4 class="font-size-h4 font-weight-bold m-0">Register Group Metaname
+			<h4 class="font-size-h4 font-weight-bold m-0">Register Metaname
 			</h4>
 			<a href="#" class="btn btn-sm btn-icon btn-light btn-hover-primary kt_notes_panel_close" >
 				<svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

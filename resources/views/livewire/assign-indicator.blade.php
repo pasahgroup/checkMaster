@@ -4,11 +4,23 @@
                               <h5   class="text-center">{{ $message }}</h5>
                             </div>
                             @endif
-            <div class="row">
-                  <!-- <h4 class="title font-weight-bold text-center">List of Metaname</h4> -->
-                  <div class="col-xl-12 col-md-12"><h5 class="title font-weight-bold text-center">Assign Indicators to Metaname</h5></div>
 
+ <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
+        <!--begin::Subheader-->
+        <div class="subheader py-2 py-lg-6 subheader-solid">
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white mb-0 px-0 py-2">
+                        <li class="breadcrumb-item active" aria-current="page">Indicator Settings</li>
+                         <li class="breadcrumb-item active" aria-current="page">Assign Indicators to Metaname:(AIM)</li>
 
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr>
+
+           <div class="row container">
 
                 <div class="col-xl-6 col-md-6">                       
                   <h5 class="title font-weight-bold text-center">List of Metaname</h5>                    <div class="card card-custom gutter-b bg-white border-0">
@@ -24,8 +36,8 @@
    @isset($metanames)
       @foreach($metanames as $metaname)
       <div class="row">
-      <div class="col-xl-9 col-md-9">{{$metaname->metaname_name}}</div>
-     <div class="col-xl-3 col-md-3"><input type="checkbox" name="metanames[]" value="{{$metaname->id}}"></div>                     
+      <div class="col-xl-5 col-md-5 col-sm-5">{{$metaname->metaname_name}}</div>
+     <div class="col-xl-2 col-md-2 col-sm-5"><input type="checkbox" name="metanames[]" value="{{$metaname->id}}"></div>                     
    </div> 
    @endforeach 
    @endisset  
@@ -40,7 +52,7 @@
 
                        
                 <div class="col-xl-6 col-md-6">                       
-                  <h5 class="title font-weight-bold text-center">List of Indicators</h5>                    <div class="card card-custom gutter-b bg-white border-0">
+                  <h5 class="title font-weight-bold text-center">List of Indicators/Qns</h5>                    <div class="card card-custom gutter-b bg-white border-0">
                                                            <div class="card-body">                         
 <div class="form-group">
  @isset($indicators)
@@ -55,11 +67,12 @@
   
                                      
                                 </div>
-                                 </div>
-                               <button  class="btn-sm btn btn-primary float-right" type="submit">Save <i class="fas fa-save"></i></button>  
+                                <div class="wawa-bgcolor">
+                                    <button  class="btn btn-dark float-right" type="submit">Appy</button>
+                                 </div> 
+                                 </div> 
                                  </div>                                                                                 
-                                
-                                   
+                                                                 
 
                                    </form>
 

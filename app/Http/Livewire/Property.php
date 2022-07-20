@@ -82,7 +82,7 @@ class Property extends Component
            //  session()->flash('message', 'Users Updated Successfully.');
      // return view('livewire.department')->layout('livewire.showFrame');
       return view('livewire.property-livewire',compact('items','metanames'))
-      ->layout('livewire.showFrame');
+      ->layout('layouts.app');
 
     //    // return view('livewire.department');
 

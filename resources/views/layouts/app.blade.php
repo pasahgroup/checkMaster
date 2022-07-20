@@ -8,12 +8,12 @@ License: You must have a valid license purchased only from themeforest(the above
 -->
 <html lang="en">
 <!--begin::Head-->
-
+ @livewireStyles
 <head>
 
 	<meta charset="utf-8" />
 	<title>Admin | Dashboard</title>
-	<meta name="description" content="Moxa, Sales and CRM system" />
+	<meta name="description" content="Checklist Master, Sales and CRM system" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<!--begin::Fonts-->
 	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" /> -->
@@ -64,12 +64,12 @@ License: You must have a valid license purchased only from themeforest(the above
 	<link rel="shortcut icon" href="../../assets/images/misc/logo.svg" />
 
 	<!-- Custom App -->
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" /> -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script> -->
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -77,8 +77,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <body id="tc_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-fixed">
    <!-- Paste this code after body tag -->
-
-
 
    {{-- <div class="se-pre-con">
 	<div class="pre-loader">
@@ -92,7 +90,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Logo-->
 		<a href="/admin" class="brand-logo">
 
-			<span class="brand-text"><img style="height: 35px;" alt="Logo" src="../../assets/images/misc/logo.svg" /></span>
+		<!-- 	<span class="brand-text"><img style="height: 35px;" alt="Logo" src="../../assets/images/misc/logox.png" /></span> -->
 
 		</a>
 
@@ -137,19 +135,16 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div>
 			<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="tc_aside">
 				<!--begin::Brand-->
-				<div class="brand flex-column-auto" id="tc_brand" style="background-color: #18684e !important">
-					<!--begin::Logo-->
-
-					<a href="/" class="brand-logo">
-						<img class="brand-image" style="height: 15px;" alt="Logo" src="../../assets/images/misc/logo.svg" />
-						<span class="brand-text"><img style="height: 25px;" alt="Logo"
-								src="../../assets/images/misc/logo.svg" /></span>
-
-					</a>
-					<!--end::Logo-->
-
-
+				<div class="brand flex-column-auto" id="tc_brand" style="background-color: #c49e77 !important">
+						<a href="/" class="brand-logo">
+						<img class="brand-image" style="height: 25px; background-color:red;"  src="../../assets/images/misc/logo.svg" alt="Logo"/>
+						
+@isset($company->logo)
+<span class="brand-text"><img style="height: 35px;width: 140px;" alt="Logo" src="{{ asset('storage/logo/'.$company->logo)}}"/></span>
+@endisset
+	</a>
 				</div>
+
 				<!--end::Brand-->
 				<!--begin::Aside Menu-->
 				<div class="aside-menu-wrapper flex-column-fluid overflow-auto h-100" id="tc_aside_menu_wrapper">
@@ -169,7 +164,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!--begin::Wrapper-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="tc_wrapper">
 				<!--begin::Header-->
-				<div id="tc_header" class="header header-fixed" style="background-color: #18684e !important">
+				<div id="tc_header" class="header header-fixed" style="background-color: #c49e77 !important">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex align-items-stretch justify-content-between">
 						<!--begin::Header Menu Wrapper-->
@@ -205,8 +200,8 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="topbar">
                             @role('Sales')
 							<div class="posicon d-lg-block d-none">
-								<a href="/pos" class="btn btn-primary white mr-2">POS</a>
-								<a href="/pos-final" class="btn btn-primary white mr-2">POS2</a>
+								<!-- <a href="/pos" class="btn btn-primary white mr-2">POS</a>
+								<a href="/pos-final" class="btn btn-primary white mr-2">POS2</a> -->
 							</div>
                             @endrole
 							<div class="topbar-item">
@@ -233,14 +228,8 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 							</div>
 
-
-
-
-
-
 							<!--begin::Notifications-->
 							<div class="dropdown">
-
 								<div class="topbar-item" data-toggle="dropdown" data-display="static">
 									<div class="btn btn-icon btn-clean btn-dropdown mr-1">
 										<div class="svg-icon svg-icon-xl svg-icon-primary" title="Notification">
@@ -407,27 +396,25 @@ License: You must have a valid license purchased only from themeforest(the above
     </ul>
 </div>
 @endif
-                @yield('content')
 
+ @isset($slot)
+ {{ $slot }}
+ @else
+ @yield('content')
+  <div class="footer bg-white py-4 d-flex flex-lg-column" id="tc_footer">
+                                    <div
+                        class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+
+                        <div class="text-dark order-2 order-md-1">
+                            <span class="text-muted font-weight-bold mr-2 text-center">©2022</span>
+                            <span class="ext-muted font-weight-bold mr-2 text-center" style="color: #fff;">Licensed to: {{$company->company_name??'Set Company Profile'}}</span>
+                        </div>
+                    </div>
+                </div>
+@endisset
+               
                 <!--begin::Content-->
-
-
-
-				<div class="footer bg-white py-4 d-flex flex-lg-column" id="tc_footer">
-
-					<div
-						class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
-
-						<div class="text-dark order-2 order-md-1">
-							<span class="text-muted font-weight-bold mr-2">©2022</span>
-							<a href="#" target="_blank" class="text-dark-75 text-hover-primary">Developed By: Pasah Group</a>
-						</div>
-
-
-
-					</div>
-
-				</div>
+				
 				<!--end::Footer-->
 			</div>
 			<!--end::Wrapper-->
@@ -435,8 +422,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Page-->
 	</div>
 	<!--end::Main-->
-
-
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="../../../assets/js/plugin.bundle.min.js"></script>
@@ -458,8 +443,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="../../../assets/api/daterange-picker/daterangepicker.min.js"></script>
 
    	<script src="./../../assets/js/script.bundle.js"></script>
-	  <!-- <script src="../../img_library/scripts.js" type="text/javascript"></script> -->
-	  
+   	
 	      <script src="../../../assets/js/hierarchy-select.js"></script>
 	          <script src="../../../assets/js/hierarchy-select.min.js"></script>
 
@@ -543,8 +527,6 @@ window.addEventListener("load",function() {
     }, 0);
 });
 </script>
+ @livewireScripts
 </body>
-
-
 </html>
-

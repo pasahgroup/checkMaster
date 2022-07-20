@@ -7,8 +7,8 @@
 						<div class="container-fluid">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb bg-white mb-0 px-0 py-2">
-									<li class="breadcrumb-item active" aria-current="page">General Settings</li>
-									<li class="breadcrumb-item active" aria-current="page">role recovery</li>
+									<li class="breadcrumb-item active" aria-current="page">Data Recovery</li>
+									<li class="breadcrumb-item active" aria-current="page">Role</li>
 								</ol>
 							</nav>
 						</div>
@@ -22,7 +22,7 @@
 								<div class="col-12">
 									<div class="row">
 										<div class="col-lg-12 col-xl-12">
-											<div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
+											<div class="card card-custom bg-transparent shadow-none border-0" >
 												<div class="card-header align-items-center  border-bottom-dark px-0">
 													<div class="card-title mb-0">
 													<h3 class="card-label mb-0 font-weight-bold text-body">List of Deleted Roles

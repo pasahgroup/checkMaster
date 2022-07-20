@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\myCompany;
 use App\Models\myPayment;
+use App\Models\department;
+use App\Models\userRole;
+use App\Models\userProperty;
+use App\Models\property;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -19,26 +24,31 @@ class usersPermissionController extends Controller
      */
     public function index()
     {
-        //
-        $datas= User::get();
-     // dd($datas);
-
-        $user = User::join('model_has_roles','users.id','model_has_roles.model_id')
-        ->join('roles','model_has_roles.role_id','roles.id')
-        ->select('roles.name as role_name','model_has_roles.model_id as model_id','users.*')
+         $users= User::get();
+         $departments= department::get();
+    
+        $userRoles = User::join('user_roles','users.id','user_roles.sys_user_id')
+        ->join('roles','user_roles.role_id','roles.id')
+        ->where('user_roles.status','Active')
+        ->select('roles.name as role_name','user_roles.sys_user_id as sys_user_id','user_roles.id as arole_id','users.*')
         ->get();
 
 
+  // $permissions = userProperty::join('properties','user_properties.property_id','properties.id')
+  //      ->where('user_properties.status','Active')
+  //       ->select('properties.id as id','user_properties.sys_user_id as model_id','properties.property_name as permission_name')
+  //       ->get();
 
-        $permissions = User::join('model_has_permissions','users.id','model_has_permissions.model_id')
-        ->join('permissions','model_has_permissions.permission_id','permissions.id')
-        ->select('permissions.name as permission_name','model_has_permissions.model_id as model_id','users.*')
+ $permissions = User::join('properties','users.property_id','properties.id')
+       ->where('users.status','Active')
+        ->select('properties.id as id','users.id as model_id','properties.property_name as permission_name')
         ->get();
-        $permit = Permission::get();
+
+        $permit = property::get();
         $roles = Role::get();
         $limitation = myPayment::latest()->first();
 
-        return view('admin.settings.users.users',compact('datas','user','permissions','permit','roles','limitation'));
+        return view('admin.settings.users.users',compact('users','userRoles','permissions','permit','roles','limitation','departments'));
     }
 
     /**
@@ -59,11 +69,9 @@ class usersPermissionController extends Controller
      */
     public function store(Request $request)
     {
-
         $user_id = User::where('id',request('users_id'))->first();
         $user_id->assignRole(request('roles'));
         return redirect()->back()->with('success','Role added successfly');
-
     }
 
     /**
@@ -74,7 +82,7 @@ class usersPermissionController extends Controller
      */
     public function show($id)
     {
-        //
+       // dd($id);
     }
 
     /**
@@ -85,8 +93,6 @@ class usersPermissionController extends Controller
      */
     public function edit($id)
     {
-        //
-
         $datas = User::where('id',$id)->first();
         $roles= Role::get();
         // $myroles = $datas->getRoleNames();
@@ -102,6 +108,18 @@ class usersPermissionController extends Controller
             $user->removeRole($role);
             return redirect()->back()->with('success','Role removed successfly');
         }
+
+
+          public function recoveryUpdate(user $department,$id)
+    {
+          $user = user::where('id',$id)
+               ->update([
+                'department_id'=>"",
+                 'user_id'=>auth()->id()
+
+              ]);
+       return redirect()->back()->with('success','Department recovered successfly');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -122,19 +140,38 @@ class usersPermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
         if(request('role')){
-            $user = User::findorfail($id);
-            if($user->removeRole(request('role'))){
-                return redirect()->back()->with('success','role has been revoked successefuly');
-            }
-            else{
-                return redirect()->back()->with('error','role can not be revoked');
-            }
+       
+            $user = userRole::where('id',$id)
+               ->update([
+                'status'=>"Inactive",
+                 'user_id'=>auth()->id()
+              ]);
+      return redirect()->back()->with('success','role has been revoked successefuly');
         }
+
+        if(request('department')){
+    //    dd('dddd');
+            $user = User::where('id',$id)
+               ->update([
+                'department_id'=>0,
+                 'user_id'=>auth()->id()
+               ]);
+      return redirect()->back()->with('success','role has been revoked successefuly');
+        }
+
          if(request('permission')){
-            $user = User::findorfail($id);
-            if($user->revokePermissionTo(request('permission'))){
+           // dd(request('siteid'));
+            $userSite = userProperty::where('sys_user_id',$id)
+            ->where('property_id',request('siteid'))
+            ->first();
+
+        if($userSite){
+                 $userSite->update([
+            'status'=>'Inactive',
+             'user_id'=>auth()->id()
+           ]);
+
                 return redirect()->back()->with('success','role has been revoked successefuly');
             }
             else{
@@ -148,8 +185,5 @@ class usersPermissionController extends Controller
            return redirect()->back()->with('success','User Deleted Successfuly');
        }
     }
-
-
-
-    }
+ }
 }

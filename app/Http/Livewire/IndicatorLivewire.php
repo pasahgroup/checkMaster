@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\property;
+ use App\Models\asset;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\site;
+use App\Models\property;
 use App\Models\metaname;
 
 use App\Models\setIndicator;
@@ -31,6 +31,8 @@ class IndicatorLivewire extends Component
   public $properties;
 
        public $qnType;
+       public $qns_type;
+
         public $times;
         public $qnNo;
            public $qn_no;
@@ -38,6 +40,7 @@ class IndicatorLivewire extends Component
 public function store(Request $request)
     {
          $names = request('names');
+ $answer_class = request('answer_class');
 
 $indicator = setIndicator::UpdateOrCreate([
         'qns'=>request('question'),
@@ -46,29 +49,13 @@ $indicator = setIndicator::UpdateOrCreate([
         ]);
 
 
-// /dd($names->name);
-//dd(request('property_name'));
-
-
-  // $tourhearfrom = property::UpdateOrCreate(
-  //     ['site_id'=>request('site_id'),
-  //       'metaname_id'=>request('metaname_id'),
-  //    'property_name'=>request('property_name')],
-
-  //     [
-  //               'location_id'=>request('metaname_id'),
-  //                'property_type'=>request('property_type'),
-  //              'property_serial_no'=>request('property_serial_no'),
-  //               'property_barcode'=>request('property_barcode'),
-  //               'property_tag_no'=>request('property_tag_no'),
-  //               'property_description'=>request('property_description'),
-  //               'user_id'=>auth()->id()    
-  //       ]);
+//dd($answer_class[2]);
+//dd($names);
 
        if($names !=null)
      {
         
-foreach ($names as $name) {
+foreach ($names as $key=>$name) {
  //  $data = metadata::where('id', $metadata)->first(); 
 
  //  $datatype=strtok($data->metadata_name, " ");
@@ -78,6 +65,7 @@ foreach ($names as $name) {
         $insetqns = optionalAnswer::UpdateOrCreate([
         'indicator_id'=>$indicator->id,
          'answer'=>$name,
+         'answer_classification'=>$answer_class[$key],
           'datatype'=>request('qns_type'),
           'status'=>'Active',
           'user_id'=>auth()->id()        
@@ -102,9 +90,9 @@ foreach ($names as $name) {
     public function render(Request $request)
     {
      $pos_id=$this->metaname_id;
-     $qnType=$this->qnType;
+     //$qnType=$this->qnType;
      $times=$this->qnNo;
-
+$qns_type=$this->qns_type;
 $qn_no=$this->qn_no;
   // $this->orderProducts = orderItem::where('id',$post)
     //    //  ->get();
@@ -119,12 +107,12 @@ $qn_no=$this->qn_no;
         // ->get();
     //dd($this->qn_no);
 
-                $sites = site::get();
+                $properties = property::get();
                 $metanames = metaname::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
       
+      //dd($this->metaname_id);
            // $metadatas = metanameDatatype::where('metaname_id',5)->get();
-
 
     //     ->where('sub_stores.current_qty','>=',1)
     //     ->where('sub_stores.warehouse',$wharehouse_id)
@@ -132,8 +120,8 @@ $qn_no=$this->qn_no;
           //dd($times);
            //  session()->flash('message', 'Users Updated Successfully.');
      // return view('livewire.department')->layout('livewire.showFrame');
-      return view('livewire.indicator',compact('metadatas','metanames','sites','qn_no'))
-      ->layout('livewire.showFrame');
+      return view('livewire.indicator',compact('metadatas','metanames','properties','qn_no','qns_type'))
+      ->layout('layouts.app');
 
     //    // return view('livewire.department');
 

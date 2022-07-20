@@ -15,14 +15,16 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
          $table->bigIncrements('id');
-         $table->string('indicator_id')->nullable();
+          $table->integer('property_id')->nullable();
+          $table->integer('metaname_id')->nullable();
+        $table->integer('indicator_id')->nullable();
+         $table->integer('opt_answer_id')->nullable();
            $table->string('answer')->nullable();
-           $table->string('property_id')->nullable();
-           $table->string('description',250)->nullable();
-           $table->string('image',120)->nullable();
+           $table->integer('asset_id')->nullable();
             $table->string('status')->default('Active');
-            $table->string('action')->default(0);
+            $table->boolean('action')->default(0);
             $table->integer('user_id')->unsigned();
+            $table->date('datex')->nullable();
             $table->timestamps();
         });
     }

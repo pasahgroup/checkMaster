@@ -17,7 +17,8 @@ class CreateMetadataTable extends Migration
             $table->bigIncrements('id');
             $table->string('metadata_name')->unique();
             $table->string('datatype')->nullable();
-            $table->string('status')->default('stop');
+            $table->string('status',24)->default('Active');
+             $table->string('statusx',24)->default('Inactive');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

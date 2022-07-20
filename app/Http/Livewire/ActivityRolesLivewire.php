@@ -134,7 +134,7 @@ return redirect()->back()->with('error','Roles not selected');
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
  
       return view('livewire.activity-roles',compact('activities','roles','departs'))
-      ->layout('livewire.showFrame');
+      ->layout('layouts.app');
 
 
   }

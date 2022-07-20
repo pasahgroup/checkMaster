@@ -138,8 +138,6 @@ return redirect()->back()->with('error','Users not selected');
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
  
       return view('livewire.user-activity',compact('activities','users','departs'))
-      ->layout('livewire.showFrame');
-
-
+      ->layout('layouts.app');
   }
 }

@@ -171,7 +171,7 @@ class Show extends Component
           //dd($departments);   
 
  return view('livewire.show',compact('departments'))
- ->layout('livewire.showFrame');
+ ->layout('layouts.app');
 
     // }
 

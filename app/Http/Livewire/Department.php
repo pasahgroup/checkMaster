@@ -68,7 +68,7 @@ class Department extends Component
            //  session()->flash('message', 'Users Updated Successfully.');
      // return view('livewire.department')->layout('livewire.showFrame');
       return view('livewire.department',compact('orderProducts','items','properties'))
-      ->layout('livewire.showFrame');
+      ->layout('layouts.app');
 
     //    // return view('livewire.department');
 
@@ -83,7 +83,5 @@ class Department extends Component
     // }
 
   }
-
-
 
 }

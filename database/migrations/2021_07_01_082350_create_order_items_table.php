@@ -20,6 +20,7 @@ class CreateOrderItemsTable extends Migration
               $table->decimal('width',10,2)->unsigned();
               $table->decimal('height',10,2)->unsigned();
               $table->decimal('qty',10,2)->unsigned();
+              $table->integer('buying_price')->unsigned();
             $table->integer('selling_price')->unsigned();
             $table->timestamps();
         });

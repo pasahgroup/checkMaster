@@ -1,111 +1,126 @@
 <div>
+
   @if($message)
                             <div class="alert alert-danger">
                               <h5   class="text-center">{{ $message }}</h5>
                             </div>
                             @endif
-
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-
-<!-- <select class="selectpicker" data-show-subtext="true" data-live-search="true">
-<option data-tokens="name">name</option>
-<option data-tokens="family">family</option>
-</select> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-
-
-
-<div class="row">
-</div>
-
-
-            <div class="row">
-                  <!-- <h4 class="title font-weight-bold text-center">List of Metaname</h4> -->
-                  <div class="col-xl-12 col-md-12"><h5 class="title font-weight-bold text-center" >Checklist Master</h5></div>
-
-
-            <div class="col-xl-12 col-md-12">                       
+<div class="content d-flex flex-column flex-column-fluid" id="tc_content">
+<div class="subheader py-2 py-lg-6 subheader-solid">
+            <div class="container-fluid">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white mb-0 px-0 py-2">
+                  <li class="breadcrumb-item active" aria-current="page">Checklist Master</li>
+                  <li class="breadcrumb-item active" aria-current="page">Checklist</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <hr/>
+<div class="row container">
+            <div class="col-xl-12 col-md-12">
             @isset($metadatas)
                                   <div class="card card-custom gutter-b bg-white border-0">
-                                    <div class="card-body">                                                      
+                                    <div class="card-body">
 
     <form  method="post"  action="{{ route('checklist.store') }}" enctype="multipart/form-data">
-                             @csrf                           
+                          @csrf
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input type="hidden" name="pd" id="pd">
-            <!-- <input type="text" name="index[]" id="index">   -->
+    <input type="hidden" name="qnID" id="qnID" value="">
+    <input type="hidden" name="qnAID[]" id="qnAID" value="">
+    <input type="hidden" name="aID" id="aID" value="">
 
-     <!-- <div class="form-group">
-                        <select wire:model="indicator_id" name="indicator_id" id="indicator_id" class="form-control">
-                           <option value="">--- Select Metaname ---</option>
-                            @foreach ($metanames as $metaname)
-                          <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+<div class="row">
+ <div class="card-body"  style="background-color:#b2ca5d !important">
+<label class="text-dark" ><b>Indicator Questions</b></label>
 
-                            @endforeach
-                        </select>
-    </div> -->
+  <div class="panel panel-default" style="background-color:#fff !important">
 
- <div class="form-group row">
-              <label for="" class="col-sm-2 form-control-label">Metaname</label>
-              <div class="col-sm-10">
-                <select class="form-control selectpicker" id="select-countryb" data-live-search="true">
-   <option data-tokens="">--- Select Metaname ---</option>
+  @foreach ($pp as $p)
 
-                            @foreach ($acts as $key=>$activity)
-                          <option data-tokens="{{$activity->id}}">{{$activity->metaname_name}}</option>
-
-                            @endforeach
-                </select>
-
-              </div>
-            </div>
-
-     <label class="text-dark" ><b>Indicator Question</b></label>
-      
- <div class="panel-group"  style="background-color:#fff !important">
-  <div class="panel panel-default">
-  @foreach ($pp as $p )
- 
-    
       <div class="panel-heading">
         <h4 class="panel-title">
-         <div class="card">   
-         <a data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="myFunction({{$p->id}})" onkeyup ="myFunction({{$p->id}})" style="background-color:#6d802b !important">{{ $p->property_name  }}</a>
-        <!-- <input type="text" name="prop[]" value="{{$p->id}}"> -->
+         <div class="card" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#718275 !important">
+         <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10" style="color: #fff">
+         &nbsp;{{ $p->asset_name  }}
 
+</div>
+         <div class="col-lg-2 col-md-2 col-sm-2">
+@foreach ($checkQnsProp as $chkp)
+@if($p->id ==$chkp->asset_id)
+<input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($p->id==$chkp->asset_id) checked @endif>
+@endif
+@endforeach
+         </div>
+         </div>
+           <input type="hidden" name="prop[]" value="{{$p->id}}">
        </div>
       </div>
-      <div id="collapse{{$p->id}}" class="panel-collapse collapse">
-               
+      <div wire:ignore.self id="collapse{{$p->id}}" class="panel-collapse collapse">
 
-      @foreach ($qns as $qn )    
-       <div class="panel-group btn-sm" style="background-color:#f49d2a !important">{{ $qn->qns  }}</div>
+<div class="row">
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10">
+      @foreach ($qns as $qn )
+       @if($p->metaname_id ==$qn->metaname_id)
+       <div class="panel-group btn-sm" style="background-color:#6d802b !important">{{ $qn->qns  }}</div>
             <div class="form-group">
-       @foreach ($metadatas as $metadata)                                           
-                                                                                                                                                                    
-           @if($metadata->indicator_id ==$qn->id) 
-           <div class="row">
-             <div class="col-xl-6 col-md-6">
+              <div class="row">
+       @foreach ($metadatas as $metadata)
+           @if($metadata->indicator_id ==$qn->id)
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
           <label>{{$metadata->answer}}</label>
-          <input type="{{$metadata->datatype}}" name="ids[]" value="{{$metadata->id}}">
-         </div> 
-         </div>            
+           @if($metadata->datatype=="checkbox")
+          <input type="{{$metadata->datatype}}" name="ids{{$p->id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction({{$qn->id}})" onkeyup="myFunction({{$qn->id}})"
+             @foreach ($checkQns as $checkq)
+              @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer_value)
+           @if ($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer_value) checked @endif
+          @endif
+           @endforeach
+  >
+       @endif
+           @if($metadata->datatype=="radio")
+          <input type="{{$metadata->datatype}}" name="idx{{$p->id}}{{$qn->id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="setQnFunction({{$p->id}},{{$qn->id}})" onkeyup="setQnFunction({{$p->id}},{{$qn->id}})"
+             @foreach ($checkQns as $checkq)
+              @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id)
+           @if ($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id) checked @endif
+          @endif
+
+           @endforeach
+
+  >
+
+         @endif
+
+         </div>
            @endif
-    @endforeach 
-              </div>
+    @endforeach
+     </div>
+            </div>
   <div class="panel-group">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title"> <div class="card"><a data-toggle="collapse" href="#collaps{{$p->id}}">Description if any</a>
+        <h4 class="panel-title"> <div class="card"><a data-toggle="collapse" href="#collaps{{ $qn->id }}{{$p->id}}">Description if any</a>
        </div>
       </div>
-      <div id="collaps{{$p->id}}" class="panel-collapse collapse">
-        <textarea id="desc" name="desc{{$p->id}}[]" placeholder="---enter description if any---" class="form-control"></textarea>
+      <div id="collaps{{ $qn->id}}{{$p->id}}" class="panel-collapse collapse">
+
+
+        <textarea rows="4" cols="40" id="desc" name="desc{{$p->id}}[]" placeholder="---enter description if any---" class="form-control" style="white-space: normal;overflow:hidden" maxlength="680">
+      @foreach ($checkQns as $checkq)
+  @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$p->property_id)
+   @if($checkq->description !=null)
+    {{$checkq->description}}
+    @endif
+  @endif
+      @endforeach
+           </textarea>
+
+
+
               </div>
     </div>
   </div>
@@ -113,62 +128,103 @@
  <div class="panel-group">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title"> <div class="card">    <a data-toggle="collapse" href="#collap{{$p->id}}">Photo if any</a>
+        <h4 class="panel-title"> <div class="card">    <a data-toggle="collapse" href="#collap{{ $qn->id  }}{{$p->id}}">Photo if any</a>
        </div>
       </div>
-      <div id="collap{{$p->id}}" class="panel-collapse collapse">
-        
+      <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-11">
+      <div id="collap{{ $qn->id }}{{$p->id}}" class="panel-collapse collapse">
+
 <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                    <input type="file" name="attachment{{$p->id}}[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;"> 
-                                   
+                                    <input type="file" name="attachment{{$p->id}}[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
+
                                 </div>
                                 </div>
-        <div class="col-lg-8 col-md-6 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
 
             <span class="img-div">
               <div class="text-center img-placeholder"  onClick="triggerClick()">
               </div>
-              <img src="images/no.png" onClick="triggerClick()" id="profileDisplay">
+
+              <img src=" @foreach ($checkQns as $checkq)
+  @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$p->property_id)
+   @if($checkq->image !=null)
+    {{$checkq->image}}
+    @endif
+  @endif
+      @endforeach " onClick="triggerClick()" id="profileDisplay">
             </span>
             </div>
       </div>
 
       </div>
     </div>
-  </div>
-   <!-- <button  class="btn-sm btn btn-primary float-right" type="submit">Savex <i class="fas fa-save"></i></button>  -->
-               @endforeach
+    <div class="col-lg-2 col-md-12col-sm-2">
 
-               <hr>
+<div class="form-group">
+            <label class="radio-inline">Ready:
+               <input type="checkbox"  onclick="myFunction()" id="status" name="status" value="0"
+
+              @foreach ($checkQns as $checkq)
+              @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id)
+           @if ($checkq->answer_value!=null) checked @endif
+          @endif
+           @endforeach
+
+                >
+           </label>
+</div>
+
+<input type="hidden" name="col" value="{{$col}}">
+
+    </div>
+    </div>
+
+    </div>
+  </div>
+  <hr style="background-color:#fd7e14 !important">
+   @endif
+   @endforeach
+  <div class="row">
  <div class="col-md-12 col-sm-12">
- <button  class="btn-sm btn btn-primary float-right" type="submit">Save<i class="fas fa-save"></i></button> 
+ <div class="wawa-bgcolor">
+                      <button  class="btn-sm btn btn-secondary float-right" type="submit">Save</button>
+                      </div>
 </div>
 <hr>
-   </div>   
-   
+</div>
+   </div>
+   </div>
+
+
+
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+</div>
    @endforeach
-             </div>   
-           </div>                       
-                                </div>
-                                 </div>
-                                 <button  class="btn-sm btn btn-primary float-right" type="submit">Finish<i class="fas fa-save"></i></button> 
+             </div>
+<hr/>
+             <a class="btn-sm btn btn-dark float-right" role="button">Finish</a>
+           </div>
+           </div>
 
-                                  @endisset 
-                                 </div>
-                                                                          
-                                  
-                                   
 
-                                   </form>
 
-                                </div>
-                                 </div>
+   <div class="row">
+     <div class="col-md-6 col-sm-6">
+     </div>
+
+</div>
+                                  @endisset
+  </form>
+
+               </div>
                                  </div>
                                  </div>
 
-  
+
 <script type="text/javascript">
   $(document).ready(function() {
 $('.qnNo').materialSelect();
@@ -185,6 +241,68 @@ function checkAge(age) {
 }
 </script>
 
+<script type="text/javascript" src="../../js/jquery.js"></script>
+
+<script>
+     function numberWithCommas(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     }
+
+
+$('.toggle-class').on('change',function(){
+    let status = $(this).prop('checked') == true ? true : false;
+    let grader_id = $(this).data('id');
+
+let status=4;
+alert(status);
+
+ $('#'+status+'').val(200);
+
+
+    $.ajax({
+       type:'POST',
+       dataType:'json',
+       url:"{{ route('checklistx.store') }}", // add your earlier created route here
+       data:{'grade': status, 'grade_id': grader_id},
+       success: function(data){
+        console.log('success');
+         alert('passed');
+     }
+   });
+
+
+});
+</script>
+
+<script type="text/javascript">
+
+  function setPropertyFunction(id) {
+ $('#aID').val(id);
+  }
+
+   function setQnFunction(pID,qID) {
+      const arrT=[];
+    //alert(pID);
+     //alert(qID);
+     //document.getElementById("demo").innerHTML = cars;
+     var variables=document.getElementById('qnAID').value;
+
+  //alert(variables);
+const fruits = new Array('Apple', 'Banana');
+ //alert(fruits);
+//const fruits =[];
+//document.getElementById("demo").innerHTML = cars;
+//sarrT=fruits.push(qID);
+//console.log(fruits.length);
+ //alert(fruits);
+
+ $('#qnAID').val(fruits);
+  // alert(fruits);
+ $('#qnID').val(qID);
+  }
+</script>
+
+
 
 <script>
      function numberWithCommas(n) {
@@ -192,74 +310,88 @@ function checkAge(age) {
      }
 
 function myFunction(id) {
-  //  alert(id);
-    var pid="pd"+(id);
-    $('#pd').val(id);
+     //
+//var id;
+  // let status = $(this).prop('checked') == true ? true : false;
+  //   let grader_id = $(this).data('id');
+//alert(id);
+//let status="status";
+//alert(status);
 
 
-// const ages = [3, 10, 18, 20];
-// ages.findIndex(checkAge);
-// function checkAge(age) {
-//   return age > 18;
-// }
- //$('#index').val(id);
-//alert(pid);
-    // var upv="up_"+(id);
-    // var anQty="qty"+(id);
-    //   var antQty="tqty"+(id);
-    // var aprice="price_"+(id);
-    //   var asubtotal="subtotal_"+(id);
- //$('#'+pid+'').val(id);
 
-    var descs=document.getElementById(desc).value;
-     // var up=document.getElementById(upv).value;
-     // var unitPrice=document.getElementById(aprice).value;      
-     //    var StoreQty=document.getElementById(antQty).value;
-      alert(descs);
+ var v1=document.getElementById(status).value;
+ //alert(v1);
+   //  $.ajax({
+   //     type:'POST',
+   //     dataType:'json',
+   //     url:"{{ route('checklistx.store') }}", // add your earlier created route here
+   //     data:{'grade': 43, 'grade_id': 20},
+   //     success: function(data){
+   //      console.log('success');
+   //       alert('passed');
+   //   }
+   // });
 
- 
-//  var soldQty=numberWithCommas((ur*up).toFixed(2));
-// if(ur>=0 && up>=0)
-// { 
-// //var soldQty=numberWithCommas((ur*up));
-// //var subtotal=(unitPrice*soldQty).toFixed(2);   
-//    //totalCost +=subtotal;
 
-// //  if(Number(soldQty)<=Number(StoreQty))
-// //  {
-// //   $('#'+anQty+'').val(soldQty);
-// //   $('#'+asubtotal+'').val(subtotal);
- //alert('kk');
-const arr = [{id: 'a'}, {id: 'b'}, {id: 'c'}];
-const index = arr.map(object => object.id).indexOf('c');
-// alert(desc);
+  var urv="ur_"+(id);
+    var upv="up_"+(id);
+    var anQty="qty"+(id);
+      var antQty="tqty"+(id);
+    var aprice="price_"+(id);
+      var asubtotal="subtotal_"+(id);
+
+    var ur=document.getElementById(urv).value;
+     var up=document.getElementById(upv).value;
+     var unitPrice=document.getElementById(aprice).value;
+  var StoreQty=document.getElementById(antQty).value;
+
+
+ var soldQty=numberWithCommas((ur*up).toFixed(2));
+if(ur>=0 && up>=0)
+{
+//var soldQty=numberWithCommas((ur*up));
+var subtotal=(unitPrice*soldQty).toFixed(2);
+   //totalCost +=subtotal;
+
+ if(Number(soldQty)<=Number(StoreQty))
+ {
+  $('#'+anQty+'').val(soldQty);
+  $('#'+asubtotal+'').val(subtotal);
+
+}
+else
+{
+    alert('Sold Quantity exceed the available Stock:'+ StoreQty);
+    $('#'+urv+'').val(0);
+    $('#'+upv+'').val(0);
+     $('#'+anQty+'').val(0.00);
+     $('#'+asubtotal+'').val(0.00);
+
+  }
 }
 
+  var sum_amount = 0;
+  $('#'+urv+'').each(function(){
+    sum_amount +=$(this).val();
 
-const fruits = ["apple", "banana", "cantaloupe", "blueberries", "grapefruit"];
+  })
+}
 
-const index = fruits.findIndex(fruit => fruit === "grapefruit");
- //alert(index);
-// function numberWithCommas(n) {
-//     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//      }
+function numberWithCommas(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     }
 
  //     function sum()
  //     {
  //        $('.amount').each(function(){
  //            alert('df');
- //    //if statement here 
+ //    //if statement here
  //    // use $(this) to reference the current div in the loop
  //    //you can try something like...
  //    // if(condition){
  //    // }
  // });
  //     }
-</script>
-
-<script type="text/javascript">
-  $(function() {
-  $('.selectpicker').selectpicker();
-});
 </script>
 </div>

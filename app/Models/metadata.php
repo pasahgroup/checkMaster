@@ -11,7 +11,8 @@ class metadata extends Model
      protected $fillable = [       
         'metadata_name',
         'datatype', 
-        'status',      
+        'status', 
+        'statusx',      
         'user_id'
        ];
 }

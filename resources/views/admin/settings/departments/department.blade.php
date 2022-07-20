@@ -7,7 +7,8 @@
 						<div class="container-fluid">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb bg-white mb-0 px-0 py-2">
-									<li class="breadcrumb-item active" aria-current="page">Departments</li>
+									<li class="breadcrumb-item active" aria-current="page">General Settings</li>
+										<li class="breadcrumb-item active" aria-current="page">Departments</li>
 								</ol>
 							</nav>
 						</div>
@@ -21,7 +22,7 @@
 								<div class="col-12">
 									<div class="row">
 										<div class="col-lg-12 col-xl-12">
-											<div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
+											<div class="card card-custom bg-transparent shadow-none border-0" >
 												<div class="card-header align-items-center  border-bottom-dark px-0">
 													<div class="card-title mb-0">
 														<h3 class="card-label mb-0 font-weight-bold text-body">Departments
@@ -182,7 +183,7 @@
 
 
 
-	<div  class="offcanvas offcanvas-right kt-color-panel p-5 kt_notes_panel">
+	<div  class="offcanvas offcanvas-right kt-color-panel p-1 kt_notes_panel">
 		<div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
 			<h4 class="font-size-h4 font-weight-bold m-0">Register Department
 			</h4>
@@ -193,8 +194,9 @@
 			</a>
 		</div>
 
-		<x-guest-layout>
-    <x-jet-authentication-card>
+
+<div class="row col-xl-12 col-md-12"> 
+  <div class="card-body"  style="background-color:#b2ca5d !important">
 		<form id="myform" action="{{ route('department.store') }}" method="POST">
             @csrf
 			<div class="row">
@@ -213,13 +215,13 @@
                         </div>
 				</div>
 			</div>
-			 <x-jet-button class="ml-3">
+			 <x-jet-button class="btn-sm btn btn-dark float-right">
                     {{ __('Save') }}
                 </x-jet-button>
 			<!-- <button type="submit" class="btn btn-primary">Save</button> -->
 		  </form>
-		      </x-jet-authentication-card>
-</x-guest-layout>
+</div>
+</div>
 	</div>
 	<iframe name="print_frame" width="0" height="0"  src="about:blank"></iframe>
 

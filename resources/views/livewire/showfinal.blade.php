@@ -106,7 +106,7 @@
    <td>
        <input type="number" name="height[]" id="ur_{{$orderitem->id}}" min="0" onclick="myFunction({{$orderitem->id}})" onkeyup="myFunction({{$orderitem->id}})" class="form-control border-dark w-100px" value="{{$orderitem->height}}" step="0.01" pattern="[0-9]+([\.,][0-9]+)?">
   </td>
-                                                               <td>
+  <td>
               @if($orderitem->stock_qty < $orderitem->qty)
             <span class="text-danger">Out of stock
                <?php

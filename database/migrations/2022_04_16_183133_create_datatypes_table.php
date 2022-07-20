@@ -17,6 +17,7 @@ class CreateDatatypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('datatype_name')->unique();
             $table->string('datatype')->default('input');
+            $table->string('status')->default('Inactive');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

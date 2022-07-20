@@ -9,13 +9,15 @@ class answer extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'indicator_id',
-        'answer',
         'property_id',
-        'description',
-         'image',
+        'indicator_id',
+        'metaname_id',
+        'opt_answer_id',
+        'answer',
+        'asset_id',
         'status',
         'action',
-        'user_id'
+        'user_id',
+        'datex'
     ];
 }

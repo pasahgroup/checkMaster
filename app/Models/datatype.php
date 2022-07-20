@@ -10,7 +10,8 @@ class datatype extends Model
     use HasFactory;
        protected $fillable = [       
         'datatype_name',
-        'datatype',       
+        'datatype',
+        'status',       
         'user_id'
        ];
 }

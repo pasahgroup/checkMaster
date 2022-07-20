@@ -19,8 +19,8 @@ class MetanameController extends Controller
     public function index()
     {
          $metanames = metaname::where('status','Active')->get(); 
-         $metadatas = metadata::get();
-    
+         $metadatas = metadata::where('status','Active')->get(); 
+    //dd($metadatas);
         return view('admin.settings.metanames.metaname',compact('metanames','metadatas'));
     }
 
@@ -42,7 +42,7 @@ class MetanameController extends Controller
      */
     public function store(Request $request)
     {
-         $property='property_';
+         $property='asset_';
          $metadatas = request('metadata_name');
 
 
@@ -53,10 +53,11 @@ class MetanameController extends Controller
 //$value = "Testnn     me more";
 //echo strtok($value, " "); // Test
 
-//dd(strtok($value, " "));
+//dd($property);
 
         $metanames = metaname::UpdateOrCreate([
         'metaname_name'=>request('metaname_name'),
+    ],[
         'metaname_description'=>request('metaname_description'),
          'status'=>'Active',
           'user_id'=>auth()->id()
@@ -69,14 +70,15 @@ class MetanameController extends Controller
 foreach ($metadatas as $metadata) {
   $data = metadata::where('id', $metadata)->first(); 
 
-  $datatype=strtok($data->metadata_name, " ");
+  $datatype=strtolower(strtok($data->metadata_name, " "));
  $datatype_name=$property.$datatype;
-//dd($datatype_name);
+//dd($datatype);
 
-        $insetMetadata = metanameDatatype::create([
+        $insetMetadata = metanameDatatype::UpdateOrCreate([
         'metaname_id'=>$metanames->id,
          'metadata_name'=>$data->metadata_name,
-          'datatype'=>$data->datatype,
+     ],[
+        
             'datatype'=>$data->datatype,
               'datatype_name'=>$datatype_name,
           'status'=>'Active',
@@ -126,6 +128,7 @@ foreach ($metadatas as $metadata) {
     public function update(Request $request,$id)
     {
               $metaname = metaname::where('id',$id)->first();
+              dd($metaname);
         if($metaname){
            $metaname->update([
             'metaname_name'=>request('metaname_name'),

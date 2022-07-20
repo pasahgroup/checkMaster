@@ -30,7 +30,6 @@ class RedirectIfAuthenticated
             //   return redirect(RouteServiceProvider::REGISTER);  
             // }
         }
-
         return $next($request);
     }
 }

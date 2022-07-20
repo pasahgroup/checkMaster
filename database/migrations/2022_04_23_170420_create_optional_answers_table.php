@@ -17,6 +17,7 @@ class CreateOptionalAnswersTable extends Migration
          $table->bigIncrements('id');
          $table->string('indicator_id')->nullable();
            $table->string('answer')->nullable();
+           $table->string('answer_classification')->nullable();
           $table->string('datatype')->nullable();
             $table->string('status')->default('Active');
             $table->integer('user_id')->unsigned();

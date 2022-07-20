@@ -8,7 +8,8 @@ use Dotenv\Validator;
 use App\Models\department;
 use App\Models\metadata;
 use App\Models\datatype;
-use App\Models\site;
+use App\Models\property;
+use App\Models\userProperty;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -26,22 +27,15 @@ class UserRegisterController extends Controller
           ->orWhere('status','Stop')
           ->get();
           $datatypes = datatype::get();
- //   $users = user::join('departments','users.department','departments.id')
-    //$users=DB::select('select u.id,u.name,d.department_name,u.email from users u,departments d where u.department=d.id');
-   // ->get();
-   // dd($users);
-        //return view('admin.settings.metadata.metadata',compact('metadatas','datatypes'));
-
-  //$users = DB::select("select u.id,u.name,u.site_id,u.department_id,d.department_name,u.email,u.status from users u,departments d where u.department_id=d.id and u.status='Active'");
-
+          
   $users = user::where('status','Active')
   ->where('name','!=',"")
   ->get();
  //dd($users);
 
 $departments=department::get();
-$sites=site::get();
- return view('auth.register',compact('departments','users','datatypes','sites'));
+$properties=property::get();
+ return view('auth.register',compact('departments','users','datatypes','properties'));
     }
 
     /**
@@ -78,14 +72,21 @@ $sites=site::get();
 
 else
 {
-       $indicator = user::UpdateOrCreate([
+       $userReg = user::UpdateOrCreate([
         'name'=>request('name'),
         'department_id'=>request('department'),
-        'site_id'=>request('site'),
+        'property_id'=>request('property'),
          'email'=>request('email'),
          'password'=>Hash::make(request('password')),
          'status'=>'Active',
           'user_id'=>auth()->id()
+        ]);
+
+        $userSiteReg = userProperty::UpdateOrCreate([
+        'sys_user_id'=>$userReg->id,
+        'property_id'=>request('property'),
+        'status'=>'Active',
+        'user_id'=>auth()->id()
         ]);
 }
       return redirect()->back()->with('success','User Registered successfuly');
@@ -128,13 +129,13 @@ else
      */
     public function update(Request $request,$id)
     {
-        //dd($id);
+        //dd(request('property'));
        $user = user::where('id',$id)->first();
         if($user){
            $user->update([
             'name'=>request('full_name'),
              'department_id'=>request('department'),
-             'site_id'=>request('site'),
+             'property_id'=>request('property'),
               'email'=>request('email'),
              'user_id'=>auth()->id()
            ]);
@@ -181,7 +182,6 @@ else
        //$user = user::where('status','Inactive')->get();
          // $datatypes = datatype::get();
          $users = DB::select('select u.id,u.name,u.department_id,d.department_name,u.email,u.status from users u,departments d where u.department_id=d.id and u.status="Inactive"');
-//dd($users);
 
 $departments=department::get();
         return view('admin.settings.recovery.recoveryUser',compact('users','departments'));

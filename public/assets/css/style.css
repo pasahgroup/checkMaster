@@ -1,11 +1,12 @@
 @charset "UTF-8";
 :root {
-  --artical-background-page: #b2ca5d;
-  --artical-background-panel: #4d977e;
+  --artical-background-page: #c49e77;
+  /*--artical-background-panel: #4d977e;*/
+   --artical-background-panel: #718275;
   --artical-background-module: #f8f9fa;
   --artical-ligth-dark:#e9ecef;
   --artical-background-element: #b01591;
-  --artical-background-primary: #0094d2;
+  --artical-background-primary: #b2ca5d;
   --artical-background-primary-dark: rgba(174, 105, 245, 0.85);
   --artical-background-primary-darkest: rgba(174, 105, 245, 0.6);
   --artical-background-primary-light: rgba(174, 105, 245, 0.4);
@@ -13327,8 +13328,8 @@ div.equal:active {
 
 .header-fixed.subheader-enabled .subheader {
   position: fixed;
-  height: 44px;
-  top: 64px;
+  height: 0px;
+  top: 65px;
   right: 0;
   transition: all 0.2s ease-out;
   z-index: 95;

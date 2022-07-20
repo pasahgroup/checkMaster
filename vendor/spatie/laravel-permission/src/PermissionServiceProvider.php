@@ -166,7 +166,6 @@ class PermissionServiceProvider extends ServiceProvider
             }
 
             $permissions = implode('|', $permissions);
-
             $this->middleware("permission:$permissions");
 
             return $this;

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\metadata;
 use App\Models\datatype;
+use App\Models\setIndicator;
+use App\Models\optionalAnswer;
 use Illuminate\Http\Request;
 
 class MetadataController extends Controller
@@ -19,7 +21,7 @@ class MetadataController extends Controller
           ->orWhere('status','Stop')
           ->get();
           $datatypes = datatype::get();
-    
+    //dd($metadatas);
         return view('admin.settings.metadata.metadata',compact('metadatas','datatypes'));
     }
 
@@ -33,6 +35,34 @@ class MetadataController extends Controller
         //
     }
 
+ public function riqDatatype()
+    {
+          $riqs = optionalAnswer::join('set_indicators','set_indicators.id','optional_answers.indicator_id')
+          ->groupby('optional_answers.indicator_id')
+          ->select('set_indicators.id','set_indicators.qns','optional_answers.datatype','optional_answers.indicator_id','optional_answers.status')
+          ->get();
+          //->unique('optional_answers.indicator_id');;
+          $datatypes = datatype::get();
+    //dd($riqs);
+        return view('admin.settings.riq.riq-Datatype',compact('riqs','datatypes'));
+    }
+
+ public function updateDatatype(Request $request,$id)
+    {
+         $setIndicator = setIndicator::where('id',$id)
+               ->update([
+                'qns'=>request('qn_name'),
+                 'user_id'=>auth()->id()
+              ]);
+
+            $setIndicator=optionalAnswer::where('indicator_id',$id)
+               ->update([
+                'datatype'=>request('datatype'),
+                 'user_id'=>auth()->id()
+              ]);
+       return redirect()->back()->with('success','Updated successfly');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,10 +71,11 @@ class MetadataController extends Controller
      */
     public function store(Request $request)
     {
-              $stock = metadata::create(
+              $stock = metadata::UpdateOrCreate(
             [
                 'metadata_name'=>request('metadata_name'),
                 'datatype'=>request('datatype'),
+            ],[
                 'status'=>'Active',
                 'user_id'=>auth()->id()
             ]

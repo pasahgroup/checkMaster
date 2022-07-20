@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\userRole;
+use App\Models\userProperty;
+
 use App\Models\registerProgram;
 use App\Models\warehouse;
 use Spatie\Permission\Traits\HasRoles;
@@ -48,7 +51,7 @@ class roleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
         if(request('role')){
             if(Role::where('name',request('name'))->exists()){
                 return redirect()->back()->with('error','This role already created');
@@ -58,20 +61,70 @@ class roleController extends Controller
         return redirect()->back()->with('success','Role created successefuly');
             }
         }
+        elseif(request('department_id')){
+           
+            if(User::where('department_id',request('department_id'))->exists()){
+                return redirect()->back()->with('error','This Department ha already assigned this user');
+            }
+            else{ 
+                // dd('dddd'); 
+                $user = User::where('id',request('user_id'))
+                ->update([
+                 'department_id'=>request('department_id'),
+                  'user_id'=>auth()->id()
+                ]);
+            return redirect()->back()->with('success','The Department assigned successefuly');
+            }
+        }
+
         elseif(request('permission')){
+
             if(Permission::where('name',request('name'))->exists()){
                 return redirect()->back()->with('error','This permission already created');
             }
-            else{
+            else{ 
+                //dd('sd');
             $permission = Permission::create(['name' => request('name')]);
             return redirect()->back()->with('success','Permission created successefuly');
             }
         }
         elseif(request('addrole')){
 
-                 $user = User::where('id',request('user_id'))->first();
-                 $user->assignRole(request('role_name'));
-                 return redirect()->back()->with('success','Role assigned successefuly');
+                 // $user = User::where('id',request('user_id'))->first();
+                 // $user->assignRole(request('role_name'));
+                 // return redirect()->back()->with('success','Role assigned successefuly');
+       //          $user = user::where('id',$id)
+       //         ->update([
+       //          'department_id'=>"",
+       //           'user_id'=>auth()->id()
+
+       //        ]);
+       // return redirect()->back()->with('success','Department recovered successfly');
+//dd('role');
+ $user = User::where('id',request('user_id'))->first();
+ $user->assignRole(request('role_name'));
+
+   $role = userRole::where('sys_user_id',request('user_id'))
+   ->where('role_id',request('role_name'))
+    ->first();
+        if($role){
+           $role->update([
+            'status'=>'Active',
+            'user_id'=>auth()->id()
+           ]);
+           return redirect()->back()->with('success','Role Updated successfully');
+        }
+        else{
+
+   $appliedto =userRole::Create([
+        'sys_user_id'=>request('user_id'),
+        'role_id'=>request('role_name'),        
+        'status'=>'Active',
+        'user_id'=>auth()->id()        
+        ]);
+
+            return redirect()->back()->with('success','Role Updated successfully');
+         }
 
         }
 
@@ -82,13 +135,27 @@ class roleController extends Controller
             return redirect()->back()->with('success','Permission given to the role successefuly');
         }
         elseif(request('permission_to_assign')){
-            $user = User::findorfail(request('user_id'));
-            $user->givePermissionTo(request('permission_to_assign'));
-            return redirect()->back()->with('success','Permission given to the user successefuly');
+         //dd(request('permission_to_assign'));
+           
+        $user = User::findorfail(request('user_id'));
+       $user->update([
+            'property_id'=>request('permission_to_assign'),
+            'user_id'=>auth()->id()
+           ]);
+
+ // $userSiteReg = userProperty::UpdateOrCreate([
+ //        'sys_user_id'=>request('user_id'),
+ //        'property_id'=>request('permission_to_assign'),
+ //    ],
+ //    [
+ //        'status'=>'Active',
+ //        'user_id'=>auth()->id()
+ //        ]);
+}
+
+         return redirect()->back()->with('success','Permission given to the user successefuly');
         }
-
-
-    }
+    
 
     /**
      * Display the specified resource.
@@ -132,7 +199,6 @@ class roleController extends Controller
      */
     public function destroy($id)
     {
-        //
         if(request('revoke')){
             $permission = request('permission');
               $role =Role::where('id',$id)->first();

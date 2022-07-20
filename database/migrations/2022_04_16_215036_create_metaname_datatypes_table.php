@@ -18,7 +18,7 @@ class CreateMetanameDatatypesTable extends Migration
             $table->string('metaname_id')->nullable();
             $table->string('metadata_name')->nullable();
             $table->string('datatype')->nullable();
-            $table->string('datatype_name')->unique();
+            $table->string('datatype_name')->nullable();
             $table->string('status')->default('Active');
             $table->integer('user_id')->unsigned();
             $table->timestamps();

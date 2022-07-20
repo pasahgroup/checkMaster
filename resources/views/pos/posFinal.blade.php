@@ -6,7 +6,7 @@ Website: http://www.themescoder.net/
 Contact: support@themescoder.net
 
 <html lang="en">
-<!--begin::Head-->
+begin::Head-->
 
 <head>
 

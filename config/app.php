@@ -165,7 +165,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         // Maatwebsite\Excel\ExcelServiceProvider::class,
-
+    // Sergio\PhpJasperXML\JasperReportsServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -178,6 +178,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+            //insert jasper service provider here
+    //JasperPHP\JasperPHPServiceProvider::class,
+        // Other Service Providers
+    // PHPJasper\PHPJasperServiceProvider::class,
 
     ],
 
@@ -232,6 +236,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        'PHPJasperXML'  => Sergio\PhpJasperXML\PHPJasperXML::class,
 
     ],
 

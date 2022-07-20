@@ -3,15 +3,16 @@
 				<!--begin::Content-->
 				<div class="content d-flex flex-column flex-column-fluid" id="tc_content">
 					<!--begin::Subheader-->
-					<!-- <div class="subheader py-2 py-lg-6 subheader-solid">
+					<div class="subheader py-2 py-lg-6 subheader-solid">
 						<div class="container-fluid">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb bg-white mb-0 px-0 py-2">
+									<li class="breadcrumb-item active" aria-current="page">Metadata Settings</li>
 									<li class="breadcrumb-item active" aria-current="page">Metadata</li>
 								</ol>
 							</nav>
 						</div>
-					</div> -->
+					</div>
 					<!--end::Subheader-->
 					<!--begin::Entry-->
 					<div class="d-flex flex-column-fluid">
@@ -24,8 +25,8 @@
 											<div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
 												<div class="card-header align-items-center  border-bottom-dark px-0">
 													<div class="card-title mb-0">
-														<h3 class="card-label mb-0 font-weight-bold text-body">Metadata List
-														</h3>
+														<h5 class="card-label mb-0 font-weight-bold text-body">Metadata List
+														</h5>
 													</div>
 												    <div class="icons d-flex">
 														<button  class="btn ml-2 p-0 kt_notes_panel_toggle"

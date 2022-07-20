@@ -41,6 +41,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->singleton('jasperphp', function ($app) {
+            return new JasperPHP;
+        });
+ $app->alias('JasperPHP\JasperPHPServiceProvider\JasperPHP', 'JasperPHP');
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

@@ -2,11 +2,9 @@
 
 <div>
 
-            <div class="row">
+            <div class="row container">
                 <div class="col-xl-12 col-md-12">
                         <div class="">
-                            <h4 class="title font-weight-bold text-center">Set Indicator Question</h4>
-                            <hr>
                             @if($message)
                             <div class="alert alert-danger">
                               <h5   class="text-center">{{ $message }}</h5>
@@ -14,6 +12,21 @@
                             @endif
                         </div>
 
+
+ <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
+        <!--begin::Subheader-->
+        <div class="subheader py-2 py-lg-6 subheader-solid">
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white mb-0 px-0 py-2">
+                        <li class="breadcrumb-item active" aria-current="page">Indicator Settings</li>
+                         <li class="breadcrumb-item active" aria-current="page">Register Indicator Question:(RIQ)</li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr>
 
                             <div class="card card-custom gutter-b bg-white border-0   table-contentpos">
                             @isset($metadatas)
@@ -36,7 +49,7 @@
   <div class="form-group">
             <label class="text-dark" >Apply Indicator to</label>
                         <select name="applied_to" id="applied_to" class="form-control" required>
-                          <option value="">--- Select location to apply ---</option>                         
+                          <option value="">--- Select metaname to apply ---</option>                         
                          
                          @foreach($metanames as $metaname)
                          <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
@@ -48,12 +61,10 @@
       <div class="form-group">
             <label class="text-dark" >Question Type</label>
                         <select name="qns_type" id="qns_type" class="form-control" required>
-                          <option value="">--- Select type of Question ---</option>                        
+                        <option value="">--- Select type of Question ---</option>                     
                          
-                         <option value="text">Normal Qns</option>
-                          <option value="radio">Option Qns</option>
-                           <option value="checkbox">Checklist Qns</option>
-                        <option value="textarea">Description Qns</option>                      
+                          <option value="radio">Optional Qns</option>
+                           <option value="checkbox">Checklist Qns</option>                     
                     </select>
       </div>
 
@@ -83,13 +94,22 @@
                                                       
                                                    </thead>
                                                    <tbody>                                         
-                                             
-                                                     
-                                                          
+                                                        @if(isset($metaname_id) && $metaname_id>=1)                                  
+                                                          <label>Select Status of the Optional Answer</label>
+                                                           @endisset
                                                            @for ($i = 0; $i <$metaname_id; $i++)
                                                              <tr>
                                                             <td>Answer{{$i}}</td>
-                                                            <td> <input type="text" name="names[]" required=""></td>                                                           
+                                                            <td> <input type="text" name="names[]" required=""></td> 
+                                                            {{$qns_type}}  
+                                                                         
+                                                            <td>  <select name="answer_class[]" id="answer_class" class="form-control" >
+                              <option value="Good" style="background-color:green;">Good</option>
+                           <option value="Bad" style="background-color:yellow">Bad</option>
+                              <option value="Critical" style="background-color:red">Critical</option>
+
+            </select></td>      
+                                       
                                                           @endfor
                                                             @else
                                                             <td>

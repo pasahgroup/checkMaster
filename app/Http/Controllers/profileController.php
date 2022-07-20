@@ -15,10 +15,8 @@ class profileController extends Controller
      */
     public function index()
     {
-        //
-        $profile = myCompany::get();
-        $invoices = myPayment::get();
-        return view('admin.profile.profile',compact('profile','invoices'));
+        $profile = myCompany::first();
+        return view('admin.profile.profile',compact('profile'));
     }
 
     /**
@@ -39,7 +37,95 @@ class profileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+  if(request('attachment')){
+            $attach = request('attachment');
+            foreach($attach as $attached){
+
+  // Get filename with extension
+                     $fileNameWithExt =$attached->getClientOriginalName();              
+                     // Just Filename
+                     $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                     // Get just Extension
+                     $extension = $attached->getClientOriginalExtension();
+                     //Filename to store
+                     $imageToStore = $filename.'_'.time().'.'.$extension;
+                     //upload the image
+                     $path =$attached->storeAs('public/logo/', $imageToStore);
+
+                      $comp = myCompany::where('status','Active')->first();
+                     //dd($comp);
+                    if($comp == null)
+                      {
+
+ $insetqns = myCompany::Create([
+          'company_name'=>request('business_name'),
+           'logo'=>$imageToStore,
+          'tin'=>request('tin'),
+          'vrn'=>request('vrn'),
+          'phone_number'=>request('phone_number'),
+          'email'=>request('email'),       
+          'address'=>request('address'),   
+          'status'=>'Active',
+          'user_id'=>auth()->id()      
+        ]);
+
+                      }
+                      else
+                      {
+$insetqnsy = myCompany::where('status','Active')         
+             ->update([
+ 'company_name'=>request('business_name'),
+           'logo'=>$imageToStore,
+          'tin'=>request('tin'),
+          'vrn'=>request('vrn'),
+          'phone_number'=>request('phone_number'),
+          'email'=>request('email'),       
+          'address'=>request('address'),   
+          'status'=>'Active',
+          'user_id'=>auth()->id() 
+            ]);
+                      }
+
+         } 
+}
+else
+{
+         $comp = myCompany::where('status','Active')->first();
+                     //dd($comp);
+                    if($comp == null)
+                      {
+
+ $insetqns = myCompany::Create([
+          'company_name'=>request('business_name'),
+           'logo'=>'',
+          'tin'=>request('tin'),
+          'vrn'=>request('vrn'),
+          'phone_number'=>request('phone_number'),
+          'email'=>request('email'),       
+          'address'=>request('address'),   
+          'status'=>'Active',
+          'user_id'=>auth()->id()      
+        ]);
+
+                }
+                      else
+                      {
+$insetqnsy = myCompany::where('status','Active')         
+             ->update([
+ 'company_name'=>request('business_name'),
+          // 'logo'=>'',
+          'tin'=>request('tin'),
+          'vrn'=>request('vrn'),
+          'phone_number'=>request('phone_number'),
+          'email'=>request('email'),       
+          'address'=>request('address'),   
+          'status'=>'Active',
+          'user_id'=>auth()->id() 
+            ]);
+                      }
+     }
+ return redirect()->route('profile.index')->with('success','Updated successfully');
     }
 
     /**

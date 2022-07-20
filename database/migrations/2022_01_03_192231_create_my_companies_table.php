@@ -16,12 +16,14 @@ class CreateMyCompaniesTable extends Migration
         Schema::create('my_companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('company_name')->nullable();
+         $table->string('tin')->nullable();
+            $table->string('vrn')->nullable();
             $table->string('logo')->nullable();
             $table->string('address')->nullable();
             $table->integer('phone_number')->unsigned();
-            $table->string('package')->nullable();
+             $table->string('email',48)->nullable();
             $table->string('status')->nullable();
-            $table->date('renew_at');
+            $table->date('user_id')->nullable();
             $table->timestamps();
         });
     }

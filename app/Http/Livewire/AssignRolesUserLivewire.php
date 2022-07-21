@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\property;
+ use App\Models\Property;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -49,22 +49,22 @@ public function store(Request $request)
      {
 return redirect()->back()->with('error','Users not selected');
      }
-        
+
    if($users !=null)
      {
-      // {{$indicators}}   
-    foreach ($users as $user) { 
+      // {{$indicators}}
+    foreach ($users as $user) {
 
     foreach ($roles as $role) {
- 
+
     $appliedto =userRole::UpdateOrCreate([
         'sys_user_id'=>$user,
-        'role_id'=>$role,        
+        'role_id'=>$role,
         'status'=>'Active',
-        'user_id'=>auth()->id()        
+        'user_id'=>auth()->id()
         ]);
 
-        } 
+        }
       }
 
      }
@@ -72,7 +72,7 @@ return redirect()->back()->with('error','Users not selected');
      {
       return redirect()->back()->with('error','Roles not selected');
      }
-// 
+//
 //   }
    return redirect()->back()->with('success','Users Assigned successfly');
     }
@@ -89,7 +89,7 @@ return redirect()->back()->with('error','Users not selected');
   // $this->orderProducts = orderItem::where('id',$post)
     //    //  ->get();
           // $this->departments=department::get();
-          // dd($this->departments);     
+          // dd($this->departments);
     // return view('livewire.department')->layout('livewire.showFrame');
     //    // return view('livewire.department');
 // dd(request('metaname_id'));
@@ -106,7 +106,7 @@ return redirect()->back()->with('error','Users not selected');
                   $departs = department::get();
                // dd($departments);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
- 
+
       return view('livewire.user-roles',compact('roles','users','departs'))
       ->layout('layouts.app');
 

@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\property;
+ use App\Models\Property;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -67,7 +67,7 @@ public function store(Request $request)
   //               'property_barcode'=>request('property_barcode'),
   //               'property_tag_no'=>request('property_tag_no'),
   //               'property_description'=>request('property_description'),
-  //               'user_id'=>auth()->id()    
+  //               'user_id'=>auth()->id()
   //       ]);
 
 //        if($metanames !=null)
@@ -77,22 +77,22 @@ public function store(Request $request)
      {
 return redirect()->back()->with('error','Roles not selected');
      }
-        
+
    if($roles !=null)
      {
-      // {{$indicators}}   
-    foreach ($roles as $role) { 
+      // {{$indicators}}
+    foreach ($roles as $role) {
 
     foreach ($activities as $activity) {
- 
+
     $appliedto =activityRole::UpdateOrCreate([
         'role_id'=>$role,
-        'activity_id'=>$activity,        
+        'activity_id'=>$activity,
         'status'=>'Active',
-        'user_id'=>auth()->id()        
+        'user_id'=>auth()->id()
         ]);
 
-        } 
+        }
       }
 
      }
@@ -100,7 +100,7 @@ return redirect()->back()->with('error','Roles not selected');
      {
       return redirect()->back()->with('error','Activities not selected');
      }
-// 
+//
 //   }
    return redirect()->back()->with('success','Roles Assigned successfly');
     }
@@ -117,7 +117,7 @@ return redirect()->back()->with('error','Roles not selected');
   // $this->orderProducts = orderItem::where('id',$post)
     //    //  ->get();
           // $this->departments=department::get();
-          // dd($this->departments);     
+          // dd($this->departments);
     // return view('livewire.department')->layout('livewire.showFrame');
     //    // return view('livewire.department');
 // dd(request('metaname_id'));
@@ -132,7 +132,7 @@ return redirect()->back()->with('error','Roles not selected');
                   $departs = department::get();
                // dd($departments);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
- 
+
       return view('livewire.activity-roles',compact('activities','roles','departs'))
       ->layout('layouts.app');
 

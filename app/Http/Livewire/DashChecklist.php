@@ -8,7 +8,7 @@ namespace App\Http\Livewire;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\property;
+use App\Models\Property;
 use App\Models\metaname;
 use App\Models\datatype;
 
@@ -51,7 +51,7 @@ class DashChecklist extends Component
    public $desc=[];
    public $prop=[];
    public $attachment=[];
- 
+
   public $properties;
   public $rad=[];
 public $qnID;
@@ -97,15 +97,15 @@ else{
 $ids[] = $value;
 }
 
-} 
 }
-  
+}
+
 if(is_null($ids))
 {
     dd('No any data was filled back and Check the field the data!');
 }
- //Create 
-$prop = request('prop');  
+ //Create
+$prop = request('prop');
 $ind = request("ind");
 $col = request("col");
 
@@ -122,23 +122,23 @@ $answerTableUpdate1=DB::statement('update answers set status="Inactive" where da
 
        if($ids !=null)
      {
-        
+
 foreach ($ids as $idx=>$key) {
   $optionalData = optionalAnswer::where('id', $key)->first();
         $insetqnsAns = answer::UpdateOrCreate([
         'property_id'=>$propValue->property_id,
         'metaname_id'=>$propValue->metaname_id,
         'asset_id'=>$aID,
-        'indicator_id'=>$optionalData->indicator_id,  
-        'opt_answer_id'=>$optionalData->id,       
-        'datex'=>$current_date 
+        'indicator_id'=>$optionalData->indicator_id,
+        'opt_answer_id'=>$optionalData->id,
+        'datex'=>$current_date
       ],[
-        
-        'answer'=>$optionalData->answer,                 
+
+        'answer'=>$optionalData->answer,
         'status'=>'Active',
         'action'=>1,
         'user_id'=>auth()->id(),
-                
+
         ]);
 $aid=$insetqnsAns->id;
 $av=$insetqnsAns->answer;
@@ -151,10 +151,10 @@ $insetDesc = answerDescPhoto::UpdateOrCreate([
           'metaname_id'=>$propValue->metaname_id,
           'indicator_id'=>$optionalData->indicator_id,
          'answer_id'=>$aid,
-          'action'=>1,         
+          'action'=>1,
           'user_id'=>auth()->id(),
           //'description'=>$desc[$idy],
-          'status'=>'Active',        
+          'status'=>'Active',
         ]);
 
 //End of answerDescTable table
@@ -169,7 +169,7 @@ $desc[$idy]='Nill';
         {
 
     $item = answerUpdatePhoto::where('answer_id',$aid)
-    ->first();    
+    ->first();
 
 if($item == null)
 {
@@ -180,10 +180,10 @@ if($item == null)
           'asset_id'=>$aID,
           'metaname_id'=>$propValue->metaname_id,
           'indicator_id'=>$optionalData->indicator_id,
-          'answer_id'=>$aid,          
+          'answer_id'=>$aid,
           'user_id'=>auth()->id(),
           'description'=>$desc[$idy],
-          'status'=>'Active',        
+          'status'=>'Active',
         ]);
 //------------------------------------
 $insetqnsx = dynamicIndUpdate::UpdateOrCreate([
@@ -193,34 +193,34 @@ $insetqnsx = dynamicIndUpdate::UpdateOrCreate([
 'metaname_id'=>$propValue->metaname_id,
 'indicator_id'=>$optionalData->indicator_id,
 'answer_id'=>$aid,
-'opt_answer_id'=>$optionalData->id, 
+'opt_answer_id'=>$optionalData->id,
 'datex'=>$current_date,
 ],
 [
-       
-       'index_id'=>$idy+ $idx,                              
+
+       'index_id'=>$idy+ $idx,
         'answer_value'=>$av,
-          'value'=>1,              
+          'value'=>1,
           'user_id'=>auth()->id(),
-          'status'=>'Active',                 
-                    
+          'status'=>'Active',
+
         ]);
    }
 
   }
-} 
+}
 
 
 // Clear answerupdatephoto db2_tables(connection)
 
 $attachmentf='attachment'.$aID;
 $attach = request($attachmentf);
- // $attachment = request('attachment');  
+ // $attachment = request('attachment');
 //dd($attach);
    if($attach){
-   
-                //$attach = request('attachment'); 
-              
+
+                //$attach = request('attachment');
+
                 foreach($attach as $key=>$attached){
 
               if(isset($attach[$key + $idx]) !=null)
@@ -230,7 +230,7 @@ $attach = request($attachmentf);
 }
     }
      }
-      } 
+      }
      }
 
 $descDatas = answerUpdatePhoto::get();
@@ -241,13 +241,13 @@ foreach ($desc as $idy=>$value) {
   if($key->index_id ==$idy)
   {
     $value = trim(preg_replace('/\s\s+/', ' ', $value));
-  
-  $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)         
+
+  $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)
              ->update([
            'description'=>$value,
             ]);
 
-         }   
+         }
 
   }
 
@@ -262,7 +262,7 @@ $attach = request($attachmentf);
   {
   // Get filename with extension
                      $fileNameWithExt =$attach[$imgkey]->getClientOriginalName();
-              
+
                      // Just Filename
                      $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
                      // Get just Extension
@@ -273,11 +273,11 @@ $attach = request($attachmentf);
                      $path =$attach[$imgkey]->storeAs('public/img/', $imageToStore);
 
 
-  $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)         
+  $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)
              ->update([
            'image'=>$imageToStore,
             ]);
-         }    
+         }
 
   }
  }
@@ -290,16 +290,16 @@ $answerTableUpdate=DB::statement('update dynamic_ind_updates d,answer_update_pho
 
 $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap set q.'.$col.'=1 where q.metaname_id=ap.metaname_id and q.indicator_id=ap.indicator_id');
 //
- 
+
  $deleteAnswerTable = answerUpdatePhoto::where('user_id',auth()->id())->first();
         if($deleteAnswerTable){
-//  $deletev = answerUpdatePhoto::where('user_id',auth()->id())->delete();      
+//  $deletev = answerUpdatePhoto::where('user_id',auth()->id())->delete();
 //   $isDataAvailable = answerUpdatePhoto::get();
 //   if($isDataAvailable->isEmpty())
 //   {
-// $flashanswerTable=DB::statement('truncate table answer_update_photos'); 
-//   }  
-        
+// $flashanswerTable=DB::statement('truncate table answer_update_photos');
+//   }
+
     }
         else{
             return redirect()->back()->with('error','Something went wrong with this Truncatating answerUpdatePhoto');
@@ -307,13 +307,13 @@ $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap s
 
 
 
-$updateqnsF = answerDescPhoto::where('action',1) 
-             ->where('description','Nill')            
+$updateqnsF = answerDescPhoto::where('action',1)
+             ->where('description','Nill')
              ->update([
             'description'=>""
             ]);
 
-$updateqnsF = answerDescPhoto::where('action',1)             
+$updateqnsF = answerDescPhoto::where('action',1)
              ->update([
             'action'=>0
             ]);
@@ -325,7 +325,7 @@ $updateqnsF = answerDescPhoto::where('action',1)
 //RENDER METHOD
 
     public function render(Request $request)
-    {       
+    {
 $qnID='idx'.$this->qnID;
 //$qnID=$this->qnID;
  //dd($qnID);
@@ -370,7 +370,7 @@ $departments=user::where('id',auth()->id())->first();
  ->get();
 
     $first = collect($userActitivities);
-    $second = collect($userActitivitiesf);   
+    $second = collect($userActitivitiesf);
     $third = collect($userActitivitiesff);
 
 $acts = $first->merge($second);
@@ -386,27 +386,27 @@ $a=array();
 //dd($userActitivitiesf);
 
    // $pp = asset::join('user_properties','user_properties.property_id','assets.property_id')
-   // ->where('assets.status','Active')   
+   // ->where('assets.status','Active')
    // ->where('assets.asset_name','!=',"")
    // ->where('user_properties.sys_user_id',auth()->id())
    // ->whereIn('assets.metaname_id',$a)
    // ->select('assets.id','assets.property_id','assets.metaname_id','assets.asset_name')
    //   ->orderBy('assets.id')->get();
 
- $pp = asset::where('assets.status','Active')   
+ $pp = asset::where('assets.status','Active')
    ->where('assets.asset_name','!=',"")
    ->where('assets.property_id',$departments->property_id)
    ->whereIn('assets.metaname_id',$a)
    ->select('assets.id','assets.property_id','assets.metaname_id','assets.asset_name')
      ->orderBy('assets.id')->get();
 
-//Query Indicators 
+//Query Indicators
   $qnsf = setIndicator::where('qns','!=',"")
   ->orderBy('id')->get();
 
   $col='col'.auth()->id();
 $column=Schema::hasColumn('qns_appliedtos',$col);
- 
+
  if ($column) {
         //dd('exists');
     }
@@ -421,19 +421,19 @@ Schema::table('qns_appliedtos', function($table) use ($col)
 
 
    $qns = qnsAppliedto::join('set_indicators','qns_appliedtos.indicator_id','set_indicators.id')
-   ->where('set_indicators.status','Active')   
+   ->where('set_indicators.status','Active')
    ->where('set_indicators.qns','!=',"")
    ->whereIn('qns_appliedtos.metaname_id',$a)
    ->select('qns_appliedtos.metaname_id','qns_appliedtos.'.$col.'','set_indicators.id','set_indicators.qns')
-     ->orderBy('set_indicators.id')->get(); 
+     ->orderBy('set_indicators.id')->get();
 
 //dd($qns);
     $datatypes = datatype::get();
-    
-   $checkQnsProp = DB::select('select d.property_id,d.metaname_id,d.asset_id,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active" group by d.asset_id');  
+
+   $checkQnsProp = DB::select('select d.property_id,d.metaname_id,d.asset_id,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active" group by d.asset_id');
 //dd($checkQnsProp);
 
-        $checkQns = DB::select('select d.opt_answer_id,d.property_id,d.metaname_id,d.asset_id,d.indicator_id,d.answer_value,d.description,d.image,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active"');  
+        $checkQns = DB::select('select d.opt_answer_id,d.property_id,d.metaname_id,d.asset_id,d.indicator_id,d.answer_value,d.description,d.image,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active"');
 //dd($checkQns);
 
       return view('livewire.dash-checklist',compact('metadatas','datatypes','metanames','pp','qns','userActitivities','acts','col','checkQnsProp','checkQns'))

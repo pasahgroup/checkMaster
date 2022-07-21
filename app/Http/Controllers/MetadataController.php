@@ -44,7 +44,7 @@ class MetadataController extends Controller
           //->unique('optional_answers.indicator_id');;
           $datatypes = datatype::get();
     //dd($riqs);
-        return view('admin.settings.riq.riq-Datatype',compact('riqs','datatypes'));
+        return view('admin.settings.riq.riq-datatype',compact('riqs','datatypes'));
     }
 
  public function updateDatatype(Request $request,$id)
@@ -140,7 +140,7 @@ class MetadataController extends Controller
      * @param  \App\Models\metadata  $metadata
      * @return \Illuminate\Http\Response
      */
-   
+
     public function destroy($id)
     {
      //

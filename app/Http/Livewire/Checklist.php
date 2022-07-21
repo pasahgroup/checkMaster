@@ -8,7 +8,7 @@ namespace App\Http\Livewire;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\property;
+use App\Models\Property;
 use App\Models\metaname;
 use App\Models\datatype;
 

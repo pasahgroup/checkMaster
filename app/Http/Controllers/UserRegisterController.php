@@ -8,7 +8,7 @@ use Dotenv\Validator;
 use App\Models\department;
 use App\Models\metadata;
 use App\Models\datatype;
-use App\Models\property;
+use App\Models\Property;
 use App\Models\userProperty;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -27,14 +27,14 @@ class UserRegisterController extends Controller
           ->orWhere('status','Stop')
           ->get();
           $datatypes = datatype::get();
-          
+
   $users = user::where('status','Active')
   ->where('name','!=',"")
   ->get();
  //dd($users);
 
 $departments=department::get();
-$properties=property::get();
+$properties=Property::get();
  return view('auth.register',compact('departments','users','datatypes','properties'));
     }
 
@@ -63,7 +63,7 @@ $properties=property::get();
             'password' =>['required', 'string', 'max:64'],
             //'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
-        
+
         if(request('password') != request('password_confirmation'))
         {
             //dd('Not equal');
@@ -110,7 +110,7 @@ else
      * @return \Illuminate\Http\Response
      */
     public function edit(request $request,$id)
-    {  
+    {
         $user = user::where('id',$id)
                ->update([
                 'status'=>"Inactive",

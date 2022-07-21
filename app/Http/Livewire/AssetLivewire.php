@@ -7,7 +7,7 @@ namespace App\Http\Livewire;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\property;
+use App\Models\Property;
 
 use App\Models\metaname;
 use Livewire\Component;
@@ -31,14 +31,14 @@ class AssetLivewire extends Component
 
    $id=$this->metaname_id;
         $metaname = metaname::where('id',$id)->first();
-       
+
 //dd($metaname->metaname_name);
 
         if(metaname::where('metaname_name',$metaname->metaname_name)->exists()){
             $message = "Sorry! this item already exist";
             $this->message = $message;
         //  dd($id);
-       
+
  $newitemorder = asset::create([
                 'asset_name'=>$id,
                 'asset_serial_no'=>$id,
@@ -83,10 +83,10 @@ class AssetLivewire extends Component
 
    public function store(Request $request)
     {
-          $hear_from = request('names');  
+          $hear_from = request('names');
          //dd($hear_from);
      $g='asset_serial';
-    
+
 //dd(request('asset_tag'));
 
   $tourhearfrom = asset::UpdateOrCreate(
@@ -104,7 +104,7 @@ class AssetLivewire extends Component
                 'asset_barcode'=>request('asset_barcode'),
                 'asset_tag_no'=>request('asset_tag'),
                 'asset_description'=>request('asset_description'),
-                'user_id'=>auth()->id()    
+                'user_id'=>auth()->id()
         ]);
 
 
@@ -122,11 +122,11 @@ class AssetLivewire extends Component
     public function render()
     {
    $pos_id=$this->metaname_id;
- 
-                $sites = property::get();
+
+                $sites = Property::get();
                  $metanames = metaname::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
-            //dd($metadatas); 
+            //dd($metadatas);
       return view('livewire.asset-livewire',compact('metadatas','metanames','sites'))
       ->layout('layouts.app');
 

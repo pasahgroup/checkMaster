@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\property;
+ use App\Models\Property;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -16,7 +16,7 @@ use App\Models\setIndicator;
 use App\Models\qnsAppliedto;
 use App\Models\activityRole;
 use App\Models\user;
-use App\Models\useractivity;
+use App\Models\userActivity;
 
 use App\Models\departmentRole;
 use Livewire\Component;
@@ -69,7 +69,7 @@ public function store(Request $request)
   //               'property_barcode'=>request('property_barcode'),
   //               'property_tag_no'=>request('property_tag_no'),
   //               'property_description'=>request('property_description'),
-  //               'user_id'=>auth()->id()    
+  //               'user_id'=>auth()->id()
   //       ]);
 
 //        if($metanames !=null)
@@ -79,22 +79,22 @@ public function store(Request $request)
      {
 return redirect()->back()->with('error','Users not selected');
      }
-        
+
    if($users !=null)
      {
-      // {{$indicators}}   
-    foreach ($users as $user) { 
+      // {{$indicators}}
+    foreach ($users as $user) {
 
     foreach ($activities as $activity) {
- 
-    $appliedto =useractivity::UpdateOrCreate([
-        'sys_user_id'=>$user,
-        'activity_id'=>$activity,        
-        'status'=>'Active',
-        'user_id'=>auth()->id()        
-        ]);
 
-        } 
+    $appliedto =userActivity::UpdateOrCreate([
+        'sys_user_id'=>$user,
+        'activity_id'=>$activity,
+        'status'=>'Active',
+        'user_id'=>auth()->id()
+      ]);
+
+        }
       }
 
      }
@@ -102,7 +102,7 @@ return redirect()->back()->with('error','Users not selected');
      {
       return redirect()->back()->with('error','Activities not selected');
      }
-// 
+//
 //   }
    return redirect()->back()->with('success','Users Assigned successfly');
     }
@@ -119,7 +119,7 @@ return redirect()->back()->with('error','Users not selected');
   // $this->orderProducts = orderItem::where('id',$post)
     //    //  ->get();
           // $this->departments=department::get();
-          // dd($this->departments);     
+          // dd($this->departments);
     // return view('livewire.department')->layout('livewire.showFrame');
     //    // return view('livewire.department');
 // dd(request('metaname_id'));
@@ -136,7 +136,7 @@ return redirect()->back()->with('error','Users not selected');
                   $departs = department::get();
                // dd($departments);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
- 
+
       return view('livewire.user-activity',compact('activities','users','departs'))
       ->layout('layouts.app');
   }

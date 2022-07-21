@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\property;
+ use App\Models\Property;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -46,22 +46,22 @@ public function store(Request $request)
      {
 return redirect()->back()->with('error','Indicators not selected');
      }
-        
+
    if($metanames !=null)
      {
-      // {{$indicators}}   
-    foreach ($metanames as $metaname) { 
+      // {{$indicators}}
+    foreach ($metanames as $metaname) {
 
     foreach ($indicators as $indicator) {
- 
-    $appliedto = qnsAppliedto::UpdateOrCreate([        
+
+    $appliedto = qnsAppliedto::UpdateOrCreate([
         'metaname_id'=>$metaname,
         'indicator_id'=>$indicator,
         'status'=>'Active',
-          'user_id'=>auth()->id()        
+          'user_id'=>auth()->id()
         ]);
 
-        } 
+        }
       }
 
      }
@@ -69,7 +69,7 @@ return redirect()->back()->with('error','Indicators not selected');
      {
       return redirect()->back()->with('error','Metanames not selected');
      }
-// 
+//
 //   }
    return redirect()->back()->with('success','Indicators Assigned Successfully');
     }
@@ -85,14 +85,14 @@ return redirect()->back()->with('error','Indicators not selected');
     $qn_no=$this->qn_no;
 
 
-                $properties = property::get();
+                $properties = Property::get();
                 $metanames = metaname::where('status','Active')->get();
                   $indicators = setIndicator::where('qns','!=',"")
                   ->get();
                 //dd($metanames);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
-      
-    
+
+
       return view('livewire.assign-indicator',compact('metadatas','metanames','properties','indicators'))
       ->layout('layouts.app');
   }

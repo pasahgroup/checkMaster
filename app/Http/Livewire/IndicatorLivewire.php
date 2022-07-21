@@ -8,7 +8,7 @@ namespace App\Http\Livewire;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\property;
+use App\Models\Property;
 use App\Models\metaname;
 
 use App\Models\setIndicator;
@@ -54,9 +54,9 @@ $indicator = setIndicator::UpdateOrCreate([
 
        if($names !=null)
      {
-        
+
 foreach ($names as $key=>$name) {
- //  $data = metadata::where('id', $metadata)->first(); 
+ //  $data = metadata::where('id', $metadata)->first();
 
  //  $datatype=strtok($data->metadata_name, " ");
  // $datatype_name=$property.$datatype;
@@ -68,7 +68,7 @@ foreach ($names as $key=>$name) {
          'answer_classification'=>$answer_class[$key],
           'datatype'=>request('qns_type'),
           'status'=>'Active',
-          'user_id'=>auth()->id()        
+          'user_id'=>auth()->id()
         ]);
 
 
@@ -76,10 +76,10 @@ foreach ($names as $key=>$name) {
         'indicator_id'=>$indicator->id,
         'metaname_id'=>request('applied_to'),
         'status'=>'Active',
-          'user_id'=>auth()->id()        
+          'user_id'=>auth()->id()
         ]);
 
-        } 
+        }
      }
 
    return redirect()->back()->with('success','Indicator created successfly');
@@ -97,7 +97,7 @@ $qn_no=$this->qn_no;
   // $this->orderProducts = orderItem::where('id',$post)
     //    //  ->get();
           // $this->departments=department::get();
-          // dd($this->departments);     
+          // dd($this->departments);
     // return view('livewire.department')->layout('livewire.showFrame');
     //    // return view('livewire.department');
 // dd(request('metaname_id'));
@@ -107,10 +107,10 @@ $qn_no=$this->qn_no;
         // ->get();
     //dd($this->qn_no);
 
-                $properties = property::get();
+                $properties = Property::get();
                 $metanames = metaname::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
-      
+
       //dd($this->metaname_id);
            // $metadatas = metanameDatatype::where('metaname_id',5)->get();
 

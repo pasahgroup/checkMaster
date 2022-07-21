@@ -28,15 +28,16 @@ class ReportTestController extends Controller
 {
 
      public function index() {
+       dd('dsd');
         //JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
         $jasper = new JasperPHP;
         $filename = 'department';
         $output = app_path('/reports/' . $filename);
         $jasper->process(
-                app_path('/reports/department.jasper'), 
+                app_path('/reports/department.jasper'),
                 $output,
-                array("pdf"), 
-                array("id" =>2), 
+                array("pdf"),
+                array("id" =>2),
                 array(
                         'driver' => 'mysql',
                         'username' => 'root',
@@ -68,7 +69,7 @@ $user="root";
 $pass="";
 $version="1.1";
 
-$pgport=3306; //only for postgresql    
+$pgport=3306; //only for postgresql
 
         $PHPJasperXML = new PHPJasperXML();
 // $PHPJasperXML->load_xml_file("report2.jrxml");
@@ -84,12 +85,12 @@ return Response::make($PHPJasperXML->outpage("I"));
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function jrf()
     {
       dd('Romari');
-        /* 
+        /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -114,10 +115,10 @@ $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Downlo
         // $output = base_path('../reports/' . $filename);
         $output=app_path()."/reports";
         //dd('ds');
-        $jasper->process(app_path().'/reports/department.jrxml', 
+        $jasper->process(app_path().'/reports/department.jrxml',
                 $output,
-                array("pdf"), 
-                array("test" => "Tax Invoice"), 
+                array("pdf"),
+                array("test" => "Tax Invoice"),
                 array(
                         'driver' => "mysql",
                         'username' => "root",
@@ -130,8 +131,8 @@ $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Downlo
     }
 public function indexxx()
 {
- //dd(__DIR__);  
-$input =app_path().'/reports/report.jrxml';   
+ //dd(__DIR__);
+$input =app_path().'/reports/report.jrxml';
 $output=app_path().'/reports';
 $jdbc_dir =base_path().'/vendor/geekcom/phpjasper/bin/jaspertarter/jdbc';
 $options = [
@@ -196,7 +197,7 @@ $jasper->process(
 // $pass="";
 // $version="1.1";
 
-// $pgport=3306; //only for postgresql    
+// $pgport=3306; //only for postgresql
 
 
  /* To change this template, choose Tools | Templates
@@ -206,7 +207,7 @@ $jasper->process(
 // include_once("../PHPJasperXML.inc.php");
         // include_once(app_path().'/jrf/PHPJasperXML.inc.php');
 // include_once("../PHPJasperXML.inc.php");
-       
+
 include_once(app_path().'/jrf/sample/setting.php');
 
 $PHPJasperXML = new PHPJasperXML();
@@ -215,10 +216,10 @@ $PHPJasperXML = new PHPJasperXML();
 if(request('userid'))
 {
  $v=request('userid');
- $x=2; 
+ $x=2;
  //dd($v);
  $PHPJasperXML->arrayParameter=array("id"=>$x);
- $PHPJasperXML->load_xml_file(app_path().'/reports/department.jrxml');  
+ $PHPJasperXML->load_xml_file(app_path().'/reports/department.jrxml');
 }
 else
 {

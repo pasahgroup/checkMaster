@@ -78,11 +78,11 @@ use App\Http\Controllers\UserRegisterController;
 Route::get('user-roles', function() {
     dd(config('global.roles')); // Return all roles
 });
- 
+
 Route::get('user-roles/super-admin', function() {
     dd(config('global.roles.super_admin')); // Specific role
 });
- 
+
 Route::get('emails/dev', function() {
     dd(config('global.emails.dev')); // Specific dev email
 });
@@ -90,7 +90,7 @@ Route::get('emails/dev', function() {
 
 Route::middleware(['auth'])->group(function () {
   Route::group(['middleware' => ['auth','Admin']], function() {
-
+//Report Testing
 Route::get('reportx/{x}/d/{y}',[ReportTestController::class,'viewreport'])->name('reportx');
 Route::get('jrf',[ReportTestController::class,'jrf'])->name('jrf');
   // Route::get('report/{report}', 'ReportTestController@viewreport')->name('report.show');
@@ -98,7 +98,7 @@ Route::get('jrf',[ReportTestController::class,'jrf'])->name('jrf');
 
 Route::get('/javaf', function () {
 
-$input ='../vendor/geekcom/phpjasper/examples/hello_world.jasper';   
+$input ='../vendor/geekcom/phpjasper/examples/hello_world.jasper';
 
 $jasper = new PHPJasper;
 //dd('PHPJasper\Exception');
@@ -115,7 +115,7 @@ $jasper->compile($input)->output();
  Route::get('checklist-status/{c}',[ChecklistStatusController::class,'updateGraderStatus'])->name('checklist-status');
 
 Route::get('/java', function () {
-    
+
             $jasper = new JasperPHP;
        //dd('print');
             // Compile a JRXML to Jasper
@@ -124,14 +124,14 @@ Route::get('/java', function () {
           //dd('ncn');
 
         //var_dump($t);
-     
+
             // Process a Jasper file to PDF and RTF (you can use directly the .jrxml)
             $jasper->process(app_path().'/reports/department.jrxml',
                 true,
                 array("pdf", "rtf"),
                 array("php_version" => "7.2")
             )->output('D');
-        
+
             // // List the parameters from a Jasper file.
             // $array = $jasper->list_parameters(
             //     '/home/midhun/hi/hello.jrxml'

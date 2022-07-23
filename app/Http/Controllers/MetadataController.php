@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\metadata;
+use App\Models\metanameDatatype;
 use App\Models\datatype;
 use App\Models\setIndicator;
 use App\Models\optionalAnswer;
@@ -121,8 +122,8 @@ class MetadataController extends Controller
     public function update(Request $request,$id)
     {
     $metadata = metadata::where('id',$id)->first();
-    $metadataType=request('metadata_name');
-//dd($metadata->metadata_name);
+    //$metadataType=request('metadata_name');
+$metaName=$metadata->metadata_name;
 
         if($metadata){
            $metadata->update([
@@ -132,8 +133,15 @@ class MetadataController extends Controller
            ]);
            //update metadata datatypes
            //dd('dfdf');
-           $metanameDatatypeTableUpdate=DB::statement("update metaname_datatypes set metadata_name='".$metadataType."' where metadata_name='".$metadata->metadata_name."'");
+           //$metanameDatatypeTableUpdate=DB::statement("update metaname_datatypes set metadata_name='.$metadataType.' where metadata_name='$metadata->metadata_name'");
            //
+//dd($metaName);
+           $metanameDatatypeTableUpdate =metanameDatatype::where('metadata_name',$metaName)
+                ->update([
+                 'metadata_name'=>request('metadata_name'),
+                  'user_id'=>auth()->id()
+               ]);
+
            return redirect()->back()->with('success','Metadata updated successfully');
         }
         else{
@@ -150,7 +158,6 @@ class MetadataController extends Controller
 
     public function destroy($id)
     {
-     //
         $metadata = metadata::where('id',$id)->first();
         if($metadata){
             $metadata->delete();

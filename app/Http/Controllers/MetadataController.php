@@ -7,6 +7,7 @@ use App\Models\datatype;
 use App\Models\setIndicator;
 use App\Models\optionalAnswer;
 use Illuminate\Http\Request;
+use DB;
 
 class MetadataController extends Controller
 {
@@ -106,7 +107,6 @@ class MetadataController extends Controller
                ->update([
                 'status'=>"Inactive",
                  'user_id'=>auth()->id()
-
               ]);
        return redirect()->back()->with('success','Metadata deleted successfly');
     }
@@ -121,12 +121,19 @@ class MetadataController extends Controller
     public function update(Request $request,$id)
     {
     $metadata = metadata::where('id',$id)->first();
+    $metadataType=request('metadata_name');
+//dd($metadata->metadata_name);
+
         if($metadata){
            $metadata->update([
             'metadata_name'=>request('metadata_name'),
              'datatype'=>request('datatype'),
              'user_id'=>auth()->id()
            ]);
+           //update metadata datatypes
+           //dd('dfdf');
+           $metanameDatatypeTableUpdate=DB::statement("update metaname_datatypes set metadata_name='".$metadataType."' where metadata_name='".$metadata->metadata_name."'");
+           //
            return redirect()->back()->with('success','Metadata updated successfully');
         }
         else{

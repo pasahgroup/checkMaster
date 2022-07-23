@@ -63,7 +63,7 @@ class ReportTestController extends Controller
       // //page output method I:standard output  D:Download file
       // return Response::make($PHPJasperXML->outpage("I"));
 
-    $server="localhost";
+$server="localhost";
 $db="demodb";
 $user="root";
 $pass="";
@@ -71,7 +71,7 @@ $version="1.1";
 
 $pgport=3306; //only for postgresql
 
-        $PHPJasperXML = new PHPJasperXML();
+$PHPJasperXML = new PHPJasperXML();
 // $PHPJasperXML->load_xml_file("report2.jrxml");
 $PHPJasperXML->load_xml_file(app_path()."/reports/location.jrxml");
 $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);

@@ -16,6 +16,8 @@ use App\Models\setIndicator;
 use App\Models\qnsAppliedto;
 
 use App\Models\answer;
+use App\Models\answerCheckBox;
+
 use App\Models\userActivity;
 use App\Models\activityRole;
 use App\Models\userRole;
@@ -37,7 +39,6 @@ use Illuminate\Support\Str;
 
 class DashChecklist extends Component
 {
-
  public $departments = "";
        public $post;
       public $message = "";
@@ -170,7 +171,7 @@ $desc[$idy]='Nill';
 
     $item = answerUpdatePhoto::where('answer_id',$aid)
     ->first();
-
+//dd($item);
 if($item == null)
 {
 //dd($propValue->site_id);
@@ -185,7 +186,7 @@ if($item == null)
           'description'=>$desc[$idy],
           'status'=>'Active',
         ]);
-//------------------------------------
+  //------------------------------------
 $insetqnsx = dynamicIndUpdate::UpdateOrCreate([
 
 'property_id'=>$propValue->property_id,
@@ -286,10 +287,10 @@ $attach = request($attachmentf);
 //Update answer table
 $answerTableUpdate=DB::statement('update answer_desc_photos a,answer_update_photos ap set a.description=ap.description,a.image=ap.image where a.answer_id=ap.answer_id and a.action=1');
 //Update dynamic_ind_updates
-$answerTableUpdate=DB::statement('update dynamic_ind_updates d,answer_update_photos ap set d.description=ap.description,d.image=ap.image where d.property_id=ap.property_id and d.asset_id=ap.asset_id and d.indicator_id=ap.indicator_id');
+$answerTableUpdatey=DB::statement('update dynamic_ind_updates d,answer_update_photos ap set d.description=ap.description,d.image=ap.image where d.property_id=ap.property_id and d.asset_id=ap.asset_id and d.indicator_id=ap.indicator_id');
+$answerTableUpdatex=DB::statement('update dynamic_ind_updates d,answers a set d.status=a.status where d.property_id=a.property_id and d.asset_id=a.asset_id and d.indicator_id=a.indicator_id and d.opt_answer_id=a.opt_answer_id and a.datex="'.$current_date.'"');
 
 $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap set q.'.$col.'=1 where q.metaname_id=ap.metaname_id and q.indicator_id=ap.indicator_id');
-//
 
  $deleteAnswerTable = answerUpdatePhoto::where('user_id',auth()->id())->first();
         if($deleteAnswerTable){
@@ -306,6 +307,50 @@ $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap s
     }
 
 
+    $answerAllInclusiveData=DB::table('optional_answers')
+                ->where('optional_answers.indicator_id',$optionalData->indicator_id)
+                  ->where('optional_answers.datatype','checkbox')
+                    ->get();
+
+    $answerInclusiveData = DB::table('answers')
+                ->join('optional_answers', 'answers.indicator_id', '=', 'optional_answers.indicator_id')
+                ->where('answers.datex',$current_date)
+                ->where('answers.status','Active')
+                 ->whereColumn('answers.opt_answer_id','optional_answers.id')
+                ->get();
+
+               $optional_answersCollections = collect($answerAllInclusiveData);
+               $answerCollections = collect($answerInclusiveData);
+
+
+    foreach ($optional_answersCollections as $oKey => $firstOptinValue) {
+      foreach ($answerCollections as $aKey => $secondAnswerValue) {
+      if($firstOptinValue->id==$secondAnswerValue->opt_answer_id)
+      {
+           unset($optional_answersCollections[$oKey]);
+      }
+
+      }
+    }
+    //NOW INSERT INTO answers_check_boxes
+    foreach ($optional_answersCollections as $keyV => $valueV) {
+    $insertAnsCheckBoxes = answerCheckBox::UpdateOrCreate([
+    'property_id'=>$propValue->property_id,
+    'metaname_id'=>$propValue->metaname_id,
+    'asset_id'=>$aID,
+    'indicator_id'=>$optionalData->indicator_id,
+    'opt_answer_id'=>$valueV->id,
+    'datex'=>$current_date
+    ],[
+
+    'answer'=>$optionalData->answer,
+    'status'=>'Active',
+    'action'=>1,
+    'user_id'=>auth()->id(),
+  ]);
+    }
+//Update answer_check_boxes
+$answerTableUpdatey=DB::statement('update answer_check_boxes d,answers a set d.status=a.status,d.answer=a.answer where d.property_id=a.property_id and d.asset_id=a.asset_id and d.indicator_id=a.indicator_id and d.opt_answer_id=a.opt_answer_id and d.datex="'.$current_date.'"');
 
 $updateqnsF = answerDescPhoto::where('action',1)
              ->where('description','Nill')
@@ -435,7 +480,6 @@ Schema::table('qns_appliedtos', function($table) use ($col)
 
         $checkQns = DB::select('select d.opt_answer_id,d.property_id,d.metaname_id,d.asset_id,d.indicator_id,d.answer_value,d.description,d.image,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active"');
 //dd($checkQns);
-
       return view('livewire.dash-checklist',compact('metadatas','datatypes','metanames','pp','qns','userActitivities','acts','col','checkQnsProp','checkQns'))
       ->layout('layouts.app');
 

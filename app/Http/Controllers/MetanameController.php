@@ -18,8 +18,8 @@ class MetanameController extends Controller
      */
     public function index()
     {
-         $metanames = metaname::where('status','Active')->get(); 
-         $metadatas = metadata::where('status','Active')->get(); 
+         $metanames = metaname::where('status','Active')->get();
+         $metadatas = metadata::where('status','Active')->get();
     //dd($metadatas);
         return view('admin.settings.metanames.metaname',compact('metanames','metadatas'));
     }
@@ -62,13 +62,13 @@ class MetanameController extends Controller
          'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
-        
+
 
            if($metadatas !=null)
      {
-        
+
 foreach ($metadatas as $metadata) {
-  $data = metadata::where('id', $metadata)->first(); 
+  $data = metadata::where('id', $metadata)->first();
 
   $datatype=strtolower(strtok($data->metadata_name, " "));
  $datatype_name=$property.$datatype;
@@ -78,13 +78,13 @@ foreach ($metadatas as $metadata) {
         'metaname_id'=>$metanames->id,
          'metadata_name'=>$data->metadata_name,
      ],[
-        
+
             'datatype'=>$data->datatype,
               'datatype_name'=>$datatype_name,
           'status'=>'Active',
-          'user_id'=>auth()->id()        
+          'user_id'=>auth()->id()
         ]);
-        } 
+        }
      }
      return redirect()->back()->with('success','Metaname created successfly');
     }
@@ -115,6 +115,13 @@ foreach ($metadatas as $metadata) {
                  'user_id'=>auth()->id()
 
               ]);
+//Update metanameDatatype
+              $metanameDatatypes = metanameDatatype::where('metaname_id',$id)
+                   ->update([
+                    'status'=>"Inactive",
+                     'user_id'=>auth()->id()
+
+                  ]);
                return redirect()->back()->with('success','Metaname deleted successfly');
             }
 
@@ -128,7 +135,7 @@ foreach ($metadatas as $metadata) {
     public function update(Request $request,$id)
     {
               $metaname = metaname::where('id',$id)->first();
-              dd($metaname);
+              //dd($metaname);
         if($metaname){
            $metaname->update([
             'metaname_name'=>request('metaname_name'),
@@ -148,7 +155,7 @@ foreach ($metadatas as $metadata) {
      * @param  \App\Models\property  $property
      * @return \Illuminate\Http\Response
      */
-    
+
     public function destroy($id)
     {
      //
@@ -156,9 +163,7 @@ foreach ($metadatas as $metadata) {
         $Metaname = metaname::where('id',$id)->first();
         if($Metaname){
             $Metaname->delete();
-          
               DB::statement("delete from metaname_datatypes where metaname_id=$id");
-
 
             return redirect()->back()->with('success','Metaname permanent deleted successfully');
         }
@@ -169,12 +174,17 @@ foreach ($metadatas as $metadata) {
 
   public function recoveryUpdate(metaname $department,$id)
     {
-          $departments = metaname::where('id',$id)
+          $metanames = metaname::where('id',$id)
                ->update([
                 'status'=>"Active",
                  'user_id'=>auth()->id()
-
               ]);
+
+              $metanameDatatypes = metanameDatatype::where('metaname_id',$id)
+                   ->update([
+                    'status'=>"Active",
+                     'user_id'=>auth()->id()
+                  ]);
        return redirect()->back()->with('success','Metaname recoveried successfly');
     }
 

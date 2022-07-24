@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\metaname;
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -20,8 +19,9 @@ class MetanameController extends Controller
     {
          $metanames = metaname::where('status','Active')->get();
          $metadatas = metadata::where('status','Active')->get();
-    //dd($metadatas);
-        return view('admin.settings.metanames.metaname',compact('metanames','metadatas'));
+        $metanameDatatypes = metanameDatatype::where('status','Active')->get();
+
+                 return view('admin.settings.metanames.metaname',compact('metanames','metadatas','metanameDatatypes'));
     }
 
     /**
@@ -45,16 +45,6 @@ class MetanameController extends Controller
          $property='asset_';
          $metadatas = request('metadata_name');
 
-
-   //$myvalue = 'Test me more';
-//$arr = explode(' ',trim($myvalue));
-//dd($arr[0]);
-
-//$value = "Testnn     me more";
-//echo strtok($value, " "); // Test
-
-//dd($property);
-
         $metanames = metaname::UpdateOrCreate([
         'metaname_name'=>request('metaname_name'),
     ],[
@@ -63,24 +53,21 @@ class MetanameController extends Controller
           'user_id'=>auth()->id()
         ]);
 
-
-           if($metadatas !=null)
+  if($metadatas !=null)
      {
-
 foreach ($metadatas as $metadata) {
   $data = metadata::where('id', $metadata)->first();
 
   $datatype=strtolower(strtok($data->metadata_name, " "));
  $datatype_name=$property.$datatype;
-//dd($datatype);
 
         $insetMetadata = metanameDatatype::UpdateOrCreate([
         'metaname_id'=>$metanames->id,
          'metadata_name'=>$data->metadata_name,
      ],[
 
-            'datatype'=>$data->datatype,
-              'datatype_name'=>$datatype_name,
+          'datatype'=>$data->datatype,
+          'datatype_name'=>$datatype_name,
           'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
@@ -113,14 +100,12 @@ foreach ($metadatas as $metadata) {
                ->update([
                 'status'=>"Inactive",
                  'user_id'=>auth()->id()
-
               ]);
 //Update metanameDatatype
               $metanameDatatypes = metanameDatatype::where('metaname_id',$id)
                    ->update([
                     'status'=>"Inactive",
                      'user_id'=>auth()->id()
-
                   ]);
                return redirect()->back()->with('success','Metaname deleted successfly');
             }
@@ -134,7 +119,7 @@ foreach ($metadatas as $metadata) {
      */
     public function update(Request $request,$id)
     {
-              $metaname = metaname::where('id',$id)->first();
+      $metaname = metaname::where('id',$id)->first();
               //dd($metaname);
         if($metaname){
            $metaname->update([
@@ -142,6 +127,39 @@ foreach ($metadatas as $metadata) {
              'metaname_description'=>request('metaname_description'),
              'user_id'=>auth()->id()
            ]);
+//Update metaname-datatype mysql_list_table
+//dd($id);
+$metanameDatatypes = metanameDatatype::where('metaname_id',$id)
+     ->update([
+      'status'=>"Inactive"
+    ]);
+//-----------------------------------------------
+$property='asset_';
+$metadatas = request('metadata_name');
+
+if($metadatas !=null)
+{
+foreach ($metadatas as $metadata) {
+$data = metadata::where('id', $metadata)->first();
+
+$datatype=strtolower(strtok($data->metadata_name, " "));
+$datatype_name=$property.$datatype;
+
+$insetMetadata = metanameDatatype::UpdateOrCreate([
+'metaname_id'=>$id,
+'metadata_name'=>$data->metadata_name,
+],[
+
+ 'datatype'=>$data->datatype,
+ 'datatype_name'=>$datatype_name,
+ 'status'=>'Active',
+ 'user_id'=>auth()->id()
+]);
+}
+}
+
+//End of Update metaname-datatype mysql_list_table
+
            return redirect()->back()->with('success','Metadata updated successfully');
         }
         else{
@@ -158,7 +176,6 @@ foreach ($metadatas as $metadata) {
 
     public function destroy($id)
     {
-     //
         $metanameDatatype = metanameDatatype::where('metaname_id',$id)->first();
         $Metaname = metaname::where('id',$id)->first();
         if($Metaname){

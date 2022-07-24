@@ -58,43 +58,40 @@
 															</span>
 
 														</a>
-
 													</div>
 												</div>
 
 											</div>
-
-
 										</div>
 									</div>
 									<div class="row">
 
 										<div class="col-12 ">
 											<div class="card card-custom gutter-b bg-white border-0" >
-												<div class="card-body" >
-													<div >
+												<div class="card-body">
+													<div>
 														<div class=" table-responsive" id="printableTable">
-                                                            <table id="orderTable" class="display" style="width:100%">
+                            <table id="orderTable" class="display" style="width:100%">
 
 																<thead class="text-body">
 																	<tr>
 																		<th>ID</th>
 																		<th >Metadata Name</th>
 																		<th >Datatype</th>
-																			
+
 																		<th class="no-sort text-right">Action</th>
 																	</tr>
 																</thead>
 																<tbody class="kt-table-tbody text-dark">
-                                                                    @foreach ($metadatas as $metadata)
+                              @foreach ($metadatas as $metadata)
 																	<tr class="kt-table-row kt-table-row-level-0">
 																		<td >{{ $metadata->id }}</td>
 																		<td>{{ $metadata->metadata_name }}</td>
 																		<td>{{ $metadata->datatype }}</td>
-																		
+
 																		<td>
-																	
- <!-- start Modal -->           
+
+ <!-- start Modal -->
   <div class="modal fade" id="issue{{ $metadata->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -115,18 +112,18 @@
                             <label class="text-dark" >Edit metadata name</label>
                             <input type="text" name="metadata_name" class="form-control" value="{{ $metadata->metadata_name }}">
                             <small  class="form-text text-muted">please edit metadata name</small>
-                        </div>  
+                        </div>
                                   <div class="form-group">
 						<label class="text-dark" >Datatype</label>
                         <select name="datatype" id="" class="form-control">
-                   
+
                                         <option>{{$metadata->datatype}}</option>
                                          @foreach ($datatypes as $datatype)
                                           <option value="{{$datatype->datatype}}">{{$datatype->datatype_name}}</option>
-                                     
+
                                        @endforeach
                         </select>
-					</div>                   
+					</div>
                     </div>
                 </div>
 
@@ -154,7 +151,7 @@
                                                                                     <a href="javascript:void(0)" class="btn-success dropdown-item click-edit" id="click-edit1" data-toggle="modal" data-target="#issue{{ $metadata->id }}">Edit</a>
 
                                                                                      <a href="{{ route('delete-metadata',$metadata->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1" onclick="return confirm(id='Are you sure you want to delete this  {{$metadata->metadata_name}}')">Delete</a>
-                                                                               
+
                                                                             @endif
 																				</div>
 																				</div>
@@ -206,17 +203,17 @@
 						<input type="text" name="metadata_name" class="form-control" placeholder="">
 						<small  class="form-text text-muted">please enter metadata name</small>
 					</div>
-                  
+
                                   <div class="form-group">
-						<label class="text-dark" >Datatype</label>
+						            <label class="text-dark" >Datatype</label>
                         <select name="datatype" id="" class="form-control">
-                   
+
                                         <option value="text">--select datatype--</option>
                                          @foreach ($datatypes as $datatype)
                                           <option value="{{$datatype->datatype}}">{{$datatype->datatype_name}}</option>
-                                     
+
                                        @endforeach
-                        </select>
+           </select>
 					</div>
 
 				</div>

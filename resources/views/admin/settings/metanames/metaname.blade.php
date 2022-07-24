@@ -79,10 +79,9 @@
 																<thead class="text-body">
 																	<tr>
 																		<th>ID</th>
-
-																		<th >Metaname Name</th>
-																		<th >Description</th>
-																		<th >Status</th>
+																		<th>Metaname</th>
+																		<th>Description</th>
+																		<th>Status</th>
 
 						<th class="no-sort text-right">Action</th>
 																	</tr>
@@ -91,12 +90,11 @@
                     @foreach ($metanames as $metaname)
 				<tr class="kt-table-row kt-table-row-level-0">
 				<td >{{ $metaname->id }}</td>
-
 					<td>{{ $metaname->metaname_name }}</td>
 					<td>{{ $metaname->metaname_description }}</td>
 					<td>{{ $metaname->status }}</td>
-				<td>
 
+				<td>
  <!-- start Modal -->
   <div class="modal fade" id="issue{{ $metaname->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -115,30 +113,31 @@
 
                     <div class="col-12">
                         <div class="form-group">
-                            <label class="text-dark" >Edit metaname name</label>
+                            <label class="text-dark" >Edit metaname</label>
                             <input type="text" name="metaname_name" class="form-control" value="{{ $metaname->metaname_name }}">
-                            <small  class="form-text text-muted">please edit metaname name</small>
+                            <small  class="form-text text-muted">please edit metaname</small>
                         </div>
                        <div class="form-group">
                         <label class="text-dark">Description</label>
                         <textarea class="form-control" rows="3" id="metaname_description" name="metaname_description">{{ $metaname->metaname_description }}</textarea>
                   </div>
 
-                  		<div class="col-12">
+  <div class="col-12">
    @foreach ($metadatas as $metadata)
    <label class="text-center" >{{$metadata->metadata_name}} |
-                                      <input type="checkbox" name="metadata_name[]" class="form-control" value="{{$metadata->id}}"></label>
-
-                                       @endforeach
+          <input type="checkbox" name="metadata_name[]" class="form-control" value="{{$metadata->id}}"
+																			@foreach ($metanameDatatypes as $checkq)
+																			@if ($checkq->metaname_id ==$metaname->id && $checkq->metadata_name ==$metadata->metadata_name) checked @endif
+																			 @endforeach
+																		>
+																@endforeach
 
 					</div>
-                    </div>
+                </div>
                 </div>
 
                 <button type="submit" class="btn btn-success" >Update</button>
               </form>
-
-
         </div>
       </div>
     </div>
@@ -156,18 +155,17 @@
 																				</button>
 																				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton2"  style="position: absolute; transform: translate3d(1001px, 111px, 0px); top: 0px; left: 0px; will-change: transform;">
 
-                                                                                @if(($metaname->status)!="Stop")
- <a href="javascript:void(0)" class="btn-success dropdown-item click-edit" id="click-edit1" data-toggodal" data-target="#issue{{ $metaname->id }}">Edit</a>
- <a href="{{ route('edit-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1">Edit2</a>
+                                    @if(($metaname->status)!="Stop")
+ <a href="javascript:void(0)" class="btn-success dropdown-item click-edit" id="click-edit1" data-toggle="modal" data-target="#issue{{ $metaname->id }}">Edit</a>
+ <!-- <a href="{{ route('edit-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1">Edit2</a> -->
 <a href="{{ route('delete-metaname',$metaname->id) }}" class="btn-success dropdown-item click-delete" id="click-edit1" onclick="return confirm(id='Are you sure you want to delete this  {{$metaname->metadata_name}}')">Delete</a>
 
-                                                                            @endif
+                                    @endif
 																				</div>
 																				</div>
 																		</td>
-
 																	</tr>
-                                                                    @endforeach
+                              @endforeach
 
 																</tbody>
 															</table>
@@ -177,7 +175,6 @@
 
 												</div>
 											</div>
-
 										</div>
 
 									</div>
@@ -187,9 +184,6 @@
 
 					</div>
 				</div>
-
-
-
 
 	<div  class="offcanvas offcanvas-right kt-color-panel p-5 kt_notes_panel">
 		<div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
@@ -204,13 +198,12 @@
 		<form id="myform" action="{{ route('metaname.store') }}" method="POST">
             @csrf
 			<div class="row">
-
 				<div class="col-12">
 					<div class="form-group">
 						<label class="text-dark" >Metaname</label>
 						<input type="text" name="metaname_name" class="form-control" placeholder="" required="">
 						<small  class="form-text text-muted">please enter Metaname</small>
-					</div>
+			</div>
 
                   <div class="form-group">
                         <label class="text-dark">Description</label>
@@ -218,14 +211,14 @@
                   </div>
 
                         <div class="form-group">
-						<label class="text-dark" >Metaname Must Include</label>
+						<label class="text-dark">Metaname Must Include</label>
 						<hr>
 			<div class="col-12">
    @foreach ($metadatas as $metadata)
-   <label class="text-center" >{{$metadata->metadata_name}} |
-                                      <input type="checkbox" name="metadata_name[]" class="form-control" value="{{$metadata->id}}"></label>
-
-                                       @endforeach
+   <label class="text-center">{{$metadata->metadata_name}} |
+                                      <input type="checkbox" name="metadata_name[]" class="form-control" value="{{$metadata->id}}">
+																		</label>
+                    @endforeach
 
 					</div>
 					<hr>

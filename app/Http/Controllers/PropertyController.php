@@ -6,7 +6,7 @@ use App\Models\Property;
 use App\Models\keyIndicator;
 use App\Models\answer;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +15,21 @@ use App\Models\expenseCategory;
 use App\Models\direct_expenses;
 use App\Models\metaname;
 use Illuminate\Support\Str;
+//use PHPJasper\PHPJasper;
+use JasperPHP\JasperPHP as JasperPHP;
+use Illuminate\Http\Request;
+use PHPJasper\PHPJasper;
 
+ require base_path().'/vendor/autoload.php';
+ //require base_path().'/vendor/autoload.php';
+include_once(app_path().'/jrf/PHPJasperXML.inc.php');
+ //include_once(app_path().'/jrf/tcpdf/tcpdf.php');
+  //include_once(app_path().'/fpdf184/mysql_table.php');
+  //include_once(app_path().'/fpdf184/pdfg.php');
+ // use PHPJasperXML;
+  require base_path().'/vendor/autoload.php';
+ use PHPJasperXML;
+//use PDF;
 class PropertyController extends Controller
 {
     /**
@@ -32,12 +46,13 @@ class PropertyController extends Controller
 
  public function dashProperty($id)
     {
-         //dd($id);
       $properties = Property::where('status','Active')->get();
       //$propertyName = Property::where('id',1)->first();
     //dd($properties);
     return view('admin.settings.properties.dash.dash-property',compact('properties'));
     }
+
+
 
  public function reportProperty(Request $request,$id)
     {
@@ -65,11 +80,10 @@ $url="http://localhost:8000/report-property/1/dashboard";
     $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
     //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
 
-
     $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
 //dd($reportDailyData2);
 
- $dataDaily = collect($reportDailyData);
+$dataDaily = collect($reportDailyData);
 $dailyMetaCollects=$dataDaily->groupBy('metaname_name');
 $roomDaily = $dataDaily->where('metaname_name','Room')
    ->whereIn('answer_classification',['Bad','Critical']);
@@ -77,9 +91,9 @@ $roomDaily = $dataDaily->where('metaname_name','Room')
    $criticalDaily=$roomDaily->where('answer_classification','Critical')->count();
 //dd($roomDaily);
     //Weekly Report
-    $reportWeeklyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and WEEK(a.datex)=WEEK(NOW())');
+$reportWeeklyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and WEEK(a.datex)=WEEK(NOW())');
 
- $dataWeekly = collect($reportWeeklyData);
+$dataWeekly = collect($reportWeeklyData);
 $weeklyMetaCollects=$dataWeekly->groupBy('metaname_name');
 $roomWeekly = $dataWeekly->where('metaname_name','Room')
    ->whereIn('answer_classification',['Bad','Critical']);
@@ -87,7 +101,7 @@ $roomWeekly = $dataWeekly->where('metaname_name','Room')
    $criticalWeekly=$roomWeekly->where('answer_classification','Critical')->count();
 
     //Monthly Report
-    $reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and month(a.datex)=month(NOW())');
+$reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and month(a.datex)=month(NOW())');
 
  $dataMonthly = collect($reportMonthlyData);
 $monthlyMetaCollects=$dataMonthly->groupBy('metaname_name');
@@ -96,8 +110,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    $badMonthly=$roomMonthly->where('answer_classification','Bad')->count();
    $criticalMonthly=$roomMonthly->where('answer_classification','Critical')->count();
 
-
-     if(request('search')){
+     if(request('search') || request('print')){
 		$metaArray=array();
 		 $keyArray=array();
 
@@ -113,7 +126,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	 //Metaname Array creation
 	 $keyNames=keyIndicator::get();
 	 $collectAllKey = collect($keyNames);
-	 //dd($collectAllKey);
+	 //dd($metaNames);
 
 	//The Request is metaArray
 	if(request('metaname_search')){
@@ -146,8 +159,9 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    }
 	 }
 }
-//End of Request
 
+
+//End of Request
 	 $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
 	 ->join('set_indicators','answers.indicator_id','set_indicators.id')
 	  ->join('users','answers.user_id','users.id')
@@ -156,21 +170,37 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 		->join('metanames','answers.metaname_id','metanames.id')
 
 		->where('answers.property_id',$id)
-     ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
-      ->whereIn('metanames.metaname_name',$metaArray)
+    ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
+    ->whereIn('metanames.metaname_name',$metaArray)
 	  ->whereIn('optional_answers.answer_classification',$keyArray)
      //->where('set_indicators.qns','!=',"")
-       ->whereBetween('datex',[$start_date, $end_date])
+    ->whereBetween('datex',[$start_date, $end_date])
    ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
-     ->orderBy('set_indicators.id')
+   ->orderBy('set_indicators.id')
 	 ->get();
    }
    else{
 	   //dd('Not role');
    }
+   //dd($metaArray);
+	if(request('print')){
+    //dd($metaArray);
+    include_once(app_path().'/jrf/sample/setting.php');
+    $PHPJasperXML = new PHPJasperXML();
+    $v='Rooms';
+    //dd($v);
+  //  $PHPJasperXML->arrayParameter=array("property_id"=>$id);
+    $PHPJasperXML->arrayParameter=array("metanames"=> array('m.metaname_name',"Rooms" ));
+    //$PHPJasperXML->list_parameters = array("metanames"=>$v);
 
+    $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    //$PHPJasperXML->outpage("D");
+    ob_end_clean();
+    $PHPJasperXML->outpage("I");
+
+  }
    //dd('Not role');
-
     return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri'));
     }
 
@@ -209,10 +239,9 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
         'location_name'=>request('location_name'),
          'phone'=>request('phone'),
           'email'=>request('email'),
-                 'property_description'=>request('property_description'),
+          'property_description'=>request('property_description'),
         'user_id'=>auth()->id()
-        ]);
-
+      ]);
         $idf=$sites->id;
        }
       else
@@ -333,4 +362,12 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
        $properties = Property::where('status','Inactive')->get();
         return view('admin.settings.recovery.recoveryProperty',compact('properties'));
     }
+
+
+    public function print()
+     {
+       dd('print');
+        $properties = Property::where('status','Inactive')->get();
+         return view('admin.settings.recovery.recoveryProperty',compact('properties'));
+     }
 }

@@ -46,6 +46,7 @@
     42 => 'App\\Providers\\AuthServiceProvider',
     43 => 'App\\Providers\\EventServiceProvider',
     44 => 'App\\Providers\\RouteServiceProvider',
+    45 => 'JasperPHP\\JasperPHPServiceProvider',
   ),
   'eager' => 
   array (
@@ -80,6 +81,7 @@
     28 => 'App\\Providers\\AuthServiceProvider',
     29 => 'App\\Providers\\EventServiceProvider',
     30 => 'App\\Providers\\RouteServiceProvider',
+    31 => 'JasperPHP\\JasperPHPServiceProvider',
   ),
   'deferred' => 
   array (

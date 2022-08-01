@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-               
+
                 <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
                     <!--begin::Subheader-->
                         <div class="subheader py-2 py-lg-6 subheader-solid">
@@ -19,7 +19,7 @@
                         <!--begin::Container-->
                         <div class="container-fluid">
 
-                             <div class="row">                                
+                             <div class="row">
                                         <div class="col-lg-12 col-xl-12">
                                             <div class="card card-custom bg-transparent shadow-none border-0" >
                                             <div class="card-header align-items-center  border-bottom-dark px-0">
@@ -69,8 +69,8 @@
                                                      <th>E-mail</th>
                                                      <th>Role</th>
                                              @role('Admin|SuperAdmin')
-                                           <th>Permission</th> 
-                                        <th>Department</th> 
+                                           <th>Permission</th>
+                                        <th>Department</th>
                                       @endrole
                                   <th>Created</th>
                                @role('Admin') <th>Action</th> @endrole
@@ -83,10 +83,10 @@
                                 <tr class="border-bottom @if(auth()->id()== $value->id)text-primary @endif" >
                         <th scope="row">{{ $value->name }}</a></th>
                         <td>{{ $value->email }}</a></td>
-                    
+
                                                     <td>
 
-            @forelse($userRoles as $role)                                                                   
+            @forelse($userRoles as $role)
             @if($role->sys_user_id == $value->id)
             <form action="{{ route('users.destroy', $role->arole_id) }}" method="POST" >
                        @method('PUT')
@@ -231,7 +231,7 @@
                                                                     @endrole
   {{-- DEPARTMENT  --}}
 
-   @role('Admin|SuperAdmin|GeneralAdmin') 
+   @role('Admin|SuperAdmin|GeneralAdmin')
    <td>
                                                                 <!-- {{$value->department_id}} -->
                                                                         @forelse($departments as $department)
@@ -346,18 +346,16 @@
                         {{--    --}}
 
     <div  class="offcanvas offcanvas-right kt-color-panel p-1 kt_notes_panel">
-        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">            
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
             <a href="#" class="btn btn-sm btn-icon btn-light btn-hover-primary kt_notes_panel_close" >
                 <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
                 </svg>
             </a>
         </div>
-  
 
-            
-  <div class="card-body"  style="background-color:#b2ca5d !important">
-        <div class="card col-xl-12 col-md-12"> 
+ <div class="card-body"  style="background-color:#b2ca5d !important">
+        <div class="card col-xl-12 col-md-12">
         <form id="myform" action="{{ route('print.show',1) }}" method="PUT" enctype="multipart/form-data">
          @csrf
 
@@ -367,21 +365,41 @@
                         <label class="text-dark" >User ID</label>
                         <input class="form-control block mt-1 w-full" type="text" name="userid" :value="old('id')" autofocus autocomplete="id" >
                         <small  class="form-text text-muted">Please Enter User ID to Print specific Data or leave Empty to Print all Data</small>
-                    </div>                 
+                    </div>
                 </div>
             </div>
             <div class="flex items-center justify-end mt-4">
-             <x-jet-button class="btn-sm btn btn-dark float-right">
-                    {{ __('Print') }}
+
+               <x-jet-button class="btn-sm btn btn-dark float-left" onclick="show_my_receipt()" type="submit" value="useridx" name="useridx">
+                       {{ __('Print') }}
                 </x-jet-button>
-            </div>
+
+                <x-jet-button class="btn-sm btn btn-dark float-right" type="submit" name="userid">
+                        {{ __('Print All') }}
+                    </x-jet-button>
+                          </div>
                 <!-- <button  class="btn-sm btn btn-dark float-right" type="submit">Print</button> -->
           </form>
-      
+
       </div>
   </div>
     </div>
 
-                    </div>
                 </div>
+                </div>
+
+    <script>
+          function show_my_receipt() {
+       // open the page as popup //
+       var page = 'http://www.pasah.net';
+       var myWindow = window.open(page, "_blank", "scrollbars=yes,width=500,height=500,top=200");
+       // focus on the popup //
+       myWindow.focus();
+       // if you want to close it after some time (like for example open the popup print the receipt and close it) //
+
+      //  setTimeout(function() {
+      //    myWindow.close();
+      //  }, 1000);
+     }
+        </script>
 @endsection

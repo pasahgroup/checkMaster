@@ -14,15 +14,15 @@ table, th, td {
             <div class="container-fluid">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-white mb-0 px-0 py-2">
-					
+
 					@if(request()->path()=="report-property/".$id."/dashboard")
                         <li class="breadcrumb-item active" aria-current="page"><a href="/admin" role="button" class="btn-sm btn-primary"><<</a></li>
                       @endif
 					  @if(request()->path()=="report-property/".$id)
                         <li class="breadcrumb-item active" aria-current="page"><a href="/dash-property/{id}" role="button" class="btn-sm btn-primary"><<</a></li>
                       @endif
-					 
-					   <li class="breadcrumb-item active" aria-current="page">General Dashboard for</li>                        
+
+					   <li class="breadcrumb-item active" aria-current="page">General Dashboard for</li>
 						<li class="breadcrumb-item active" aria-current="page"><strong>{{$properties->property_name}}</strong></li>
 
                     </ol>
@@ -36,7 +36,7 @@ table, th, td {
             <!--begin::Container-->
             <div class="container-fluid">
                 <div class="row">
-                             
+
  @role('Admin|GeneralAdmin|SuperAdmin')
 
                           <div class="col-lg-4  col-xl-4 col-md-4">
@@ -48,10 +48,10 @@ table, th, td {
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="card-body px-0">
                                                     <ul class="list-group scrollbar-1" style="height: 300px;">
-                                                   
+
                                                     @foreach($dailyMetaCollects as $key=>$dailyMetaCollect)
                                                       <li class="list-group-item list-group-item-action border-0 d-flex align-items-center justify-content-between py-2">
                     <div class="list-left d-flex align-items-center">
@@ -66,7 +66,7 @@ table, th, td {
                 <div class="col-md-12">
                 <div class="row">
             @isset($key)
-            @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()>0) 
+            @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()>0)
        <form action="{{ route('daily-report','Good') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -77,10 +77,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()}}</strong></button>
-    </form> 
+    </form>
 @endif
 
-            @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()>0) 
+            @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()>0)
              <form action="{{ route('daily-report','Bad') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -91,10 +91,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()}}</strong></button>
-    </form> 
+    </form>
         |@endif
 
-        @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Critical')->count()>0) 
+        @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Critical')->count()>0)
              <form action="{{ route('daily-report','Critical') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -105,9 +105,9 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Critical')->count()}}</strong></button>
-    </form> 
+    </form>
         @endif
-@endisset                                              
+@endisset
 </div>
 </div>
             </span>
@@ -115,7 +115,7 @@ table, th, td {
                                                         </div>
                                                         <span>
                                                             <span>
-                                                           
+
                                                          </span>
                                                     </span>
                                                       </li>
@@ -137,7 +137,7 @@ table, th, td {
                                                 </div>
                                                 <div class="card-body px-0">
                                                     <ul class="list-group scrollbar-1" style="height: 300px;">
-                                                      
+
                                                         @foreach($weeklyMetaCollects as $keyW=>$weeklyMetaCollect)
                                                       <li class="list-group-item list-group-item-action border-0 d-flex align-items-center justify-content-between py-2">
                     <div class="list-left d-flex align-items-center">
@@ -152,7 +152,7 @@ table, th, td {
                 <div class="col-md-12">
                 <div class="row">
             @isset($keyW)
-            @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()>0) 
+            @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()>0)
        <form action="{{ route('weekly-report','Good') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -163,10 +163,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()}}</strong></button>
-    </form> 
+    </form>
 @endif
 
-            @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()>0) 
+            @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()>0)
              <form action="{{ route('weekly-report','Bad') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -177,10 +177,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()}}</strong></button>
-    </form> 
+    </form>
         |@endif
 
-        @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Critical')->count()>0) 
+        @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Critical')->count()>0)
              <form action="{{ route('weekly-report','Critical') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -191,9 +191,9 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Critical')->count()}}</strong></button>
-    </form> 
+    </form>
         @endif
-               @endisset                                              
+               @endisset
 </div>
 </div>
             </span>
@@ -202,18 +202,18 @@ table, th, td {
                                                         </div>
                                                         <span>
                                                             <span>
-                                                           
+
                                                          </span>
                                                     </span>
                                                       </li>
-                                                                                                       
-                                                  
+
+
 @endforeach
                                                     </ul>
                                                   </div>
                                               </div>
                                         </div>
-                                        
+
                                          <div class="col-lg-4  col-xl-4 col-md-4">
                                             <div class="card card-custom gutter-b bg-white border-0">
                                                 <div class="card-header align-items-center  border-0">
@@ -225,7 +225,7 @@ table, th, td {
                                                 </div>
                                                 <div class="card-body px-0">
                                                     <ul class="list-group scrollbar-1" style="height: 300px;">
-                                                        
+
                                                     @foreach($monthlyMetaCollects as $keyM=>$monthlyMetaCollect)
                                                       <li class="list-group-item list-group-item-action border-0 d-flex align-items-center justify-content-between py-2">
                     <div class="list-left d-flex align-items-center">
@@ -240,7 +240,7 @@ table, th, td {
                 <div class="col-md-12">
                 <div class="row">
             @isset($keyM)
-            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()>0) 
+            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()>0)
        <form action="{{ route('monthly-report','Good') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -251,10 +251,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()}}</strong></button>
-    </form> 
+    </form>
 @endif
 
-            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()>0) 
+            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()>0)
              <form action="{{ route('monthly-report','Bad') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -265,10 +265,10 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()}}</strong></button>
-    </form> 
+    </form>
         |@endif
 
-        @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()>0) 
+        @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()>0)
              <form action="{{ route('monthly-report','Critical') }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
@@ -279,9 +279,9 @@ table, th, td {
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()}}</strong></button>
-    </form> 
+    </form>
         @endif
-               @endisset                                              
+               @endisset
 </div>
 </div>
             </span>
@@ -290,19 +290,19 @@ table, th, td {
                                                         </div>
                                                         <span>
                                                             <span>
-                                                           
+
                                                          </span>
                                                     </span>
                                                       </li>
-                                                                                                       
-                                                  
+
+
 @endforeach
 
                                                     </ul>
                                                   </div>
                                               </div>
                                         </div>
-                                                       
+
 
                                         <div class="col-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
@@ -358,15 +358,21 @@ table, th, td {
                                           </div>
                                     </div>
 
-                                    <div class="col-md-1">
+                                    <div class="col-md-3">
+                                      <!-- <x-jet-button class="ml-4">
+                                          {{ __('Log in') }}
+                                      </x-jet-button> -->
                                         <div class="form-group mb-0" >
-                                            <label class="text-dark" ></label>
-                                            <button  name="search" value="search" class="btn btn-success">Search</button>
+                                          <x-jet-button class="ml-4 btn-success" name="search" value="search">
+                                              {{ __('Search') }}
+                                          </x-jet-button>
+                                          <x-jet-button class="ml-4 btn-primary" name="print" value="print">
+                                              {{ __('Print') }}
+                                          </x-jet-button>
                                           </div>
                                     </div>
                                 </div>
-
-                            </form>
+                              </form>
 
                         </div>
 
@@ -386,9 +392,9 @@ table, th, td {
                                             <th>Asset name</th>
                                             <th>Questions</th>
                                             <td>Answer</td>
-                                            <td>Answer status</td>                                            
+                                            <td>Answer status</td>
                                             <th>Posted by</th>
-                                            <th>Date</th>                                            
+                                            <th>Date</th>
                                             <th>Action</th>
                                             </tr>
                                         </thead>
@@ -416,7 +422,7 @@ table, th, td {
                                             </td>
 
                                         </tr>
-                                            @endforeach 
+                                            @endforeach
                                         </tbody>
                                     <tfoot>
 
@@ -447,5 +453,3 @@ table, th, td {
             </div>
 
 @endsection
-
-

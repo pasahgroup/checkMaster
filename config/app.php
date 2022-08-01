@@ -182,7 +182,7 @@ return [
     //JasperPHP\JasperPHPServiceProvider::class,
         // Other Service Providers
     // PHPJasper\PHPJasperServiceProvider::class,
-
+JasperPHP\JasperPHPServiceProvider::class
     ],
 
     /*

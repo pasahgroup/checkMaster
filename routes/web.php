@@ -58,9 +58,9 @@ use App\Http\Controllers\MetanameController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserRegisterController;
 
- use JasperPHP\JasperPHP as JasperPHP;
+ //use JasperPHP\JasperPHP as JasperPHP;
  use PHPJasper\PHPJasper;
-
+use JasperPHP\JasperPHP as JasperPHP;
 // require __DIR__ . '/vendor/autoload.php';
 
 /*
@@ -75,6 +75,33 @@ use App\Http\Controllers\UserRegisterController;
 */
 //dd(auth()->id());
 
+     Route::get('/javax', function () {
+            $jasper = new JasperPHP;
+
+            // Compile a JRXML to Jasper
+          $t=  $jasper->compile(app_path(). '/reports/report1.jrxml')->execute();
+          var_dump($t);
+
+            // Process a Jasper file to PDF and RTF (you can use directly the .jrxml)
+            $jasper->process(app_path().
+                '/reports/report1.jrxml',
+                false,
+                array("pdf", "rtf"),
+                array("php_version" => "8.0.3")
+            )->execute();
+
+            // List the parameters from a Jasper file.
+            $array = $jasper->list_parameters(app_path().
+                '/reports/report1.jrxml'
+            )->execute();
+            var_dump($array);
+            return view('welcome');
+        });
+
+
+
+
+
 Route::get('user-roles', function() {
     dd(config('global.roles')); // Return all roles
 });
@@ -87,6 +114,7 @@ Route::get('emails/dev', function() {
     dd(config('global.emails.dev')); // Specific dev email
 });
 
+Route::resource('yyy', ReportTestController::class);
 
 Route::middleware(['auth'])->group(function () {
   Route::group(['middleware' => ['auth','Admin']], function() {
@@ -94,7 +122,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('reportx/{x}/d/{y}',[ReportTestController::class,'viewreport'])->name('reportx');
 Route::get('jrf',[ReportTestController::class,'jrf'])->name('jrf');
   // Route::get('report/{report}', 'ReportTestController@viewreport')->name('report.show');
-  Route::resource('yyy', ReportTestController::class);
 
 Route::get('/javaf', function () {
 
@@ -227,7 +254,6 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
             Route::get('report-property/{id}/dashboard',[PropertyController::class,'reportProperty'])->name('report-property');
 
    // End of TS Wawa
-
 Route::resource('companyvalue',companyValueController::class);
 Route::resource('admin', adminController::class);
 Route::resource('warehouse', warehouseController::class)->middleware(['role:Admin']);

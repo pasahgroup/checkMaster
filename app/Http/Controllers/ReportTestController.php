@@ -9,13 +9,7 @@ use App\Http\Requests\UpdatereportTestRequest;
 use JasperPHP\JasperPHP as JasperPHP;
 use Illuminate\Http\Request;
 use PHPJasper\PHPJasper;
-
- require base_path().'/vendor/autoload.php';
-
-// use PHPJasperXML;
-// use Response;
-// include_once(app_path().'/jrf/PHPJasperXML.inc.php');
-// include_once(app_path().'/jrf/sample/setting.php');
+require base_path().'/vendor/autoload.php';
 
 // use Response;
 include_once(app_path().'/jrf/PHPJasperXML.inc.php');
@@ -24,11 +18,10 @@ include_once(app_path().'/jrf/PHPJasperXML.inc.php');
 // include_once(app_path().'/jrf/sample/setting.php');
 use PHPJasperXML;
 
-class ReportTestController extends Controller
+class reportTestController extends Controller
 {
-
      public function index() {
-       dd('dsd');
+       //dd('dsd');
         //JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
         $jasper = new JasperPHP;
         $filename = 'department';
@@ -85,7 +78,6 @@ return Response::make($PHPJasperXML->outpage("I"));
      *
      * @return \Illuminate\Http\Response
      */
-
 
     public function jrf()
     {
@@ -153,7 +145,6 @@ $options = [
 ];
 
 $jasper = new PHPJasper;
-
 $jasper->process(
         $input,
         $output,
@@ -189,8 +180,9 @@ $jasper->process(
      * @param  \App\Models\reportTest  $reportTest
      * @return \Illuminate\Http\Response
      */
-    public function show(reportTest $reportTest,request $request)
+    public function show(request $request)
     {
+      //dd('dsd');
 // $server="localhost";
 // $db="horesydb";
 // $user="root";
@@ -216,20 +208,21 @@ $PHPJasperXML = new PHPJasperXML();
 if(request('userid'))
 {
  $v=request('userid');
- $x=2;
+ //$x=2;
  //dd($v);
- $PHPJasperXML->arrayParameter=array("id"=>$x);
- $PHPJasperXML->load_xml_file(app_path().'/reports/department.jrxml');
+ $PHPJasperXML->arrayParameter=array("id"=>$v);
+ $PHPJasperXML->load_xml_file(app_path().'/reports/usersp.jrxml');
+
 }
 else
 {
-    //dd('xx');
-   $PHPJasperXML->load_xml_file(app_path().'/reports/department.jrxml');
+  $PHPJasperXML->load_xml_file(app_path().'/reports/users.jrxml');
 }
 //dd($pass);
 
 $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-$PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file S: Save
+//$PHPJasperXML->outpage("D");
+$PHPJasperXML->outpage("I");   //page output method I:standard output  D:Download file S: Save
 }
 
     /**

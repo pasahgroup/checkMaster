@@ -18,22 +18,43 @@
           </div>
           <hr/>
 <div class="row container">
-            <div class="col-xl-12 col-md-12">
+    <div class="col-xl-2 col-md-2">
+      <div class="card"  style="background-color:#ffffff !important">
+      <button  wire:click.prevent="storeItem('All','All')" class="btn-sm btn btn-secondary float-right" role="button" name="metall" value="metall">All</button>
+    </div>
+      @foreach ($userMetanames as $activities)
+
+<form wire:click.prevent="storeItem('{{$activities->metaname_name}}',{{$activities->id}})">
+                              @csrf
+        <input type="hidden" name="_method" value="post">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+<input type="hidden" name="metav" id="metav" value="{{$activities->metaname_name}}">
+   <!-- <a href="{{ route('metaf',1) }}" class="btn btn-sm btn-secondary">{{$activities->metaname_name}}</a> -->
+  <div class="card"  style="background-color:#ffffff !important">
+  <button  class="btn-sm btn btn-secondary float-right" role="button" name="meta" value="meta" onclick="setMetaFunction({{$activities->metaname_name}})" onkeyup ="setMetaFunction({{$activities->metaname_name}})">{{$activities->metaname_name}}</button>
+</div>
+</form>
+
+   @endforeach
+     </div>
+            <div class="col-xl-10 col-md-10">
             @isset($metadatas)
                                   <div class="card card-custom gutter-b bg-white border-0">
-                                    <div class="card-body">
+                                  <div class="card-body">
 
     <form  method="post"  action="{{ route('checklist.store') }}" enctype="multipart/form-data">
                           @csrf
+
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
     <input type="hidden" name="qnID" id="qnID" value="">
     <input type="hidden" name="qnAID[]" id="qnAID" value="">
     <input type="hidden" name="aID" id="aID" value="">
 
 <div class="row">
  <div class="card-body"  style="background-color:#b2ca5d !important">
-<label class="text-dark" ><b>Indicator Questions</b></label>
+<label class="text-dark"><b>Indicator Questions :<i style="color:green">(Metaname : {{$metaAll}})</i></b></label>
 
   <div class="panel panel-default" style="background-color:#fff !important">
 
@@ -118,9 +139,6 @@
   @endif
       @endforeach
            </textarea>
-
-
-
               </div>
     </div>
   </div>
@@ -198,9 +216,6 @@
    </div>
    </div>
 
-
-
-
 <div class="col-lg-1 col-md-1 col-sm-1"></div>
 </div>
    @endforeach
@@ -209,8 +224,6 @@
              <a class="btn-sm btn btn-dark float-right" role="button">Finish</a>
            </div>
            </div>
-
-
 
    <div class="row">
      <div class="col-md-6 col-sm-6">
@@ -275,7 +288,10 @@ alert(status);
 </script>
 
 <script type="text/javascript">
-
+function setMetaFunction(id) {
+  //alert(id);
+$('#metavv').text(id);
+}
   function setPropertyFunction(id) {
  $('#aID').val(id);
   }

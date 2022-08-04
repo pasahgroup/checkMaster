@@ -39,6 +39,7 @@ use Illuminate\Support\Str;
 
 class DashChecklist extends Component
 {
+
  public $departments = "";
        public $post;
       public $message = "";

@@ -24,12 +24,21 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="a4d392e0-3994-4271-84ba-55531d88cd56"/>
-	<parameter name="metanames" class="java.util.Collection">
-		<defaultValueExpression><![CDATA[collections]]></defaultValueExpression>
+	<parameter name="metanames" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="params" class="java.util.Collection">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="property_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="indicator" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select a.id,a.property_id,a.indicator_id,a.metaname_id,a.asset_id,a.opt_answer_id,a.answer,a.datex,o.answer_classification,m.metaname_name,t.asset_name,p.property_name,s.qns,u.name from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.property_id=p.id and a.indicator_id=s.id and a.user_id=u.id
-and a.asset_id=t.id and a.opt_answer_id=o.id and a.metaname_id=m.id and a.indicator_id=o.indicator_id and $X{IN,m.metaname_name,metanames} order by a.id]]>
+and a.asset_id=t.id and a.opt_answer_id=o.id and a.metaname_id=m.id and a.indicator_id=o.indicator_id and a.property_id=$P{property_id}  and m.metaname_name IN ($P{metanames}) and o.answer_classification IN ($P{indicator}) order by a.id]]>
 	</queryString>
 	<field name="id" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[]]></fieldDescription>

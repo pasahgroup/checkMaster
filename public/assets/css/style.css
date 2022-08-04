@@ -6,12 +6,13 @@
   --artical-background-module: #f8f9fa;
   --artical-ligth-dark:#e9ecef;
   --artical-background-element: #b01591;
-  --artical-background-primary: #b2ca5d;
+  --artical-background-primary: #677d18;;
   --artical-background-primary-dark: rgba(174, 105, 245, 0.85);
   --artical-background-primary-darkest: rgba(174, 105, 245, 0.6);
   --artical-background-primary-light: rgba(174, 105, 245, 0.4);
   --artical-background-secondary: #f49d2a;
-  --artical-background-secondary-dark: rgba(244, 157, 42, 0.85);
+  /* --artical-background-secondary-dark: rgba(244, 157, 42, 0.85); */
+  --artical-background-secondary-dark: rgba(98, 88, 75, 0.85);
   --artical-background-secondary-darkest: rgba(244, 157, 42, 0.7);
   --artical-background-success: #28a745;
   --artical-background-info: #007bff;

@@ -57,7 +57,6 @@ class Show extends Component
                 'selling_price'=> $selling_price->selling_price,
                 'user_id'=>auth()->id()
                 ]);
-
                 $this->message = "";
         }
 
@@ -98,7 +97,7 @@ class Show extends Component
     }
     public function render()
     {
-      
+
 
 
     //     $pos_id=$this->post;
@@ -123,7 +122,7 @@ class Show extends Component
     //     ->where('orders.status','Pending')
     //     ->where('orders.user_id',auth()->id())
     //     ->get();
-   
+
     // // if($orders ==null){
     // //     dd('wawuu null');
     //     if(!empty($orders)){
@@ -168,7 +167,7 @@ class Show extends Component
         ->get();
             $this->orderProducts = orderItem::where('id',18)
         ->get();
-          //dd($departments);   
+          //dd($departments);
 
  return view('livewire.show',compact('departments'))
  ->layout('layouts.app');

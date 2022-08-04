@@ -199,6 +199,8 @@ Route::get('user-activity/{id}',UserActivityLivewire::class)->name('user-activit
 Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:Admin|SuperAdmin']);
  //Checklist
   Route::get('checklist/{id}',Checklist::class)->name('checklist');
+  Route::put('metaf',Checklist::class,'metaf')->name('metaf');
+
    Route::get('dashboard-checklist/{id}',DashChecklist::class)->name('dashboard-checklist');
   Route::resource('dashboard-checklist', DashChecklist::class)->middleware(['role:Admin|GeneralManager']);
    Route::resource('checklist', Checklist::class)->middleware(['role:Admin|GeneralManager|Manager']);

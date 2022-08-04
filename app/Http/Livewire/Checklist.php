@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
  use App\Models\orderItem;
  use App\Models\asset;
 
@@ -40,23 +39,25 @@ use Illuminate\Support\Str;
 class Checklist extends Component
 {
 
- public $departments = "";
-       public $post;
+      public $departments = "";
+      public $post;
       public $message = "";
       public $act = [];
       public $indicator_id;
 
   public $metaname_id;
-   public $site_id;
-   public $names=[];
+  public $site_id;
+  public $names=[];
   public $ids=[];
-   public $desc=[];
-   public $prop=[];
-   public $attachment=[];
+  public $desc=[];
+  public $prop=[];
+  public $attachment=[];
 
-  public $properties;
-  public $rad=[];
-public $qnID;
+ public $properties;
+ public $rad=[];
+ public $qnID;
+ public $metavv;
+public $metaValue;
 
   public $qnType;
   public $times;
@@ -71,26 +72,28 @@ public function store(Request $request)
 //dd($request->all());
 //dd($request->collect());
         //dd($request->filled('idx30'));
-//dd($request->input());
- //$request->all();
+//dd(request("meta"));
+
+// if(request("meta"))
+// {
+//   $meta = request("metav");    //dd($meta);
+//   return redirect()->back()->with('success','Meta successfully');
+// }
 
     $aID = request("aID");
     $qnAID = request("qnAID");
     $indexs = request('index');
 
-$idsf='ids'.$aID;
+     $idsf='ids'.$aID;
      $ids = $idsf;
      $ids = request($ids);
 
- $data = $request->except(['_token','_method','qnID','qnAID','aID','col','prop']);
- //dd($data);
+$data = $request->except(['_token','_method','qnID','qnAID','aID','col','prop']);
 $idxf='idx'.$aID;
 //dd($idxf);
 
-    foreach ($data as $key => $value) {
-
+foreach ($data as $key => $value) {
 if (str_contains($key,$idxf)) {
-
    if( !empty($ids))
  {
   array_push($ids,$value);
@@ -140,8 +143,7 @@ foreach ($ids as $idx=>$key) {
         'status'=>'Active',
         'action'=>1,
         'user_id'=>auth()->id(),
-
-        ]);
+      ]);
 $aid=$insetqnsAns->id;
 $av=$insetqnsAns->answer;
 
@@ -175,7 +177,6 @@ $desc[$idy]='Nill';
 //dd($item);
 if($item == null)
 {
-//dd($propValue->site_id);
  $insetqns = answerUpdatePhoto::Create([
           'index_id'=>$idy+ $idx,
           'property_id'=>$propValue->property_id,
@@ -247,8 +248,7 @@ foreach ($desc as $idy=>$value) {
   $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)
              ->update([
            'description'=>$value,
-            ]);
-
+         ]);
          }
 
   }
@@ -278,7 +278,7 @@ $attach = request($attachmentf);
   $insetqnsy = answerUpdatePhoto::where('index_id',$key->index_id)
              ->update([
            'image'=>$imageToStore,
-            ]);
+         ]);
          }
 
   }
@@ -322,7 +322,6 @@ $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap s
 
                $optional_answersCollections = collect($answerAllInclusiveData);
                $answerCollections = collect($answerInclusiveData);
-
 
     foreach ($optional_answersCollections as $oKey => $firstOptinValue) {
       foreach ($answerCollections as $aKey => $secondAnswerValue) {
@@ -368,6 +367,12 @@ $updateqnsF = answerDescPhoto::where('action',1)
     }
 
 
+public function storeItem($name,$id)
+{
+    $this->metavv=$id;
+      $this->metaValue=$name;
+}
+
 //RENDER METHOD
 
     public function render(Request $request)
@@ -375,69 +380,80 @@ $updateqnsF = answerDescPhoto::where('action',1)
 $qnID='idx'.$this->qnID;
 //$qnID=$this->qnID;
  //dd($qnID);
+//dd($this->metavv);
+$meta=$this->metavv;
+$metaAll=$this->metaValue;
+if($metaAll==null)
+{
+  $metaAll="All";
+}
 
-      $current_date = date('Y-m-d');
+
+    $current_date = date('Y-m-d');
      $pos_id=$this->metaname_id;
      $qnType=$this->qnType;
      $times=$this->qnNo;
-
     $qn_no=$this->qn_no;
-  //$idx=$this->idx30;
 
     // $indicators = setIndicator::get();
       $metanames = metaname::get();
       $metadatas = optionalAnswer::get();
 //Assign Activities to userActivities
- $userActitivities = userActivity::join('metanames','metanames.id','user_activities.activity_id')
- ->where('user_activities.sys_user_id',auth()->id())
- ->where('user_activities.status','Active')
- //->join('users','sales.user_id','users.id')
- ->select('metanames.id','metanames.metaname_name')
- ->get();
-
-//dd($metadatas);
-
 $departments=user::where('id',auth()->id())->first();
 
- $userActitivitiesf = userRole::join('activity_roles','activity_roles.role_id','user_roles.role_id')
- ->join('metanames','metanames.id','activity_roles.activity_id')
- ->where('user_roles.sys_user_id',auth()->id())
-->where('activity_roles.status','Active')
- //->join('users','sales.user_id','users.id')
+$userMetanames = userActivity::join('metanames','metanames.id','user_activities.activity_id')
+->where('user_activities.sys_user_id',auth()->id())
+->where('user_activities.status','Active')
 ->select('metanames.id','metanames.metaname_name')
- ->get();
+->get();
 
-//dd($departments->department_id);
- $userActitivitiesff = departmentRole::join('activity_roles','activity_roles.role_id','department_roles.role_id')
- ->join('metanames','metanames.id','activity_roles.activity_id')
- ->where('department_roles.department_id',$departments->department_id)
-->where('activity_roles.status','Active')
-->select('metanames.id','metanames.metaname_name')
- ->get();
+if($meta!=null && $meta!="All")
+{
+  $userActitivities = userActivity::join('metanames','metanames.id','user_activities.activity_id')
+  ->where('user_activities.sys_user_id',auth()->id())
+  ->where('user_activities.status','Active')
+    ->where('user_activities.activity_id',$meta)
+  ->select('metanames.id','metanames.metaname_name')
+  ->get();
 
-    $first = collect($userActitivities);
-    $second = collect($userActitivitiesf);
-    $third = collect($userActitivitiesff);
+  $firstData = collect($userActitivities);
+  $acts = $firstData;
+}
+else {
+  $userActitivities = userActivity::join('metanames','metanames.id','user_activities.activity_id')
+  ->where('user_activities.sys_user_id',auth()->id())
+  ->where('user_activities.status','Active')
+  //->join('users','sales.user_id','users.id')
+  ->select('metanames.id','metanames.metaname_name')
+  ->get();
+
+  $userActitivitiesf = userRole::join('activity_roles','activity_roles.role_id','user_roles.role_id')
+  ->join('metanames','metanames.id','activity_roles.activity_id')
+  ->where('user_roles.sys_user_id',auth()->id())
+ ->where('activity_roles.status','Active')
+  //->join('users','sales.user_id','users.id')
+ ->select('metanames.id','metanames.metaname_name')
+  ->get();
+
+  $userActitivitiesff = departmentRole::join('activity_roles','activity_roles.role_id','department_roles.role_id')
+  ->join('metanames','metanames.id','activity_roles.activity_id')
+  ->where('department_roles.department_id',$departments->department_id)
+ ->where('activity_roles.status','Active')
+ ->select('metanames.id','metanames.metaname_name')
+  ->get();
+
+  $first = collect($userActitivities);
+  $second = collect($userActitivitiesf);
+  $third = collect($userActitivitiesff);
 
 $acts = $first->merge($second);
 $acts = $acts->merge($third);
 $acts = $acts->unique('metaname_name');
- //$acts = $acts->groupBy('metaname_name');
-// $models = $acts::select('metaname_name');
-
+}
 $a=array();
   foreach ($acts as $act) {
     $a[]=$act->id;
   }
-//dd($userActitivitiesf);
-
-   // $pp = asset::join('user_properties','user_properties.property_id','assets.property_id')
-   // ->where('assets.status','Active')
-   // ->where('assets.asset_name','!=',"")
-   // ->where('user_properties.sys_user_id',auth()->id())
-   // ->whereIn('assets.metaname_id',$a)
-   // ->select('assets.id','assets.property_id','assets.metaname_id','assets.asset_name')
-   //   ->orderBy('assets.id')->get();
 
  $pp = asset::where('assets.status','Active')
    ->where('assets.asset_name','!=',"")
@@ -450,7 +466,7 @@ $a=array();
   $qnsf = setIndicator::where('qns','!=',"")
   ->orderBy('id')->get();
 
-  $col='col'.auth()->id();
+$col='col'.auth()->id();
 $column=Schema::hasColumn('qns_appliedtos',$col);
 
  if ($column) {
@@ -464,8 +480,6 @@ Schema::table('qns_appliedtos', function($table) use ($col)
 });
 }
 //End of column
-
-
    $qns = qnsAppliedto::join('set_indicators','qns_appliedtos.indicator_id','set_indicators.id')
    ->where('set_indicators.status','Active')
    ->where('set_indicators.qns','!=',"")
@@ -481,7 +495,7 @@ Schema::table('qns_appliedtos', function($table) use ($col)
 
         $checkQns = DB::select('select d.opt_answer_id,d.property_id,d.metaname_id,d.asset_id,d.indicator_id,d.answer_value,d.description,d.image,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active"');
 //dd($checkQns);
-      return view('livewire.checklist',compact('metadatas','datatypes','metanames','pp','qns','userActitivities','acts','col','checkQnsProp','checkQns'))
+      return view('livewire.checklist',compact('metadatas','datatypes','metanames','metaAll','pp','qns','userActitivities','userMetanames','acts','col','checkQnsProp','checkQns'))
       ->layout('layouts.app');
 
   }

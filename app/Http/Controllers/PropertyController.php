@@ -185,20 +185,45 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    //dd($metaArray);
 	if(request('print')){
     //dd($metaArray);
+  //  $v= array();
     include_once(app_path().'/jrf/sample/setting.php');
     $PHPJasperXML = new PHPJasperXML();
-    $v='Rooms';
-    //dd($v);
-  //  $PHPJasperXML->arrayParameter=array("property_id"=>$id);
-    $PHPJasperXML->arrayParameter=array("metanames"=> array('m.metaname_name',"Rooms" ));
-    //$PHPJasperXML->list_parameters = array("metanames"=>$v);
+    $v[]=1;
 
-    $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    $metanameAll=array();
+    $indicatorAll=array();
+      //$param[]="active";
+      //$param[]="inactive";
+      $metanameAll=collect($metaArray);
+      $metaString=str_replace('[','',$metanameAll);
+      $metaString=str_replace(']','',$metaString);
+
+      $indicatorAll=collect($keyArray);
+      $indicatorString=str_replace('[','',$indicatorAll);
+      $indicatorString=str_replace(']','',$indicatorString);
+  //  dd($indicatorString);
+//$param=collect($param);
+
+  // dd($param[0]);
+  //  $PHPJasperXML->arrayParameter=array("property_id"=>$id);
+  //  $PHPJasperXML->arrayParameter=array("param"=>1,"param"=>2);
+
+//$PHPJasperXML->sql="select * from answers";
+//dd($PHPJasperXML);
+$PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString);
+//$PHPJasperXML->arrayParameter =array("param"=>$string);
+    //dd($PHPJasperXML->arrayParameter);
+//$PHPJasperXML->arrayParameter =array();
+//$PHPJasperXML->arrayParameter = array("param" => array('1' =>1, '3' =>3));
+
+     $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
+    //dd($PHPJasperXML);
     $PHPJasperXML->outpage("I");
-
   }
    //dd('Not role');
     return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri'));

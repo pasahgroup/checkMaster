@@ -2,7 +2,7 @@
                     <strong style="color:greenyellow;">{{$company->company_name??'Set Company Profile'}}</strong>
               </div>
 
-    <div id="accordion" style="background-color:#18684e; !important">
+    <div id="accordion" style="background-color:#b3b581; !important">
         <div class="text-center text-primary"><hr>
 
               </div>

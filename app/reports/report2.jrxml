@@ -2,12 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6218bf49-401a-41b0-bc5f-63e9e4969333">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="17"/>
-	<parameter name="param" class="java.lang.String">
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_to" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="date_from" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM answers WHERE status IN ($P{param})]]>
+		<![CDATA[SELECT * FROM answers where datex>=$P{date_from} and datex<=$P{date_to}]]>
 	</queryString>
 	<field name="id" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -52,7 +55,12 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="51" splitType="Stretch">
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="400" y="23" width="100" height="20" uuid="8139dd78-fe2c-4961-a2df-fab50da63d8d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch"/>
@@ -80,12 +88,16 @@
 				<text><![CDATA[opt_answer_id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="0" width="42" height="20" uuid="d9ce2504-d5e6-4e71-84a9-68678a59af03"/>
-				<text><![CDATA[answer]]></text>
+				<reportElement x="356" y="2" width="144" height="20" uuid="28d635a0-2b67-4624-a2cf-0c77773a9de7"/>
+				<text><![CDATA[status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="341" y="2" width="159" height="20" uuid="28d635a0-2b67-4624-a2cf-0c77773a9de7"/>
-				<text><![CDATA[status]]></text>
+				<reportElement x="252" y="2" width="94" height="20" uuid="ec2bb87d-7ced-40a6-aeff-d5eb01957170"/>
+				<text><![CDATA[datex]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="0" width="42" height="20" uuid="d9ce2504-d5e6-4e71-84a9-68678a59af03"/>
+				<text><![CDATA[answer]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -96,8 +108,12 @@
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="341" y="2" width="159" height="20" uuid="0757f4a9-195a-4a4a-92d7-a7474bf159b6"/>
+				<reportElement x="356" y="2" width="144" height="20" uuid="0757f4a9-195a-4a4a-92d7-a7474bf159b6"/>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="1" width="94" height="20" uuid="094b2e35-2108-44f2-8a81-268363a244c7"/>
+				<textFieldExpression><![CDATA[$F{datex}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

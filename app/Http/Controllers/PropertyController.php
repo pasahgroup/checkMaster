@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use App\Models\property;
 use App\Models\keyIndicator;
 use App\Models\answer;
 
@@ -39,14 +39,14 @@ class PropertyController extends Controller
      */
     public function index()
     {
-      $properties = Property::where('status','Active')->get();
+      $properties = property::where('status','Active')->get();
       //dd($properties);
     return view('admin.settings.properties.property',compact('properties'));
     }
 
  public function dashProperty($id)
     {
-      $properties = Property::where('status','Active')->get();
+      $properties = property::where('status','Active')->get();
       //$propertyName = Property::where('id',1)->first();
     //dd($properties);
     return view('admin.settings.properties.dash.dash-property',compact('properties'));
@@ -74,7 +74,7 @@ $url="http://localhost:8000/report-property/1/dashboard";
       $metanames = metaname::get();
 //dd($metanames);
     $current_date = date('Y-m-d');
-    $properties = Property::where('id',$id)
+    $properties = property::where('id',$id)
       ->where('status','Active')->first();
      //Daily Report
     $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
@@ -174,7 +174,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
     ->whereIn('metanames.metaname_name',$metaArray)
 	  ->whereIn('optional_answers.answer_classification',$keyArray)
      //->where('set_indicators.qns','!=',"")
-    ->whereBetween('datex',[$start_date, $end_date])
+    ->whereBetween('answers.datex',[$start_date, $end_date])
    ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
    ->orderBy('set_indicators.id')
 	 ->get();
@@ -184,7 +184,21 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    }
    //dd($metaArray);
 	if(request('print')){
-    //dd($metaArray);
+    $datex=$_GET['date'];
+
+    $date_end = substr($datex, strpos($datex, "-") + 2);
+   //$date_start = explode("_", $datex)[1];
+$date_start = strtok($datex, " ");
+$date_start=date_create($date_start);
+$date_start=date_format($date_start,"Y-m-d");
+
+$date_end=date_create($date_end);
+$date_end=date_format($date_end,"Y-m-d");
+
+  //  $date_start = strtok( $date_start,'');
+  //  $date_start = strtok('');
+    //echo $datex;
+    //dd($date_end);
   //  $v= array();
     include_once(app_path().'/jrf/sample/setting.php');
     $PHPJasperXML = new PHPJasperXML();
@@ -203,16 +217,19 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
       $indicatorString=str_replace(']','',$indicatorString);
   //  dd($indicatorString);
 //$param=collect($param);
-
-  // dd($param[0]);
+//$datex=DateTime.Now(dd-MM-yyyy);
+//$d = new SimpleDateFormat("dd/MM/yyyy").format($P{datex});
+  //$enddb = '2022-08-02';
+//dd($d);
   //  $PHPJasperXML->arrayParameter=array("property_id"=>$id);
   //  $PHPJasperXML->arrayParameter=array("param"=>1,"param"=>2);
-
+//$date=date("d/m/Y")
+//dd($date);
 //$PHPJasperXML->sql="select * from answers";
 //dd($PHPJasperXML);
-$PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString);
-//$PHPJasperXML->arrayParameter =array("param"=>$string);
-    //dd($PHPJasperXML->arrayParameter);
+$PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+//$PHPJasperXML->arrayParameter =array("date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+//dd($PHPJasperXML->arrayParameter);
 //$PHPJasperXML->arrayParameter =array();
 //$PHPJasperXML->arrayParameter = array("param" => array('1' =>1, '3' =>3));
 
@@ -236,7 +253,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
      */
     public function create()
     {
-  $properties = Property::get();
+  $properties = property::get();
         return view('admin.settings.properties.property',compact('properties'));
     }
 
@@ -249,12 +266,12 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     public function store(Request $request)
     {
           //See if the site is Exists
-         $site=Property::where('property_name',request('property_name'))
+         $site=property::where('property_name',request('property_name'))
         ->where('id',request('id'))->first();
 
        if($site ==null)
        {
-        $sites = Property::UpdateOrCreate(
+        $sites = property::UpdateOrCreate(
                         [   'property_name'=>request('property_name')],
         [
         // 'site_name'=>request('site_name'),
@@ -290,17 +307,17 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
                  //upload the image
                  $path = $attached->storeAs('public/properties/', $imageToStore);
 
-           $id = Property::where('id', $idf)->first();
+           $id = property::where('id', $idf)->first();
 
              if($id !=null)
              {
-             $hotelUdate = Property::where('id',$idf)
+             $hotelUdate = property::where('id',$idf)
              ->update([
             'photo'=>$imageToStore
         ]);
            }else
            {
-         Property::UpdateOrCreate(
+         property::UpdateOrCreate(
                 [
                 'photo'=>$imageToStore
                 ]
@@ -317,7 +334,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
      * @param  \App\Models\site  $site
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $site)
+    public function show(property $site)
     {
         //
     }
@@ -328,9 +345,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
      * @param  \App\Models\site  $site
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property $site,$id)
+    public function edit(property $site,$id)
     {
-          $properties = Property::where('id',$id)
+          $properties = property::where('id',$id)
                ->update([
                 'status'=>"Inactive",
                  'user_id'=>auth()->id()
@@ -359,7 +376,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
      */
     public function destroy($id)
     {
-         $property = Property::where('id',$id)->first();
+         $property = property::where('id',$id)->first();
         if($property){
             $property->delete();
              return redirect()->back()->with('success','Property permanent deleted successfully');
@@ -370,9 +387,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     }
 
 
-      public function recoveryUpdate(Property $site,$id)
+      public function recoveryUpdate(property $site,$id)
     {
-          $property = Property::where('id',$id)
+          $property = property::where('id',$id)
                ->update([
                 'status'=>"Active",
                  'user_id'=>auth()->id()
@@ -384,7 +401,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
 
    public function recovery()
     {
-       $properties = Property::where('status','Inactive')->get();
+       $properties = property::where('status','Inactive')->get();
         return view('admin.settings.recovery.recoveryProperty',compact('properties'));
     }
 
@@ -392,7 +409,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     public function print()
      {
        dd('print');
-        $properties = Property::where('status','Inactive')->get();
+        $properties = property::where('status','Inactive')->get();
          return view('admin.settings.recovery.recoveryProperty',compact('properties'));
      }
 }

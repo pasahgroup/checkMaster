@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -15,20 +15,16 @@ $data=[
             'sample1_uom' => 'PCS',
        ],
        [
-        
+
             'sample1_no' => 2,
             'sample1_date' => '3999-12-31',
             'sample1_itemname' => 'override item 2',
             'sample1_qty' => 30,
             'sample1_uom' => 'pair',
         ],
-      
+
 
 ];
-
-
-
-
 $PHPJasperXML = new PHPJasperXML();
 //$PHPJasperXML->debugsql=true;
 $PHPJasperXML->arrayParameter=array("parameter1"=>1);

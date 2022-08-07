@@ -304,7 +304,7 @@ table, th, td {
                                         </div>
 
 
-                                        <div class="col-12">
+                    <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
 
                         <div class="card-body">
@@ -373,9 +373,7 @@ table, th, td {
                                     </div>
                                 </div>
                               </form>
-
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-12 col-xl-12">

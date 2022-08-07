@@ -19,7 +19,7 @@ use App\Models\sale;
 use App\Models\stock;
 use App\Models\tenant;
 use App\Models\User;
-use App\Models\Property;
+use App\Models\property;
 
 use App\Models\answer;
 

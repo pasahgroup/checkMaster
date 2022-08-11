@@ -43,7 +43,7 @@ table, th, td {
                         <div class="card card-custom gutter-b bg-white border-0">
                         <div class="card-header align-items-center  border-0">
                                             <div class="card-title mb-0">
-                                                        <h5 class="card-label text-body font-weight-bold mb-0">Daily Report
+                                                        <h5 class="card-label text-body font-weight-bold mb-0">Daily Report : Inspection
                                                         </h5>
                                                     </div>
 
@@ -67,7 +67,7 @@ table, th, td {
                 <div class="row">
             @isset($key)
             @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()>0)
-       <form action="{{ route('daily-report','Good') }}" method="PUT" >
+       <form action="{{ route('daily-reportx',[$dailyMetaCollect->pluck('property_id')->first(),'Good']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -76,12 +76,12 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$dailyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()}}</strong></button>
     </form>
 @endif
 
             @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()>0)
-             <form action="{{ route('daily-report','Bad') }}" method="PUT" >
+        <form action="{{ route('daily-reportx',[$dailyMetaCollect->pluck('property_id')->first(),'Bad']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -89,13 +89,12 @@ table, th, td {
         <input type="hidden" name="property_id" id="property_id" value="{{$dailyMetaCollect->pluck('property_id')->first()}}">
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$dailyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
-
         <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()}}</strong></button>
     </form>
         |@endif
 
         @if($dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Critical')->count()>0)
-             <form action="{{ route('daily-report','Critical') }}" method="PUT" >
+            <form action="{{ route('daily-reportx',[$dailyMetaCollect->pluck('property_id')->first(),'Critical']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -130,7 +129,7 @@ table, th, td {
                                             <div class="card card-custom gutter-b bg-white border-0">
                                                 <div class="card-header align-items-center  border-0">
                                                     <div class="card-title mb-0">
-                                                        <h5 class="card-label text-body font-weight-bold mb-0">Weekly Report
+                                                        <h5 class="card-label text-body font-weight-bold mb-0">Weekly Report : Inspection
                                                         </h5>
                                                     </div>
 
@@ -153,7 +152,8 @@ table, th, td {
                 <div class="row">
             @isset($keyW)
             @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()>0)
-       <form action="{{ route('weekly-report','Good') }}" method="PUT" >
+       <form action="{{ route('weekly-reportx',[$weeklyMetaCollect->pluck('property_id')->first(),'Good']) }}" method="PUT" >
+
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -162,12 +162,12 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$weeklyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()}}</strong></button>
     </form>
 @endif
 
             @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()>0)
-             <form action="{{ route('weekly-report','Bad') }}" method="PUT" >
+            <form action="{{ route('weekly-reportx',[$weeklyMetaCollect->pluck('property_id')->first(),'Bad']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -181,7 +181,7 @@ table, th, td {
         |@endif
 
         @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Critical')->count()>0)
-             <form action="{{ route('weekly-report','Critical') }}" method="PUT" >
+             <form action="{{ route('weekly-reportx',[$weeklyMetaCollect->pluck('property_id')->first(),'Critical']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -218,7 +218,7 @@ table, th, td {
                                             <div class="card card-custom gutter-b bg-white border-0">
                                                 <div class="card-header align-items-center  border-0">
                                                     <div class="card-title mb-0">
-                                                        <h5 class="card-label text-body font-weight-bold mb-0">Monthly Report
+                                                        <h5 class="card-label text-body font-weight-bold mb-0">Monthly Report : Inspection
                                                         </h5>
                                                     </div>
 
@@ -241,7 +241,7 @@ table, th, td {
                 <div class="row">
             @isset($keyM)
             @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()>0)
-       <form action="{{ route('monthly-report','Good') }}" method="PUT" >
+       <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Good']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -250,12 +250,12 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good Inspection:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()}}</strong></button>
     </form>
 @endif
 
             @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()>0)
-             <form action="{{ route('monthly-report','Bad') }}" method="PUT" >
+            <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Bad']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -269,7 +269,7 @@ table, th, td {
         |@endif
 
         @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()>0)
-             <form action="{{ route('monthly-report','Critical') }}" method="PUT" >
+          <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Critical']) }}" method="PUT" >
                 @csrf
     <input type="hidden" name="_method" value="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">

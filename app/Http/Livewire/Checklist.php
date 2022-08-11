@@ -38,7 +38,6 @@ use Illuminate\Support\Str;
 
 class Checklist extends Component
 {
-
       public $departments = "";
       public $post;
       public $message = "";
@@ -489,7 +488,6 @@ Schema::table('qns_appliedtos', function($table) use ($col)
 
 //dd($qns);
     $datatypes = datatype::get();
-
    $checkQnsProp = DB::select('select d.property_id,d.metaname_id,d.asset_id,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active" group by d.asset_id');
 //dd($checkQnsProp);
 

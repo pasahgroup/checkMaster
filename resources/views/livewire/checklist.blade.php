@@ -18,12 +18,11 @@
           </div>
           <hr/>
 <div class="row container">
-    <div class="col-xl-2 col-md-2">
+    <div class="col-xl-2 col-md-2 col-sm-2">
       <div class="card"  style="background-color:#ffffff !important">
       <button  wire:click.prevent="storeItem('All','All')" class="btn-sm btn btn-secondary float-right" role="button" name="metall" value="metall">All</button>
     </div>
       @foreach ($userMetanames as $activities)
-
 <form wire:click.prevent="storeItem('{{$activities->metaname_name}}',{{$activities->id}})">
                               @csrf
         <input type="hidden" name="_method" value="post">
@@ -34,7 +33,6 @@
   <button  class="btn-sm btn btn-secondary float-right" role="button" name="meta" value="meta" onclick="setMetaFunction({{$activities->metaname_name}})" onkeyup ="setMetaFunction({{$activities->metaname_name}})">{{$activities->metaname_name}}</button>
 </div>
 </form>
-
    @endforeach
      </div>
             <div class="col-xl-10 col-md-10">

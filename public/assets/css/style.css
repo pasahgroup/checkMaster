@@ -2,7 +2,7 @@
 :root {
   --artical-background-page: #c49e77;
   /*--artical-background-panel: #4d977e;*/
-   --artical-background-panel: #718275;
+   --artical-background-panel: #8e8b65;
   --artical-background-module: #f8f9fa;
   --artical-ligth-dark:#e9ecef;
   --artical-background-element: #b01591;
@@ -265,7 +265,7 @@ sup {
 a {
   color: #fff;
   text-decoration: none;
-  background-color:#7f8482;; }
+  background-color:#447d67;}
   a:hover {
     color: #0094d2;
     text-decoration: underline; }

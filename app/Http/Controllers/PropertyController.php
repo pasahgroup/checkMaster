@@ -27,7 +27,7 @@ include_once(app_path().'/jrf/PHPJasperXML.inc.php');
   //include_once(app_path().'/fpdf184/mysql_table.php');
   //include_once(app_path().'/fpdf184/pdfg.php');
  // use PHPJasperXML;
-  require base_path().'/vendor/autoload.php';
+  //require base_path().'/vendor/autoload.php';
  use PHPJasperXML;
 //use PDF;
 class PropertyController extends Controller
@@ -76,6 +76,7 @@ $url="http://localhost:8000/report-property/1/dashboard";
     $current_date = date('Y-m-d');
     $properties = property::where('id',$id)
       ->where('status','Active')->first();
+
      //Daily Report
     $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
     //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
@@ -126,7 +127,6 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	 //Metaname Array creation
 	 $keyNames=keyIndicator::get();
 	 $collectAllKey = collect($keyNames);
-	 //dd($metaNames);
 
 	//The Request is metaArray
 	if(request('metaname_search')){
@@ -182,6 +182,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    else{
 	   //dd('Not role');
    }
+
    //dd($metaArray);
 	if(request('print')){
     $datex=$_GET['date'];
@@ -195,11 +196,6 @@ $date_start=date_format($date_start,"Y-m-d");
 $date_end=date_create($date_end);
 $date_end=date_format($date_end,"Y-m-d");
 
-  //  $date_start = strtok( $date_start,'');
-  //  $date_start = strtok('');
-    //echo $datex;
-    //dd($date_end);
-  //  $v= array();
     include_once(app_path().'/jrf/sample/setting.php');
     $PHPJasperXML = new PHPJasperXML();
     $v[]=1;
@@ -243,7 +239,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     $PHPJasperXML->outpage("I");
   }
    //dd('Not role');
-    return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri'));
+       return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri'));
     }
 
     /**
@@ -408,7 +404,6 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
 
     public function print()
      {
-       dd('print');
         $properties = property::where('status','Inactive')->get();
          return view('admin.settings.recovery.recoveryProperty',compact('properties'));
      }

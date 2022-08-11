@@ -58,17 +58,87 @@ table, th, td {
 
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
             <div class="row">
+              <div class="col-12 col-md-12">
+                 <div class="card card-custom gutter-b bg-white border-0" >
+
+                     <div class="card-body">
+                         <form method="GET" action="{{ route('daily-reportx',[$property_id,$status]) }}">
+                             <div class="form-group row justify-content-center mb-0">
+
+                                 <div class="col-md-3">
+                                     <label class="text-dark">Date Range</label>
+                                     @if(!empty($filter_date))
+                                     <input type="text" name="date" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                     <span>selected date is: {{ $filter_date }}</span>
+                                     @else
+                                     <input type="text" name="date" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                     @endif
+
+                                     {{-- <div>
+                                         <i class="fa fa-calendar"></i>&nbsp;
+                                         <span></span> <i class="fa fa-caret-down"></i>
+                                     </div> --}}
+
+                                 </div>
+                                 <div class="col-md-3">
+                                     <div class="form-group mb-0" >
+                                         <label class="text-dark" >Select Metaname</label>
+                                             <select class="arabic-select w-100 mb-3 h-30px" name="metaname_search" >
+
+                                                 <option value="All">All</option>
+                                                @if(!empty($_GET['metaname_search']))
+                                                 <option value="<?php echo $_GET['metaname_search'] ?>" selected><?php echo $_GET['metaname_search'] ?></option>
+                                                 @endif
+                                                 @foreach ($metanames as $meta)
+                                                 <option value="{{ $meta->metaname_name }}">{{ $meta->metaname_name }}</option>
+                                                 @endforeach
+
+                                             </select>
+                                       </div>
+                                 </div>
+
+                                 <div class="col-md-3">
+                                     <div class="form-group mb-0" >
+                                         <label class="text-dark" >Select Key Indicator</label>
+                                             <select class="arabic-select w-100 mb-3 h-30px" name="indicator_search" >
+                                                 <option value="All" selected>All</option>
+                                                 @if(!empty($_GET['indicator_search']))
+                                                 <option value="<?php echo $_GET['indicator_search'] ?>" selected><?php echo $_GET['indicator_search'] ?></option>
+                                                 @endif
+                                                 @foreach ($keyIndicators as $keyInd)
+                                                 <option value="{{ $keyInd->key_name }}">{{ $keyInd->key_name }}</option>
+                                                 @endforeach
+                                             </select>
+                                       </div>
+                                 </div>
+
+                                 <div class="col-md-3">
+                                   <!-- <x-jet-button class="ml-4">
+                                       {{ __('Log in') }}
+                                   </x-jet-button> -->
+                                     <div class="form-group mb-0" >
+                                       <x-jet-button class="ml-4 btn-success" name="search" value="search">
+                                           {{ __('Search') }}
+                                       </x-jet-button>
+                                       <x-jet-button class="ml-4 btn-primary" name="print" value="print">
+                                           {{ __('Print') }}
+                                       </x-jet-button>
+                                       </div>
+                                 </div>
+                             </div>
+                           </form>
+                     </div>
+                 </div>
+             </div>
+
                 <div class="col-lg-12 col-xl-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body" >
-                            <div >
+                            <div>
                                 <div class=" table-responsive" id="printableTable">
                                     <table id="orderTable" class="display" style="width:100%">
 

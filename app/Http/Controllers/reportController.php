@@ -12,7 +12,10 @@ use App\Models\direct_expenses;
 use App\Models\expenseCategory;
 use App\Models\order;
 use App\Models\orderItem;
-use App\Models\Property;
+use App\Models\property;
+use App\Models\metaname;
+use App\Models\keyIndicator;
+use App\Models\answer;
 
 use App\Models\payment;
 use App\Models\purchase;
@@ -33,7 +36,7 @@ use Illuminate\Support\Facades\Input;
 // include_once(app_path().'/jrf/tcpdf/tcpdf.php');
 include_once(app_path().'/jrf/PHPJasperXML.inc.php');
 // include_once(app_path().'/jrf/version/1.1/PHPJasperXML.inc.php');
-
+ use PHPJasperXML;
 use PHPJasper\PHPJasper;
 //require __DIR__ . '/vendor/autoload.php';
 //require_once('../vendor/autoload.php');
@@ -49,15 +52,12 @@ class reportController extends Controller
 
     public function index()
     {
-
 $server="localhost";
 $db="ucrtdb";
 $user="root";
 $pass="";
 $version="1.1";
-
 $pgport=3306; //only for postgresql
-
 
 
 $PHPJasperXML = new PHPJasper();
@@ -68,55 +68,289 @@ $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Downlo
 
     }
 
-  public function dailyReport(Request $request,$id){
-$property_id=request('property_id');
+public function dailyReport(Request $request,$id,$status){
+$property_id=$id;
 
-    $current_date = date('Y-m-d');
-    $reportTime="Daily Reports";
+$current_date = date('Y-m-d');
+$reportTime="Daily Reports";
 $segments = request()->segments();
 $last_segment  = end($segments);
 $first_segment = reset($segments);
-//dd($property_id);
+//dd($id);
 	if($id>0)
 	{
 		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'"');
-	  $property=Property::where('id',$id)->first();
-	}else{
-		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and a.datex="'.$current_date.'"');
-	$property=Property::where('id',request('property_id'))->first();
+	  $property=property::where('id',$id)->first();
 	}
+  //else{
+	// 	 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and a.datex="'.$current_date.'"');
+	// $property=property::where('id',request('property_id'))->first();
+	// }
+$status =$status;
+$metanames = metaname::get();
+$keyIndicators = keyIndicator::get();
 
-  //dd($id);
-        return view('reports.daily-report',compact('reportDailyData','reportDailyData','property','reportTime','property_id'));
+  if(request('search') || request('print')){
+  $metaArray=array();
+  $keyArray=array();
+
+  $start_d = substr(request('date'),0,10);
+     $start_date = Carbon::parse($start_d)->format('Y-m-d').' 00:00:00';
+     $end_d = substr(request('date'),-10);
+     $end_date = Carbon::parse($end_d)->format('Y-m-d').' 23:59:00';
+
+  //Metaname Array creation
+  $metaNames=metaname::get();
+  $collectAllMeta = collect($metaNames);
+
+  //Metaname Array creation
+  $keyNames=keyIndicator::get();
+  $collectAllKey = collect($keyNames);
+
+  //The Request is metaArray
+  if(request('metaname_search')){
+  if(request('metaname_search')=="All")
+  {
+  foreach ($collectAllMeta as $metas) {
+  $metaArray[]=$metas->metaname_name;
+  }
+  }
+  else{
+  $metax=$collectAllMeta->where('metaname_name',request('metaname_search'));
+  foreach ($metax as $metac) {
+  $metaArray[]=$metac->metaname_name;
+  }
+  }
+  }
+
+  //The Request is KeyIndicator
+  if(request('indicator_search')){
+  if(request('indicator_search')=="All")
+  {
+  foreach ($collectAllKey as $keys) {
+  $keyArray[]=$keys->key_name;
+  }
+  }
+  else{
+  $keysx=$collectAllKey->where('key_name',request('indicator_search'));
+  foreach ($keysx as $keyc) {
+  $keyArray[]=$keyc->key_name;
+  }
+  }
+  }
+
+
+  //End of Request
+  $reportDailyData = answer::join('properties','answers.property_id','properties.id')
+  ->join('set_indicators','answers.indicator_id','set_indicators.id')
+  ->join('users','answers.user_id','users.id')
+  ->join('assets','answers.asset_id','assets.id')
+   ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
+  ->join('metanames','answers.metaname_id','metanames.id')
+
+  ->where('answers.property_id',$id)
+  ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
+  ->whereIn('metanames.metaname_name',$metaArray)
+  ->whereIn('optional_answers.answer_classification',$keyArray)
+  //->where('set_indicators.qns','!=',"")
+  ->whereBetween('answers.datex',[$start_date, $end_date])
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->orderBy('set_indicators.id')
+  ->get();
+  }
+  else{
+  //dd('Not role');
+  }
+
+  if(request('print')){
+    $datex=$_GET['date'];
+
+    $date_end = substr($datex, strpos($datex, "-") + 2);
+   //$date_start = explode("_", $datex)[1];
+  $date_start = strtok($datex, " ");
+  $date_start=date_create($date_start);
+  $date_start=date_format($date_start,"Y-m-d");
+
+  $date_end=date_create($date_end);
+  $date_end=date_format($date_end,"Y-m-d");
+
+    include_once(app_path().'/jrf/sample/setting.php');
+    $PHPJasperXML = new PHPJasperXML();
+    $v[]=1;
+
+    $metanameAll=array();
+    $indicatorAll=array();
+      //$param[]="active";
+      //$param[]="inactive";
+      $metanameAll=collect($metaArray);
+      $metaString=str_replace('[','',$metanameAll);
+      $metaString=str_replace(']','',$metaString);
+
+      $indicatorAll=collect($keyArray);
+      $indicatorString=str_replace('[','',$indicatorAll);
+      $indicatorString=str_replace(']','',$indicatorString);
+  //  dd($indicatorString);
+
+  $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+     $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+
+    $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    //$PHPJasperXML->outpage("D");
+    ob_end_clean();
+    //dd($PHPJasperXML);
+    $PHPJasperXML->outpage("I");
+  }
+
+  return view('reports.daily-report',compact('reportDailyData','reportDailyData','property','reportTime','metanames','keyIndicators','property_id','status'));
     }
 
 
-    public function weeklyReport(Request $request,$id){
+    public function weeklyReport(Request $request,$id,$status){
+  $property_id=$id;
+//dd($status);
     $current_date = date('Y-m-d');
       $reportTime="Weekly Reports";
 
 	  $segments = request()->segments();
-      $last_segment  = end($segments);
-      $first_segment = reset($segments);
+    $last_segment  = end($segments);
+    $first_segment = reset($segments);
 
 	if($id>0)
 	{
 	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and WEEK(a.datex)=WEEK(NOW())');
 
-	$property=Property::where('id',$id)->first();
-	}else{
- $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and WEEK(a.datex)=WEEK(NOW())');
-	$property=Property::where('id',request('property_id'))->first();
+	$property=property::where('id',$id)->first();
 	}
+ //  else{
+ // $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and WEEK(a.datex)=WEEK(NOW())');
+	// $property=property::where('id',request('property_id'))->first();
+	// }
+
+  $status =$status;
+  $metanames = metaname::get();
+  $keyIndicators = keyIndicator::get();
 
 
+  if(request('search') || request('print')){
+  $metaArray=array();
+  $keyArray=array();
+
+  $start_d = substr(request('date'),0,10);
+     $start_date = Carbon::parse($start_d)->format('Y-m-d').' 00:00:00';
+     $end_d = substr(request('date'),-10);
+     $end_date = Carbon::parse($end_d)->format('Y-m-d').' 23:59:00';
+
+  //Metaname Array creation
+  $metaNames=metaname::get();
+  $collectAllMeta = collect($metaNames);
+
+  //Metaname Array creation
+  $keyNames=keyIndicator::get();
+  $collectAllKey = collect($keyNames);
+
+  //The Request is metaArray
+  if(request('metaname_search')){
+  if(request('metaname_search')=="All")
+  {
+  foreach ($collectAllMeta as $metas) {
+  $metaArray[]=$metas->metaname_name;
+  }
+  }
+  else{
+  $metax=$collectAllMeta->where('metaname_name',request('metaname_search'));
+  foreach ($metax as $metac) {
+  $metaArray[]=$metac->metaname_name;
+  }
+  }
+  }
+
+  //The Request is KeyIndicator
+  if(request('indicator_search')){
+  if(request('indicator_search')=="All")
+  {
+  foreach ($collectAllKey as $keys) {
+  $keyArray[]=$keys->key_name;
+  }
+  }
+  else{
+  $keysx=$collectAllKey->where('key_name',request('indicator_search'));
+  foreach ($keysx as $keyc) {
+  $keyArray[]=$keyc->key_name;
+  }
+  }
+  }
 
 
-        return view('reports.weekly-report',compact('reportWeeklyData','property','reportTime'));
+  //End of Request
+  $reportWeeklyData = answer::join('properties','answers.property_id','properties.id')
+  ->join('set_indicators','answers.indicator_id','set_indicators.id')
+  ->join('users','answers.user_id','users.id')
+  ->join('assets','answers.asset_id','assets.id')
+   ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
+  ->join('metanames','answers.metaname_id','metanames.id')
+
+  ->where('answers.property_id',$id)
+  ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
+  ->whereIn('metanames.metaname_name',$metaArray)
+  ->whereIn('optional_answers.answer_classification',$keyArray)
+  //->where('set_indicators.qns','!=',"")
+  ->whereBetween('answers.datex',[$start_date, $end_date])
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->orderBy('set_indicators.id')
+  ->get();
+  }
+  else{
+  //dd('Not role');
+  }
+
+
+  if(request('print')){
+    $datex=$_GET['date'];
+
+    $date_end = substr($datex, strpos($datex, "-") + 2);
+   //$date_start = explode("_", $datex)[1];
+  $date_start = strtok($datex, " ");
+  $date_start=date_create($date_start);
+  $date_start=date_format($date_start,"Y-m-d");
+
+  $date_end=date_create($date_end);
+  $date_end=date_format($date_end,"Y-m-d");
+
+    include_once(app_path().'/jrf/sample/setting.php');
+    $PHPJasperXML = new PHPJasperXML();
+    $v[]=1;
+
+    $metanameAll=array();
+    $indicatorAll=array();
+      //$param[]="active";
+      //$param[]="inactive";
+      $metanameAll=collect($metaArray);
+      $metaString=str_replace('[','',$metanameAll);
+      $metaString=str_replace(']','',$metaString);
+
+      $indicatorAll=collect($keyArray);
+      $indicatorString=str_replace('[','',$indicatorAll);
+      $indicatorString=str_replace(']','',$indicatorString);
+  //  dd($indicatorString);
+
+  $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+     $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+
+    $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    //$PHPJasperXML->outpage("D");
+    ob_end_clean();
+    //dd($PHPJasperXML);
+    $PHPJasperXML->outpage("I");
+  }
+    return view('reports.weekly-report',compact('reportWeeklyData','property','reportTime','metanames','keyIndicators','property_id','status'));
     }
 
 
-    public function monthlyReport(Request $request,$id){
+public function monthlyReport(Request $request,$id,$status){
+$property_id=$id;
+
     $current_date = date('Y-m-d');
       $reportTime="Monthly Reports";
 
@@ -130,13 +364,130 @@ if($id>0)
 
  $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and MONTH(a.datex)=MONTH(NOW())');
 
-	$property=Property::where('id',$id)->first();
-	}else{
- $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and MONTH(a.datex)=MONTH(NOW())');
-	$property=Property::where('id',request('property_id'))->first();
+	$property=property::where('id',$id)->first();
 	}
+ //  else{
+ // $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and MONTH(a.datex)=MONTH(NOW())');
+	// $property=property::where('id',request('property_id'))->first();
+	// }
+  //dd($id);
+  $status=$status;
+  $metanames = metaname::get();
+  $keyIndicators = keyIndicator::get();
 
-        return view('reports.monthly-report',compact('reportMonthlyData','property','reportTime'));
+
+  if(request('search') || request('print')){
+  $metaArray=array();
+  $keyArray=array();
+
+  $start_d = substr(request('date'),0,10);
+     $start_date = Carbon::parse($start_d)->format('Y-m-d').' 00:00:00';
+     $end_d = substr(request('date'),-10);
+     $end_date = Carbon::parse($end_d)->format('Y-m-d').' 23:59:00';
+
+  //Metaname Array creation
+  $metaNames=metaname::get();
+  $collectAllMeta = collect($metaNames);
+
+  //Metaname Array creation
+  $keyNames=keyIndicator::get();
+  $collectAllKey = collect($keyNames);
+
+  //The Request is metaArray
+  if(request('metaname_search')){
+  if(request('metaname_search')=="All")
+  {
+  foreach ($collectAllMeta as $metas) {
+  $metaArray[]=$metas->metaname_name;
+  }
+  }
+  else{
+  $metax=$collectAllMeta->where('metaname_name',request('metaname_search'));
+  foreach ($metax as $metac) {
+  $metaArray[]=$metac->metaname_name;
+  }
+  }
+  }
+
+  //The Request is KeyIndicator
+  if(request('indicator_search')){
+  if(request('indicator_search')=="All")
+  {
+  foreach ($collectAllKey as $keys) {
+  $keyArray[]=$keys->key_name;
+  }
+  }
+  else{
+  $keysx=$collectAllKey->where('key_name',request('indicator_search'));
+  foreach ($keysx as $keyc) {
+  $keyArray[]=$keyc->key_name;
+  }
+  }
+  }
+
+
+  //End of Request
+  $reportMonthlyData = answer::join('properties','answers.property_id','properties.id')
+  ->join('set_indicators','answers.indicator_id','set_indicators.id')
+  ->join('users','answers.user_id','users.id')
+  ->join('assets','answers.asset_id','assets.id')
+   ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
+  ->join('metanames','answers.metaname_id','metanames.id')
+
+  ->where('answers.property_id',$id)
+  ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
+  ->whereIn('metanames.metaname_name',$metaArray)
+  ->whereIn('optional_answers.answer_classification',$keyArray)
+  //->where('set_indicators.qns','!=',"")
+  ->whereBetween('answers.datex',[$start_date, $end_date])
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->orderBy('set_indicators.id')
+  ->get();
+  }
+  else{
+  //dd('Not role');
+  }
+
+  if(request('print')){
+    $datex=$_GET['date'];
+
+    $date_end = substr($datex, strpos($datex, "-") + 2);
+   //$date_start = explode("_", $datex)[1];
+  $date_start = strtok($datex, " ");
+  $date_start=date_create($date_start);
+  $date_start=date_format($date_start,"Y-m-d");
+
+  $date_end=date_create($date_end);
+  $date_end=date_format($date_end,"Y-m-d");
+
+    include_once(app_path().'/jrf/sample/setting.php');
+    $PHPJasperXML = new PHPJasperXML();
+    $v[]=1;
+
+    $metanameAll=array();
+    $indicatorAll=array();
+      //$param[]="active";
+      //$param[]="inactive";
+      $metanameAll=collect($metaArray);
+      $metaString=str_replace('[','',$metanameAll);
+      $metaString=str_replace(']','',$metaString);
+
+      $indicatorAll=collect($keyArray);
+      $indicatorString=str_replace('[','',$indicatorAll);
+      $indicatorString=str_replace(']','',$indicatorString);
+  //  dd($indicatorString);
+
+  $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+     $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+    //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
+
+    $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    //$PHPJasperXML->outpage("D");
+    ob_end_clean();
+    //dd($PHPJasperXML);
+    $PHPJasperXML->outpage("I");
+  }
+    return view('reports.monthly-report',compact('reportMonthlyData','property','reportTime','metanames','keyIndicators','property_id','status'));
     }
 
     public function expensesReport(){

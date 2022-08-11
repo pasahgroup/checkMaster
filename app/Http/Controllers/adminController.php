@@ -59,7 +59,7 @@ class adminController extends Controller
         $user = User::where('id',auth()->id())->first();
         $users= User::get();
         $user->hasRole('Admin');
-      $property_name = Property::where('id',$user->property_id)->first();
+      $property_name = property::where('id',$user->property_id)->first();
     //  dd($property_name);
 
 
@@ -273,7 +273,7 @@ if($property_name ==null)
 //$properties=property::leftjoin('answers','properties.id','answers.property_id')->get();
 //$properties=DB::select("select p.id,p.property_name,a.metaname_id,a.datex from properties p left join answers a on p.id=a.property_id  and a.datex='".$current_date."' group by p.property_name,a.metaname_id");
 
-$properties=Property::get();
+$properties=property::get();
  $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
   $dataDaily = collect($reportDailyData);
 //$dailyMetaCollects=$dataDaily->groupBy('metaname_name');

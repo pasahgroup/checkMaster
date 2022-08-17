@@ -253,7 +253,7 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
        //Dashboard properties
          Route::get('dash-property/{id}',[PropertyController::class,'dashProperty'])->name('dash-property');
           Route::get('report-property/{id}',[PropertyController::class,'reportProperty'])->name('report-property');
-            Route::get('report-property/{id}/dashboard',[PropertyController::class,'reportProperty'])->name('report-property');
+          Route::get('report-property/{id}/dashboard',[PropertyController::class,'reportProperty'])->name('report-property');
 
    // End of TS Wawa
 Route::resource('companyvalue',companyValueController::class);

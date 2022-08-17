@@ -42,7 +42,6 @@
 
     <form  method="post"  action="{{ route('checklist.store') }}" enctype="multipart/form-data">
                           @csrf
-
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -57,7 +56,6 @@
   <div class="panel panel-default" style="background-color:#fff !important">
 
   @foreach ($pp as $p)
-
       <div class="panel-heading">
         <h4 class="panel-title">
          <div class="card" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#718275 !important">
@@ -69,7 +67,7 @@
          <div class="col-lg-2 col-md-2 col-sm-2">
 @foreach ($checkQnsProp as $chkp)
 @if($p->id ==$chkp->asset_id)
-<input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($p->id==$chkp->asset_id) checked @endif>
+<input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($p->id==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2}})%
 @endif
 @endforeach
          </div>

@@ -68,16 +68,6 @@ public $metaValue;
 public function store(Request $request)
     {
  $rad=$this->rad;
-//dd($request->all());
-//dd($request->collect());
-        //dd($request->filled('idx30'));
-//dd(request("meta"));
-
-// if(request("meta"))
-// {
-//   $meta = request("metav");    //dd($meta);
-//   return redirect()->back()->with('success','Meta successfully');
-// }
 
     $aID = request("aID");
     $qnAID = request("qnAID");
@@ -484,16 +474,26 @@ Schema::table('qns_appliedtos', function($table) use ($col)
    ->where('set_indicators.qns','!=',"")
    ->whereIn('qns_appliedtos.metaname_id',$a)
    ->select('qns_appliedtos.metaname_id','qns_appliedtos.'.$col.'','set_indicators.id','set_indicators.qns')
-     ->orderBy('set_indicators.id')->get();
+   ->orderBy('set_indicators.id')->get();
 
-//dd($qns);
     $datatypes = datatype::get();
    $checkQnsProp = DB::select('select d.property_id,d.metaname_id,d.asset_id,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active" group by d.asset_id');
 //dd($checkQnsProp);
 
         $checkQns = DB::select('select d.opt_answer_id,d.property_id,d.metaname_id,d.asset_id,d.indicator_id,d.answer_value,d.description,d.image,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active"');
 //dd($checkQns);
-      return view('livewire.checklist',compact('metadatas','datatypes','metanames','metaAll','pp','qns','userActitivities','userMetanames','acts','col','checkQnsProp','checkQns'))
+//percent calculation
+$assetPerc = DB::select('select * from assets');
+$assetPerc = collect($assetPerc);
+
+$answerPerc=DB::select('select * from answers where DAY(datex)=DAY(NOW()) and status="Active" group by property_id,metaname_id,indicator_id,asset_id order by metaname_id ASC');
+$answerPerc = collect($answerPerc);
+
+$qnsAppliedPerc=DB::select('select * from qns_appliedtos');
+$qnsAppliedPerc = collect($qnsAppliedPerc);
+  //$xx = $qnsAppliedPerc->count();
+
+      return view('livewire.checklist',compact('metadatas','datatypes','metanames','metaAll','pp','qns','userActitivities','userMetanames','acts','col','checkQnsProp','checkQns','assetPerc','answerPerc','qnsAppliedPerc'))
       ->layout('layouts.app');
 
   }

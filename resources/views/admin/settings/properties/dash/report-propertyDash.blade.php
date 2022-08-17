@@ -38,7 +38,6 @@ table, th, td {
                 <div class="row">
 
  @role('Admin|GeneralAdmin|SuperAdmin')
-
                           <div class="col-lg-4  col-xl-4 col-md-4">
                         <div class="card card-custom gutter-b bg-white border-0">
                         <div class="card-header align-items-center  border-0">
@@ -46,12 +45,10 @@ table, th, td {
                                                         <h5 class="card-label text-body font-weight-bold mb-0">Daily Report : Inspection
                                                         </h5>
                                                     </div>
-
                                                 </div>
 
                                                 <div class="card-body px-0">
                                                     <ul class="list-group scrollbar-1" style="height: 300px;">
-
                                                     @foreach($dailyMetaCollects as $key=>$dailyMetaCollect)
                                                       <li class="list-group-item list-group-item-action border-0 d-flex align-items-center justify-content-between py-2">
                     <div class="list-left d-flex align-items-center">
@@ -59,9 +56,9 @@ table, th, td {
     <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-bar-chart-line-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
                                                                   </svg>
-                                                                                      </span>
+                                                              </span>
                              <div class="list-content">
-                        <span class="list-title text-body"><strong>{{$key}}</strong>: Issues </span>
+                        <span class="list-title text-body"><strong>{{$key}}</strong>: Progress in 5% </span>
             <span class="text-muted d-block text-success">
                 <div class="col-md-12">
                 <div class="row">
@@ -75,8 +72,7 @@ table, th, td {
         <input type="hidden" name="property_id" id="property_id" value="{{$dailyMetaCollect->pluck('property_id')->first()}}">
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$dailyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
-
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Good')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Good'])->count()/$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}% </strong></button>
     </form>
 @endif
 
@@ -89,7 +85,7 @@ table, th, td {
         <input type="hidden" name="property_id" id="property_id" value="{{$dailyMetaCollect->pluck('property_id')->first()}}">
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$dailyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Bad')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Bad'])->count()/$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         |@endif
 
@@ -103,7 +99,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$dailyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$dailyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$dailyMetaCollect->where('metaname_name',$key)->where('answer_classification','Critical')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Critical'])->count()/$dailyMetaCollect->where('metaname_name',$key)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         @endif
 @endisset
@@ -162,8 +158,8 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$weeklyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Good')->count()}}</strong></button>
-    </form>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good'])->count()/$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
+          </form>
 @endif
 
             @if($weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()>0)
@@ -176,7 +172,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$weeklyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Bad')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Bad'])->count()/$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         |@endif
 
@@ -190,7 +186,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$weeklyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$weeklyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$weeklyMetaCollect->where('metaname_name',$keyW)->where('answer_classification','Critical')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Critical'])->count()/$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         @endif
                @endisset
@@ -250,7 +246,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
 @endif
 
@@ -264,7 +260,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         |@endif
 
@@ -278,13 +274,13 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical:{{$monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()}}</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical'])->count()* 100),1)}}%</strong></button>
     </form>
         @endif
-               @endisset
+        @endisset
 </div>
 </div>
-            </span>
+  </span>
                                                           </div>
 
                                                         </div>
@@ -306,7 +302,6 @@ table, th, td {
 
                     <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
-
                         <div class="card-body">
                             <form method="GET" action="{{ route('report-property',$id) }}">
                                 <div class="form-group row justify-content-center mb-0">

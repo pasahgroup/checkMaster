@@ -71,15 +71,18 @@ $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Downlo
 public function dailyReport(Request $request,$id,$status){
 $property_id=$id;
 
+//dd(request('metaname_id'));
+
 $current_date = date('Y-m-d');
 $reportTime="Daily Reports";
 $segments = request()->segments();
 $last_segment  = end($segments);
 $first_segment = reset($segments);
-//dd($id);
+//dd($segments);
 	if($id>0)
 	{
-		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'"');
+    $metaID=(request('metaname_id'));
+		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and a.datex="'.$current_date.'"');
 	  $property=property::where('id',$id)->first();
 	}
   //else{
@@ -202,7 +205,7 @@ $keyIndicators = keyIndicator::get();
     $PHPJasperXML->outpage("I");
   }
 
-  return view('reports.daily-report',compact('reportDailyData','reportDailyData','property','reportTime','metanames','keyIndicators','property_id','status'));
+  return view('reports.daily-report',compact('reportDailyData','property','reportTime','metanames','keyIndicators','property_id','status'));
     }
 
 
@@ -218,7 +221,8 @@ $keyIndicators = keyIndicator::get();
 
 	if($id>0)
 	{
-	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and WEEK(a.datex)=WEEK(NOW())');
+    $metaID=(request('metaname_id'));
+	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and WEEK(a.datex)=WEEK(NOW())');
 
 	$property=property::where('id',$id)->first();
 	}
@@ -361,8 +365,8 @@ $property_id=$id;
 
 if($id>0)
 	{
-
- $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and MONTH(a.datex)=MONTH(NOW())');
+  $metaID=(request('metaname_id'));
+ $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and MONTH(a.datex)=MONTH(NOW())');
 
 	$property=property::where('id',$id)->first();
 	}
@@ -527,8 +531,6 @@ if($id>0)
 
           $categories = expenseCategory::get();
           $status = direct_expenses::groupby('status')->get();
-
-
           return view('admin.reports.expenses.expenses',compact('expenses','total_request','total_pending','total_paid','categories','status'));
     }
     public function expensesFilter(Request $request){

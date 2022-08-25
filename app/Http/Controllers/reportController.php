@@ -97,7 +97,7 @@ $keyIndicators = keyIndicator::get();
   $metaArray=array();
   $keyArray=array();
 
-  $start_d = substr(request('date'),0,10);
+     $start_d = substr(request('date'),0,10);
      $start_date = Carbon::parse($start_d)->format('Y-m-d').' 00:00:00';
      $end_d = substr(request('date'),-10);
      $end_date = Carbon::parse($end_d)->format('Y-m-d').' 23:59:00';
@@ -168,7 +168,7 @@ $keyIndicators = keyIndicator::get();
   if(request('print')){
     $datex=$_GET['date'];
 
-    $date_end = substr($datex, strpos($datex, "-") + 2);
+ $date_end = substr($datex, strpos($datex, "-") + 2);
    //$date_start = explode("_", $datex)[1];
   $date_start = strtok($datex, " ");
   $date_start=date_create($date_start);
@@ -194,7 +194,7 @@ $keyIndicators = keyIndicator::get();
       $indicatorString=str_replace(']','',$indicatorString);
   //  dd($indicatorString);
 
-  $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+     $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
      $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
     //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
 
@@ -234,7 +234,6 @@ $keyIndicators = keyIndicator::get();
   $status =$status;
   $metanames = metaname::get();
   $keyIndicators = keyIndicator::get();
-
 
   if(request('search') || request('print')){
   $metaArray=array();

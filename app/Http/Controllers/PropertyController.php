@@ -86,7 +86,7 @@ $url="http://localhost:8000/report-property/1/dashboard";
 
 $dataDaily = collect($reportDailyData);
 $dailyMetaCollects=$dataDaily->groupBy('metaname_name');
-
+//dd($dailyMetaCollects);
 $roomDaily = $dataDaily->where('metaname_name','Room')
    ->whereIn('answer_classification',['Bad','Critical']);
    $badDaily=$roomDaily->where('answer_classification','Bad')->count();
@@ -242,7 +242,16 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     $PHPJasperXML->outpage("I");
   }
    //dd('Not role');
-       return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri'));
+   //Metaname percent
+   $answerCount=DB::select('select a.*,m.metaname_name from answers a,metanames m where a.metaname_id=m.id and DAY(a.datex)=DAY(NOW()) and a.status="Active" group by a.property_id,a.metaname_id,a.indicator_id,a.asset_id order by a.metaname_id ASC');
+   $answerCount = collect($answerCount);
+
+   //$totalqns=DB::select('select a.metaname_id,metaname_name,count(a.metaname_id)totalqns from assets a, qns_appliedtos q,metanames m where a.metaname_id=q.metaname_id and a.metaname_id=m.id and a.status="Active" and q.status="Active" group by a.metaname_id');
+   $totalqns=DB::select('select a.metaname_id,metaname_name from assets a, qns_appliedtos q,metanames m where a.metaname_id=q.metaname_id and a.metaname_id=m.id and a.status="Active" and q.status="Active"');
+
+   $totalqns = collect($totalqns);
+//dd($totalqns);
+       return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns'));
     }
 
     /**

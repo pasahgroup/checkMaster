@@ -43,7 +43,7 @@ class profileController extends Controller
             foreach($attach as $attached){
 
   // Get filename with extension
-                     $fileNameWithExt =$attached->getClientOriginalName();              
+                     $fileNameWithExt =$attached->getClientOriginalName();
                      // Just Filename
                      $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
                      // Get just Extension
@@ -64,30 +64,30 @@ class profileController extends Controller
           'tin'=>request('tin'),
           'vrn'=>request('vrn'),
           'phone_number'=>request('phone_number'),
-          'email'=>request('email'),       
-          'address'=>request('address'),   
+          'email'=>request('email'),
+          'address'=>request('address'),
           'status'=>'Active',
-          'user_id'=>auth()->id()      
+          'user_id'=>auth()->id()
         ]);
 
                       }
                       else
                       {
-$insetqnsy = myCompany::where('status','Active')         
+$insetqnsy = myCompany::where('status','Active')
              ->update([
  'company_name'=>request('business_name'),
            'logo'=>$imageToStore,
           'tin'=>request('tin'),
           'vrn'=>request('vrn'),
           'phone_number'=>request('phone_number'),
-          'email'=>request('email'),       
-          'address'=>request('address'),   
+          'email'=>request('email'),
+          'address'=>request('address'),
           'status'=>'Active',
-          'user_id'=>auth()->id() 
+          'user_id'=>auth()->id()
             ]);
                       }
 
-         } 
+         }
 }
 else
 {
@@ -102,26 +102,26 @@ else
           'tin'=>request('tin'),
           'vrn'=>request('vrn'),
           'phone_number'=>request('phone_number'),
-          'email'=>request('email'),       
-          'address'=>request('address'),   
+          'email'=>request('email'),
+          'address'=>request('address'),
           'status'=>'Active',
-          'user_id'=>auth()->id()      
+          'user_id'=>auth()->id()
         ]);
 
                 }
                       else
                       {
-$insetqnsy = myCompany::where('status','Active')         
+$insetqnsy = myCompany::where('status','Active')
              ->update([
  'company_name'=>request('business_name'),
           // 'logo'=>'',
           'tin'=>request('tin'),
           'vrn'=>request('vrn'),
           'phone_number'=>request('phone_number'),
-          'email'=>request('email'),       
-          'address'=>request('address'),   
+          'email'=>request('email'),
+          'address'=>request('address'),
           'status'=>'Active',
-          'user_id'=>auth()->id() 
+          'user_id'=>auth()->id()
             ]);
                       }
      }

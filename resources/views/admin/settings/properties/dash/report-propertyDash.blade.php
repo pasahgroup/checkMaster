@@ -2,7 +2,7 @@
 @section('content')
 <style>
 table, th, td {
-  border: 1px solid green;
+  border: 0px solid green;
   border-collapse: collapse;
 }
 </style>

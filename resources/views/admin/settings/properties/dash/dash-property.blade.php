@@ -2,7 +2,7 @@
 @section('content')
 <style>
 table, th, td {
-  border: 1px solid green;
+  border: 0px solid green;
   border-collapse: collapse;
 }
 </style>
@@ -114,7 +114,7 @@ table, th, td {
 																		<td>{{ $property->phone }}</td>
 																		<td>{{ $property->email }}</td>
 																		 <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/properties/'.$property->photo) }}" width="60" height="40"></div></td>
-																		
+
 																		<!-- <td>{{ $property->property_description }}</td> -->
 																		<td>{{ $property->status }}</td>
 																		<td>
@@ -154,7 +154,7 @@ table, th, td {
                  <div class="form-group">
 						<label class="text-dark" >Rank</label>
                         <select name="property_rank" id="" class="form-control">
-                   
+
                                         <option>{{$property->property_rank}}</option>
                                           <option>0</option>
                                       <option>1</option>
@@ -165,7 +165,7 @@ table, th, td {
                         </select>
 					</div>
 
-             
+
 
                          <div class="form-group">
                         <label class="text-dark" >Number of Rooms</label>
@@ -198,7 +198,7 @@ table, th, td {
 
 				     <div class="form-group">
                         <label class="text-dark" >Photo</label>
-                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;"> 
+                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
                         </div>
 
 {{ URL::asset('/storage/properties/'.$property->photo) }}

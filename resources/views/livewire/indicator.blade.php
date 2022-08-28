@@ -30,16 +30,16 @@
 
                             <div class="card card-custom gutter-b bg-white border-0   table-contentpos">
                             @isset($metadatas)
-                                <div class="card-body">                                                        
+                                <div class="card-body">
 
                                 <div class="">
-                               
+
                                       <!-- <form wire:submit.prevent="storeProperty(2,3)"> -->
                                            <form  method="post"  action="{{ route('setIndicator.store') }}" enctype="multipart/form-data">
                              @csrf
-                           
 
-                                
+
+
        <div class="form-group">
             <label class="text-dark" >Indicator Question</label>
                         <textarea type="text" name="question" id="question" class="form-control" maxlength="220" required></textarea>
@@ -49,29 +49,29 @@
   <div class="form-group">
             <label class="text-dark" >Apply Indicator to</label>
                         <select name="applied_to" id="applied_to" class="form-control" required>
-                          <option value="">--- Select metaname to apply ---</option>                         
-                         
+                          <option value="">--- Select metaname to apply ---</option>
+
                          @foreach($metanames as $metaname)
                          <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
-                            @endforeach                      
+                            @endforeach
                     </select>
       </div>
 
-                                     
+
       <div class="form-group">
             <label class="text-dark" >Question Type</label>
                         <select name="qns_type" id="qns_type" class="form-control" required>
-                        <option value="">--- Select type of Question ---</option>                     
-                         
+                        <option value="">--- Select type of Question ---</option>
+
                           <option value="radio">Optional Qns</option>
-                           <option value="checkbox">Checklist Qns</option>                     
+                           <option value="checkbox">Checklist Qns</option>
                     </select>
       </div>
 
-  
+
     <div class="form-group">
            <label class="text-dark" >Number of Options Answers</label>
-                        <select wire:model="metaname_id" name="metaname_id" id="metaname_id" class="form-control" required>
+                        <select wire:modelx="metaname_id" name="metaname_id" id="metaname_id" class="form-control" required>
                           <option value="">--- Select group name ---</option>
                               <option value="2">2</option>
                            <option value="3">3</option>
@@ -88,28 +88,28 @@
                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <!-- <input type="text" name="metaname_id" value="{{$metaname_id}}"> -->
 
-                                         
+
                                                <table class="table table-responsive table-hover">
                                                    <thead>
-                                                      
+
                                                    </thead>
-                                                   <tbody>                                         
-                                                        @if(isset($metaname_id) && $metaname_id>=1)                                  
+                                                   <tbody>
+                                                        @if(isset($metaname_id) && $metaname_id>=1)
                                                           <label>Select Status of the Optional Answer</label>
                                                            @endisset
                                                            @for ($i = 0; $i <$metaname_id; $i++)
                                                              <tr>
                                                             <td>Answer{{$i}}</td>
-                                                            <td> <input type="text" name="names[]" required=""></td> 
-                                                            {{$qns_type}}  
-                                                                         
+                                                            <td> <input type="text" name="names[]" required=""></td>
+                                                            {{$qns_type}}
+
                                                             <td>  <select name="answer_class[]" id="answer_class" class="form-control" >
                               <option value="Good" style="background-color:green;">Good</option>
                            <option value="Bad" style="background-color:yellow">Bad</option>
                               <option value="Critical" style="background-color:red">Critical</option>
 
-            </select></td>      
-                                       
+            </select></td>
+
                                                           @endfor
                                                             @else
                                                             <td>
@@ -120,20 +120,20 @@
                                                            </td>
 
                                                        </tr>
-                                                    
 
-                                                   </tbody>                                                   
+
+                                                   </tbody>
                                                </table>
-                                           
+
                                        </div>
-                                   
+
 <button  class="btn-sm btn btn-primary float-right" type="submit">Save <i class="fas fa-save"></i></button>
                                    </form>
 
                                 </div>
                                  </div>
 
-  
+
 <script type="text/javascript">
   $(document).ready(function() {
 $('.qnNo').materialSelect();
@@ -142,8 +142,8 @@ $('.qnNo').materialSelect();
 
 <script>
   $("#con_people").on( "click", function() {
-  
-   //var price = document.getElementById('the_id_of_the_textbox').value; 
+
+   //var price = document.getElementById('the_id_of_the_textbox').value;
  var sum=0.00;
 var p = $(this).val();
 //
@@ -161,15 +161,15 @@ var formatter = new Intl.NumberFormat('en-US', {
     var p2=2604;//2-3 price per person
     var p3=2254;//4-5 price per person
     var p4=2076;//6-7 price per person
-  
+
 
 if(p>0)
 {
-    
+
   if(p==1)
   {
-   sum=p1*p; 
- 
+   sum=p1*p;
+
   }
   else if(p==2 || p==3)
 {
@@ -183,7 +183,7 @@ if(p>0)
 {
  sum=p4*p;
  }
-  
+
 sum=sum.toFixed(2);
 
 //var val = parseFloat(sum);
@@ -193,7 +193,7 @@ $('#total').val(sum);
 }
 else
 {
-    var v= $('#total').val(0.00); 
+    var v= $('#total').val(0.00);
 }
 
 });

@@ -275,14 +275,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 											<h4 class="d-flex justify-content-center mb-0  rounded-top">
 												<a href="#" class="font-size-base text-primary">View All</a>
-
 											</h4>
 
 										</div>
-
 									</form>
 								</div>
-
 							</div>
 							<!--end::Notifications-->
 

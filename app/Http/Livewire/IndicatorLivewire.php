@@ -54,7 +54,6 @@ $indicator = setIndicator::UpdateOrCreate([
 
        if($names !=null)
      {
-
 foreach ($names as $key=>$name) {
  //  $data = metadata::where('id', $metadata)->first();
 

@@ -2,7 +2,7 @@
                     <strong style="color:greenyellow;">{{$company->company_name??'Set Company Profile'}}</strong>
               </div>
 
-    <div id="accordion" style="background-color:#b3b581; !important">
+    <div id="accordion" style="background-color:#c5a687; !important">
         <div class="text-center text-primary"><hr>
 
               </div>
@@ -32,18 +32,6 @@
 	{{ (request()->is('admin')) ? 'show' : '' }}
     " id="Report"  data-parent="#accordion">
         <ul class="nav flex-column">
-
-		    <li class="nav-item {{ (request()->is('admin')) ? 'sub-active' : '' }}">
-                                <a href="/admin" class="nav-link sub-nav-link {{ (request()->is('admin')) ? 'active' : '' }}">
-                                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                          </svg>
-                                    </span>
-                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Sub-dashboard</span>
-                                </a>
-                         </li>
-
                <li class="nav-item {{ (request()->is('dash-property/{id}')) ? 'sub-active' : '' }}">
 
 <a href="/dash-property/{id}" class="nav-link sub-nav-link {{ (request()->is('dash-property/{id}')) ? 'active' : '' }}">
@@ -52,7 +40,7 @@
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                           </svg>
                                     </span>
-                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Properties</span>
+                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Register Company Property">Properties</span>
                                 </a>
                          </li>
 
@@ -61,10 +49,9 @@
     </div>
 </li>
   @endrole
-  <hr>
 
         @role('Manager|GeneralManager')
-        <hr>
+
   <li class="nav-item
             {{ (request()->is('checklist/{id}')) ? 'active' : '' }}
             {{ (request()->is('dashboard-checklist/{id}')) ? 'active' : '' }}
@@ -112,19 +99,7 @@
             </li>
 
 <li class="nav-item
-{{ (request()->is('report-sales')) ? 'active' : '' }}
-{{ (request()->is('report-purchase')) ? 'active' : '' }}
-{{ (request()->is('report-item')) ? 'active' : '' }}
-{{ (request()->is('filter-sales')) ? 'active' : '' }}
-{{ (request()->is('ffilter-item')) ? 'active' : '' }}
-{{ (request()->is('stock-reports')) ? 'active' : '' }}
-{{ (request()->is('stock-filter')) ? 'active' : '' }}
-{{ (request()->is('expenses-filter')) ? 'active' : '' }}
-{{ (request()->is('expenses-report')) ? 'active' : '' }}
-{{ (request()->is('finance')) ? 'active' : '' }}
-{{ (request()->is('transaction-report')) ? 'active' : '' }}
-{{ (request()->is('transaction-filter')) ? 'active' : '' }}
-{{ (request()->is('purchases')) ? 'active' : '' }}
+{{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }}
 ">
     <a  class="nav-link" data-toggle="collapse" href="#Report" role="button"
     aria-expanded="false" aria-controls="Report">
@@ -135,58 +110,20 @@
         <i class="fas fa-chevron-right fa-rotate-90"></i>
     </a>
     <div class="collapse nav-collapse
-    {{ (request()->is('report-sales')) ? 'show' : '' }}
-    {{ (request()->is('report-purchase')) ? 'show' : '' }}
-    {{ (request()->is('report-item')) ? 'show' : '' }}
-    {{ (request()->is('filter-sales')) ? 'show' : '' }}
-    {{ (request()->is('filter-item')) ? 'show' : '' }}
-    {{ (request()->is('stock-reports')) ? 'show' : '' }}
-    {{ (request()->is('expenses-filter')) ? 'show' : '' }}
-    {{ (request()->is('expenses-report')) ? 'show' : '' }}
-    {{ (request()->is('finance')) ? 'show' : '' }}
-    {{ (request()->is('transaction-report')) ? 'show' : '' }}
-    {{ (request()->is('transaction-filter')) ? 'show' : '' }}
-    {{ (request()->is('stock-alert')) ? 'show' : '' }}
-    {{ (request()->is('purchases')) ? 'show' : '' }}
+    {{ (request()->is('report-general/{id}/dashboard')) ? 'show' : '' }}
     " id="Report"  data-parent="#accordion">
         <ul class="nav flex-column">
 
-            <li class="nav-item {{ (request()->is('report-sales')) ? 'sub-active' : '' }}{{ (request()->is('filter-sales')) ? 'sub-active' : '' }}">
-                <a href="#" class="nav-link sub-nav-link {{ (request()->is('report-sales')) ? 'active' : '' }} {{ (request()->is('filter-sales')) ? 'active' : '' }} ">
+            <li class="nav-item {{ (request()->is('report-general/{id}/dashboard')) ? 'sub-active' : '' }}{{ (request()->is('filter-report-general/{id}/dashboard')) ? 'sub-active' : '' }}">
+                <a href="/report-general/{id}/dashboard" class="nav-link sub-nav-link {{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }} {{ (request()->is('filter-report-general/{id}/dashboard')) ? 'active' : '' }} ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                           </svg>
                     </span>
-                    <span class="nav-text">Report1</span>
+                    <span class="nav-text">General report</span>
                 </a>
-            </li>
-             <li class="nav-item
-                {{ (request()->is('report-purchase')) ? 'sub-active' : '' }}
-                {{ (request()->is('purchases')) ? 'sub-active' : '' }}">
-                <a href="#" class="nav-link sub-nav-link
-                {{ (request()->is('report-purchase')) ? 'active' : '' }}
-                {{ (request()->is('purchases')) ? 'active' : '' }} ">
-                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          </svg>
-                    </span>
-                    <span class="nav-text">Report2</span>
-                </a>
-            </li>
-
-
-            <li class="nav-item {{ (request()->is('expenses-report')) ? 'sub-active' : '' }}{{ (request()->is('expenses-filter')) ? 'sub-active' : '' }}">
-                <a href="#" class="nav-link sub-nav-link {{ (request()->is('expenses-report')) ? 'active' : '' }} {{ (request()->is('expenses-filter')) ? 'active' : '' }}  ">
-                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          </svg>
-                    </span>
-                    <span class="nav-text">Report3</span>
-                </a>
-            </li>
+            </li>         
 
         </ul>
     </div>
@@ -385,10 +322,6 @@
   @endrole
  @role('Admin|GeneralAdmin|SuperAdmin')
             <li class="nav-item
-            {{ (request()->is('department')) ? 'active' : '' }}
-            {{ (request()->is('properties')) ? 'active' : '' }}
-            {{ (request()->is('asset/{id}')) ? 'active' : '' }}
-            {{ (request()->is('profile')) ? 'active' : '' }}
             {{ (request()->is('user-register')) ? 'active' : '' }}
             {{ (request()->is('role-register')) ? 'active' : '' }}
             {{ (request()->is('users')) ? 'active' : '' }}
@@ -404,95 +337,13 @@
                 </a>
 
                 <div class="collapse nav-collapse
-                {{ (request()->is('department')) ? 'show' : '' }}
-                {{ (request()->is('properties')) ? 'show' : '' }}
-                  {{ (request()->is('asset/{id}')) ? 'show' : '' }}
-                {{ (request()->is('profile')) ? 'show' : '' }}
+                {{ (request()->is('user-register')) ? 'show' : '' }}
+                {{ (request()->is('role-register')) ? 'show' : '' }}
+                  {{ (request()->is('assign-roles')) ? 'show' : '' }}
+                {{ (request()->is('users')) ? 'show' : '' }}
                 " id="setting" data-parent="#accordiond">
                     <div id="accordiond">
                         <ul class="nav flex-column">
-
-
-                <ul class="nav flex-column">
-                                  <li class="nav-item
-            {{ (request()->is('properties')) ? 'active' : '' }}
-            {{ (request()->is('asset/{id}')) ? 'active' : '' }}
-           {{ (request()->is('profile')) ? 'active' : '' }}
-            {{ (request()->is('department')) ? 'active' : '' }}
-            ">
-                <a  class="nav-link" data-toggle="collapse" href="#settingrp" role="button"
-                aria-expanded="false" aria-controls="settingrp">
-                    <span class="svg-icon nav-icon">
-                       <i class="fas fal fa-server"></i>
-                    </span>
-                    <span class="btn-sm">Company Profile</span>
-                    <i class="fas fa-chevron-right fa-rotate-90"></i>
-                </a>
-
-                <div class="collapse nav-collapse
-                {{ (request()->is('properties')) ? 'show' : '' }}
-                {{ (request()->is('asset/{id}')) ? 'show' : '' }}
-                {{ (request()->is('profile')) ? 'show' : '' }}
-                {{ (request()->is('department')) ? 'show' : '' }}
-                " id="settingrp" data-parent="#accordionxp">
-                    <div id="accordionxp">
-                        <ul class="nav flex-column">
-
-       <li class="nav-item {{ (request()->is('profile')) ? 'sub-active' : '' }}">
-                                <a href="/profile" class="nav-link sub-nav-link {{ (request()->is('profile')) ? 'active' : '' }}">
-                                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                          </svg>
-                                    </span>
-                                    <span class="nav-text">Profile</span>
-                                </a>
-                            </li>
-
-     <li class="nav-item {{ (request()->is('properties')) ? 'sub-active' : '' }}">
-                                <a href="/properties" class="nav-link sub-nav-link {{ (request()->is('properties')) ? 'active' : '' }}">
-                                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                          </svg>
-                                    </span>
-                                    <span class="nav-text">Properties</span>
-                                </a>
-                            </li>
-
-<li class="nav-item {{ (request()->is('asset/{id}')) ? 'sub-active' : '' }}">
-                                <a href="/asset/{id}" class="nav-link sub-nav-link {{ (request()->is('asset/{id}')) ? 'active' : '' }}">
-                                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                          </svg>
-                                    </span>
-                                    <span class="nav-text">Assets</span>
-                                </a>
-                            </li>
-
-
-                              <li class="nav-item {{ (request()->is('department')) ? 'sub-active' : '' }}">
-                                <a href="/department" class="nav-link sub-nav-link {{ (request()->is('department')) ? 'active' : '' }}">
-                                    <span class="svg-icon nav-icon d-flex justify-content-center">
-                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                          </svg>
-                                    </span>
-                                    <span class="nav-text">Departments</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </li>
-
-                               </ul>
-
-
-
-
                                <li class="nav-item {{ (request()->is('role-register')) ? 'sub-active' : '' }}">
                                 <a href="{{ route('role-register.index') }}" class="nav-link sub-nav-link {{ (request()->is('role-register')) ? 'active' : '' }}">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">
@@ -532,6 +383,88 @@
                 </div>
             </li>
      @endrole
+
+     @role('Admin|GeneralAdmin|SuperAdmin')
+                <li class="nav-item
+                {{ (request()->is('properties')) ? 'active' : '' }}
+                {{ (request()->is('asset/{id}')) ? 'active' : '' }}
+               {{ (request()->is('profile')) ? 'active' : '' }}
+                {{ (request()->is('department')) ? 'active' : '' }}
+                ">
+                    <a  class="nav-link" data-toggle="collapse" href="#settingrp" role="button"
+                    aria-expanded="false" aria-controls="settingrp">
+                        <span class="svg-icon nav-icon">
+                            <i class="fas fa-cogs font-size-h4"></i>
+                        </span>
+                        <span class="btn-sm">Company Profile</span>
+                        <i class="fas fa-chevron-right fa-rotate-90"></i>
+                    </a>
+
+                    <div class="collapse nav-collapse
+                    {{ (request()->is('properties')) ? 'show' : '' }}
+                    {{ (request()->is('asset/{id}')) ? 'show' : '' }}
+                    {{ (request()->is('profile')) ? 'show' : '' }}
+                    {{ (request()->is('department')) ? 'show' : '' }}
+                    " id="settingrp" data-parent="#accordionxp">
+                        <div id="accordionxp">
+                            <ul class="nav flex-column">
+                    <ul class="nav flex-column">
+                          <li class="nav-item {{ (request()->is('profile')) ? 'sub-active' : '' }}">
+                                         <a href="/profile" class="nav-link sub-nav-link {{ (request()->is('profile')) ? 'active' : '' }}">
+                                             <span class="svg-icon nav-icon d-flex justify-content-center">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                   </svg>
+                                             </span>
+                                             <span class="nav-text">Profile</span>
+                                         </a>
+                                     </li>
+
+                <li class="nav-item {{ (request()->is('properties')) ? 'sub-active' : '' }}">
+                                         <a href="/properties" class="nav-link sub-nav-link {{ (request()->is('properties')) ? 'active' : '' }}">
+                                             <span class="svg-icon nav-icon d-flex justify-content-center">
+                                                 <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                   </svg>
+                                             </span>
+                                             <span class="nav-text">Properties</span>
+                                         </a>
+                                     </li>
+
+                <li class="nav-item {{ (request()->is('asset/{id}')) ? 'sub-active' : '' }}">
+                                         <a href="/asset/{id}" class="nav-link sub-nav-link {{ (request()->is('asset/{id}')) ? 'active' : '' }}">
+                                             <span class="svg-icon nav-icon d-flex justify-content-center">
+                                                 <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                   </svg>
+                                             </span>
+                                             <span class="nav-text">Assets</span>
+                                         </a>
+                                     </li>
+
+                                     <li class="nav-item {{ (request()->is('department')) ? 'sub-active' : '' }}">
+                                       <a href="/department" class="nav-link sub-nav-link {{ (request()->is('department')) ? 'active' : '' }}">
+                                           <span class="svg-icon nav-icon d-flex justify-content-center">
+                                               <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                                   <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                 </svg>
+                                           </span>
+                                           <span class="nav-text">Departments</span>
+                                       </a>
+                                   </li>
+                                   </ul>
+
+
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+         @endrole
+
 
   @role('Manager|GeneralAdmin|SuperAdmin|GeneralManager')
   <hr>

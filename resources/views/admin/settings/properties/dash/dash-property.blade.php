@@ -33,7 +33,7 @@ table, th, td {
 											<div class="card card-custom bg-transparent shadow-none border-0" >
 												<div class="card-header align-items-center  border-bottom-dark px-0">
 													<div class="card-title mb-0">
-														<h5 class="card-label mb-0 font-weight-bold text-body">Property List xxxx
+														<h5 class="card-label mb-0 font-weight-bold text-body">Property List
 														</h5>
 													</div>
 												    <div class="icons d-flex">

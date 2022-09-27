@@ -1,5 +1,3 @@
-
-
 <div>
 
             <div class="row container">
@@ -21,7 +19,6 @@
                     <ol class="breadcrumb bg-white mb-0 px-0 py-2">
                         <li class="breadcrumb-item active" aria-current="page">Indicator Settings</li>
                          <li class="breadcrumb-item active" aria-current="page">Register Indicator Question:(RIQ)</li>
-
                     </ol>
                 </nav>
             </div>
@@ -71,7 +68,7 @@
 
     <div class="form-group">
            <label class="text-dark" >Number of Options Answers</label>
-                        <select wire:modelx="metaname_id" name="metaname_id" id="metaname_id" class="form-control" required>
+                        <select wire:model="metaname_id" name="metaname_id" id="metaname_id" class="form-control" required>
                           <option value="">--- Select group name ---</option>
                               <option value="2">2</option>
                            <option value="3">3</option>

@@ -23,10 +23,12 @@ class UserRegisterController extends Controller
      */
     public function index()
     {
-  $metadatas = metadata::where('status','Active')
+      //dd('gdf');
+        $metadatas = metadata::where('status','Active')
           ->orWhere('status','Stop')
           ->get();
           $datatypes = datatype::get();
+
 
   $users = user::where('status','Active')
   ->where('name','!=',"")
@@ -35,6 +37,7 @@ class UserRegisterController extends Controller
 
 $departments=department::get();
 $properties=Property::get();
+//dd($metadatas);
  return view('auth.register',compact('departments','users','datatypes','properties'));
     }
 

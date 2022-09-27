@@ -124,7 +124,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div>
 			<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="tc_aside">
 				<!--begin::Brand-->
-				<div class="brand flex-column-auto" id="tc_brand" style="background-color: #c49e77 !important">
+				<div class="brand flex-column-auto" id="tc_brand" style="background-color:#">
 						<a href="/" class="brand-logo">
 						<img class="brand-image" style="height: 25px; background-color:red;"  src="../../assets/images/misc/logo.svg" alt="Logo"/>
 
@@ -153,7 +153,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!--begin::Wrapper-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="tc_wrapper">
 				<!--begin::Header-->
-				<div id="tc_header" class="header header-fixed" style="background-color: #c49e77 !important">
+				<div id="tc_header" class="header header-fixed" style="background-color: #">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex align-items-stretch justify-content-between">
 						<!--begin::Header Menu Wrapper-->

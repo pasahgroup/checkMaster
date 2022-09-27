@@ -446,7 +446,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
   <script src="./../../assets/js/script.bundle.js"></script>
     <!-- <script src="../../img_library/scripts.js" type="text/javascript"></script> -->
-
+    
     <script>
     var options = {
     debug: 'info',

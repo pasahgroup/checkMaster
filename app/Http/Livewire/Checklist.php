@@ -202,7 +202,6 @@ $insetqnsx = dynamicIndUpdate::UpdateOrCreate([
   }
 }
 
-
 // Clear answerupdatephoto db2_tables(connection)
 
 $attachmentf='attachment'.$aID;

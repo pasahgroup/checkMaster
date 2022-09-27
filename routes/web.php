@@ -213,7 +213,8 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
 //TS wawa
    // Route::resource('user-register', UserRegisterController::class);
    Route::resource('user-register',UserRegisterController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
-      Route::get('delete-user/{id}',[UserRegisterController::class,'edit'])->name('delete-user');
+   Route::get('delete-user/{id}',[UserRegisterController::class,'edit'])->name('delete-user');
+
   Route::get('update-user/{id}',[UserRegisterController::class,'recoveryUpdate'])->name('update-user');
   Route::get('recovery-user',[UserRegisterController::class,'recovery'])->name('recovery-user');
 
@@ -254,6 +255,9 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
          Route::get('dash-property/{id}',[PropertyController::class,'dashProperty'])->name('dash-property');
           Route::get('report-property/{id}',[PropertyController::class,'reportProperty'])->name('report-property');
           Route::get('report-property/{id}/dashboard',[PropertyController::class,'reportProperty'])->name('report-property');
+
+          //General reportTest
+          Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
 
    // End of TS Wawa
 Route::resource('companyvalue',companyValueController::class);

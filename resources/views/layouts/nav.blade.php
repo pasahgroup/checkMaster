@@ -50,12 +50,12 @@
 </li>
   @endrole
 
-        @role('Manager|GeneralManager')
-
+@role('SuperAdmin|GeneralAdmin|Admin')
   <li class="nav-item
             {{ (request()->is('checklist/{id}')) ? 'active' : '' }}
             {{ (request()->is('dashboard-checklist/{id}')) ? 'active' : '' }}
             ">
+
                 <a class="nav-link" data-toggle="collapse" href="#accordionChecklist" role="button"
                 aria-expanded="false" aria-controls="accordionChecklist">
                     <span class="svg-icon nav-icon">
@@ -72,7 +72,7 @@
                     <div id="accordion">
                         <ul class="nav flex-column">
 
-                              <li class="nav-item {{ (request()->is('dashboard-checklist/{id}')) ? 'sub-active' : '' }}">
+                              <!-- <li class="nav-item {{ (request()->is('dashboard-checklist/{id}')) ? 'sub-active' : '' }}">
                                 <a href="/dashboard-checklist/{id}" class="nav-link sub-nav-link {{ (request()->is('dashboard-checklist/{id}')) ? 'active' : '' }}">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">
                                         <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
@@ -81,7 +81,8 @@
                                     </span>
                                     <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Dashboard Checklist</span>
                                 </a>
-                         </li>
+                         </li> -->
+
                                <li class="nav-item {{ (request()->is('checklist/{id}')) ? 'sub-active' : '' }}">
                                 <a href="/checklist/{id}" class="nav-link sub-nav-link {{ (request()->is('checklist/{id}')) ? 'active' : '' }}">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">
@@ -92,7 +93,6 @@
                                     <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Checklist</span>
                                 </a>
                          </li>
-
                         </ul>
                     </div>
                 </div>
@@ -100,6 +100,7 @@
 
 <li class="nav-item
 {{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }}
+{{ (request()->is('admin')) ? 'active' : '' }}
 ">
     <a  class="nav-link" data-toggle="collapse" href="#Report" role="button"
     aria-expanded="false" aria-controls="Report">
@@ -111,11 +112,12 @@
     </a>
     <div class="collapse nav-collapse
     {{ (request()->is('report-general/{id}/dashboard')) ? 'show' : '' }}
+      {{ (request()->is('admin')) ? 'show' : '' }}
     " id="Report"  data-parent="#accordion">
         <ul class="nav flex-column">
 
             <li class="nav-item {{ (request()->is('report-general/{id}/dashboard')) ? 'sub-active' : '' }}{{ (request()->is('filter-report-general/{id}/dashboard')) ? 'sub-active' : '' }}">
-                <a href="/report-general/{id}/dashboard" class="nav-link sub-nav-link {{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }} {{ (request()->is('filter-report-general/{id}/dashboard')) ? 'active' : '' }} ">
+                <a href="/report-general/{{$property->id ?? 0}}/dashboard" class="nav-link sub-nav-link {{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }} {{ (request()->is('filter-report-general/{id}/dashboard')) ? 'active' : '' }} ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -123,10 +125,31 @@
                     </span>
                     <span class="nav-text">General report</span>
                 </a>
-            </li>         
-
+            </li>
+            <li class="nav-item {{ (request()->is('admin')) ? 'sub-active' : '' }}{{ (request()->is('filter-admin')) ? 'sub-active' : '' }}">
+                <a href="/admin" class="nav-link sub-nav-link {{ (request()->is('admin')) ? 'active' : '' }} {{ (request()->is('filter-admin')) ? 'active' : '' }} ">
+                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          </svg>
+                    </span>
+                    <span class="nav-text">summarized report</span>
+                </a>
+            </li>
         </ul>
     </div>
+</li>
+@endrole
+ @role('Manager|User|GeneralManager')
+<li class="nav-item {{ (request()->is('checklist/{id}')) ? 'sub-active' : '' }}">
+ <a href="/checklist/{id}" class="nav-link sub-nav-link {{ (request()->is('checklist/{id}')) ? 'active' : '' }}">
+     <span class="svg-icon nav-icon d-flex justify-content-center">
+         <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+           </svg>
+     </span>
+     <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Checklist</span>
+ </a>
 </li>
 @endrole
 
@@ -466,7 +489,7 @@
          @endrole
 
 
-  @role('Manager|GeneralAdmin|SuperAdmin|GeneralManager')
+  @role('GeneralAdmin|SuperAdmin|Admin')
   <hr>
             <li class="nav-item
             {{ (request()->is('recovery-department')) ? 'active' : '' }}

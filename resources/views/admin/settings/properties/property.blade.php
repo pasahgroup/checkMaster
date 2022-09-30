@@ -83,8 +83,8 @@
 																		<th >Property Name</th>
 																		<th>Category</th>
 																		<th>Rank</th>
-																		<th>Total Room</th>
-																		<th>Location Name</th>
+																		<th>No of Room</th>
+																		<th>Location</th>
 																			<th>Phone</th>
 																		<th>Email</th>
 																		<th>Photo</th>
@@ -107,7 +107,7 @@
 																		<td>{{ $property->phone }}</td>
 																		<td>{{ $property->email }}</td>
 																		 <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/properties/'.$property->photo) }}" width="60" height="40"></div></td>
-																		
+
 																		<!-- <td>{{ $property->property_description }}</td> -->
 																		<td>{{ $property->status }}</td>
 																		<td>
@@ -147,7 +147,7 @@
                  <div class="form-group">
 						<label class="text-dark" >Rank</label>
                         <select name="property_rank" id="" class="form-control">
-                   
+
                                         <option>{{$property->property_rank}}</option>
                                           <option>0</option>
                                       <option>1</option>
@@ -158,7 +158,7 @@
                         </select>
 					</div>
 
-             
+
 
                          <div class="form-group">
                         <label class="text-dark" >Number of Rooms</label>
@@ -191,7 +191,7 @@
 
 				     <div class="form-group">
                         <label class="text-dark" >Photo</label>
-                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;"> 
+                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
                         </div>
 
 {{ URL::asset('/storage/properties/'.$property->photo) }}
@@ -279,7 +279,7 @@
 			</a>
 		</div>
 
-			<div class="row col-xl-12 col-md-12"> 
+			<div class="row col-xl-12 col-md-12">
   <div class="card-body"  style="background-color:#b2ca5d !important">
 		<form id="myform" action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -306,7 +306,7 @@
                  <div class="form-group">
 						<label class="text-dark" >Rank</label>
                         <select name="property_rank" id="" class="form-control" required="">
-                   
+
                                        <option value="">--Select rank--</option>
                                           <option>0</option>
                                       <option>1</option>
@@ -317,7 +317,7 @@
                         </select>
 					</div>
 
-             
+
 
                         <div class="form-group">
                         <label class="text-dark" >Number of Rooms</label>
@@ -350,7 +350,7 @@
 
 				     <div class="form-group">
                         <label class="text-dark" >Photo</label>
-                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;"> 
+                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
                         </div>
 
 

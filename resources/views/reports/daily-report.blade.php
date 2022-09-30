@@ -1,4 +1,4 @@
-@extends('reportLayouts.dashApp')
+@extends('layouts.app')
 @section('content')
 <style>
 table, th, td {

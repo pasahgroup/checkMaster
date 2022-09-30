@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\property;
 use App\Models\keyIndicator;
 use App\Models\answer;
-
+use App\Models\user;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +57,9 @@ class PropertyController extends Controller
  public function reportGeneral(Request $request,$id)
     {
 
+$userID=user::where('id',auth()->id())->first();
+$property=property::where('id',$userID->property_id)->first();
+//dd($property->id);
     //RESERVED CODE FOR URL
       //Select key indicators
         //dd(request()->segments());
@@ -254,7 +257,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
 
    $totalqns = collect($totalqns);
 //dd($totalqns);
-       return view('admin.settings.properties.dash.report-general',compact('properties','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns'));
+       return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns'));
     }
 
 

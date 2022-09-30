@@ -67,11 +67,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <body id="tc_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-fixed">
    <!-- Paste this code after body tag -->
 
-   {{-- <div class="se-pre-con">
+    <!-- <div class="se-pre-con">
 	<div class="pre-loader">
 	  <img class="img-fluid" src="./assets/images/loadergif.gif" alt="loading">
 	</div>
-  </div> --}}
+  </div> -->
 
 
 	<!--begin::Header Mobile-->
@@ -126,8 +126,12 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!--begin::Brand-->
 				<div class="brand flex-column-auto" id="tc_brand" style="background-color:#">
 						<a href="/" class="brand-logo">
-						<img class="brand-image" style="height: 25px; background-color:red;"  src="../../assets/images/misc/logo.svg" alt="Logo"/>
 
+            @isset($company->logo)
+            	<img class="brand-image" style="height: 25px; background-color:;"  src="{{ asset('storage/logo/'.$company->logo)}}" alt="Logo"/>
+            <!-- <span class="brand-text"><img style="height: 35px;width: 140px;" alt="Logo" src="{{ asset('storage/logo/'.$company->logo)}}"/></span> -->
+            @endisset
+<!--In Maximizing logo -->
 @isset($company->logo)
 <span class="brand-text"><img style="height: 35px;width: 140px;" alt="Logo" src="{{ asset('storage/logo/'.$company->logo)}}"/></span>
 @endisset
@@ -415,7 +419,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="../../../assets/api/pace/pace.js"></script>
 	<script src="../../../assets/api/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="../../../assets/api/quill/quill.min.js"></script>
-	{{-- <script src="../../../assets/api/datatable/jquery.dataTables.min.js"></script> --}}
+	{{-- <script src="../../../assets/api/datatable/jquery.dataTables.min.js"></script>
 	<script src="../../../assets/js/sweetalert.js"></script>
 	<script src="../../../assets/js/sweetalert1.js"></script>
     <script src="../../../assets/js/multiple-select.min.js"></script>

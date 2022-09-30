@@ -1,4 +1,5 @@
-@extends('reportLayouts.dashApp')
+
+@extends('layouts.app')
 @section('content')
 <style>
 table, th, td {
@@ -25,7 +26,7 @@ table, th, td {
 					   <li class="breadcrumb-item active" aria-current="page">General Dashboard for</li>
 						<li class="breadcrumb-item active" aria-current="page"><strong>
               <select class="arabic-select w-100 mb-3 h-30px" name="property_search" >
-                  <option value="{{$properties->id}}">{{$properties->property_name}}</option>
+                  <option value="{{$property->id ?? 0}}">{{$property->property_name?? 0}}</option>
                  @if(!empty($_GET['property_search']))
                   <option value="<?php echo $_GET['property_search'] ?>" selected><?php echo $_GET['property_search'] ?></option>
                   @endif

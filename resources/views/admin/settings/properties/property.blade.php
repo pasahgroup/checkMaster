@@ -98,8 +98,8 @@
 																<tbody class="kt-table-tbody text-dark">
                                                                     @foreach ($properties as $property)
 																	<tr class="kt-table-row kt-table-row-level-0">
-																		<td >{{ $property->id }}</td>
-																		<td>{{ $property->property_name }}</td>
+                                    <td><a href="/report-property/{{$property->id}}" target="_blank">{{ $property->id }}</a></td>
+                                    <td><a href="/report-property/{{$property->id}}" target="_blank">{{ $property->property_name }}</a></td>
 																		<td>{{ $property->property_category }}</td>
 																		<td>{{ number_format($property->property_rank) }}</td>
 																		<td>{{ $property->room_no }}</td>

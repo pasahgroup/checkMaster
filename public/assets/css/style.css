@@ -263,7 +263,7 @@ sup {
   top: -.5em; }
 
 a {
-  color: #fff;
+  color: #;
   text-decoration: none;
   background-color:;}
   a:hover {
@@ -13557,9 +13557,10 @@ html, body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: 400;
-  font-family: Poppins, Helvetica, "sans-serif";
+  /* font-family: Poppins, Helvetica, "Calibri"; */
+font-family: Agency FB;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }

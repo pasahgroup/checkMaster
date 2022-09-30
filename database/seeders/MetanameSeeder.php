@@ -19,16 +19,16 @@ class MetanameSeeder extends Seeder
     {
         DB::table('metanames')->insert([
             [
-                'metaname_name' => 'Rooms',
-                'metaname_description' =>'Rooms',
+                'metaname_name' => 'Room',
+                'metaname_description' =>'Room',
                 'status' =>'Active',
                 'user_id' =>1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-            'metaname_name' => 'Dinning Rooms',
-            'metaname_description' =>'dinning rooms',
+            'metaname_name' => 'Dinning Room',
+            'metaname_description' =>'dinning room',
             'status' =>'Active',
             'user_id' =>1,
             'created_at' => now(),

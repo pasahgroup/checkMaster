@@ -89,7 +89,42 @@ class MetanameSeeder extends Seeder
                 'user_id' =>1,
                 'created_at' => now(),
                 'updated_at' => now()
-            ]         
+            ]
+            ,
+              [
+                'metaname_name' => 'Entree',
+                'metaname_description' =>'Entree',
+                'status' =>'Active',
+                'user_id' =>1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+            ,
+              [
+                'metaname_name' => 'Bathroom',
+                'metaname_description' =>'Bathroom',
+                'status' =>'Active',
+                'user_id' =>1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+            ,
+              [
+                'metaname_name' => 'Toilet',
+                'metaname_description' =>'Toilet',
+                'status' =>'Active',
+                'user_id' =>1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+                [
+                'metaname_name' => 'Furniture',
+                'metaname_description' =>'Furniture',
+                'status' =>'Active',
+                'user_id' =>1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
               ]);
 
 //metaname datatype table
@@ -273,7 +308,7 @@ DB::table('metaname_datatypes')->insert([
         'user_id' =>1,
         'created_at' => now(),
         'updated_at' => now()
-    ]        
+    ]
       ]);
 
 

@@ -150,6 +150,7 @@ table, th, td {
                                             <th>Questions</th>
                                             <th>Answer</th>
                                             <th>Answer status</th>
+                                            <th>Photo</th>
                                             <th>Posted by</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -164,6 +165,7 @@ table, th, td {
                                             <td>{{ $dailyData->qns }}</td>
                                             <td>{{ $dailyData->answer }}</td>
                                             <td @if($dailyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyData->answer_classification ==='Critical') style="background-color:maroon;"@endif @if($dailyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyData->answer_classification }}</td>
+ <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$dailyData->photo) }}" width="60" height="40"></div></td>
                                             <td>{{ $dailyData->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($dailyData->datex)) }}</td>
                                             <td>

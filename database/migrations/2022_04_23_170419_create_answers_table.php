@@ -21,6 +21,8 @@ class CreateAnswersTable extends Migration
          $table->integer('opt_answer_id')->nullable();
            $table->string('answer')->nullable();
            $table->integer('asset_id')->nullable();
+            $table->integer('photo')->nullable();
+             $table->integer('description')->nullable();
             $table->string('status')->default('Active');
             $table->boolean('action')->default(0);
             $table->integer('user_id')->unsigned();

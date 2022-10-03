@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --artical-background-page: #eee8e8;
+  --artical-background-page: #ceb191;
   /*--artical-background-panel: #4d977e;*/
    --artical-background-panel: #b3b274;
   --artical-background-module: #f8f9fa;
@@ -263,7 +263,7 @@ sup {
   top: -.5em; }
 
 a {
-  color: #;
+  color: #0094d2;
   text-decoration: none;
   background-color:;}
   a:hover {

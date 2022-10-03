@@ -1,5 +1,4 @@
 <div>
-
   @if($message)
                             <div class="alert alert-danger">
                               <h5   class="text-center">{{ $message }}</h5>
@@ -61,7 +60,7 @@
          <div class="card" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#718275 !important">
          <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10" style="color: #fff">
-         &nbsp;{{ $p->asset_name  }}
+         {{ $p->asset_name  }}
 
 </div>
          <div class="col-lg-2 col-md-2 col-sm-2">
@@ -82,7 +81,7 @@
     <div class="col-lg-10 col-md-10 col-sm-10">
       @foreach ($qns as $qn )
        @if($p->metaname_id ==$qn->metaname_id)
-       <div class="panel-group btn-sm" style="background-color:#6d802b !important">{{ $qn->qns  }}</div>
+       <div class="panel-group btn-sm" style="background-color:#6d802b !important"><b>{{ ($metanameCollects->where('id',$p->metaname_id)->first())->metaname_name  }} </b>: {{ $qn->qns  }}</div>
             <div class="form-group">
               <div class="row">
        @foreach ($metadatas as $metadata)
@@ -152,7 +151,7 @@
 <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                    <input type="file" name="attachment{{$p->id}}[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
+                                    <input type="file" name="attachment{{$p->id}}[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;" >
 
                                 </div>
                                 </div>

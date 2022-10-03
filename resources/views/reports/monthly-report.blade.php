@@ -144,8 +144,9 @@
                                             <th>Metaname</th>
                                             <th>Asset name</th>
                                             <th>Questions</th>
-                                            <td>Answer</td>
-                                            <td>Answer status</td>
+                                            <th>Answer</th>
+                                            <th>Answer status</th>
+                                            <th>Photo</th>
                                             <th>Posted by</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -160,6 +161,7 @@
                                             <td>{{ $monthlyData->qns }}</td>
                                             <td>{{ $monthlyData->answer }}</td>
                                             <td @if($monthlyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($monthlyData->answer_classification ==='Critical') style="background-color:maroon;"@endif @if($monthlyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $monthlyData->answer_classification }}</td>
+   <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$monthlyData->photo) }}" width="60" height="40"></div></td>
                                             <td>{{ $monthlyData->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($monthlyData->datex)) }}</td>
                                             <td>

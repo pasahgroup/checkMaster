@@ -323,7 +323,6 @@ $qnsTableUpdate=DB::statement('update qns_appliedtos q,answer_update_photos ap s
                $optional_answersCollections = collect($answerAllInclusiveData);
                $answerCollections = collect($answerInclusiveData);
 
-
     foreach ($optional_answersCollections as $oKey => $firstOptinValue) {
       foreach ($answerCollections as $aKey => $secondAnswerValue) {
       if($firstOptinValue->id==$secondAnswerValue->opt_answer_id)

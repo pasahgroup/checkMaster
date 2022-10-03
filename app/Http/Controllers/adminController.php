@@ -60,12 +60,12 @@ class adminController extends Controller
         $users= User::get();
         $user->hasRole('Admin');
       $property_name = property::where('id',$user->property_id)->first();
-    //  dd($property_name);
+    // dd($property_name);
 
 
 if($property_name ==null)
 {
-    return redirect()->route('profile.index')->with('success','There is no any transactions');
+    return redirect()->route('profile.index')->with('info','There is no any property ID set');
 }
  $property_name=$property_name->property_name;
 
@@ -288,12 +288,13 @@ $properties=property::get();
  $dataMonthly = collect($reportMonthlyData);
 //$weeklyMetaCollects=$dataMonthly->groupBy('metaname_name');
 //dd($dataWeekly);
+    return redirect()->route('properties.index');
 
-        return view('admin.index',compact(
-        'dataDaily','dataWeekly','dataMonthly',
-        'properties',
-        'sessions'
-    ));
+    //     return view('admin.index',compact(
+    //     'dataDaily','dataWeekly','dataMonthly',
+    //     'properties',
+    //     'sessions'
+    // ));
 
 }
 
@@ -515,7 +516,7 @@ elseif($user->hasRole('')){
         $user = User::where('id',auth()->id())->first();
         $users= User::get();
         $user->hasRole('Admin');
-        //dd//($user->role);
+        //dd($user->role);
         if($users->count()<=1 && $user->hasRole('Admin') == 0){
             // Create and assign user to be admin
                 if(Role::where('name',request('name'))->exists()){
@@ -525,7 +526,7 @@ elseif($user->hasRole('')){
             $role = Role::create(['name' => 'SuperAdmin']);
             $role = Role::create(['name' => 'GeneralAdmin']);
                $role = Role::create(['name' => 'Admin']);
-            $role = Role::create(['name' => 'Sales']);
+            $role = Role::create(['name' => 'Manager']);
             $role = Role::create(['name' => 'Store']);
             $role = Role::create(['name' => 'Account']);
             $role = Role::create(['name' => 'User']);
@@ -561,7 +562,7 @@ elseif($user->hasRole('')){
 
 
         if($user->hasRole('Admin|Account|SuperAdmin')){
-            dd('nn');
+          //  dd('nn');
         $themonthly = sale::select([
             DB::raw('SUM(amount) as monthly_sales'),
             DB::raw('SUM(paid) as monthly_cash'),

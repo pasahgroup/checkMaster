@@ -356,7 +356,7 @@
 
  <div class="card-body"  style="background-color:#b2ca5d !important">
         <div class="card col-xl-12 col-md-12">
-        <form id="myform" action="{{ route('print.show',1) }}" method="PUT" enctype="multipart/form-data">
+        <form id="myform" action="{{ route('print.show',1) }}" target="_blank" method="PUT" enctype="multipart/form-data">
          @csrf
 
             <div class="row">

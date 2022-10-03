@@ -145,8 +145,9 @@
                                             <th>Metaname</th>
                                             <th>Asset name</th>
                                             <th>Questions</th>
-                                            <td>Answer</td>
-                                            <td>Answer status</td>
+                                            <th>Answer</th>
+                                            <th>Answer status</th>
+                                            <th>Photo</th>
                                             <th>Posted by</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -161,6 +162,7 @@
                                             <td>{{ $weeklyData->qns }}</td>
                                             <td>{{ $weeklyData->answer }}</td>
                                             <td @if($weeklyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($weeklyData->answer_classification ==='Critical') style="background-color:maroon;"@endif @if($weeklyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $weeklyData->answer_classification }}</td>
+                        <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$weeklyData->photo) }}" width="60" height="40"></div></td>
                                             <td>{{ $weeklyData->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($weeklyData->datex)) }}</td>
                                             <td>

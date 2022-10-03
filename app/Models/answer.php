@@ -15,6 +15,8 @@ class answer extends Model
         'opt_answer_id',
         'answer',
         'asset_id',
+        'photo',
+        'description',
         'status',
         'action',
         'user_id',

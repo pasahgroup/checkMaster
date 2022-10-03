@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
  use App\Models\orderItem;
  use App\Models\asset;
 
@@ -210,8 +209,6 @@ $attach = request($attachmentf);
 //dd($attach);
    if($attach){
 
-                //$attach = request('attachment');
-
                 foreach($attach as $key=>$attached){
 
               if(isset($attach[$key + $idx]) !=null)
@@ -349,10 +346,13 @@ $updateqnsF = answerDescPhoto::where('action',1)
 $updateqnsF = answerDescPhoto::where('action',1)
              ->update([
             'action'=>0
-            ]);
+          ]);
+
+// update description and photo on answers mysql_list_tables
+$answerTablePhotoUpdate=DB::statement('update answers a,answer_update_photos u set a.photo=u.image,a.description=u.description where a.id=u.answer_id and datex="'.$current_date .'"');
 
    return redirect()->back()->with('success','Submitted Successfully');
-    }
+}
 
 
 public function storeItem($name,$id)
@@ -491,8 +491,15 @@ $answerPerc = collect($answerPerc);
 $qnsAppliedPerc=DB::select('select * from qns_appliedtos');
 $qnsAppliedPerc = collect($qnsAppliedPerc);
   //$xx = $qnsAppliedPerc->count();
+//dd($metanames);
+$metanameCollects=collect($metanames);
+//$c = $metanameCollects->unique('metaname_name');
+  $metax=($metanameCollects->where('id',2)->first())->metaname_name;
+//dd($metanameCollects::select('id')->where('id',2));
+//$metanameCollects = $metanameCollects::select('metaname_name');
+//dd($metax);
 
-      return view('livewire.checklist',compact('metadatas','datatypes','metanames','metaAll','pp','qns','userActitivities','userMetanames','acts','col','checkQnsProp','checkQns','assetPerc','answerPerc','qnsAppliedPerc'))
+      return view('livewire.checklist',compact('metadatas','datatypes','metanames','metanameCollects','metaAll','pp','qns','userActitivities','userMetanames','acts','col','checkQnsProp','checkQns','assetPerc','answerPerc','qnsAppliedPerc'))
       ->layout('layouts.app');
 
   }

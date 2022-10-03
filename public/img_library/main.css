@@ -4,7 +4,7 @@
 .img-placeholder {
   width: 8%;
   color: white;
-  height: 80%;
+  /* height: 80%; */
   background: white;
   opacity: .2;
   height: 60px;
@@ -24,4 +24,3 @@
   display: block;
   cursor: pointer;
 }
-

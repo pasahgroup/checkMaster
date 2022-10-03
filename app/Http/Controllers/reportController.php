@@ -82,7 +82,7 @@ $first_segment = reset($segments);
 	if($id>0)
 	{
     $metaID=(request('metaname_id'));
-		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and a.datex="'.$current_date.'"');
+		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.photo,a.description,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and a.datex="'.$current_date.'"');
 	  $property=property::where('id',$id)->first();
 	}
   //else{
@@ -157,7 +157,7 @@ $keyIndicators = keyIndicator::get();
   ->whereIn('optional_answers.answer_classification',$keyArray)
   //->where('set_indicators.qns','!=',"")
   ->whereBetween('answers.datex',[$start_date, $end_date])
-  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
   ->orderBy('set_indicators.id')
   ->get();
   }
@@ -222,7 +222,7 @@ $keyIndicators = keyIndicator::get();
 	if($id>0)
 	{
     $metaID=(request('metaname_id'));
-	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and WEEK(a.datex)=WEEK(NOW())');
+	 $reportWeeklyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,a.photo,a.description,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and WEEK(a.datex)=WEEK(NOW())');
 
 	$property=property::where('id',$id)->first();
 	}
@@ -299,7 +299,7 @@ $keyIndicators = keyIndicator::get();
   ->whereIn('optional_answers.answer_classification',$keyArray)
   //->where('set_indicators.qns','!=',"")
   ->whereBetween('answers.datex',[$start_date, $end_date])
-  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
   ->orderBy('set_indicators.id')
   ->get();
   }
@@ -365,7 +365,7 @@ $property_id=$id;
 if($id>0)
 	{
   $metaID=(request('metaname_id'));
- $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and MONTH(a.datex)=MONTH(NOW())');
+ $reportMonthlyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.photo,a.description,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and MONTH(a.datex)=MONTH(NOW())');
 
 	$property=property::where('id',$id)->first();
 	}
@@ -443,7 +443,7 @@ if($id>0)
   ->whereIn('optional_answers.answer_classification',$keyArray)
   //->where('set_indicators.qns','!=',"")
   ->whereBetween('answers.datex',[$start_date, $end_date])
-  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+  ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
   ->orderBy('set_indicators.id')
   ->get();
   }

@@ -1,5 +1,4 @@
-@extends('layouts.app')  
-
+@extends('layouts.app')
 @section('content')
 
 <main class="login-form">
@@ -11,7 +10,6 @@
           <div class="col-md-8">
 
               <div class="card">
-
                   <div class="card-header">Reset Password</div>
 
                   <div class="card-body">

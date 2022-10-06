@@ -1,7 +1,7 @@
 <div>
   @if($message)
                             <div class="alert alert-danger">
-                              <h5   class="text-center">{{ $message }}</h5>
+                              <h5 class="text-center">{{ $message }}</h5>
                             </div>
                             @endif
 <div class="content d-flex flex-column flex-column-fluid" id="tc_content">

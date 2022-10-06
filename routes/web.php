@@ -57,6 +57,8 @@ use App\Http\Controllers\MetadataController;
 use App\Http\Controllers\MetanameController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserRegisterController;
+//password Reset
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
  //use JasperPHP\JasperPHP as JasperPHP;
  use PHPJasper\PHPJasper;
@@ -257,8 +259,9 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
           Route::get('report-property/{id}/dashboard',[PropertyController::class,'reportProperty'])->name('report-property');
 
           //General reportTest
-          Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
-
+  Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
+  Route::get('report-action/{id}/dashboard',[PropertyController::class,'reportAction'])->name('report-action');
+  Route::get('report-view/{id}',[PropertyController::class,'reportView'])->name('report-view');
    // End of TS Wawa
 Route::resource('companyvalue',companyValueController::class);
 Route::resource('admin', adminController::class);
@@ -390,3 +393,8 @@ Route::get('send-mail', function () {
 
     dd("Email is Sent.");
 });
+//Password Reset
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');

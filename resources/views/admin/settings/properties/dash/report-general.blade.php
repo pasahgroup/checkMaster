@@ -52,7 +52,7 @@ table, th, td {
                     <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
-                            <form method="GET" action="{{ route('report-general',$id) }}">
+                            <form method="GET" action="{{ route('report-general',$id) }}" @if ($prnt=="2") target="_blank" @endif>
                                 <div class="form-group row justify-content-center mb-0">
                                     <div class="col-md-3">
                                         <label class="text-dark">Date Range</label>

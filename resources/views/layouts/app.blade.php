@@ -273,7 +273,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													</div>
 												</div>
 											</a>--}}
-										{{-- </div> --}}
+
                                         </div>
 										<div class="d-flex flex-column p-3 rounded-top">
 
@@ -419,7 +419,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="../../../assets/api/pace/pace.js"></script>
 	<script src="../../../assets/api/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="../../../assets/api/quill/quill.min.js"></script>
-	{{-- <script src="../../../assets/api/datatable/jquery.dataTables.min.js"></script>
+	 <script src="../../../assets/api/datatable/jquery.dataTables.min.js"></script>
 	<script src="../../../assets/js/sweetalert.js"></script>
 	<script src="../../../assets/js/sweetalert1.js"></script>
     <script src="../../../assets/js/multiple-select.min.js"></script>

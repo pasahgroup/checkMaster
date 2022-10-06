@@ -121,6 +121,7 @@ class AssetLivewire extends Component
 
     public function render()
     {
+      //dd('dd');
    $pos_id=$this->metaname_id;
 
                 $sites = Property::get();

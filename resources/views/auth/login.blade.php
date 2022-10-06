@@ -35,7 +35,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('forget.password.get') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
@@ -44,6 +44,7 @@
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
+            <a href="{{ route('forget.password.get') }}">Forget Password</a>
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>

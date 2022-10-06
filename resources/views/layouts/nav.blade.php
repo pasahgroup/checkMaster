@@ -8,8 +8,7 @@
               </div>
 
 <ul class="nav flex-column">
-    @role('Admin|GeneralAdmin|SuperAdmin')
-
+    @role('GeneralAdmin|SuperAdmin')
 <li class="nav-item
 {{ (request()->is('dash-property/{id}')) ? 'active' : '' }}
 {{ (request()->is('admin')) ? 'active' : '' }}
@@ -343,7 +342,7 @@
                 </div>
             </li>
   @endrole
- @role('Admin|GeneralAdmin|SuperAdmin')
+ @role('GeneralAdmin|SuperAdmin')
             <li class="nav-item
             {{ (request()->is('user-register')) ? 'active' : '' }}
             {{ (request()->is('role-register')) ? 'active' : '' }}
@@ -407,7 +406,7 @@
             </li>
      @endrole
 
-     @role('Admin|GeneralAdmin|SuperAdmin')
+     @role('GeneralAdmin|SuperAdmin')
                 <li class="nav-item
                 {{ (request()->is('properties')) ? 'active' : '' }}
                 {{ (request()->is('asset/{id}')) ? 'active' : '' }}
@@ -488,8 +487,33 @@
                 </li>
          @endrole
 
+         @role('Admin')
+          <li class="nav-item {{ (request()->is('report-action/{id}/dashboard')) ? 'sub-active' : '' }}">
+                                         <a href="/report-action/{id}/dashboard" class="nav-link sub-nav-link {{ (request()->is('report-action/{id}/dashboard')) ? 'active' : '' }}">
+                                             <span class="svg-icon nav-icon d-flex justify-content-center">
+                                                 <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                 </svg>
+                                             </span>
+                                             <span class="nav-text">Actions</span>
+                                         </a>
+                                     </li>
+                                   @endrole
 
-  @role('GeneralAdmin|SuperAdmin|Admin')
+  @role('Admin')
+         <li class="nav-item {{ (request()->is('asset/{id}')) ? 'sub-active' : '' }}">
+                                  <a href="/asset/{id}" class="nav-link sub-nav-link {{ (request()->is('asset/{id}')) ? 'active' : '' }}">
+                                      <span class="svg-icon nav-icon d-flex justify-content-center">
+                                          <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            </svg>
+                                      </span>
+                                      <span class="nav-text">Assets</span>
+                                  </a>
+                              </li>
+                            @endrole
+
+  @role('GeneralAdmin|SuperAdmin')
   <hr>
             <li class="nav-item
             {{ (request()->is('recovery-department')) ? 'active' : '' }}

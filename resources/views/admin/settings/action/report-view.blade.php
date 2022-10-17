@@ -1,142 +1,236 @@
-
 @extends('layouts.app')
 @section('content')
+  <script src="../../img_library/scripts.js" type="text/javascript"></script>
+				<!--begin::Content-->
+				<div class="content d-flex flex-column flex-column-fluid" id="tc_content">
+					<!--begin::Subheader-->
+					<div class="subheader py-2 py-lg-6 subheader-solid">
 
-    <!--begin::Content-->
-    <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
-        <!--begin::Subheader-->
-        <div class="subheader py-2 py-lg-6 subheader-solid">
-            <div class="container-fluid">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-white mb-0 px-0 py-2">
 
-					@if(request()->path()=="report-property/".$id."/dashboard")
-                        <li class="breadcrumb-item active" aria-current="page"><a href="/admin" role="button" class="btn-sm btn-primary"><<</a></li>
-                      @endif
-					  @if(request()->path()=="report-property/".$id)
-                        <li class="breadcrumb-item active" aria-current="page"><a href="/dash-property/{id}" role="button" class="btn-sm btn-primary"><<</a></li>
-                      @endif
+						<div class="container-fluid">
+							<nav aria-label="breadcrumb">
+															<ol class="breadcrumb bg-white mb-0 px-0 py-2">
+                                  <li class="breadcrumb-item active" aria-current="page"><a href="{{ url()->previous() }}" role="button" class="btn-sm btn-primary"><<</a></li>
+											<li class="breadcrumb-item active" aria-current="page">General settings</li>
+									<li class="breadcrumb-item active" aria-current="page">Properties</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+					<!--end::Subheader-->
+					<!--begin::Entry-->
+					<div class="d-flex flex-column-fluid">
+						<!--begin::Container-->
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="row">
+										<div class="col-lg-12 col-xl-12">
+											<div class="card card-custom bg-transparent shadow-none border-0" >
+												<div class="card-header align-items-center  border-bottom-dark px-0">
+													<div class="card-title mb-0">
+														<h5 class="card-label mb-0 font-weight-bold text-body">Properties
+														</h5>
+													</div>
+												    <div class="icons d-flex">
+														<!-- <button  class="btn ml-2 p-0 kt_notes_panel_toggle"
+														  data-toggle="tooltip" title="" data-placement="right"
+																			data-original-title="Check out more demos" >
+															<span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">
 
-					   <li class="breadcrumb-item active" aria-current="page">General Dashboard for</li>
-						<li class="breadcrumb-item active" aria-current="page"><strong>
-              <select class="arabic-select w-100 mb-3 h-30px" name="property_search" >
-                  <option value="{{$property->id ?? 0}}">{{$property->property_name?? 0}}</option>
-                 @if(!empty($_GET['property_search']))
-                  <option value="<?php echo $_GET['property_search'] ?>" selected><?php echo $_GET['property_search'] ?></option>
-                  @endif
+																<svg width="25px" height="25px" viewBox="0 0 16 16" class="bi bi-plus white" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+																	<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+																  </svg>
+															</span>
+														</button> -->
 
-                  @foreach ($propertiesNames as $pname)
-                  <option value="{{ $pname->id }}">{{ $pname->property_name }}</option>
-                  @endforeach
-              </select>
-            </strong></li>
+														<a href="#" onclick="printDiv()" class="ml-2">
+															<span class="icon h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center rounded-circle ">
+																<svg width="15px" height="15px" viewBox="0 0 16 16" class="bi bi-printer-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5z"/>
+																	<path fill-rule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+																	<path fill-rule="evenodd" d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+																  </svg>
+															</span>
+														</a>
 
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <hr>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container-fluid">
-                <div class="row">
- @role('Admin|GeneralAdmin|SuperAdmin')
-                    <div class="col-12 col-md-12">
-                    <div class="card card-custom gutter-b bg-white border-0" >
-                        <div class="card-body">
-                            <form method="GET" action="{{ route('report-action',$property->id) }}">
-                                <div class="form-group row justify-content-center mb-0">
-                                    <div class="col-md-3">
-                                        <label class="text-dark">Date Range</label>
-                                        @if(!empty($filter_date))
-                                        <input type="text" name="date" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                        <span>selected date is: {{ $filter_date }}</span>
-                                        @else
-                                        <input type="text" name="date" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                        @endif
+														<a href="#" class="ml-2" >
+															<span class="icon h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center rounded-circle ">
+																<svg width="15px" height="15px" viewBox="0 0 16 16" class="bi bi-file-earmark-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+																	<path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM4.5 8a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+																  </svg>
+															</span>
+														</a>
 
-                                        {{-- <div>
-                                            <i class="fa fa-calendar"></i>&nbsp;
-                                            <span></span> <i class="fa fa-caret-down"></i>
-                                        </div> --}}
+													</div>
+												</div>
+											</div>
 
-                                    </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group mb-0" >
-                                            <label class="text-dark" >Select property name</label>
-                                                <select class="arabic-select w-100 mb-3 h-30px" name="property_search" >
-                                                    <!-- <option value="All">All</option> -->
-                                                   @if(!empty($_GET['property_search']))
-                                                    <option value="<?php echo $_GET['property_search'] ?>" selected><?php echo $_GET['property_search'] ?></option>
-                                                    @endif
-                                                    @foreach ($propertiesNames as $pname)
-                                                    <option value="{{ $pname->id }}">{{ $pname->property_name }}</option>
-                                                    @endforeach
+										</div>
+									</div>
+									<div class="row">
 
-                                                </select>
-                                          </div>
-                                    </div>
+										<div class="col-12 ">
+											<div class="card card-custom gutter-b bg-white border-0" >
+												<div class="card-body" >
+													<div >
+														<div class=" table-responsive" id="printableTable">
+                              <h5 id="school_title"><?php echo "Tanzania Specialist";?> </h5>
+                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                                    <div class="col-md-3">
-                                        <div class="form-group mb-0" >
-                                            <label class="text-dark" >Select Metaname</label>
-                                                <select class="arabic-select w-100 mb-3 h-30px" name="metaname_search" >
-                                                    <option value="All">All</option>
-                                                   @if(!empty($_GET['metaname_search']))
-                                                    <option value="<?php echo $_GET['metaname_search'] ?>" selected><?php echo $_GET['metaname_search'] ?></option>
-                                                    @endif
-                                                    @foreach ($metanames as $meta)
-                                                    <option value="{{ $meta->metaname_name }}">{{ $meta->metaname_name }}</option>
-                                                    @endforeach
+                                             <p>Property: {{$reportDailyReader->property_name}}<p>
+                                               <p>Q sno: {{$reportDailyReader->id}}<p>
+                                                 <p>Asset: {{$reportDailyReader->asset_name}}<p>
+                                                     <p>Qns: {{$reportDailyReader->qns}}<p>
+                                                         <p>Answer: {{$reportDailyReader->answer}} |
+                                                           <div class="form-group">
+                                                                                 <select name="applied_to" id="applied_to" class="form-control">                                                                                   
+                                                                                  @foreach($metanames as $metaname)
+                                                                                  <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+                                                                                     @endforeach
+                                                                             </select>
+                                                               </div><p>
 
-                                                </select>
-                                          </div>
-                                    </div>
+                                                            <p>Description: {{$reportDailyReader->description}}<p>
+                                                              <p>Photo: <div class=""><img src="{{ URL::asset('/storage/img/'.$reportDailyReader->photo) }}" width="350" height="240"></div>{{$reportDailyReader->photo}}<p>
+                                                               <p>--------------------------------------</p>
+                                                                <p>Posted by: {{$reportDailyReader->name}}<p>
+                                                                       <p>Date: {{$reportDailyReader->datex}}<p>
+                                                                         <p>--------------------------------------</p>
+                                                         </div>
+                                                         </div>
+                                                         <a href="" role="button" class="btn btn-primary" onclick="printDiv()">Update</a>
+<a href="" role="button" class="btn btn-primary" onclick="printDiv()">Print</a>
+													</div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group mb-0" >
-                                            <label class="text-dark" >Select Key Indicator</label>
-                                                <select class="arabic-select w-100 mb-3 h-30px" name="indicator_search" >
-                                                    <!-- <option value="All" selected>All</option> -->
-                                                    @if(!empty($_GET['indicator_search']))
-                                                    <option value="<?php echo $_GET['indicator_search'] ?>" selected><?php echo $_GET['indicator_search'] ?></option>
-                                                    @endif
-                                                    @foreach ($keyIndicators as $keyInd)
-                                                    <option value="{{ $keyInd->key_name }}">{{ $keyInd->key_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                          </div>
-                                    </div>
 
-                                    <div class="col-md-3">
-                                      <!-- <x-jet-button class="ml-4">
-                                          {{ __('Log in') }}
-                                      </x-jet-button> -->
-                                        <div class="form-group mb-0" >
-                                          <x-jet-button class="ml-4 btn-success" name="search" value="search">
-                                              {{ __('Search') }}
-                                          </x-jet-button>
-                                          <x-jet-button class="ml-4 btn-primary" name="print" value="print">
-                                              {{ __('Print') }}
-                                          </x-jet-button>
-                                          </div>
-                                    </div>
-                                </div>
-                              </form>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+
+
+
+
+	<div  class="offcanvas offcanvas-right kt-color-panel p-1 kt_notes_panel">
+		<div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
+			<h4 class="font-size-h4 font-weight-bold m-0">Add Property
+			</h4>
+			<a href="#" class="btn btn-sm btn-icon btn-light btn-hover-primary kt_notes_panel_close" >
+				<svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+				</svg>
+			</a>
+		</div>
+
+			<div class="row col-xl-12 col-md-12">
+  <div class="card-body"  style="background-color:#b2ca5d !important">
+		<form id="myform" action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+			<div class="row">
+
+				<div class="col-12">
+					<div class="form-group">
+						<label class="text-dark" >Property Name </label>
+						<input type="text" name="property_name" class="form-control" placeholder="property name">
+						<small  class="form-text text-muted">please enter property name</small>
+					</div>
+
+                    <div class="form-group">
+						<label class="text-dark" >Category</label>
+                        <select name="property_category" id="" class="form-control">
+                          <option value="">--Select Category--</option>
+                                        <option>Hotel</option>
+                                          <option>Lodge</option>
+                                      <option>Camp Site</option>
+                                      <option>Other</option>
+                        </select>
+					</div>
+
+                 <div class="form-group">
+						<label class="text-dark" >Rank</label>
+                        <select name="property_rank" id="" class="form-control" required="">
+
+                                       <option value="">--Select rank--</option>
+                                          <option>0</option>
+                                      <option>1</option>
+                                      <option>2</option>
+                                            <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                        </select>
+					</div>
+
+
+
+                        <div class="form-group">
+                        <label class="text-dark" >Number of Rooms</label>
+                        <input type="number" name="room_no" class="form-control" name="room_no" min="0" required="">
                         </div>
-                    </div>
+
+ 	<div class="form-group">
+						<label class="text-dark" >Location Name </label>
+						<input type="text" name="location_name" class="form-control" placeholder="location name">
+						<small  class="form-text text-muted">please enter location name</small>
+					</div>
+
+
+                           <div class="form-group">
+                        <label class="text-dark" >Phone</label>
+                        <input type="number" name="phone" class="form-control" name="phgone" min="0">
+                        </div>
+
+                       <div class="form-group">
+                        <label class="text-dark" >Email</label>
+                        <input type="email" name="email" class="form-control" name="email">
+                        </div>
+
+<div class="form-group">
+                        <label class="text-dark">Description</label>
+                        <textarea class="form-control" rows="3" id="property_description" name="property_description"></textarea>
+                        </div>
+
+				</div>
+
+				     <div class="form-group">
+                        <label class="text-dark" >Photo</label>
+                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
+                        </div>
+
+
+   <div class="form-group">
+                      <span class="img-div">
+              <div class="text-center img-placeholder"  onClick="triggerClick()">
+                <!-- <h4>Update image</h4> -->
               </div>
+              <img src="images/no.png" onClick="triggerClick()" id="profileDisplay" width="100px">
+            </span>
+  </div>
 
-                        </div>
-                        @endrole
-                        @role('')
-                        <div class="alert alert-info">You do not have permission, kindly contact system admin</div>
-                        @endrole
-               </div>
-                </div>
-            </div>
 
+
+			</div>
+			<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+			  <x-jet-button class="btn-sm btn btn-dark float-right">
+                    {{ __('Save') }}
+                </x-jet-button>
+		  </form>
+		</div>
+	</div>
+	</div>
+
+	<iframe name="print_frame" width="0" height="0"  src="about:blank"></iframe>
+</body>
+</html>
 @endsection

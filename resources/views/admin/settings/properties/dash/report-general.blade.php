@@ -15,7 +15,6 @@ table, th, td {
             <div class="container-fluid">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-white mb-0 px-0 py-2">
-
 					@if(request()->path()=="report-property/".$id."/dashboard")
                         <li class="breadcrumb-item active" aria-current="page"><a href="/admin" role="button" class="btn-sm btn-primary"><<</a></li>
                       @endif
@@ -36,7 +35,6 @@ table, th, td {
                   @endforeach
               </select>
             </strong></li>
-
                     </ol>
                 </nav>
             </div>

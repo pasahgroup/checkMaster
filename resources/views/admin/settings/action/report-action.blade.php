@@ -148,9 +148,9 @@ table, th, td {
                                             <th>Metaname</th>
                                             <th>Asset name</th>
                                             <th>Questions</th>
-                                            <td>Answer</td>
-                                            <td>Answer status</td>
-                                              <td>Photo</td>
+                                            <th>Answer</th>
+                                            <th>Answer status</th>
+                                              <th>Photo</th>
                                             <th>Posted by</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -169,14 +169,12 @@ table, th, td {
                                             <td>{{ $dailyDataR->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
                                             <td>
-                                                  <form method="GET" action="{{ route('report-view',$id) }}">
+                                                  <form method="GET" action="">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="delete">
                                                     <!-- <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete this customer?')">
                                                         <span class="fa fa-eye"><span></button> -->
-
-                                                        <button class="btn btn-success btn-sm" type="submit">
-                                                        <span class="fa fa-eye"><span></button>
+                                                    <a href="/report-view/{{$dailyDataR->id}}/{{$id}}"  <span class="fa fa-eye"><span></a>
                                                 </form>
                                             </td>
 

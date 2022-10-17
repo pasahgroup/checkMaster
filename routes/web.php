@@ -261,7 +261,7 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
           //General reportTest
   Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
   Route::get('report-action/{id}/dashboard',[PropertyController::class,'reportAction'])->name('report-action');
-  Route::get('report-view/{id}',[PropertyController::class,'reportView'])->name('report-view');
+  Route::get('report-view/{id}/{x}',[PropertyController::class,'reportView'])->name('report-view','report-view');
    // End of TS Wawa
 Route::resource('companyvalue',companyValueController::class);
 Route::resource('admin', adminController::class);

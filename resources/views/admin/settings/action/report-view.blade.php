@@ -70,7 +70,6 @@
 										</div>
 									</div>
 									<div class="row">
-
 										<div class="col-12 ">
 											<div class="card card-custom gutter-b bg-white border-0" >
 												<div class="card-body" >
@@ -79,31 +78,42 @@
                               <h5 id="school_title"><?php echo "Tanzania Specialist";?> </h5>
                               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+
+<form method="Post" action="{{ route('report-viewupdate',$reportDailyReader->id) }}">
+    @csrf
+
+
                                              <p>Property: {{$reportDailyReader->property_name}}<p>
-                                               <p>Q sno: {{$reportDailyReader->id}}<p>
+                                               <p>Qno: {{$reportDailyReader->id}}<p>
                                                  <p>Asset: {{$reportDailyReader->asset_name}}<p>
                                                      <p>Qns: {{$reportDailyReader->qns}}<p>
-                                                         <p>Answer: {{$reportDailyReader->answer}} |
-                                                           <div class="form-group">
-                                                                                 <select name="applied_to" id="applied_to" class="form-control">                                                                                   
-                                                                                  @foreach($metanames as $metaname)
-                                                                                  <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+
+                                                    <div class="form-group">
+                                                           <label>Answer:
+
+                                                                                 <select name="optional_id" id="optional_id" class="form-control">
+                                                                                   <option value="{{$reportDailyReader->opt_answer_id}}">{{$reportDailyReader->answer}}</option>
+                                                                                  @foreach($optAnswers as $optAnswer)
+                                                                                  <option value="{{$optAnswer->id}}">{{$optAnswer->answer}}</option>
                                                                                      @endforeach
-                                                                             </select>
-                                                               </div><p>
+                                                                             </select></label>
+                                                               </div>
 
                                                             <p>Description: {{$reportDailyReader->description}}<p>
-                                                              <p>Photo: <div class=""><img src="{{ URL::asset('/storage/img/'.$reportDailyReader->photo) }}" width="350" height="240"></div>{{$reportDailyReader->photo}}<p>
-                                                               <p>--------------------------------------</p>
-                                                                <p>Posted by: {{$reportDailyReader->name}}<p>
-                                                                       <p>Date: {{$reportDailyReader->datex}}<p>
-                                                                         <p>--------------------------------------</p>
-                                                         </div>
-                                                         </div>
-                                                         <a href="" role="button" class="btn btn-primary" onclick="printDiv()">Update</a>
-<a href="" role="button" class="btn btn-primary" onclick="printDiv()">Print</a>
-													</div>
+                                                            <p>Photo: <div class=""><img src="{{ URL::asset('/storage/img/'.$reportDailyReader->photo) }}" width="300" height="220"></div>{{$reportDailyReader->photo}}<p>
 
+                                                            <p>--------------------------------------</p>
+                                                            <p>Posted by: {{$reportDailyReader->name}}<p>
+                                                            <p>Date: {{$reportDailyReader->datex}}<p>
+                                                            <p>--------------------------------------</p>
+
+                                                         </div>
+                                                         </div>
+                                                         <button type="submit" class="btn btn-primary">Update</button>
+                                                       </form>
+
+                           <a href="" role="button" class="btn btn-primary" onclick="printDiv()">Print</a>
+													</div>
 
 												</div>
 											</div>
@@ -115,120 +125,9 @@
 							</div>
 						</div>
 
-
 					</div>
-
 				</div>
 
-
-
-
-	<div  class="offcanvas offcanvas-right kt-color-panel p-1 kt_notes_panel">
-		<div class="offcanvas-header d-flex align-items-center justify-content-between pb-3">
-			<h4 class="font-size-h4 font-weight-bold m-0">Add Property
-			</h4>
-			<a href="#" class="btn btn-sm btn-icon btn-light btn-hover-primary kt_notes_panel_close" >
-				<svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-				</svg>
-			</a>
-		</div>
-
-			<div class="row col-xl-12 col-md-12">
-  <div class="card-body"  style="background-color:#b2ca5d !important">
-		<form id="myform" action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-			<div class="row">
-
-				<div class="col-12">
-					<div class="form-group">
-						<label class="text-dark" >Property Name </label>
-						<input type="text" name="property_name" class="form-control" placeholder="property name">
-						<small  class="form-text text-muted">please enter property name</small>
-					</div>
-
-                    <div class="form-group">
-						<label class="text-dark" >Category</label>
-                        <select name="property_category" id="" class="form-control">
-                          <option value="">--Select Category--</option>
-                                        <option>Hotel</option>
-                                          <option>Lodge</option>
-                                      <option>Camp Site</option>
-                                      <option>Other</option>
-                        </select>
-					</div>
-
-                 <div class="form-group">
-						<label class="text-dark" >Rank</label>
-                        <select name="property_rank" id="" class="form-control" required="">
-
-                                       <option value="">--Select rank--</option>
-                                          <option>0</option>
-                                      <option>1</option>
-                                      <option>2</option>
-                                            <option>3</option>
-                                      <option>4</option>
-                                      <option>5</option>
-                        </select>
-					</div>
-
-
-
-                        <div class="form-group">
-                        <label class="text-dark" >Number of Rooms</label>
-                        <input type="number" name="room_no" class="form-control" name="room_no" min="0" required="">
-                        </div>
-
- 	<div class="form-group">
-						<label class="text-dark" >Location Name </label>
-						<input type="text" name="location_name" class="form-control" placeholder="location name">
-						<small  class="form-text text-muted">please enter location name</small>
-					</div>
-
-
-                           <div class="form-group">
-                        <label class="text-dark" >Phone</label>
-                        <input type="number" name="phone" class="form-control" name="phgone" min="0">
-                        </div>
-
-                       <div class="form-group">
-                        <label class="text-dark" >Email</label>
-                        <input type="email" name="email" class="form-control" name="email">
-                        </div>
-
-<div class="form-group">
-                        <label class="text-dark">Description</label>
-                        <textarea class="form-control" rows="3" id="property_description" name="property_description"></textarea>
-                        </div>
-
-				</div>
-
-				     <div class="form-group">
-                        <label class="text-dark" >Photo</label>
-                        <input type="file" name="attachment[]" onChange="displayImage(this)" id="attachment" accept="image/*" class="" style="display:block;">
-                        </div>
-
-
-   <div class="form-group">
-                      <span class="img-div">
-              <div class="text-center img-placeholder"  onClick="triggerClick()">
-                <!-- <h4>Update image</h4> -->
-              </div>
-              <img src="images/no.png" onClick="triggerClick()" id="profileDisplay" width="100px">
-            </span>
-  </div>
-
-
-
-			</div>
-			<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-			  <x-jet-button class="btn-sm btn btn-dark float-right">
-                    {{ __('Save') }}
-                </x-jet-button>
-		  </form>
-		</div>
-	</div>
-	</div>
 
 	<iframe name="print_frame" width="0" height="0"  src="about:blank"></iframe>
 </body>

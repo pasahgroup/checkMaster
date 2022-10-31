@@ -405,17 +405,18 @@ table, th, td {
                                             <td>{{ $dailyDataR->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
                                             <td>
-                                                <form action="#" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="delete">
-                                                    <!-- <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete this customer?')">
-                                                        <span class="fa fa-eye"><span></button> -->
 
-                                                        <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete this data?')">
-                                                        <span class="fa fa-eye"><span></button>
-                                                </form>
+                                                <form method="post" action="{{ route('report-view-post',[$dailyDataR->id,$id]) }}">
+                                                  @csrf
+                                                  <input type="hidden" name="_method" value="post">
+                                                  <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
+                                                  <!-- <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete this customer?')">
+                                                      <span class="fa fa-eye"><span></button> -->
+                                                      <button class="btn btn-success btn-sm" type="submit">
+                                                      <span class="fa fa-eye"><span></button>
+                                              </form>
+
                                             </td>
-
                                         </tr>
                                             @endforeach
                                         </tbody>

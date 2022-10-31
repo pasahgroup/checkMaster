@@ -14,21 +14,23 @@ use Carbon\Carbon;
 use App\Models\expenseCategory;
 use App\Models\direct_expenses;
 use App\Models\metaname;
+use App\Models\optionalAnswer;
 use Illuminate\Support\Str;
 //use PHPJasper\PHPJasper;
 use JasperPHP\JasperPHP as JasperPHP;
 use Illuminate\Http\Request;
 use PHPJasper\PHPJasper;
+use Illuminate\Support\Facades\Redirect;
 
  require base_path().'/vendor/autoload.php';
  //require base_path().'/vendor/autoload.php';
 include_once(app_path().'/jrf/PHPJasperXML.inc.php');
- //include_once(app_path().'/jrf/tcpdf/tcpdf.php');
+ include_once(app_path().'/jrf/tcpdf/tcpdf.php');
   //include_once(app_path().'/fpdf184/mysql_table.php');
   //include_once(app_path().'/fpdf184/pdfg.php');
- // use PHPJasperXML;
-  //require base_path().'/vendor/autoload.php';
  use PHPJasperXML;
+  //require base_path().'/vendor/autoload.php';
+ // use PHPJasperXM;
 //use PDF;
 class PropertyController extends Controller
 {
@@ -383,6 +385,12 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
       ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
       ->orderBy('set_indicators.id')
    	  ->get();
+//update user.url column table
+    //  dd(auth()->id());
+      $updateUser = user::where('id',auth()->id())
+           ->update([
+            'url'=>$_SERVER['REQUEST_URI']
+          ]);
       }
       else{
    	   //dd('Not role');
@@ -444,10 +452,92 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
           return view('admin.settings.action.report-action',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
        }
 
+       public function reportViewUpdate(Request $request,$sn)
+          {
+
+              $optionalID=optionalAnswer::where('id',request('optional_id'))->first();
+              $answerID=answer::where('id',$sn)->first();
+         //dd($optionalID->id);
+
+            $updateAnswer = answer::where('id',$sn)
+                 ->update([
+                  'opt_answer_id'=>request('optional_id'),
+                  'answer'=>$optionalID->answer,
+                   'user_id'=>auth()->id()
+                ]);
+                // {{ url()->previous() }}
+// return redirect()->back();
+//return back();
+// return redirect()->url()->previous();
+//return Redirect::to(url()->previous());
+$uri=user::where('id',auth()->id())->first();
+//$uri =request()->input('uri');
+// dd($_SERVER['REQUEST_URI']);
+//dd($uri->url);
+          return redirect($uri->url)->with('info','Returned successfly');
+          }
+
+
+          public function reportViewPost(Request $request,$sn,$id)
+             {
+         $prnt="";
+         $userID=user::where('id',auth()->id())->first();
+         $property=property::where('id',$userID->property_id)->first();
+
+                 $segments = request()->segments();
+                 $last  = end($segments);
+         $first = reset($segments);
+         $url="http://localhost:8000/report-general/1/dashboard";
+          $segmentsExploide = explode('/', $url);
+         //END OF RESERVED CODE FOR URL
+
+                // $uri =request()->path();
+               $keyIndicators = keyIndicator::where('key_name','!=','Good')->get();
+
+               $metanames = metaname::get();
+               $propertiesNames = property::get();
+         //dd($metanames);
+
+             $current_date = date('Y-m-d');
+             $properties = property::where('id',$id)
+               ->where('status','Active')->first();
+
+         $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
+         ->join('set_indicators','answers.indicator_id','set_indicators.id')
+          ->join('users','answers.user_id','users.id')
+           ->join('assets','answers.asset_id','assets.id')
+            ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
+          ->join('metanames','answers.metaname_id','metanames.id')
+
+          ->where('answers.property_id',$id)
+           ->where('answers.id',$sn)
+          ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
+          //->whereIn('metanames.metaname_name',$metaArray)
+          //->whereIn('optional_answers.answer_classification',$keyArray)
+           //->where('set_indicators.qns','!=',"")
+          //->whereBetween('answers.datex',[$start_date, $end_date])
+         ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+         //->orderBy('set_indicators.id')
+         ->first();
+
+       //dd($reportDailyReader->property_id);
+       //get optionals answers
+
+       $updateUser = user::where('id',auth()->id())
+            ->update([
+             // 'url'=>$_SERVER['REQUEST_URI']
+             'url'=>request('uri')
+           ]);
+       // $uri = $request->input('uri');
+       //dd($_SERVER['REQUEST_URI']);
+       //dd(request('uri'));
+
+       $optAnswers = optionalAnswer::where('indicator_id',$reportDailyReader->indicator_id)->get();
+                return view('admin.settings.action.report-view',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','id','optAnswers'));
+             }
+
        public function reportView(Request $request,$sn,$id)
           {
-            //dd($sn);
-            //$id=1;
       $prnt="";
       $userID=user::where('id',auth()->id())->first();
       $property=property::where('id',$userID->property_id)->first();
@@ -459,25 +549,16 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
        $segmentsExploide = explode('/', $url);
       //END OF RESERVED CODE FOR URL
 
-             $uri =request()->path();
-
+             // $uri =request()->path();
             $keyIndicators = keyIndicator::where('key_name','!=','Good')->get();
 
             $metanames = metaname::get();
             $propertiesNames = property::get();
       //dd($metanames);
+
           $current_date = date('Y-m-d');
           $properties = property::where('id',$id)
             ->where('status','Active')->first();
-
-           //Daily Report
-//$reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'" order by m.metaname_name ASC');
-          //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
-
-        //  $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.description,a.photo,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.id="'.$sn.'" and a.property_id="'.$id.'"');
-  //$reportDailyReader = collect($reportDailyReader);
-
-
 
       $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
       ->join('set_indicators','answers.indicator_id','set_indicators.id')
@@ -496,19 +577,26 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
       ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
       //->orderBy('set_indicators.id')
       ->first();
+
   //dd($reportDailyReader->property_id);
+//get optionals answers
 
+$updateUser = user::where('id',auth()->id())
+         ->update([
+          // 'url'=>$_SERVER['REQUEST_URI']
+          'url'=>request('uri')
+        ]);
+  // $uri = $request->input('uri');
+ //dd($_SERVER['REQUEST_URI']);
+   //dd(request('uri'));
 
-             return view('admin.settings.action.report-view',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','id','uri'));
+ $optAnswers = optionalAnswer::where('indicator_id',$reportDailyReader->indicator_id)->get();
+             return view('admin.settings.action.report-view',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','id','optAnswers'));
           }
+
 
     public function reportProperty(Request $request,$id)
        {
-       //dd($id);
-       //RESERVED CODE FOR URL
-         //Select key indicators
-           //dd(request()->segments());
-           // $current_url = $this->url();
            $segments = request()->segments();
            $last  = end($segments);
     $first = reset($segments);
@@ -517,7 +605,6 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
     //END OF RESERVED CODE FOR URL
 
           $uri =request()->path();
-
          $keyIndicators = keyIndicator::get();
          $metanames = metaname::get();
     //dd($metanames);
@@ -565,6 +652,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
         if(request('search') || request('print')){
        $metaArray=array();
         $keyArray=array();
+
 
         $start_d = substr(request('date'),0,10);
            $start_date = Carbon::parse($start_d)->format('Y-m-d').' 00:00:00';
@@ -629,6 +717,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
       ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
       ->orderBy('set_indicators.id')
       ->get();
+
+      //update the user.url odbc_columns
+//dd('dd');
       }
       else{
         //dd('Not role');

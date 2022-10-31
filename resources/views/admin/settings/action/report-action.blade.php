@@ -169,12 +169,15 @@ table, th, td {
                                             <td>{{ $dailyDataR->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
                                             <td>
-                                                  <form method="GET" action="">
+                                                  <form method="post" action="{{ route('report-view-post',[$dailyDataR->id,$id]) }}">
                                                     @csrf
-                                                    <input type="hidden" name="_method" value="delete">
-                                                    <!-- <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete this customer?')">
-                                                        <span class="fa fa-eye"><span></button> -->
-                                                    <a href="/report-view/{{$dailyDataR->id}}/{{$id}}"  <span class="fa fa-eye"><span></a>
+                                                    <input type="hidden" name="_method" value="post">
+                                                    <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
+                                                    <button class="btn btn-success btn-sm" type="submit">
+                                                    <span class="fa fa-eye"><span></button>
+
+<!-- <button href="" role="button" type="Submit"><span class="btn-sm btn-primary"><i class="fa fa-eye"></i><span></button> -->
+                                                    <!-- <a href="/report-view/{{$dailyDataR->id}}/{{$id}}"  <span class="fa fa-eye"><span></a> -->
                                                 </form>
                                             </td>
 

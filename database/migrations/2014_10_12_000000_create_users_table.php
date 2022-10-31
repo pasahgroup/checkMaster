@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
              $table->string('status',24)->default('Active');
              $table->integer('user_id');
+              $table->string('url',450);
             $table->timestamps();
         });
     }

@@ -34,6 +34,7 @@ use App\Http\Livewire\IndicatorLivewire;
 use App\Http\Livewire\AssignLivewire;
 use App\Http\Livewire\AssignRolesLivewire;
 use App\Http\Livewire\AssignRolesUserLivewire;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Http\Livewire\ActivityRolesLivewire;
 use App\Http\Livewire\Checklist;
@@ -76,6 +77,13 @@ use JasperPHP\JasperPHP as JasperPHP;
 |
 */
 //dd(auth()->id());
+//clear MEMCACHED_HOST
+Route::get('/stl', function () {
+  \Artisan::call('cache:clear');
+  \Artisan::call('route:clear');
+  \Artisan::call('storage:link');
+   dd('cache clear successfully');
+});
 
      Route::get('/javax', function () {
             $jasper = new JasperPHP;
@@ -261,7 +269,11 @@ Route::resource('role-register', rolesController::class)->middleware(['role:Supe
           //General reportTest
   Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
   Route::get('report-action/{id}/dashboard',[PropertyController::class,'reportAction'])->name('report-action');
-  Route::get('report-view/{id}/{x}',[PropertyController::class,'reportView'])->name('report-view','report-view');
+   Route::get('report-view/{sn}/{id}',[PropertyController::class,'reportView'])->name('report-view','report-view');
+  // Route::post('report-view/{sn}/{id}',[PropertyController::class,'reportView'])->name('report-view','report-view');
+  Route::post('report-view-post/{sn}/{id}',[PropertyController::class,'reportViewPost'])->name('report-view-post','report-view-post');
+
+  Route::post('report-viewupdate/{sn}',[PropertyController::class,'reportViewUpdate'])->name('report-viewupdate','report-viewupdate');
    // End of TS Wawa
 Route::resource('companyvalue',companyValueController::class);
 Route::resource('admin', adminController::class);

@@ -414,7 +414,7 @@ table, th, td {
                                                       <span class="fa fa-eye"><span></button> -->
                                                       <button class="btn btn-success btn-sm" type="submit">
                                                       <span class="fa fa-eye"><span></button>
-                                              </form>
+                                               </form>
 
                                             </td>
                                         </tr>

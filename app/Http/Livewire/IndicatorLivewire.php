@@ -8,7 +8,7 @@ namespace App\Http\Livewire;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
-use App\Models\Property;
+use App\Models\property;
 use App\Models\metaname;
 
 use App\Models\setIndicator;
@@ -106,7 +106,7 @@ $qn_no=$this->qn_no;
         // ->get();
     //dd($this->qn_no);
 
-                $properties = Property::get();
+                $properties = property::get();
                 $metanames = metaname::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
 

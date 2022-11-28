@@ -8,7 +8,7 @@ use Dotenv\Validator;
 use App\Models\department;
 use App\Models\metadata;
 use App\Models\datatype;
-use App\Models\Property;
+use App\Models\property;
 use App\Models\userProperty;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -36,7 +36,7 @@ class UserRegisterController extends Controller
  //dd($users);
 
 $departments=department::get();
-$properties=Property::get();
+$properties=property::get();
 //dd($metadatas);
  return view('auth.register',compact('departments','users','datatypes','properties'));
     }

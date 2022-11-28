@@ -7,7 +7,7 @@ use App\Models\myPayment;
 use App\Models\department;
 use App\Models\userRole;
 use App\Models\userProperty;
-use App\Models\Property;
+use App\Models\property;
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -44,7 +44,7 @@ class usersPermissionController extends Controller
         ->select('properties.id as id','users.id as model_id','properties.property_name as permission_name')
         ->get();
 
-        $permit = Property::get();
+        $permit = property::get();
         $roles = Role::get();
         $limitation = myPayment::latest()->first();
 

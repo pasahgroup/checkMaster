@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 
  use App\Models\orderItem;
- use App\Models\Property;
+ use App\Models\property;
 
 use App\Models\metadata;
 use App\Models\metanameDatatype;
@@ -85,7 +85,7 @@ return redirect()->back()->with('error','Indicators not selected');
     $qn_no=$this->qn_no;
 
 
-                $properties = Property::get();
+                $properties = property::get();
                 $metanames = metaname::where('status','Active')->get();
                   $indicators = setIndicator::where('qns','!=',"")
                   ->get();

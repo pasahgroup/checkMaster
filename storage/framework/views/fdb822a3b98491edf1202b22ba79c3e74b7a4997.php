@@ -59,11 +59,10 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Manager Dashboard:
+Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="card-body"  style="background-color:#f6f7f2 !important">
-<label class="text-dark" ><b>Manager Inspection:<i style="color:#f6f7f4">(Metaname:)</i></b>
-<!-- <p id="demo"></p> -->
+
   <script>
   // Set the date we're counting down to
   var countDownDate = new Date("Jan 5, 20290 11:37:25").getTime();
@@ -146,7 +145,9 @@ Manager Dashboard:
     </form>
     </div>
   </div>
-  <div class="row" id="data_display">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
 
     <?php $__currentLoopData = $metas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -158,7 +159,7 @@ Manager Dashboard:
 
   <!-- </div>
   <div class="col-lg-2 col-md-2 col-sm-2" style="color: #fff"> -->
-    <span class="float-right">Meta qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->count()); ?> | Progress: <b style="color:#9af219"><?php echo e(number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1); ?>% </b></span>
+  <span class="float-right">Meta qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->count()); ?> | Progress: <b style="color:#9af219"><?php echo e(number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1); ?>% </b></span>
   </div>
     </div>
     </div>
@@ -306,9 +307,6 @@ Manager Dashboard:
 
                                 </div>
                                 </div>
-<div class="col-lg-6 col-md-6 col-sm-6">
-
-</div>
 </div>
 
       </div>
@@ -362,6 +360,7 @@ Manager Dashboard:
          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
              </div>
               </div>
+                </div>
 <hr/>
              <button class="btn-sm btn btn-dark float-right" role="button" name="email_send" value="email_send">Finish</button>
              

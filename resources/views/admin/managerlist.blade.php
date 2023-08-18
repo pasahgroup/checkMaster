@@ -122,7 +122,7 @@ Manager Dashboard: (manager inspection)
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
            <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
 
-          <label class="text-dark">Asset name</label>
+          <label class="text-dark">Asset name with issues</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
                           <option value="">--- Select Asset name to apply ---</option>

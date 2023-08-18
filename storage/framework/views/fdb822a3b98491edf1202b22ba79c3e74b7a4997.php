@@ -122,7 +122,7 @@ Manager Dashboard: (manager inspection)
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
            <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
 
-          <label class="text-dark">Asset name</label>
+          <label class="text-dark">Asset name with issues</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction(<?php echo e($assetID); ?>)"  class="form-control" required>
                           <option value="">--- Select Asset name to apply ---</option>
@@ -331,7 +331,7 @@ Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="col-md-11 col-sm-11">
  <div class="wawa-bgcolor">
-    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>">Save<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?></button>
+    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>">Save</button>
  </div>
 </div>
 <hr>

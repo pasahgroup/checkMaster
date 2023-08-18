@@ -328,7 +328,7 @@ Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="col-md-11 col-sm-11">
  <div class="wawa-bgcolor">
-    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$meta->id}}">Save{{$p->id}}_{{$section->id}}_{{$meta->id}}</button>
+    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$meta->id}}">Save</button>
  </div>
 </div>
 <hr>

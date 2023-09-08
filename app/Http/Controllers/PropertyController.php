@@ -62,29 +62,37 @@ class PropertyController extends Controller
 $prnt="";
 $userID=user::where('id',auth()->id())->first();
 $property=property::where('id',$userID->property_id)->first();
+//dd($property->id);
 
         $segments = request()->segments();
         $last  = end($segments);
 $first = reset($segments);
-$url="http://localhost:8000/report-general/1/dashboard";
+$url="http://localhost:8000/report-general/{$property->id}/dashboard";
  $segmentsExploide = explode('/', $url);
 //END OF RESERVED CODE FOR URL
 
-       $uri =request()->path();
+$uri =request()->path();
+//dd($uri);
 
       $keyIndicators = keyIndicator::get();
       $metanames = metaname::get();
       $propertiesNames = property::get();
 //dd($metanames);
     $current_date = date('Y-m-d');
-    $properties = property::where('id',$id)
+    $properties = property::where('id',$property->id)
       ->where('status','Active')->first();
+//dd($properties);
 
-     //Daily Report
-    $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,a.answer_label,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'" order by m.metaname_name ASC');
-    //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
+   
+     $reportDailyData=DB::select('select * from reportdailydata_view where property_id="'.$property->id.'" order by metaname_name ASC');
+    // dd($reportDailyData);
 
-    $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.description,a.photo,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
+    // $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.description,a.photo,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
+
+//Delaying on data loading
+    // $reportDailyReader=DB::select('select * from reportdailyreader_view where property_id="'.$property->id.'"');
+
+ $reportDailyReader=DB::select('select * from issue_report_view where property_id="'.$property->id.'"');
 
 //dd($reportDailyReader);
 
@@ -98,7 +106,7 @@ $roomDaily = $dataDaily->where('metaname_name','Room')
 
 $xx=$dataDaily->count();
     //Weekly Report
-$reportWeeklyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and WEEK(a.datex)=WEEK(NOW()) order by m.metaname_name ASC');
+$reportWeeklyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$property->id.'" and a.opt_answer_id=o.id and WEEK(a.datex)=WEEK(NOW()) order by m.metaname_name ASC');
 
 $dataWeekly = collect($reportWeeklyData);
 $weeklyMetaCollects=$dataWeekly->groupBy('metaname_name');
@@ -108,7 +116,7 @@ $roomWeekly = $dataWeekly->where('metaname_name','Room')
    $criticalWeekly=$roomWeekly->where('answer_classification','Critical')->count();
 
     //Monthly Report
-$reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and month(a.datex)=month(NOW()) order by m.metaname_name ASC');
+$reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$property->id.'" and a.opt_answer_id=o.id and month(a.datex)=month(NOW()) order by m.metaname_name ASC');
 
  $dataMonthly = collect($reportMonthlyData);
 $monthlyMetaCollects=$dataMonthly->groupBy('metaname_name');
@@ -179,7 +187,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	    ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
 		->join('metanames','answers.metaname_id','metanames.id')
 
-		->where('answers.property_id',$id)
+		->where('answers.property_id',$property->id)
     ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
     ->whereIn('metanames.metaname_name',$metaArray)
 	  ->whereIn('optional_answers.answer_classification',$keyArray)
@@ -236,7 +244,7 @@ $date_end=date_format($date_end,"Y-m-d");
 //dd($date);
 //$PHPJasperXML->sql="select * from answers";
 //dd($PHPJasperXML);
-$PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+$PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //$PHPJasperXML->arrayParameter =array("date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //dd($PHPJasperXML->arrayParameter);
 //$PHPJasperXML->arrayParameter =array();
@@ -274,7 +282,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$id,"metanames"=>$metaString
            $segments = request()->segments();
            $last  = end($segments);
    $first = reset($segments);
-   $url="http://localhost:8000/report-general/1/dashboard";
+   $url="http://localhost:8000/report-general/{$property->id}/dashboard";
     $segmentsExploide = explode('/', $url);
    //END OF RESERVED CODE FOR URL
 
@@ -530,7 +538,7 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
                  $segments = request()->segments();
                  $last  = end($segments);
          $first = reset($segments);
-         $url="http://localhost:8000/report-general/1/dashboard";
+         $url="http://localhost:8000/report-general/{$property->id}/dashboard";
           $segmentsExploide = explode('/', $url);
          //END OF RESERVED CODE FOR URL
 
@@ -589,7 +597,7 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
                  $segments = request()->segments();
                  $last  = end($segments);
          $first = reset($segments);
-         $url="http://localhost:8000/report-general/1/dashboard";
+         $url="http://localhost:8000/report-general/{$property->id}/dashboard";
           $segmentsExploide = explode('/', $url);
          //END OF RESERVED CODE FOR URL
 
@@ -649,7 +657,7 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
               $segments = request()->segments();
               $last  = end($segments);
       $first = reset($segments);
-      $url="http://localhost:8000/report-general/1/dashboard";
+      $url="http://localhost:8000/report-general/{$property->id}/dashboard";
        $segmentsExploide = explode('/', $url);
       //END OF RESERVED CODE FOR URL
 
@@ -699,12 +707,16 @@ $updateUser = user::where('id',auth()->id())
           }
 
 
+
+
+
+
     public function reportProperty(Request $request,$id)
        {
            $segments = request()->segments();
            $last  = end($segments);
     $first = reset($segments);
-    $url="http://localhost:8000/report-property/1/dashboard";
+    $url="http://localhost:8000/report-property/{$id}/dashboard";
     $segmentsExploide = explode('/', $url);
     //END OF RESERVED CODE FOR URL
 

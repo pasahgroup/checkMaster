@@ -190,12 +190,11 @@ table, th, td {
                                             <td><?php echo e($dailyDataR->asset_name); ?></td>
                                             <td><?php echo e($dailyDataR->qns); ?></td>
                                             <td><?php echo e($dailyDataR->answer); ?></td>
-                                          <!-- <td>  <?php echo e($dailyDataR->photo); ?></td> -->
                                             <td <?php if($dailyDataR->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyDataR->answer_classification ==='maintenance'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyDataR->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyDataR->answer_classification); ?></td>
-                                          	<!-- <td><div class="logo mr-auto"><img src="<?php echo e(URL::asset('storage/img/'.$dailyDataR->photo)); ?>"  alt="nill" width="60" height="40" ></div></td> -->
+                                       
                                               <td><?php echo e($dailyDataR->description); ?></td>
-                                            <td><?php echo e($dailyDataR->name); ?></td>
-                                            <td><?php echo e(date("d-M-Y", strtotime($dailyDataR->datex))); ?></td>
+                                            <td><?php echo e($dailyDataR->PostedBy); ?></td>
+                                            <td><?php echo e(date("d-M-Y", strtotime($dailyDataR->Date))); ?></td>
                                             <td>
                                               <form method="post" action="<?php echo e(route('report-view-post',[$dailyDataR->id,$id])); ?>">
                                                 <?php echo csrf_field(); ?>

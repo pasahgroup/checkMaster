@@ -103,7 +103,6 @@ use JasperPHP\JasperPHP as JasperPHP;
 Route::get('pdf', [EmailSendController::class, 'generatePDF']);
 
 
-
 Route::get('send-mail', [pdfController::class, 'sendMail']);
 //Send MessageFormatter
 Route::get('sendSMS', [NexmoSMSController::class, 'index']);
@@ -397,6 +396,10 @@ Route::get('/monthly-report/property/{id}/{x}', [reportController::class,'monthl
 
 Route::get('/weekly-report/{id}', [reportController::class,'weeklyReport'])->name('weekly-report','weekly-report');
 Route::get('/monthly-report/{id}', [reportController::class,'monthlyReport'])->name('monthly-report','monthly-report');
+
+//summary report
+Route::get('/summary-report/{id}', [reportController::class,'summaryReport'])->name('summary-report','summary-report');
+
 
 Route::post('orders',[posController::class,'orders'])->name('orders','orders');
 

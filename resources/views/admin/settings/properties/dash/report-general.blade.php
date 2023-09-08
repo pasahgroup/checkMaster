@@ -162,12 +162,11 @@ table, th, td {
                                             <td>{{ $dailyDataR->asset_name }}</td>
                                             <td>{{ $dailyDataR->qns }}</td>
                                             <td>{{ $dailyDataR->answer }}</td>
-                                          <!-- <td>  {{$dailyDataR->photo}}</td> -->
                                             <td @if($dailyDataR->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyDataR->answer_classification ==='maintenance') style="background-color:maroon;"@endif @if($dailyDataR->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyDataR->answer_classification }}</td>
-                                          	<!-- <td><div class="logo mr-auto"><img src="{{ URL::asset('storage/img/'.$dailyDataR->photo) }}"  alt="nill" width="60" height="40" ></div></td> -->
+                                       
                                               <td>{{ $dailyDataR->description }}</td>
-                                            <td>{{ $dailyDataR->name }}</td>
-                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
+                                            <td>{{ $dailyDataR->PostedBy }}</td>
+                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->Date)) }}</td>
                                             <td>
                                               <form method="post" action="{{ route('report-view-post',[$dailyDataR->id,$id]) }}">
                                                 @csrf
@@ -190,7 +189,7 @@ table, th, td {
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th>{{-- number_format($total_request->total_request) --}}</th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     </tfoot>

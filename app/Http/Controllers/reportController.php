@@ -69,6 +69,15 @@ $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Downlo
 
     }
 
+
+public function summaryReport()
+    {
+dd('sasa');
+
+}
+
+
+
 public function dailyReport(Request $request,$id,$status){
 $property_id=$id;
 

@@ -133,7 +133,7 @@
         <span class="svg-icon nav-icon">
             <i class="fas fa-chart-line font-size-h4" ></i>
         </span>
-        <span class="btn-sm">Reports</span>
+        <span class="btn-sm">Report</span>
         <i class="fas fa-chevron-right fa-rotate-90"></i>
     </a>
     <div class="collapse nav-collapse
@@ -146,6 +146,7 @@
         <ul class="nav flex-column">
 
             <li class="nav-item <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'sub-active' : ''); ?><?php echo e((request()->is('filter-report-general/{id}/dashboard')) ? 'sub-active' : ''); ?>">
+                
                 <a href="/report-general/<?php echo e($property->id ?? 0); ?>/dashboard" class="nav-link sub-nav-link <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'active' : ''); ?> <?php echo e((request()->is('filter-report-general/{id}/dashboard')) ? 'active' : ''); ?> ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
@@ -163,6 +164,17 @@
                           </svg>
                     </span>
                     <span class="nav-text">Summarized report</span>
+                </a>
+            </li>
+
+              <li class="nav-item <?php echo e((request()->is('summary-report/{id}')) ? 'sub-active' : ''); ?><?php echo e((request()->is('filter-admin')) ? 'sub-active' : ''); ?>">
+                <a href="/summary-report/{id}" class="nav-link sub-nav-link <?php echo e((request()->is('summary-report/{id}')) ? 'active' : ''); ?> <?php echo e((request()->is('filter-admin')) ? 'active' : ''); ?> ">
+                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          </svg>
+                    </span>
+                    <span class="nav-text">Summary-report</span>
                 </a>
             </li>
 

@@ -129,6 +129,8 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 
      if(request('search') || request('print')){
        $id=$_GET['property_search'];
+//dd('ddd');
+
 
     $metaArray=array();
 		$keyArray=array();
@@ -217,10 +219,13 @@ $date_start=date_format($date_start,"Y-m-d");
 $date_end=date_create($date_end);
 $date_end=date_format($date_end,"Y-m-d");
 
+
+//dd('gfghf');
     include_once(app_path().'/jrf/sample/setting.php');
     $PHPJasperXML = new PHPJasperXML();
     $v[]=1;
 
+//dd('print');
     $metanameAll=array();
     $indicatorAll=array();
       //$param[]="active";

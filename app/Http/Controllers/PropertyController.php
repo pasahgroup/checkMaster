@@ -222,6 +222,7 @@ $date_end=date_format($date_end,"Y-m-d");
 
 //dd('gfghf');
     include_once(app_path().'/jrf/sample/setting.php');
+    
     $PHPJasperXML = new PHPJasperXML();
     $v[]=1;
 
@@ -261,7 +262,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
-    dd($PHPJasperXML);
+    //dd($PHPJasperXML);
     $PHPJasperXML->outpage("D");
   }
    //dd('Not role');
@@ -274,7 +275,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
 
    $totalqns = collect($totalqns);
    //dd($reportDailyReader);
-       return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
+
+       // return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
+            return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
     }
 
 

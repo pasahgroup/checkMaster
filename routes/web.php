@@ -100,6 +100,15 @@ use JasperPHP\JasperPHP as JasperPHP;
  // Route::get('image', [ImageController::class, 'index']);
  // Route::post('image', [ImageController::class, 'store']);
 
+Route::get('/stl', function () {
+  \Artisan::call('cache:clear');
+  \Artisan::call('route:clear');
+  \Artisan::call('storage:link');
+   dd('cache clear successfully');
+});
+
+
+
 Route::get('pdf', [EmailSendController::class, 'generatePDF']);
 
 

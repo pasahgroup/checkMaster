@@ -261,7 +261,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
-    //dd($PHPJasperXML);
+    dd($PHPJasperXML);
     $PHPJasperXML->outpage("D");
   }
    //dd('Not role');

@@ -72,8 +72,12 @@ class ChecklistController extends Controller
       $current_date = date('Y-m-d');
       //Extract date
       $datet=Carbon::now();
+
+     // dd($current_date);
+
       $datet=$datet->format('H:i:s');
       //dd($departments->property_id);
+
 
        $metaname_id=request('metaname_id');
         $assetID=request('assetID');
@@ -177,11 +181,18 @@ class ChecklistController extends Controller
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');
-    $answerPerc=DB::select('select * from answers_view');
+    //$answerPerc=DB::select('select * from answers_view');
+     $answerPerc=DB::select('select * from answers_view_summary');
+    
     //sqlite
+
+
     $answerPerc = collect($answerPerc);
     $qnsAppliedPerc=DB::select('select * from qns_appliedtos where department_id="'.$departments->department_id.'"');
     $qnsAppliedPerc = collect($qnsAppliedPerc);
+
+
+//dd($answerPerc);
 
 
     if(request('email_send')){
@@ -242,7 +253,7 @@ class ChecklistController extends Controller
     }
 
    //dd($checkQnsProp);
-            return view("livewire.checklistTest",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','checkQnsProp','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
+            return view("livewire.checklistTest",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
            // return view('livewire.checklistTest',compact('properties'));
 
           }
@@ -283,7 +294,7 @@ class ChecklistController extends Controller
    $property_id = request('propertyID');
    $current_date = date('Y-m-d');
 
-     //dd($request->all());
+    // dd($current_date);
 
    if(request('save')){
    $save = request("save");
@@ -346,7 +357,10 @@ if($nameStr===$idxKey)
  {
   //dd($value[0]);
   if(count($value)>1){
+
  if($value[1]!=null){
+//dd($data[3]);
+
 $insetqnsAns = answer::UpdateOrCreate([
   'property_id'=>$property_id,
   'metaname_id'=>request('metaname_id'),

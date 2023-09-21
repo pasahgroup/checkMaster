@@ -189,7 +189,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 }
 
 
-dd('ddddx');
+//dd('ddddx');
 
 //End of Request
 	 $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
@@ -208,6 +208,9 @@ dd('ddddx');
    ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
    ->orderBy('set_indicators.id')
 	 ->get();
+
+dd('print');
+
    }
    else{
 	   //dd('Not role');

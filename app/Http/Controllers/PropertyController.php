@@ -74,7 +74,7 @@ $first = reset($segments);
 
 
 $url="http://localhost:8000/report-general/{$property->id}/dashboard";
-dd($url);
+//dd($url);
  $segmentsExploide = explode('/', $url);
 //END OF RESERVED CODE FOR URL
 

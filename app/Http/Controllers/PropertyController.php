@@ -232,9 +232,15 @@ $date_start=date_format($date_start,"Y-m-d");
 $date_end=date_create($date_end);
 $date_end=date_format($date_end,"Y-m-d");
 
+$server="localhost";
+$db="hakunama_checklistmasterdb";
+$user="hakunama_tatas_user";
+$pass="checklistmaster";
+$version="1.1";
 
+$pgport=3306; //only for postgresql
 
-    include_once(app_path().'/jrf/sample/setting.php');
+   // include_once(app_path().'/jrf/sample/setting.php');
     
 //dd('gfdghf');
 

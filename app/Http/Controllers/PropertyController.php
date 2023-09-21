@@ -189,6 +189,8 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 }
 
 
+dd('ddddx');
+
 //End of Request
 	 $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
 	 ->join('set_indicators','answers.indicator_id','set_indicators.id')

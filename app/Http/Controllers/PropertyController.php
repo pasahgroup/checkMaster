@@ -62,17 +62,25 @@ class PropertyController extends Controller
 $prnt="";
 $userID=user::where('id',auth()->id())->first();
 $property=property::where('id',$userID->property_id)->first();
-//dd($property->id);
+  //$segment = $request->segment(1);
+ // $currenturl = Request::url();
+// dd($currenturl);
+// dd($property->id);
+
 
         $segments = request()->segments();
         $last  = end($segments);
 $first = reset($segments);
+
+
 $url="http://localhost:8000/report-general/{$property->id}/dashboard";
+dd($url);
  $segmentsExploide = explode('/', $url);
 //END OF RESERVED CODE FOR URL
 
+//dd('mmm');
 $uri =request()->path();
-//dd($uri);
+dd($uri);
 
       $keyIndicators = keyIndicator::get();
       $metanames = metaname::get();

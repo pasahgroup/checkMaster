@@ -45,7 +45,7 @@ class reportTestController extends Controller
 
  public function viewreport($x,$y)
     {
-dd('ddd');
+//dd('ddd');
       // $PHPJasperXML = new PHPJasperXML();
       // // $PHPJasperXML->load_xml_file(app_path()."/includes/reports/".$reporte.".jrxml");
       //  $PHPJasperXML->load_xml_file(app_path()."/reports/location.jrxml");

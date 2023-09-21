@@ -1,8 +1,8 @@
 <?php
 $server="localhost";
-$db="horesydb";
-$user="root";
-$pass="";
+$db="hakunama_checklistmasterdb";
+$user="hakunama_tatas_user";
+$pass="checklistmaster";
 $version="1.1";
 
 $pgport=3306; //only for postgresql

@@ -274,8 +274,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
      $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
          //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
 
-dd('klopo');
+
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    dd('klopo print');
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
     //dd($PHPJasperXML);

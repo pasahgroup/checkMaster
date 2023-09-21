@@ -209,7 +209,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    ->orderBy('set_indicators.id')
 	 ->get();
 
-dd('print');
+//dd('print');
 
    }
    else{
@@ -233,9 +233,11 @@ $date_end=date_create($date_end);
 $date_end=date_format($date_end,"Y-m-d");
 
 
-//dd('gfghf');
+
     include_once(app_path().'/jrf/sample/setting.php');
     
+//dd('gfdghf');
+
     $PHPJasperXML = new PHPJasperXML();
     $v[]=1;
 
@@ -272,6 +274,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
      $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
          //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
 
+dd('klopo');
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     //$PHPJasperXML->outpage("D");
     ob_end_clean();

@@ -80,7 +80,7 @@ $url="http://localhost:8000/report-general/{$property->id}/dashboard";
 
 //dd('mmm');
 $uri =request()->path();
-dd($uri);
+//dd($uri);
 
       $keyIndicators = keyIndicator::get();
       $metanames = metaname::get();

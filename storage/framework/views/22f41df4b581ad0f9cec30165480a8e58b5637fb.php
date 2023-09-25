@@ -128,7 +128,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
   </div>
 
   <div class="form-group">
-       <form  method="GET"  action="<?php echo e(route('weekly.index')); ?>" enctype="multipart/form-data">
+       <form  method="GET"  action="<?php echo e(route('daily.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">

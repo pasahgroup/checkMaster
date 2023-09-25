@@ -252,10 +252,9 @@ class ChecklistController extends Controller
       dd('Mail sent successfully');
     }
 
-            return view("livewire.weekly",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
+            return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
            // return view('livewire.checklistTest',compact('properties'));
   }
-
 
 
 

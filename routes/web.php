@@ -63,6 +63,7 @@ use App\Http\Controllers\rolesController;
 use App\Http\Controllers\PropertyxController;
 use App\Http\Controllers\reportTestController;
 use App\Http\Controllers\ChecklistStatusController;
+use App\Http\Controllers\DailyController;
 
 use App\Http\Controllers\MetadataController;
 use App\Http\Controllers\MetanameController;
@@ -268,7 +269,10 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
 
 //Route::resource('checklist/{id}', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
- Route::get('daily',[ChecklistController::class,'daily'])->name('daily');
+
+Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+
+ //Route::get('daily',[ChecklistController::class,'daily'])->name('daily');
 // Route::resource('checklistx', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
 

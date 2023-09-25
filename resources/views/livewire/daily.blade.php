@@ -127,7 +127,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
   </div>
 
   <div class="form-group">
-       <form  method="GET"  action="{{ route('weekly.index') }}" enctype="multipart/form-data">
+       <form  method="GET"  action="{{ route('daily.index') }}" enctype="multipart/form-data">
             @csrf
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">

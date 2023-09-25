@@ -254,7 +254,7 @@ class ChecklistController extends Controller
 
             return view("livewire.weekly",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
            // return view('livewire.checklistTest',compact('properties'));
-          }
+  }
 
 
 
@@ -314,6 +314,7 @@ class ChecklistController extends Controller
       ->get();
 
       $sections = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
+      ->where('qns_appliedtos.section','General')
       ->groupby('qns_appliedtos.section')
       ->select('qns_appliedtos.section')
       ->get();
@@ -370,7 +371,9 @@ class ChecklistController extends Controller
     ]);
     }
    $qnsapply=collect($qnsapply);
-   $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and metaname_id in(".$metaname_id.")");
+   $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
+
+//dd($qnsapply);
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');

@@ -52,6 +52,16 @@
                     </select>
   </div>
 
+   <div class="form-group">
+            <label class="text-dark" >Duration</label>
+                        <select name="duration" id="duration" class="form-control" required>
+                          <option value="">--- Select duration ---</option>
+  <option value="Daily">Daily</option>
+    <option value="Weekly">Weekly</option>
+                    </select>
+  </div>
+
+
   <div class="form-group">
             <label class="text-dark" >Section</label>
                         <select name="section" id="section" class="form-control" required>

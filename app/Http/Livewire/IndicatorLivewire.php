@@ -41,11 +41,12 @@ public function store(Request $request)
     {
          $names = request('names');
  $answer_class = request('answer_class');
-//dd(request('section'));
+//dd(request('duration'));
 
 
 $indicator = setIndicator::UpdateOrCreate([
         'qns'=>request('question'),
+         'duration'=>request('duration'),
          'status'=>'Active',
           'user_id'=>auth()->id()
         ]);

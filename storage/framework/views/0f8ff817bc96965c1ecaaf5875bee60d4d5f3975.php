@@ -128,7 +128,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
   </div>
 
   <div class="form-group">
-       <form  method="GET"  action="<?php echo e(route('checklistx.index')); ?>" enctype="multipart/form-data">
+       <form  method="GET"  action="<?php echo e(route('weekly.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
@@ -177,7 +177,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
    <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
         <?php if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0): ?>
-      <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> || <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()); ?>
+      <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()); ?>
 
      <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($selectedOption==$chkp->asset_id): ?> checked <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2); ?>)%
      <?php endif; ?>
@@ -192,7 +192,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
       <div wire:ignore.self id="collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" class="panel-collapse collapse">
     <!-- <div wire:ignore.self id="collapse<?php echo e($metaname_id); ?>" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
-    <form  method="post"  action="<?php echo e(route('checklistx.store')); ?>" enctype="multipart/form-data">
+    <form  method="post"  action="<?php echo e(route('weekly.store')); ?>" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">

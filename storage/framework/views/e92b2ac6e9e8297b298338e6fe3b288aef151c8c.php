@@ -6,8 +6,7 @@
 
     <div id="accordion" style="background-color:#f4f4f4; !important">
         <div class="text-center text-primary"><hr>
-
-              </div>
+        </div>
 
 <ul class="nav flex-column">
     <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'GeneralAdmin|SuperAdmin')): ?>
@@ -57,7 +56,7 @@
 
 <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier')): ?>
   <li class="nav-item
-            <?php echo e((request()->is('checklistx')) ? 'active' : ''); ?>
+            <?php echo e((request()->is('weekly')) ? 'active' : ''); ?>
 
             <?php echo e((request()->is('managers-inspection/{id}')) ? 'active' : ''); ?>
 
@@ -75,7 +74,7 @@
                  </a>
 
                 <div class="collapse nav-collapse
-                <?php echo e((request()->is('checklistx')) ? 'show' : ''); ?>
+                <?php echo e((request()->is('weekly')) ? 'show' : ''); ?>
 
                   <?php echo e((request()->is('managers-inspection/{id}')) ? 'show' : ''); ?>
 
@@ -94,7 +93,19 @@
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                           </svg>
                                     </span>
-                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Inspection 1</span>
+                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Daily</span>
+                                </a>
+                            </li>
+
+
+                             <li class="nav-item <?php echo e((request()->is('weekly')) ? 'sub-active' : ''); ?>">
+                                <a href="/weekly" class="nav-link sub-nav-link <?php echo e((request()->is('weekly')) ? 'active' : ''); ?>">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Weekly</span>
                                 </a>
                             </li>
             <?php endif; ?>
@@ -108,7 +119,7 @@
                                       <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     </svg>
                               </span>
-                              <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Inspection 2</span>
+                              <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Clearences</span>
                           </a>
                    </li>
           <?php endif; ?>
@@ -147,7 +158,7 @@
 
             <li class="nav-item <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'sub-active' : ''); ?><?php echo e((request()->is('filter-report-general/{id}/dashboard')) ? 'sub-active' : ''); ?>">
                 
-                <a href="/report-general/1/dashboard" class="nav-link sub-nav-link <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'active' : ''); ?> <?php echo e((request()->is('filter-report-general/{id}/dashboard')) ? 'active' : ''); ?> ">
+                <a href="/report-general/<?php echo e($property->id ?? 0); ?>/dashboard" class="nav-link sub-nav-link <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'active' : ''); ?> <?php echo e((request()->is('filter-report-general/{id}/dashboard')) ? 'active' : ''); ?> ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

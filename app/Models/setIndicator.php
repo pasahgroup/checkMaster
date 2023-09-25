@@ -10,6 +10,7 @@ class setIndicator extends Model
     use HasFactory;
       protected $fillable = [
         'qns',
+        'duration',
         'status',
         'user_id'
        

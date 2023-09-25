@@ -100,14 +100,6 @@ use JasperPHP\JasperPHP as JasperPHP;
  // Route::get('image', [ImageController::class, 'index']);
  // Route::post('image', [ImageController::class, 'store']);
 
-Route::get('/stl', function () {
-  \Artisan::call('cache:clear');
-  \Artisan::call('route:clear');
-  \Artisan::call('storage:link');
-   dd('cache clear successfully');
-});
-
-
 
 Route::get('pdf', [EmailSendController::class, 'generatePDF']);
 
@@ -130,7 +122,7 @@ Route::get('/stl', function () {
   \Artisan::call('config:clear');
   \Artisan::call('cache:clear');
   \Artisan::call('route:clear');
-  \Artisan::call('route:cache');
+  //\Artisan::call('route:cache');
   \Artisan::call('route:cache');
   \Artisan::call('storage:link');
     // \Artisan::call('key:generate');
@@ -275,7 +267,10 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
   //Route::resource('managers-inspection', Managerlist::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin']);
 
 //Route::resource('checklist/{id}', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
-Route::resource('checklistx', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+ Route::get('daily',[ChecklistController::class,'daily'])->name('daily');
+// Route::resource('checklistx', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+
 
 //Route::get('/getA/{p}', 'ChecklistController@getA');
 Route::get('/getA/{p}', [ChecklistController::class,'getA']);

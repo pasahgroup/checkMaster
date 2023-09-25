@@ -6,8 +6,7 @@
 
     <div id="accordion" style="background-color:#f4f4f4; !important">
         <div class="text-center text-primary"><hr>
-
-              </div>
+        </div>
 
 <ul class="nav flex-column">
     @role('GeneralAdmin|SuperAdmin')
@@ -53,7 +52,7 @@
 
 @role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier')
   <li class="nav-item
-            {{ (request()->is('checklistx')) ? 'active' : '' }}
+            {{ (request()->is('weekly')) ? 'active' : '' }}
             {{ (request()->is('managers-inspection/{id}')) ? 'active' : '' }}
               {{ (request()->is('dashboard-checklistx')) ? 'active' : '' }}
             ">
@@ -68,7 +67,7 @@
                  </a>
 
                 <div class="collapse nav-collapse
-                {{ (request()->is('checklistx')) ? 'show' : '' }}
+                {{ (request()->is('weekly')) ? 'show' : '' }}
                   {{ (request()->is('managers-inspection/{id}')) ? 'show' : '' }}
                     {{ (request()->is('dashboard-checklistx')) ? 'show' : '' }}
                 " id="accordionChecklist" data-parent="#accordion">
@@ -84,7 +83,19 @@
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                           </svg>
                                     </span>
-                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Inspection 1</span>
+                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Daily</span>
+                                </a>
+                            </li>
+
+
+                             <li class="nav-item {{ (request()->is('weekly')) ? 'sub-active' : '' }}">
+                                <a href="/weekly" class="nav-link sub-nav-link {{ (request()->is('weekly')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Weekly</span>
                                 </a>
                             </li>
             @endrole
@@ -98,7 +109,7 @@
                                       <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     </svg>
                               </span>
-                              <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Inspection 2</span>
+                              <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Clearences</span>
                           </a>
                    </li>
           @endrole

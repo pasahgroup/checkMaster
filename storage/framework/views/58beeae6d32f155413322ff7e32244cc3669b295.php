@@ -66,6 +66,8 @@
             <label class="text-dark" >Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
+
+                          <option value="General">General</option>
   <option value="Bathroom">Bathroom</option>
     <option value="Bed">Bed</option>
   <option value="Closet">Closet</option>

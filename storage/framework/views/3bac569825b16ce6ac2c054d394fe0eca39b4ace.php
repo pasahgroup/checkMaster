@@ -1,9 +1,9 @@
 <div>
-  @if($message)
+  <?php if($message): ?>
                             <div class="alert alert-danger">
-                              <h5   class="text-center">{{ $message }}</h5>
+                              <h5   class="text-center"><?php echo e($message); ?></h5>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
  <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
         <!--begin::Subheader-->
@@ -26,23 +26,23 @@
                   <h5 class="title font-weight-bold text-center">List of Metaname</h5>                    <div class="card card-custom gutter-b bg-white border-0">
                                                            <div class="card-body">
 
-    <form  method="post"  action="{{ route('assign-indicator.store') }}" enctype="multipart/form-data">
-                             @csrf
+    <form  method="post"  action="<?php echo e(route('assign-indicator.store')); ?>" enctype="multipart/form-data">
+                             <?php echo csrf_field(); ?>
     <input type="hidden" name="_method" value="post">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 
 
 <div class="form-group">
-   @isset($metanames)
+   <?php if(isset($metanames)): ?>
     <div class="row">
          <div class="form-group">
 
       <label>Metaname</label>
                            <select name="metaname" id="metaname" class="form-control">
                              <option value="">--- Select metaname ---</option>
-  @foreach($metanames as $metaname)
-     <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
-   @endforeach
+  <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metaname): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+     <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
+   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                        </select>
 
 
@@ -65,17 +65,17 @@
                      </select>
    <!-- </div>
    <div class="form-group"> -->
-    <!-- {{$deps}} -->
+    <!-- <?php echo e($deps); ?> -->
   <label>Department</label>
   <select name="depart" id="depart" class="form-control">
                            <option value="">--- Select deoartment ---</option>
-                        @foreach($deps as $depart)
-     <option value="{{$depart->id}}">{{$depart->unit_name}}</option>
-   @endforeach
+                        <?php $__currentLoopData = $deps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $depart): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+     <option value="<?php echo e($depart->id); ?>"><?php echo e($depart->unit_name); ?></option>
+   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </select>
    </div>
     </div>
-   @endisset
+   <?php endif; ?>
 </div>
 
 
@@ -90,14 +90,14 @@
                   <h5 class="title font-weight-bold text-center">List of Indicators/Qns</h5>                    <div class="card card-custom gutter-b bg-white border-0">
                                                            <div class="card-body">
 <div class="form-group">
- @isset($indicators)
-      @foreach($indicators as $indicator)
+ <?php if(isset($indicators)): ?>
+      <?php $__currentLoopData = $indicators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $indicator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div class="row">
-      <div class="col-xl-9 col-md-9">{{$indicator->qns}}</div>
-     <div class="col-xl-3 col-md-3"><input type="checkbox" name="indicators[]" value="{{$indicator->id}}"></div>
+      <div class="col-xl-9 col-md-9"><?php echo e($indicator->qns); ?></div>
+     <div class="col-xl-3 col-md-3"><input type="checkbox" name="indicators[]" value="<?php echo e($indicator->id); ?>"></div>
    </div>
-   @endforeach
-   @endisset
+   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   <?php endif; ?>
 </div>
 
 
@@ -182,3 +182,4 @@ else
 });
 </script>
 </div>
+<?php /**PATH C:\xampp\htdocs\horesyff\resources\views/livewire/assign-indicator.blade.php ENDPATH**/ ?>

@@ -66,13 +66,13 @@
             <label class="text-dark" >Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
-
-                          <option value="General">General</option>
+                          
   <option value="Bathroom">Bathroom</option>
     <option value="Bed">Bed</option>
   <option value="Closet">Closet</option>
     <option value="Entree">Entree</option>
       <option value="Furniture">Furniture</option>
+      <option value="General">General</option>
       <option value="Outside-Varrander">Outside-Varrander</option>
   <option value="Pillow">Pillow</option>
     <option value="Room">Room</option>

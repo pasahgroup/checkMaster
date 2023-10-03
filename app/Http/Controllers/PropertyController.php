@@ -70,7 +70,7 @@ $property=property::where('id',$userID->property_id)->first();
 
         $segments = request()->segments();
         $last  = end($segments);
-$first = reset($segments);
+        $first = reset($segments);
 
 
 $url="http://localhost:8000/report-general/{$property->id}/dashboard";
@@ -287,7 +287,9 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
     ob_end_clean();
     //dd($PHPJasperXML);
     $PHPJasperXML->outpage("D");
+  
   }
+
    //dd('Not role');
    //Metaname percent
    $answerCount=DB::select('select a.*,m.metaname_name from answers a,metanames m where a.metaname_id=m.id and DAY(a.datex)=DAY(NOW()) and a.status="Active" group by a.property_id,a.metaname_id,a.indicator_id,a.asset_id order by a.metaname_id ASC');

@@ -179,7 +179,7 @@ $properties=property::get();
           $reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and month(a.datex)=month(NOW())');
           $dataMonthly = collect($reportMonthlyData);
 
-            return redirect('checklistx');
+            return redirect('daily');
 }
 
 

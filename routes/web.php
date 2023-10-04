@@ -124,7 +124,7 @@ Route::get('/stl', function () {
   \Artisan::call('cache:clear');
   \Artisan::call('route:clear');
   //\Artisan::call('route:cache');
-  \Artisan::call('route:cache');
+  \Artisan::call('route:clear');
   \Artisan::call('storage:link');
     // \Artisan::call('key:generate');
    dd('cache clear successfully');

@@ -64,7 +64,7 @@ $userID=user::where('id',auth()->id())->first();
 $property=property::where('id',$userID->property_id)->first();
   //$segment = $request->segment(1);
  // $currenturl = Request::url();
-// dd($currenturl);
+  //dd('uuu');
 // dd($property->id);
 
 
@@ -134,6 +134,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    $criticalMonthly=$roomMonthly->where('answer_classification','Critical')->count();
 
 
+//dd('ddd');
 
      if(request('search') || request('print')){
        $id=$_GET['property_search'];
@@ -188,7 +189,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	 }
 }
 
-
+//dd('ddd');
 //dd($keyArray);
 
 //End of Request
@@ -216,7 +217,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    }
 
    //dd($reportDailyReader);
-
+//dd('ddd');
 
 	if(request('print')){
     $id=$_GET['property_search'];
@@ -290,6 +291,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
 
    //dd('Not role');
    //Metaname percent
+
    $answerCount=DB::select('select a.*,m.metaname_name from answers a,metanames m where a.metaname_id=m.id and DAY(a.datex)=DAY(NOW()) and a.status="Active" group by a.property_id,a.metaname_id,a.indicator_id,a.asset_id order by a.metaname_id ASC');
    $answerCount = collect($answerCount);
 
@@ -297,7 +299,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
    $totalqns=DB::select('select a.metaname_id,metaname_name from assets a, qns_appliedtos q,metanames m where a.metaname_id=q.metaname_id and a.metaname_id=m.id and a.status="Active" and q.status="Active"');
 
    $totalqns = collect($totalqns);
-   //dd($reportDailyReader);   
+  // dd($reportDailyReader);   
 
         return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
             //return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));

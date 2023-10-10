@@ -92,6 +92,7 @@ if($property_name ==null)
             $role = Role::create(['name' => 'Store']);
             $role = Role::create(['name' => 'User']);
             $role = Role::create(['name' => 'HouseKeeper']);
+             $role = Role::create(['name' => 'Maintenancier']);
             //assign admin role
             $user->assignRole('Admin');
                 }
@@ -174,7 +175,7 @@ $properties=property::get();
           $reportWeeklyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and WEEK(a.datex)=WEEK(NOW())');
           $dataWeekly = collect($reportWeeklyData);
          //$weeklyMetaCollects=$dataWeekly->groupBy('metaname_name');
-
+//dd('sds');
          //Report monthly dataDaily
           $reportMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and month(a.datex)=month(NOW())');
           $dataMonthly = collect($reportMonthlyData);
@@ -186,6 +187,8 @@ $properties=property::get();
 
 if($user->hasRole('Manager|Maintenancier')){
   $current_date = date('Y-m-d');
+
+//dd($current_date);
 
   $properties=property::get();
   $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');

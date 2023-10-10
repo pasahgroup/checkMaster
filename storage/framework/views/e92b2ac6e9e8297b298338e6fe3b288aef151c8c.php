@@ -54,7 +54,7 @@
 </li>
   <?php endif; ?>
 
-<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier')): ?>
+<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier|HouseKeeper')): ?>
   <li class="nav-item
             <?php echo e((request()->is('weekly')) ? 'active' : ''); ?>
 
@@ -85,7 +85,7 @@
                         <ul class="nav flex-column">
 
 
-                    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeping')): ?>
+                    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeper')): ?>
                                <li class="nav-item <?php echo e((request()->is('daily')) ? 'sub-active' : ''); ?>">
                                 <a href="/daily" class="nav-link sub-nav-link <?php echo e((request()->is('daily')) ? 'active' : ''); ?>">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">

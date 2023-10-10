@@ -257,9 +257,9 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                    <?php endif; ?>
 
                    <option value="no_value">--level of maintenance--</option>
-                   <option style="background-color:yellow" value="Low">Low</option>
-                   <option style="background-color:salmon" value="Medium">Medium</option>
-                   <option style="background-color:red" value="High">High</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
                   </select>
 
                 </div>
@@ -275,10 +275,10 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 <?php if($metadata->answer=="Maintenance"): ?>
    <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" style="display:none;">
      <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>"  class="form-control" required>
-            <option value="no_value">--level of maintenance--</option>
-         <option style="background-color:yellow" value="Low">Low</option>
-         <option style="background-color:salmon" value="Medium">Medium</option>
-         <option style="background-color:red" value="High">High</option>
+        <option value="no_value">--level of maintenance--</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
      </select>
    </div>
    <br>

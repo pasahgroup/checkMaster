@@ -254,9 +254,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                    @endisset
 
                    <option value="no_value">--level of maintenance--</option>
-                   <option style="background-color:yellow" value="Low">Low</option>
-                   <option style="background-color:salmon" value="Medium">Medium</option>
-                   <option style="background-color:red" value="High">High</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
                   </select>
 
                 </div>
@@ -272,10 +272,10 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 @if($metadata->answer=="Maintenance")
    <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
      <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
-            <option value="no_value">--level of maintenance--</option>
-         <option style="background-color:yellow" value="Low">Low</option>
-         <option style="background-color:salmon" value="Medium">Medium</option>
-         <option style="background-color:red" value="High">High</option>
+        <option value="no_value">--level of maintenance--</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
      </select>
    </div>
    <br>

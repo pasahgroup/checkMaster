@@ -176,6 +176,7 @@ table, th, td {
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-12 col-xl-12">
                      <input  type="button" value="Print"               
                 onclick="convertHTMLtoPDF()">
@@ -206,7 +207,19 @@ table, th, td {
                                             <td><?php echo e($dailyDataR->asset_name); ?></td>
                                             <td><?php echo e($dailyDataR->qns); ?></td>
                                             <td><?php echo e($dailyDataR->answer); ?></td>
-                                            <td <?php if($dailyDataR->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyDataR->answer_classification ==='maintenance'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyDataR->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyDataR->answer_classification); ?></td>
+                                            <td <?php if($dailyDataR->answer_label ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?>
+
+                                             <?php if($dailyDataR->answer_label ==='Maintenance-low'): ?> style="background-color:#e2dc23;"<?php endif; ?> 
+                                              <?php if($dailyDataR->answer_label ==='Maintenance-medium'): ?> style="background-color:#e26e23;"<?php endif; ?> 
+
+                                               <?php if($dailyDataR->answer_label ==='Maintenance-high'): ?> style="background-color:#e22623;"<?php endif; ?> 
+
+                                                <?php if($dailyDataR->answer_label ==='Good'): ?> style="background-color:green;"<?php endif; ?>>
+
+                                                <?php echo e($dailyDataR->answer_label); ?>
+
+
+                                            </td>
                                        
                                               <td><?php echo e($dailyDataR->description); ?></td>
                                             <td><?php echo e($dailyDataR->PostedBy); ?></td>

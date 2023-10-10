@@ -50,7 +50,7 @@
 </li>
   @endrole
 
-@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier')
+@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|Maintenancier|HouseKeeper')
   <li class="nav-item
             {{ (request()->is('weekly')) ? 'active' : '' }}
             {{ (request()->is('managers-inspection/{id}')) ? 'active' : '' }}
@@ -75,7 +75,7 @@
                         <ul class="nav flex-column">
 
 
-                    @role('SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeping')
+                    @role('SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeper')
                                <li class="nav-item {{ (request()->is('daily')) ? 'sub-active' : '' }}">
                                 <a href="/daily" class="nav-link sub-nav-link {{ (request()->is('daily')) ? 'active' : '' }}">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">

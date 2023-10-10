@@ -255,8 +255,8 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
   //Route::get('checklist/{id}',Checklist::class)->name('checklist');
   Route::resource('checklist', Checklist::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
-  Route::resource('managers-inspection', ManageController::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin']);
-  Route::get('managers-inspection/{id}',[ManageController::class,'index'])->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin']);
+  Route::resource('managers-inspection', ManageController::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin|Maintenancier']);
+  Route::get('managers-inspection/{id}',[ManageController::class,'index'])->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin|Maintenancier']);
 
   //Route::get('managers-inspection/{id}',Managerlist::class)->name('managers-inspection');
   //Route::resource('managers-inspection', Managerlist::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin']);
@@ -270,9 +270,12 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
 //Route::resource('checklist/{id}', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
-Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
- //Route::get('daily',[ChecklistController::class,'daily'])->name('daily');
+ Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+
+
+
+ //Route::get('dailyx',[ChecklistController::class,'daily'])->name('daily');
 // Route::resource('checklistx', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
 
@@ -360,6 +363,7 @@ Route::put('riq-update/{id}',[MetadataController::class,'updateDatatype'])->name
 
           //General reportTest
   Route::get('report-general/{id}/dashboard',[PropertyController::class,'reportGeneral'])->name('report-general');
+  
   Route::get('report-action/{id}/dashboard',[PropertyController::class,'reportAction'])->name('report-action');
   Route::get('report-view/{sn}/{id}',[PropertyController::class,'reportView'])->name('report-view','report-view');
   // Route::post('report-view/{sn}/{id}',[PropertyController::class,'reportView'])->name('report-view','report-view');

@@ -146,6 +146,7 @@ table, th, td {
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-12 col-xl-12">
                      <input  type="button" value="Print"               
                 onclick="convertHTMLtoPDF()">
@@ -176,7 +177,18 @@ table, th, td {
                                             <td>{{ $dailyDataR->asset_name }}</td>
                                             <td>{{ $dailyDataR->qns }}</td>
                                             <td>{{ $dailyDataR->answer }}</td>
-                                            <td @if($dailyDataR->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyDataR->answer_classification ==='maintenance') style="background-color:maroon;"@endif @if($dailyDataR->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyDataR->answer_classification }}</td>
+                                            <td @if($dailyDataR->answer_label ==='Bad') style="background-color:yellowGreen;"@endif
+
+                                             @if($dailyDataR->answer_label ==='Maintenance-low') style="background-color:#e2dc23;"@endif 
+                                              @if($dailyDataR->answer_label ==='Maintenance-medium') style="background-color:#e26e23;"@endif 
+
+                                               @if($dailyDataR->answer_label ==='Maintenance-high') style="background-color:#e22623;"@endif 
+
+                                                @if($dailyDataR->answer_label ==='Good') style="background-color:green;"@endif>
+
+                                                {{ $dailyDataR->answer_label }}
+
+                                            </td>
                                        
                                               <td>{{ $dailyDataR->description }}</td>
                                             <td>{{ $dailyDataR->PostedBy }}</td>

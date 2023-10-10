@@ -74,7 +74,7 @@ class DailyController extends Controller
       //Extract date
       $datet=Carbon::now();
 
-      dd($current_date);
+      //dd($current_date);
 
       $datet=$datet->format('H:i:s');
       //dd($departments->property_id);
@@ -126,7 +126,8 @@ class DailyController extends Controller
       ->groupby('qns_appliedtos.section')
       ->select('qns_appliedtos.section')
       ->get();
-    //dd($sections);
+    
+   // dd($sections);
 
     // get sections from database
     $sectionCollects = collect($sections);
@@ -256,21 +257,9 @@ class DailyController extends Controller
       dd('Mail sent successfully');
     }
 
-            return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
+             return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
            // return view('livewire.checklistTest',compact('properties'));
           }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

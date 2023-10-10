@@ -129,9 +129,10 @@
 
                           <td>  <select name="answer_class[]" id="answer_class" class="form-control" >
                               <option value="Good" style="background-color:green;">Good</option>
-                              <option value="Bad" style="background-color:yellow">Bad</option>
-                                    <option value="Maintenance-critical" style="background-color:red">Maintenance-non-critical</option>
-                              <option value="Maintenance-non-critical" style="background-color:yellowGreen">Maintenance-critical</option>
+                              <option value="Bad" style="background-color:yellowGreen">Bad</option>
+                              <option value="Maintenance-low" style="background-color:yellow">Maintenance-low</option>
+                                    <option value="Maintenance-medium" style="background-color:#FFBF00;">Maintenance-medium</option>
+                              <option value="Maintenance-high" style="background-color:red">Maintenance-high</option>
                               <option value="NA" style="background-color:lightblue">NA</option>
 
                               </select></td>

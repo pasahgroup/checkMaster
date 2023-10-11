@@ -105,7 +105,6 @@ table, th, td {
                                                     <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($meta->metaname_name); ?>"><?php echo e($meta->metaname_name); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
                                                 </select>
                                           </div>
                                     </div>
@@ -120,7 +119,8 @@ table, th, td {
                                                     <?php endif; ?>
                                                     <?php $__currentLoopData = $keyIndicators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $keyInd): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($keyInd->key_name); ?>"><?php echo e($keyInd->key_name); ?></option>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                                                    
+                                                    <option value="All-not-Good">All but not Good</option>
                                                 </select>
                                           </div>
                                     </div>

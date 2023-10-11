@@ -290,6 +290,7 @@ class DailyController extends Controller
      * @param  \App\Http\Requests\StorechecklistRequest  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
     //$rad=$this->rad;

@@ -108,7 +108,6 @@ table, th, td {
                                                     @foreach ($metanames as $meta)
                                                     <option value="{{ $meta->metaname_name }}">{{ $meta->metaname_name }}</option>
                                                     @endforeach
-
                                                 </select>
                                           </div>
                                     </div>
@@ -123,7 +122,8 @@ table, th, td {
                                                     @endif
                                                     @foreach ($keyIndicators as $keyInd)
                                                     <option value="{{ $keyInd->key_name }}">{{ $keyInd->key_name }}</option>
-                                                    @endforeach
+                                                    @endforeach                                                    
+                                                    <option value="All-not-Good">All but not Good</option>
                                                 </select>
                                           </div>
                                     </div>

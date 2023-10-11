@@ -155,6 +155,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 
 	 //Metaname Array creation
 	 $keyNames=keyIndicator::get();
+     //dd($keyNames);
 	 $collectAllKey = collect($keyNames);
 
 	//The Request is metaArray
@@ -180,7 +181,13 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
  foreach ($collectAllKey as $keys) {
     $keyArray[]=$keys->key_name;
    }
-		}
+		}elseif(request('indicator_search')=="All-not-Good"){
+          foreach ($collectAllKey as $keys) {
+    $keyArray[]=$keys->key_name;
+   }
+    unset($keyArray[0]);
+        }
+
 		else{
 		$keysx=$collectAllKey->where('key_name',request('indicator_search'));
 		foreach ($keysx as $keyc) {
@@ -216,11 +223,9 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	   //dd('Not role');
    }
 
-   //dd($reportDailyReader);
-//dd('ddd');
-
+   
 	if(request('print')){
-    $id=$_GET['property_search'];
+   // $id=$_GET['property_search'];
 $prnt=1;
     $datex=$_GET['date'];
     $date_end = substr($datex, strpos($datex, "-") + 2);
@@ -241,8 +246,6 @@ $date_end=date_format($date_end,"Y-m-d");
 // $pgport=3306; //only for postgresql
 
    include_once(app_path().'/jrf/sample/setting.php');
-    
-//dd('gfdghf');
 
     $PHPJasperXML = new PHPJasperXML();
     $v[]=1;
@@ -848,7 +851,7 @@ $updateUser = user::where('id',auth()->id())
       }
     }
 
-
+//dd($keyArray);
     //End of Request
       $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
       ->join('set_indicators','answers.indicator_id','set_indicators.id')

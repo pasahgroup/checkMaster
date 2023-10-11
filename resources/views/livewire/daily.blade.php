@@ -76,7 +76,7 @@ border-color: #dddddd;
 
     <!-- Old form was placed here -->
 Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}
-<div class="row">
+<div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
   <script>
@@ -353,8 +353,8 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
        @endif
        @endforeach
 
-    <div class="row container">
-     <div class="col-md-11 col-sm-11">
+    <div class="container">
+     <div class="col-md-10 col-sm-10">
      <div style="background-color:#f6f7f2 !important">
         <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$section->section}}">Save</button>
      </div>

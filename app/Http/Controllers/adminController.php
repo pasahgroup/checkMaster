@@ -163,7 +163,7 @@ $properties=property::get();
 
 //dd('ddd');
        // sales users
-        if($user->hasRole('GeneralManager|HouseKeeper')){
+        if($user->hasRole('GeneralManager|HouseKeeper|Maintenancier')){
           $current_date = date('Y-m-d');
 
           $properties=property::get();
@@ -185,7 +185,7 @@ $properties=property::get();
 
 
 
-if($user->hasRole('Manager|Maintenancier')){
+if($user->hasRole('Manager')){
   $current_date = date('Y-m-d');
 
 //dd($current_date);

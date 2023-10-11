@@ -144,12 +144,12 @@ public function qnsapplied()
    $qnsapplied = qnsAppliedto::join('metanames','metanames.id','qns_appliedtos.metaname_id')
    ->join('set_indicators','set_indicators.id','qns_appliedtos.indicator_id')
    // ->leftjoin
-    //->join('departments','departments.id','qns_appliedtos.department_id')
+   // ->join('departments','departments.id','qns_appliedtos.department_id')
  //->join('departments','departments.id','qns_appliedtos.department_id')
    ->where('qns_appliedtos.section','!=','Active')
    ->where('qns_appliedtos.status','Active')
    ->orderBy('metanames.metaname_name')
-   //->select('qns_appliedtos.id','metanames.metaname_name','set_indicators.qns','qns_appliedtos.section','qns_appliedtos.department_id','departments.department_name','departments.unit_name','qns_appliedtos.status')
+   ->select('qns_appliedtos.id','metanames.metaname_name','set_indicators.qns','qns_appliedtos.section','qns_appliedtos.department_id','qns_appliedtos.unit_name','qns_appliedtos.status')
    ->get();
 
     $departments = department::where('status','Active')->get();
@@ -159,13 +159,14 @@ public function qnsapplied()
 
  public function qnsUpdate(department $department,$id)
   {
-  //  dd($id);
-  //dd(request('department_name'));
+ $department = department::where('id',request('department_name'))->first();
     $qnsApplied = qnsAppliedto::where('id',$id)
          ->update([
-          'department_id'=>request('department_name')
-          // 'user_id'=>auth()->id()
+          'department_id'=>request('department_name'),
+          'unit_name'=>$department->unit_name,
+           'user_id'=>auth()->id()
         ]);
+
      return redirect()->back()->with('success','Question applied successfly');
   }
 

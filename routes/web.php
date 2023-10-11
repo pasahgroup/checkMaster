@@ -268,10 +268,10 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
   //Route::resource('managers-inspection', Managerlist::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin']);
 
 //Route::resource('checklist/{id}', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
-Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier']);
 
 
- Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
+ Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier']);
 
 
 

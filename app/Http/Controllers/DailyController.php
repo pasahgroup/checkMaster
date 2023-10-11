@@ -108,6 +108,7 @@ class DailyController extends Controller
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
+//dd($metanamess);
     $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
      ->select('metanames.id','metanames.metaname_name')
      ->groupby('metanames.id')
@@ -260,21 +261,7 @@ class DailyController extends Controller
           }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
+/**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

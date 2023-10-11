@@ -85,7 +85,7 @@
                         <ul class="nav flex-column">
 
 
-                    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeper')): ?>
+                    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Admin|HouseKeeper|Maintenancier')): ?>
                                <li class="nav-item <?php echo e((request()->is('daily')) ? 'sub-active' : ''); ?>">
                                 <a href="/daily" class="nav-link sub-nav-link <?php echo e((request()->is('daily')) ? 'active' : ''); ?>">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">
@@ -111,7 +111,7 @@
             <?php endif; ?>
 
 
-<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeping|Maintenancier')): ?>
+<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeping')): ?>
                          <li class="nav-item <?php echo e((request()->is('managers-inspection')) ? 'sub-active' : ''); ?>">
                           <a href="/managers-inspection" class="nav-link sub-nav-link <?php echo e((request()->is('managers-inspection')) ? 'active' : ''); ?>">
                               <span class="svg-icon nav-icon d-flex justify-content-center">
@@ -204,7 +204,7 @@
 </li>
 <?php endif; ?>
 
- <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'GeneralManager|Maintenancier')): ?>
+ <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'GeneralManager')): ?>
  <li class="nav-item <?php echo e((request()->is('managers-inspection/{id}')) ? 'sub-active' : ''); ?>">
   <a href="/managers-inspection/{id}" class="nav-link sub-nav-link <?php echo e((request()->is('managers-inspection/{id}')) ? 'active' : ''); ?>">
       <span class="svg-icon nav-icon d-flex justify-content-center">

@@ -96,7 +96,7 @@
 																		<td>{{ $department->metaname_name }}</td>
 																		<td>{{ $department->qns }}</td>
 																		<td>{{ $department->section}}</td>
-																		<td>{{ $department->department_name }}</td>
+																		<td>{{ $department->unit_name}}</td>
 																		<td>{{ $department->status }}</td>
 																		<!-- <td><input type="button" class="btn-primary" name="" value="{{ $department->users }}"></td> -->
 																		<td>

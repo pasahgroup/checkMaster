@@ -183,11 +183,11 @@ class DailyController extends Controller
     }
    $qnsapply=collect($qnsapply);
 
-// $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
+ $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
 
-   $qns = DB::select("select * from qnsview where department_id=$departments->department_id and duration='daily' and metaname_id in(".$metaname_id.")");
+   //$qns = DB::select("select * from qnsview where department_id=$departments->department_id and duration='daily' and metaname_id in(".$metaname_id.")");
 
-//dd($departments->department_id);
+//dd($qnsapply);
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');

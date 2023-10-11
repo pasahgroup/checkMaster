@@ -51,6 +51,7 @@ class roleController extends Controller
      */
     public function store(Request $request)
     {
+        //dd('hh');
       
         if(request('role')){
             if(Role::where('name',request('name'))->exists()){
@@ -62,11 +63,13 @@ class roleController extends Controller
             }
         }
         elseif(request('department_id')){
-           
-            if(User::where('department_id',request('department_id'))->exists()){
-                return redirect()->back()->with('error','This Department ha already assigned this user');
-            }
-            else{ 
+          
+            // if(User::where('department_id',request('department_id'))->exists()){
+            //      //dd('ddddv');
+            //     return redirect()->back()->with('error','This Department ha already assigned this user');
+            //  //dd('ddddx');
+            // }
+            // else{ 
                 // dd('dddd'); 
                 $user = User::where('id',request('user_id'))
                 ->update([
@@ -74,7 +77,7 @@ class roleController extends Controller
                   'user_id'=>auth()->id()
                 ]);
             return redirect()->back()->with('success','The Department assigned successefuly');
-            }
+            // }
         }
 
         elseif(request('permission')){

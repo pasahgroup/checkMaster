@@ -36,6 +36,7 @@ class rolesController extends Controller
      */
     public function store(Request $request)
     {
+      //  dd('ssd');
            $stock = role::create(
             [
                 'name'=>request('role'),
@@ -83,6 +84,8 @@ class rolesController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+        //dd('ss');
             $role = role::where('id',$id)->first();
         if($role){
            $role->update([

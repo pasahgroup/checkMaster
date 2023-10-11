@@ -137,8 +137,8 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 //dd('ddd');
 
      if(request('search') || request('print')){
-       $id=$_GET['property_search'];
-//dd('ddd');
+       $property_id=$_GET['property_search'];
+//dd($property_id);
 
 
     $metaArray=array();
@@ -200,7 +200,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
 	    ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
 		->join('metanames','answers.metaname_id','metanames.id')
 
-	->where('answers.property_id',$property->id)
+	->where('answers.property_id',$property_id)
     ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
     ->whereIn('metanames.metaname_name',$metaArray)
 	   ->whereIn('optional_answers.answer_classification',$keyArray)
@@ -271,7 +271,7 @@ $date_end=date_format($date_end,"Y-m-d");
 //dd($date);
 //$PHPJasperXML->sql="select * from answers";
 //dd($PHPJasperXML);
-$PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+$PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //$PHPJasperXML->arrayParameter =array("date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //dd($PHPJasperXML->arrayParameter);
 //$PHPJasperXML->arrayParameter =array();
@@ -279,7 +279,6 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
 
      $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
          //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
-
 
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     //dd('klopo print');
@@ -304,6 +303,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property->id,"metanames"=>$
         return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
             //return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
     }
+
 
 
     public function reportAction(Request $request,$id)

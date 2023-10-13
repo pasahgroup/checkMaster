@@ -83,6 +83,7 @@
 																		<th >Indicator Qns</th>
 																			<th >Section</th>
 																				<th >Unit Name</th>
+																				<th >Duration</th>
 																			<th>Status</th>
 																		<th class="no-sort text-right">Action</th>
 																	</tr>
@@ -97,6 +98,7 @@
 																		<td>{{ $department->qns }}</td>
 																		<td>{{ $department->section}}</td>
 																		<td>{{ $department->unit_name}}</td>
+																		<td>{{ $department->duration}}</td>
 																		<td>{{ $department->status }}</td>
 																		<!-- <td><input type="button" class="btn-primary" name="" value="{{ $department->users }}"></td> -->
 																		<td>
@@ -106,7 +108,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Apply questions to Department</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Update questions to Department</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -118,11 +120,10 @@
                 <div class="row">
 
                     <div class="col-12">
-
 												<div class="form-group">
 						 						<label class="text-dark" >Apply question to Department</label>
 												<select class="arabic-select w-100 mb-3 h-30px" name="department_name" >
-														<option value="{{$department->id ?? 0}}">{{$department->unit_name?? ""}}</option>
+														<option value="{{$department->department_id ?? 0}}">{{$department->unit_name?? ""}}</option>
 
 														@foreach ($departments as $depart)
 														<option value="{{ $depart->id }}">{{ $depart->unit_name }}</option>
@@ -130,12 +131,17 @@
 												</select>
 												<small  class="form-text text-muted">please apply question to Department unit name</small>
                         </div>
-<!--
+
                            <div class="form-group">
-                            <label class="text-dark" >Edit Unit name</label>
-                            <input type="text" name="unit_name" class="form-control" value="{{ $department->unit_name }}">
-                            <small  class="form-text text-muted">please edit unit name</small>
-                        </div> -->
+                            <label class="text-dark" >Duration</label>
+                            	<select class="arabic-select w-100 mb-3 h-30px" name="duration" >
+                            		<option value="{{ $department->duration }}">{{ $department->duration }}</option>
+														<option value="Daily">Daily</option>
+														<option value="Weekly">Weekly</option>
+													
+												</select>
+                            <small  class="form-text text-muted">please edit Duration</small>
+                        </div>
                     </div>
                 </div>
 

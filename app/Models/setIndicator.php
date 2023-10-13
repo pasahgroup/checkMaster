@@ -12,7 +12,6 @@ class setIndicator extends Model
         'qns',
         'duration',
         'status',
-        'user_id'
-       
+        'user_id'       
     ];
 }

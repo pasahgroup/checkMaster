@@ -194,9 +194,6 @@ class ChecklistController extends Controller
     $qnsAppliedPerc = collect($qnsAppliedPerc);
 
 
-//dd($answerPerc);
-
-
     if(request('email_send')){
     $input =app_path().'/reports/pieChart.jrxml';
     //$input =app_path().'/reports/department.jrxml';

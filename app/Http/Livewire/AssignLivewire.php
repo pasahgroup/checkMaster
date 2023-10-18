@@ -41,9 +41,13 @@ public function store(Request $request)
     {
 
  $metaname= request('metaname');
+  $depart= request('depart');
  $indicators = request('indicators');
 
-//dd($metanames);
+ $unit = department::where('id',$depart)->first();
+
+//dd($unit->unit_name);
+
  if($indicators ==null)
      {
 return redirect()->back()->with('error','Indicators not selected');
@@ -63,6 +67,7 @@ return redirect()->back()->with('error','Indicators not selected');
     ],
         [            
        'department_id'=>request('depart'),
+       'unit_name'=>$unit->unit_name,
         'status'=>'Active',
         'user_id'=>auth()->id()
         ]);

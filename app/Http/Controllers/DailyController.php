@@ -108,12 +108,15 @@ class DailyController extends Controller
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
-//dd($departments);
+   //dd($departments);
 
-    $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
-     ->select('metanames.id','metanames.metaname_name')
-     ->groupby('metanames.id')
-     ->get();
+    // $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
+    //  ->select('metanames.id','metanames.metaname_name')
+    //  ->groupby('metanames.id')
+    //  ->get();
+
+ $metanames = metaname::get();
+//dd($metanames);
 
       //$metadatas = optionalAnswer::get();
           $metadatasCollects = optionalAnswer::get();
@@ -129,6 +132,7 @@ class DailyController extends Controller
       ->groupby('qns_appliedtos.section')
       ->select('qns_appliedtos.section')
       ->get();
+    
     //dd($sections);
 
     // get sections from database
@@ -187,7 +191,7 @@ class DailyController extends Controller
 
    //$qns = DB::select("select * from qnsview where department_id=$departments->department_id and duration='daily' and metaname_id in(".$metaname_id.")");
 
-//dd($qnsapply);
+//dd($qns);
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');

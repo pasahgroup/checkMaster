@@ -13,6 +13,7 @@ class qnsAppliedto extends Model
         'indicator_id',
         'section',
         'department_id',
+        'unit_name',
         'status',
         'user_id',
     ];

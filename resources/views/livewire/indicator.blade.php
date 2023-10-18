@@ -42,7 +42,7 @@
 
 
   <div class="form-group">
-            <label class="text-dark">Metaname</label>
+            <label class="text-dark">Metanamec</label>
                         <select name="applied_to" id="applied_to" class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>
 
@@ -63,21 +63,25 @@
 
 
   <div class="form-group">
-            <label class="text-dark" >Section</label>
+            <label class="text-dark">Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
                           
   <option value="Bathroom">Bathroom</option>
     <option value="Bed">Bed</option>
   <option value="Closet">Closet</option>
+       <option value="Electrical supply system">Electrical supply system</option>
     <option value="Entree">Entree</option>
       <option value="Furniture">Furniture</option>
       <option value="General">General</option>
+      <option value="Lodge">Lodge</option>
       <option value="Outside-Varrander">Outside-Varrander</option>
   <option value="Pillow">Pillow</option>
     <option value="Room">Room</option>
-      <option value="Toilet">Toilet</option>
-                    </select>
+      <option value="Toilet">Toilet</option> 
+           <option value="Sewer system">Sewer system</option>
+       <option value="Water supply system">Water supply system</option>
+            </select>
   </div>
 
 

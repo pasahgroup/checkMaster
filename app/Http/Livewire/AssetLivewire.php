@@ -87,10 +87,11 @@ class AssetLivewire extends Component
          //dd($hear_from);
      $g='asset_serial';
 
-//dd(request('asset_tag'));
+//dd(request('property_id'));
 
   $tourhearfrom = asset::UpdateOrCreate(
-      ['property_id'=>request('site_id'),
+      [
+    'property_id'=>request('site_id'),
       	'metaname_id'=>request('metaname_id'),
      'asset_name'=>request('asset_name')],
 

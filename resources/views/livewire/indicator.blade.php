@@ -42,7 +42,7 @@
 
 
   <div class="form-group">
-            <label class="text-dark">Metanamec</label>
+            <label class="text-dark">Metaname</label>
                         <select name="applied_to" id="applied_to" class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>
 

@@ -110,12 +110,12 @@ class DailyController extends Controller
 
    //dd($departments);
 
-    // $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
-    //  ->select('metanames.id','metanames.metaname_name')
-    //  ->groupby('metanames.id')
-    //  ->get();
+    $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
+     ->select('metanames.id','metanames.metaname_name')
+     ->groupby('metanames.id')
+     ->get();
 
- $metanames = metaname::get();
+//$metanames = metaname::get();
 //dd($metanames);
 
       //$metadatas = optionalAnswer::get();

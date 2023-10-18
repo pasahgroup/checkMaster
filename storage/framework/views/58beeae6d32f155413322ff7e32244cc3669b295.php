@@ -63,7 +63,7 @@
 
 
   <div class="form-group">
-            <label class="text-dark" >Section</label>
+            <label class="text-dark">Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
                           

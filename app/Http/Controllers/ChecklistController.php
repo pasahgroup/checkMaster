@@ -122,15 +122,15 @@ class ChecklistController extends Controller
       ->select('assets.id','assets.asset_name')
       ->get();
 
-      $sections = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
-      ->groupby('qns_appliedtos.section')
-      ->select('qns_appliedtos.section')
-      ->get();
+      // $sections = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
+      // ->groupby('qns_appliedtos.section')
+      // ->select('qns_appliedtos.section')
+      // ->get();
     //dd($sections);
 
     // get sections from database
-    $sectionCollects = collect($sections);
-    $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+    //$sectionCollects = collect($sections);
+   // $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
 
    //dd($metadatasCollects);
 
@@ -178,7 +178,15 @@ class ChecklistController extends Controller
       'asset_show'=>1
     ]);
     }
+
+
    $qnsapply=collect($qnsapply);
+  $sections = DB::select("select section from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='weekly' and metaname_id in(".$metaname_id.") group by section");
+
+$sectionCollects = collect($sections);
+    $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+
+
    $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and metaname_id in(".$metaname_id.")");
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');

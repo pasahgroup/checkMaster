@@ -142,6 +142,18 @@
 												</select>
                             <small  class="form-text text-muted">please edit Duration</small>
                         </div>
+
+
+                         <div class="form-group">
+                            <label class="text-dark" >Status</label>
+                            	<select class="arabic-select w-100 mb-3 h-30px" name="status" >
+                            		<option value="<?php echo e($department->status); ?>"><?php echo e($department->status); ?></option>
+														<option value="Active">Active</option>
+														<option value="Inactive">Inactive</option>
+													
+												</select>
+                            <small  class="form-text text-muted">please edit Status</small>
+                        </div>
                     </div>
                 </div>
 

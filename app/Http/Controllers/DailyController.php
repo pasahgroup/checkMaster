@@ -127,25 +127,25 @@ class DailyController extends Controller
       ->select('assets.id','assets.asset_name')
       ->get(); 
 
-      $sectionsx = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
-      //->where('qns_appliedtos.section','General')
-      ->groupby('qns_appliedtos.section')
-      ->select('qns_appliedtos.section')
-      ->get();
+ //      $sectionsx = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
+ //      //->where('qns_appliedtos.section','General')
+ //      ->groupby('qns_appliedtos.section')
+ //      ->select('qns_appliedtos.section')
+ //      ->get();
 
 
-       $sectionsx = qnsAppliedto::join('qnsview','qnsview.id','qns_appliedtos.indicator_id')
-      //->join('set_indicators','set_indicators.id','qns_appliedtos.indicator_id')
-   // ->leftjoin
-   // ->join('departments','departments.id','qns_appliedtos.department_id')
- //->join('departments','departments.id','qns_appliedtos.department_id')
-   //->where('qns_appliedtos.section','!=','Active')
-   //->where('qns_appliedtos.status','Active')
-   //->orderBy('metanames.metaname_name')
-    ->where('qnsview.duration','Daily')
-    ->groupby('qns_appliedtos.section')
-      ->select('qns_appliedtos.section')
-   ->get();
+ //       $sectionsx = qnsAppliedto::join('qnsview','qnsview.id','qns_appliedtos.indicator_id')
+ //      //->join('set_indicators','set_indicators.id','qns_appliedtos.indicator_id')
+ //   // ->leftjoin
+ //   // ->join('departments','departments.id','qns_appliedtos.department_id')
+ // //->join('departments','departments.id','qns_appliedtos.department_id')
+ //   //->where('qns_appliedtos.section','!=','Active')
+ //   //->where('qns_appliedtos.status','Active')
+ //   //->orderBy('metanames.metaname_name')
+ //    ->where('qnsview.duration','Daily')
+ //    ->groupby('qns_appliedtos.section')
+ //      ->select('qns_appliedtos.section')
+ //   ->get();
 
    
 
@@ -166,10 +166,6 @@ class DailyController extends Controller
     $departments=user::where('id',auth()->id())->first();
     $qnsapply[]=$departments->department_id;
     }
-
-
-
-
 
 
     $asset_show=asset::where('property_id',$departments->property_id)->first();
@@ -212,12 +208,11 @@ class DailyController extends Controller
 
     //dd($sections);
 
-
- $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
+   $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
 
    //$qns = DB::select("select * from qnsview where department_id=$departments->department_id and duration='daily' and metaname_id in(".$metaname_id.")");
 
-//dd($qns);
+  //dd($qns);
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');

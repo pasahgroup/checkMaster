@@ -85,8 +85,6 @@ return redirect()->back()->with('error','Indicators not selected');
 
 
 
-
-
     public function render(Request $request)
     {
      $pos_id=$this->metaname_id;

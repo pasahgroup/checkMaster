@@ -544,8 +544,9 @@ function checkAge(age) {
 
 <script type="text/javascript">
   function setMetanameFunction(id) {
+      alert('element');
     var elementM = document.getElementById("metaname_model").value;
-    // alert(element);
+     alert(element);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }

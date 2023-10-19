@@ -131,7 +131,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
             @csrf
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-           <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
+           <input type="text" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
 
           <label class="text-dark">Asset name</label>
             <div class="form-group">

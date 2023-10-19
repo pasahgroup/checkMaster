@@ -132,7 +132,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
-           <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
+           <input type="text" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
 
           <label class="text-dark">Asset name</label>
             <div class="form-group">

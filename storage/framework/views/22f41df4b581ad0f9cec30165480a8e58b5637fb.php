@@ -546,7 +546,7 @@ function checkAge(age) {
   function setMetanameFunction(id) {
       //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-     alert(element);
+     alert(elementM);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }
@@ -622,4 +622,5 @@ for (var i = 0; i < radios.length; i++) {
      }
      </script>
 <?php $__env->stopSection(); ?>
-<?php /**PATH C:\xampp\htdocs\horesyff\resources\views/livewire/daily.blade.php ENDPATH**/ ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\horesyff\resources\views/livewire/daily.blade.php ENDPATH**/ ?>

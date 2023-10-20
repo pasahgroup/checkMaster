@@ -531,7 +531,7 @@ function checkAge(age) {
   function setMetanameFunction(id) {
       //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-     alert(element);
+     alert(elementM);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }

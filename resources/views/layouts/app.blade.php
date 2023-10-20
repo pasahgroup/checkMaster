@@ -60,6 +60,9 @@ License: You must have a valid license purchased only from themeforest(the above
     </script>
     <script src="../../js/jQuery311.min.js" type="text/javascript"></script>
 
+       <script src="../../js/activitydata.js" type="text/javascript"></script>
+
+
 <link rel="shortcut icon" href="../../assets/images/misc/logo.svg" />
 </head>
 

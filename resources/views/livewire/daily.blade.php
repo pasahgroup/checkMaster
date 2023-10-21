@@ -148,8 +148,8 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                          <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
                             @endforeach
                      </select>
-                     <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
-                    <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
+                     <input type="text" name="assetID" id="assetID" value="{{$assetID}}" readonly>
+                    <input type="text" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
   <br>
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
     </div>
@@ -515,7 +515,7 @@ function checkAge(age) {
 </script>
 
 <script type="text/javascript" src="../js/activitydata.js"></script>
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {
@@ -531,7 +531,7 @@ function checkAge(age) {
   function setMetanameFunction(id) {
       //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-     alert(elementM);
+     //alert(elementM);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }

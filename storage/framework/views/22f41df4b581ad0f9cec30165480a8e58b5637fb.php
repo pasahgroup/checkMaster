@@ -149,8 +149,8 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                          <option value="<?php echo e($asset->id); ?>"><?php echo e($asset->asset_name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      </select>
-                     <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
-                    <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
+                     <input type="text" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
+                    <input type="text" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
   <br>
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
     </div>
@@ -530,7 +530,7 @@ function checkAge(age) {
 </script>
 
 <script type="text/javascript" src="../js/activitydata.js"></script>
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {
@@ -546,7 +546,7 @@ function checkAge(age) {
   function setMetanameFunction(id) {
       //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-     alert(elementM);
+     //alert(elementM);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }

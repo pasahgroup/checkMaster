@@ -134,7 +134,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
             @csrf
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-           <input type="text" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
+           <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
 
           <label class="text-dark">Asset name</label>
             <div class="form-group">
@@ -151,8 +151,8 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                          <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
                             @endforeach
                      </select>
-                     <input type="text" name="assetID" id="assetID" value="{{$assetID}}" readonly>
-                    <input type="text" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
+                     <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
+                    <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
   <br>
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
     </div>
@@ -611,7 +611,6 @@ for (var i = 0; i < radios.length; i++) {
 
      <script type="text/javascript">
        $(document).ready(function(){
-
       // Department Change
       $('#metaname_model').change(function(){
          // ward
@@ -622,7 +621,6 @@ for (var i = 0; i < radios.length; i++) {
          // $('#project_name').find('option').not(':first').remove();
          // $('#project_activities').find('option').not(':first').remove();
 
-//alert(v);
          // AJAX request
          $.ajax({
            url: 'getA/'+v,

@@ -54,9 +54,9 @@ border-color: #dddddd;
 }
 </style>
 
-<script type="text/javascript" src="../js/activitydata.js"></script>
+<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
 <script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery311.min.js"></script>
+<!-- <script type="text/javascript" src="../js/jquery311.min.js"></script> -->
 
 	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   @if($message?? '')
@@ -622,7 +622,7 @@ for (var i = 0; i < radios.length; i++) {
          // $('#project_name').find('option').not(':first').remove();
          // $('#project_activities').find('option').not(':first').remove();
 
-alert(v);
+//alert(v);
          // AJAX request
          $.ajax({
            url: 'getA/'+v,

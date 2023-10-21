@@ -56,7 +56,7 @@ border-color: #dddddd;
 
 <!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
 <script type="text/javascript" src="../js/jquery.js"></script>
-<!-- <script type="text/javascript" src="../js/jquery311.min.js"></script> -->
+<script type="text/javascript" src="../js/jquery311.min.js"></script>
 
 	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   <?php if($message?? ''): ?>
@@ -129,13 +129,14 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
               </select>
 
   </div>
+  
 
   <div class="form-group">
        <form  method="GET"  action="<?php echo e(route('daily.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
-           <input type="text" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
+           <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
 
           <label class="text-dark">Asset name</label>
             <div class="form-group">
@@ -152,8 +153,8 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                          <option value="<?php echo e($asset->id); ?>"><?php echo e($asset->asset_name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      </select>
-                     <input type="text" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
-                    <input type="text" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
+                     <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
+                    <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
   <br>
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
     </div>
@@ -626,7 +627,6 @@ for (var i = 0; i < radios.length; i++) {
 
      <script type="text/javascript">
        $(document).ready(function(){
-
       // Department Change
       $('#metaname_model').change(function(){
          // ward
@@ -637,7 +637,6 @@ for (var i = 0; i < radios.length; i++) {
          // $('#project_name').find('option').not(':first').remove();
          // $('#project_activities').find('option').not(':first').remove();
 
-//alert(v);
          // AJAX request
          $.ajax({
            url: 'getA/'+v,

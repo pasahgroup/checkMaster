@@ -128,6 +128,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
               </select>
 
   </div>
+  
 
   <div class="form-group">
        <form  method="GET"  action="{{ route('daily.index') }}" enctype="multipart/form-data">

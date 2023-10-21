@@ -108,9 +108,10 @@ class DailyController extends Controller
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
-   //dd($departments);
+   //dd($departments->department_id);
 
     $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
+     ->where('qns_appliedtos.department_id',$departments->department_i)
      ->select('metanames.id','metanames.metaname_name')
      ->groupby('metanames.id')
      ->get();

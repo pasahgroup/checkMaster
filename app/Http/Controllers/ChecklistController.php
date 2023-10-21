@@ -106,10 +106,18 @@ class ChecklistController extends Controller
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
+    // $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
+    //  ->select('metanames.id','metanames.metaname_name')
+    //  ->groupby('metanames.id')
+    //  ->get();
+
     $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
+     ->where('qns_appliedtos.department_id',$departments->department_i)
      ->select('metanames.id','metanames.metaname_name')
      ->groupby('metanames.id')
      ->get();
+
+
 
      //$metanames = metaname::get();
 

@@ -54,6 +54,8 @@ border-color: #dddddd;
 }
 </style>
 
+<script type="text/javascript" src="../js/activitydata.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
 
 	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   @if($message?? '')
@@ -514,8 +516,7 @@ function checkAge(age) {
 }
 </script>
 
-<script type="text/javascript" src="../js/activitydata.js"></script>
-<script type="text/javascript" src="../js/jquery.js"></script>
+
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {

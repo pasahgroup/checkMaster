@@ -59,6 +59,7 @@ use App\Http\Controllers\ImportExportController;
 
 //TS wawa
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\sessionmController;
 use App\Http\Controllers\rolesController;
 use App\Http\Controllers\PropertyxController;
 use App\Http\Controllers\reportTestController;
@@ -333,6 +334,9 @@ Route::put('riq-update/{id}',[MetadataController::class,'updateDatatype'])->name
   Route::get('/qnsapplied',[DepartmentController::class,'qnsapplied'])->name('qnsapplied');
   Route::get('qnsapplied/{id}',[DepartmentController::class,'qnsUpdate'])->name('qnsapplied-update');
 // Roles ontroller
+  Route::resource('sessionm', SessionmController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
+    Route::get('delete-sessionm/{id}',[SessionmController::class,'destroy'])->name('delete-sessionm');
+
   Route::resource('role-register', rolesController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
   Route::get('delete-role/{id}',[rolesController::class,'edit'])->name('delete-role');
   Route::get('update-role/{id}',[rolesController::class,'recoveryUpdate'])->name('update-role');

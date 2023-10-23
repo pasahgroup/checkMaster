@@ -12,6 +12,8 @@ use App\Models\asset;
 use App\Models\department;
 use App\Models\metaname;
 
+use App\Models\sessionm;
+
 use App\Models\setIndicator;
 use App\Models\qnsAppliedto;
 
@@ -101,7 +103,8 @@ return redirect()->back()->with('error','Indicators not selected');
                   ->get();
               //dd($dep);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
-      return view('livewire.assign-indicator',compact('metadatas','metanames','properties','indicators','deps'))
+             $sessions = sessionm::get();
+      return view('livewire.assign-indicator',compact('metadatas','metanames','properties','indicators','deps','sessions'))
       ->layout('layouts.app');
   }
 }

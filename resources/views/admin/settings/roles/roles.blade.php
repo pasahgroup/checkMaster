@@ -191,10 +191,10 @@
 			</div>
 			 <x-jet-button class="btn-sm btn btn-dark float-right">
                     {{ __('Save') }}
-                </x-jet-button>
-            </div>
+                </x-jet-button>          
 
 		  </form>
+		   </div>
 		</div>
 	</div>
 	

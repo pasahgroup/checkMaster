@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\department;
+use App\Models\sessionm;
+
 use App\Models\qnsAppliedto;
 use App\Models\setIndicator;
 use Illuminate\Http\Request;
@@ -153,7 +155,7 @@ public function qnsapplied()
    ->select('qns_appliedtos.id','metanames.metaname_name','set_indicators.qns','qns_appliedtos.section','qns_appliedtos.department_id','qns_appliedtos.unit_name','set_indicators.duration','qns_appliedtos.status')
    ->get();
 
-    $departments = department::where('status','Active')->get();
+    $departments = department::where('status','Active')->get();   
    //dd($qnsapplied);
     return view('admin.settings.qnsapplied.qnsapplied',compact('qnsapplied','departments'));
 }

@@ -11,6 +11,8 @@ use App\Models\metanameDatatype;
 use App\Models\property;
 use App\Models\metaname;
 
+use App\Models\sessionm;
+
 use App\Models\setIndicator;
 use App\Models\qnsAppliedto;
 
@@ -100,9 +102,13 @@ $qn_no=$this->qn_no;
   
             $properties = property::get();
             $metanames = metaname::get();
+
+            $sessions = sessionm::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
 
-      return view('livewire.indicator',compact('metadatas','metanames','properties','qn_no','qns_type'))
+           // dd($sessions);
+
+      return view('livewire.indicator',compact('metadatas','metanames','sessions','properties','qn_no','qns_type'))
       ->layout('layouts.app');
 
     

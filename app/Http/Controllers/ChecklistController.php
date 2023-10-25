@@ -28,6 +28,7 @@ use App\Models\userRole;
 use App\Models\departmentRole;
 use App\Models\department;
 use App\Models\user;
+use App\Models\qnsview;
 
 use App\Models\answerUpdatePhoto;
 use App\Models\answerDescPhoto;
@@ -195,13 +196,15 @@ $sectionCollects = collect($sections);
     $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
 
 
-   $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and metaname_id in(".$metaname_id.")");
+   //$qns= DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and metaname_id in(".$metaname_id.")");
+   $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='Weekly' and metaname_id in(".$metaname_id.")");
 
     //$checkQns = DB::select('select a.opt_answer_id,a.property_id,a.metaname_id,a.asset_id,a.indicator_id,a.photo,a.answer,a.answer_label,a.description from answers a,assets p where a.property_id=p.property_id and a.metaname_id=p.metaname_id and a.asset_id=p.id and a.datex="'.$current_date.'" and a.status="Active"');
     $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');
     //$answerPerc=DB::select('select * from answers_view');
      $answerPerc=DB::select('select * from answers_view_summary');
-    
+
+     //dd($qns);    
     //sqlite
 
 
@@ -246,8 +249,8 @@ $sectionCollects = collect($sections);
     $date=date('d-M-Y');
     $data["email"] = "buruwawa@gmail.com";
 
-    $data["title"] = "Daily General Inspection Hotel Report (DGIR)";
-    $data["body"] = "Manyara Best View Hotel: Daily General Inspection Report held on $date";
+    $data["title"] = "WEEKLY General Inspection Hotel Report (DGIR)";
+    $data["body"] = "Manyara Best View Hotel: WEEKLY General Inspection Report held on $date";
     $data["date"] = "Date: $date";
     //dd(app_path());
 
@@ -268,7 +271,7 @@ $sectionCollects = collect($sections);
     }
     //dd('ddd');
 
-             return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
+             return view("livewire.weekly",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
 
            //// return view('livewire.checklistTest',compact('properties'));
   }
@@ -545,8 +548,8 @@ $constraint->aspectRatio();
  $date=date('d-M-Y');
  $data["email"] = "buruwawa@gmail.com";
 
- $data["title"] = "Daily General Inspection Hotel Report (DGIR)";
- $data["body"] = "Manyara Best View Hotel: Daily General Inspection Report held on $date";
+ $data["title"] = "WEEKLY General Inspection Hotel Report (DGIR)";
+ $data["body"] = "Manyara Best View Hotel: WEEKLY General Inspection Report held on $date";
  $data["date"] = "Date: $date";
  //dd(app_path());
 

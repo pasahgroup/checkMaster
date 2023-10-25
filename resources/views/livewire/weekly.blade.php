@@ -54,10 +54,11 @@ border-color: #dddddd;
 }
 </style>
 
+<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery311.min.js"></script>
 
-	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+  <link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   @if($message?? '')
                             <div class="alert alert-danger">
                               <h5 class="text-center">{{ $message }}</h5>
@@ -77,7 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}
+Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}:  Weekly QUESTIONS
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -127,6 +128,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
               </select>
 
   </div>
+  
 
   <div class="form-group">
        <form  method="GET"  action="{{ route('weekly.index') }}" enctype="multipart/form-data">
@@ -161,6 +163,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 </div>
  <div class="row" id="data_display">
 
+    
     @isset($assets)
     @if(!empty($selectedOption))
        @foreach ($sections as $section)
@@ -208,6 +211,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
+
 
            @foreach ($qns as $qn)
            @if($metaname_id ==$qn->metaname_id && $qn->section==$section->section)
@@ -257,9 +261,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                    @endisset
 
                    <option value="no_value">--level of maintenance--</option>
-                   <option style="background-color:yellow" value="Low">Low</option>
-                   <option style="background-color:salmon" value="Medium">Medium</option>
-                   <option style="background-color:red" value="High">High</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
                   </select>
 
                 </div>
@@ -275,10 +279,10 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 @if($metadata->answer=="Maintenance")
    <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
      <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
-            <option value="no_value">--level of maintenance--</option>
-         <option style="background-color:yellow" value="Low">Low</option>
-         <option style="background-color:salmon" value="Medium">Medium</option>
-         <option style="background-color:red" value="High">High</option>
+        <option value="no_value">--level of maintenance--</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
      </select>
    </div>
    <br>
@@ -356,7 +360,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
        @endif
        @endforeach
 
-    <div class="row container">
+    <div class="container">
      <div class="col-md-10 col-sm-10">
      <div style="background-color:#f6f7f2 !important">
         <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$section->section}}">Save</button>
@@ -517,11 +521,12 @@ function checkAge(age) {
 }
 </script>
 
-<script type="text/javascript" src="../js/activitydata.js"></script>
-<!-- <script type="text/javascript" src="../js/jquery.js"></script> -->
+
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {
+
+//alert(sid);
 
  var section_name="section_name"+(aid)+'_'+(sid);
   var aID="aID"+(aid)+'_'+(sid);
@@ -532,8 +537,9 @@ function checkAge(age) {
 
 <script type="text/javascript">
   function setMetanameFunction(id) {
+      //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-    // alert(element);
+     //alert(elementM);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }
@@ -607,5 +613,47 @@ for (var i = 0; i < radios.length; i++) {
 
        document.getElementById("popup").style.display = "none";
      }
+     </script>
+
+     <script type="text/javascript">
+       $(document).ready(function(){
+      // Department Change
+      $('#metaname_model').change(function(){
+         // ward
+         var v = $(this).val();
+           // Empty the dropdown
+          $('#asset_model').find('option').not(':first').remove();
+         // $('#village').find('option').not(':first').remove();
+         // $('#project_name').find('option').not(':first').remove();
+         // $('#project_activities').find('option').not(':first').remove();
+
+         // AJAX request
+         $.ajax({
+           url: 'getA/'+v,
+           type: 'get',
+           dataType: 'json',
+           success: function(response){
+
+             var len = 0;
+             if(response['dataA'] != null){
+               len = response['dataA'].length;
+             }
+
+                       if(len > 0){
+               // Read data and create <option >
+               for(var i=0; i<len; i++){
+
+                 var id = response['dataA'][i].id;
+                 var name = response['dataA'][i].asset_name;
+                 var option = "<option value='"+id+"'>"+name+"</option>";
+                 $("#asset_model").append(option);
+               }
+             }
+             //DAta are here
+
+           }
+        });
+      });
+    });
      </script>
 @endsection

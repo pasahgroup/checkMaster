@@ -10,7 +10,7 @@ $(document).ready(function(){
          // $('#project_name').find('option').not(':first').remove();
          // $('#project_activities').find('option').not(':first').remove();
 
-alert(v);
+//alert(v);
          // AJAX request
          $.ajax({
            url: 'getA/'+v,

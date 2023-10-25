@@ -78,8 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> | Unit name: <i><?php echo e($departGetName->unit_name ?? ''); ?>
-
+Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> | Unit name: <i><?php echo e($departGetName->unit_name ?? ''); ?>:  DAILY QUESTIONS
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -163,6 +162,8 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 
 </div>
  <div class="row" id="data_display">
+
+    
     <?php if(isset($assets)): ?>
     <?php if(!empty($selectedOption)): ?>
        <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

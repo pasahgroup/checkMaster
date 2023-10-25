@@ -40,10 +40,13 @@ class SessionmController extends Controller
      */
     public function store(Request $request)
     {
-       // dd('ssd');
+
+      // $stringx=str_replace(' ', '-',request('session'));
+       $stringx = preg_replace('/\s+/', '-', request('session'));
+       // dd($stringx);
            $stock = sessionm::create(
             [
-                'session_name'=>request('session'),
+                'session_name'=>$stringx,
                 'status'=>'Active',
                 'user_id'=>auth()->id()
             ]);          
@@ -69,9 +72,10 @@ class SessionmController extends Controller
      */
     public function edit(sessionm $role,$id)
     {
+          $stringx = preg_replace('/\s+/', '-', request('session'));
           $roles = sessionm::where('id',$id)
                ->update([
-                'session_name'=>request('session'),
+                'session_name'=>$stringx,
                 'status'=>"Inactive",
                  'user_id'=>auth()->id()
 
@@ -90,10 +94,11 @@ class SessionmController extends Controller
     {
 
         //dd('ss');
+        $stringx = preg_replace('/\s+/', '-', request('session'));
             $sessionm = sessionm::where('id',$id)->first();
         if($sessionm){
            $sessionm->update([
-            'session_name'=>request('session'),
+           'session_name'=>$stringx,
             'status'=>request('status')
            ]);
            return redirect()->back()->with('success','Session updated successfully');
@@ -138,9 +143,9 @@ class SessionmController extends Controller
     }
 
 
-   public function recovery()
-    {
-       $roles = role::where('status','Inactive')->get();
-        return view('admin.settings.recovery.recoveryRole',compact('roles'));
-    }
+   // public function recovery()
+   //  {
+   //     $roles = role::where('status','Inactive')->get();
+   //      return view('admin.settings.recovery.recoveryRole',compact('roles'));
+   //  }
 }

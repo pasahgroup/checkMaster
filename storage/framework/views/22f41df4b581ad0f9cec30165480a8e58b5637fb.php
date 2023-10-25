@@ -78,7 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> | Unit name: <i><?php echo e($departGetName->unit_name ?? ''); ?>:  DAILY QUESTIONS
+Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> | Unit name: <i><?php echo e($departGetName->unit_name ?? ''); ?>:  DAILY QUESTIONNAIRE
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 

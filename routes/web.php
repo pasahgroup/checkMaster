@@ -59,7 +59,7 @@ use App\Http\Controllers\ImportExportController;
 
 //TS wawa
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\sessionmController;
+use App\Http\Controllers\SessionmController;
 use App\Http\Controllers\rolesController;
 use App\Http\Controllers\PropertyxController;
 use App\Http\Controllers\reportTestController;

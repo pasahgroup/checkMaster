@@ -78,7 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}:  Weekly QUESTIONS
+Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}:  Weekly QUESTIONNAIRE
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 

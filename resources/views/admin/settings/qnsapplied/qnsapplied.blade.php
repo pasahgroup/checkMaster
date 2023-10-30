@@ -67,7 +67,6 @@
 										</div>
 									</div>
 									<div class="row">
-
 										<div class="col-12 ">
 											<div class="card card-custom gutter-b bg-white border-0" >
 												<div class="card-body" >
@@ -113,6 +112,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
             <form action="{{ route('qnsapplied-update',$department->id) }}" method="POST">
                 @csrf
@@ -144,7 +144,7 @@
                     <div class="form-group">
 						 						<label class="text-dark">Metaname</label>
 												<select class="arabic-select w-100 mb-3 h-30px" name="metaname" >
-														<option value="{{$department->department_id ?? 0}}" selected>{{$department->unit_name?? ""}}</option>
+														<option value="{{$department->department_id ?? 0}}" selected>{{$department->metaname_name?? ""}}</option>
 												
 														@foreach ($metanames as $meta)
 														<option value="{{ $meta->id }}">{{ $meta->metaname_name }}</option>

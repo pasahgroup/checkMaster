@@ -67,7 +67,6 @@
 										</div>
 									</div>
 									<div class="row">
-
 										<div class="col-12 ">
 											<div class="card card-custom gutter-b bg-white border-0" >
 												<div class="card-body" >
@@ -113,6 +112,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
             <form action="<?php echo e(route('qnsapplied-update',$department->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
@@ -145,7 +145,7 @@
                     <div class="form-group">
 						 						<label class="text-dark">Metaname</label>
 												<select class="arabic-select w-100 mb-3 h-30px" name="metaname" >
-														<option value="<?php echo e($department->department_id ?? 0); ?>" selected><?php echo e($department->unit_name?? ""); ?></option>
+														<option value="<?php echo e($department->department_id ?? 0); ?>" selected><?php echo e($department->metaname_name?? ""); ?></option>
 												
 														<?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 														<option value="<?php echo e($meta->id); ?>"><?php echo e($meta->metaname_name); ?></option>

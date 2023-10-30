@@ -121,16 +121,57 @@
 
                     <div class="col-12">
 												<div class="form-group">
-						 						<label class="text-dark" >Apply question to Department</label>
-												<select class="arabic-select w-100 mb-3 h-30px" name="department_name" >
-														<option value="{{$department->department_id ?? 0}}">{{$department->unit_name?? ""}}</option>
-
+						 						<label class="text-dark">Department</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="department_name" required>
+														<option value="{{$department->department_id ?? 0}}" selected>{{$department->unit_name?? ""}}</option>
+													
 														@foreach ($departments as $depart)
 														<option value="{{ $depart->id }}">{{ $depart->unit_name }}</option>
 														@endforeach
 												</select>
 												<small  class="form-text text-muted">please apply question to Department unit name</small>
                         </div>
+
+
+	<div class="form-group">
+			<label class="text-dark">Questionnaire</label>
+<textarea id="qns" name="qns" rows="3" cols="60">
+{{ $department->qns }}
+</textarea>
+</div>
+
+
+                    <div class="form-group">
+						 						<label class="text-dark">Metaname</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="metaname" >
+														<option value="{{$department->department_id ?? 0}}" selected>{{$department->unit_name?? ""}}</option>
+												
+														@foreach ($metanames as $meta)
+														<option value="{{ $meta->id }}">{{ $meta->metaname_name }}</option>
+														@endforeach
+												</select>
+                     </div>
+
+
+
+                      <div class="form-group">
+						 			  			<label class="text-dark">Section</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="section" >												
+													
+														@foreach ($sessionms as $sessionm)														
+					@if($department->section==$sessionm->session_name)         
+    <option value="{{$department->section}}" selected>{{$department->section}}</option>        
+@else
+      		<option value="{{ $sessionm->id }}">{{ $sessionm->session_name }}</option>       
+@endif
+
+														@endforeach
+												</select>
+                        </div>
+
+
+
+
 
                            <div class="form-group">
                             <label class="text-dark" >Duration</label>

@@ -73,7 +73,7 @@ border-color: #dddddd;
   </div>
 
 
-            @isset($metanames)
+          @isset($metanames)
                                   <div class="card card-custom gutter-b bg-white border-0">
                                   <div class="card-body">
 

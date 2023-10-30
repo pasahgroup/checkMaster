@@ -73,7 +73,7 @@ border-color: #dddddd;
   </div>
 
 
-            <?php if(isset($metanames)): ?>
+          <?php if(isset($metanames)): ?>
                                   <div class="card card-custom gutter-b bg-white border-0">
                                   <div class="card-body">
 

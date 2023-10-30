@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\department;
 use App\Models\sessionm;
+use App\Models\metaname;
 
 use App\Models\qnsAppliedto;
 use App\Models\setIndicator;
@@ -88,6 +89,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request,$id)
     {
+       // dd('dddd');
             $department = department::where('id',$id)->first();
         if($department){
            $department->update([
@@ -155,9 +157,11 @@ public function qnsapplied()
    ->select('qns_appliedtos.id','metanames.metaname_name','set_indicators.qns','qns_appliedtos.section','qns_appliedtos.department_id','qns_appliedtos.unit_name','set_indicators.duration','qns_appliedtos.status')
    ->get();
 
-    $departments = department::where('status','Active')->get();   
-   //dd($qnsapplied);
-    return view('admin.settings.qnsapplied.qnsapplied',compact('qnsapplied','departments'));
+    $departments = department::where('status','Active')->get();
+    $metanames = metaname::where('status','Active')->get();  
+    $sessionms = sessionm::where('status','Active')->get();     
+   //dd($sectionms);
+    return view('admin.settings.qnsapplied.qnsapplied',compact('qnsapplied','departments','metanames','sessionms'));
 }
 
  public function qnsUpdate(department $department,$id)
@@ -178,6 +182,7 @@ public function qnsapplied()
  //dd($id);
             $setIndicatord = setIndicator::where('id',$qnss->indicator_id)
          ->update([
+          'qns'=>request('qns'),
           'duration'=>request('duration')          
         ]);
 

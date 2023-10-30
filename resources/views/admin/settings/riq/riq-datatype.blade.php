@@ -107,9 +107,9 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label class="text-dark" >Edit Question type</label>
-                            <input type="text" name="qn_name" class="form-control" value="{{ $riq->qns }}">
+                            <textarea  id="qn_name" name="qn_name" rows="3" cols="60">{{ $riq->qns }}</textarea>
                             <small  class="form-text text-muted">please edit question type</small>
-                        </div>
+                        </div> 
                                   <div class="form-group">
 						<label class="text-dark" >Question Datatype</label>
                         <select name="datatype" id="" class="form-control">

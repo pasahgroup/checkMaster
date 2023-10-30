@@ -121,16 +121,58 @@
 
                     <div class="col-12">
 												<div class="form-group">
-						 						<label class="text-dark" >Apply question to Department</label>
-												<select class="arabic-select w-100 mb-3 h-30px" name="department_name" >
-														<option value="<?php echo e($department->department_id ?? 0); ?>"><?php echo e($department->unit_name?? ""); ?></option>
-
+						 						<label class="text-dark">Department</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="department_name" required>
+														<option value="<?php echo e($department->department_id ?? 0); ?>" selected><?php echo e($department->unit_name?? ""); ?></option>
+													
 														<?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $depart): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 														<option value="<?php echo e($depart->id); ?>"><?php echo e($depart->unit_name); ?></option>
 														<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 												</select>
 												<small  class="form-text text-muted">please apply question to Department unit name</small>
                         </div>
+
+
+	<div class="form-group">
+			<label class="text-dark">Questionnaire</label>
+<textarea id="qns" name="qns" rows="3" cols="60">
+<?php echo e($department->qns); ?>
+
+</textarea>
+</div>
+
+
+                    <div class="form-group">
+						 						<label class="text-dark">Metaname</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="metaname" >
+														<option value="<?php echo e($department->department_id ?? 0); ?>" selected><?php echo e($department->unit_name?? ""); ?></option>
+												
+														<?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+														<option value="<?php echo e($meta->id); ?>"><?php echo e($meta->metaname_name); ?></option>
+														<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+												</select>
+                     </div>
+
+
+
+                      <div class="form-group">
+						 			  			<label class="text-dark">Section</label>
+												<select class="arabic-select w-100 mb-3 h-30px" name="section" >												
+													
+														<?php $__currentLoopData = $sessionms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sessionm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>														
+					<?php if($department->section==$sessionm->session_name): ?>         
+    <option value="<?php echo e($department->section); ?>" selected><?php echo e($department->section); ?></option>        
+<?php else: ?>
+      		<option value="<?php echo e($sessionm->id); ?>"><?php echo e($sessionm->session_name); ?></option>       
+<?php endif; ?>
+
+														<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+												</select>
+                        </div>
+
+
+
+
 
                            <div class="form-group">
                             <label class="text-dark" >Duration</label>

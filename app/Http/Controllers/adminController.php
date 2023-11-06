@@ -93,6 +93,7 @@ if($property_name ==null)
             $role = Role::create(['name' => 'User']);
             $role = Role::create(['name' => 'HouseKeeper']);
              $role = Role::create(['name' => 'Maintenancier']);
+                $role = Role::create(['name' => 'MaintenanceReport']);
             //assign admin role
             $user->assignRole('Admin');
                 }
@@ -163,7 +164,7 @@ $properties=property::get();
 
 //dd('ddd');
        // sales users
-        if($user->hasRole('GeneralManager|HouseKeeper|Maintenancier')){
+        if($user->hasRole('GeneralManager|HouseKeeper|Maintenancier|MaintenanceReport')){
           $current_date = date('Y-m-d');
 
           $properties=property::get();

@@ -57,7 +57,7 @@ class ManageController extends Controller
           $metaname_id=request('metaname_id');
            $assetID=request('assetID');
            $assetIDf=request('assetID');
-        //  dd($assetID);
+         //dd($metaname_id);
 
           if($metaname_id==null)
           {
@@ -138,9 +138,14 @@ class ManageController extends Controller
       //Qns applied
         // $userActitivitiesfff=qnsAppliedto::get();
         $userActitivitiesfff = qnsAppliedto::join('metanames','metanames.id','qns_appliedtos.metaname_id')
+        //->join('answers','answers.metaname_id','qns_appliedtos.metaname_id')
+        //->where('answers.manager_checklist','Action required')
         ->where('qns_appliedtos.status','Active')
         ->select('metanames.id','metanames.metaname_name','qns_appliedtos.indicator_id')
-         ->get();
+        ->get();
+
+
+//dd($userActitivitiesfff);
 
         $first = collect($userActitivities);
         $second = collect($userActitivitiesf);
@@ -216,13 +221,14 @@ class ManageController extends Controller
              ->where('assets.time_show',$asset_show->time_show)
              ->where('assets.asset_name','!=',"")
              ->where('assets.property_id',$departments->property_id)
-             // ->whereIn('assets.metaname_id',$a)
-             ->whereIn('assets.metaname_id',[$metaname_id])
+              ->whereIn('assets.metaname_id',$a)
+             //->whereIn('assets.metaname_id',[$metaname_id])
              // $metaname_id
              ->groupby('assets.metaname_id')
              ->select('metanames.id','metanames.metaname_name')
                ->orderBy('metanames.id')->get();
 
+//dd($a);
 
           $qns = DB::select("select * from qnsview_answer where property_id in(".$departments->property_id.")");
           $qns=collect($qns);
@@ -268,7 +274,8 @@ class ManageController extends Controller
 //dd(request('metaname_model'));
     $metanamess = metaname::where('metanames.id',$metaname_id)->first();
     $propertyID=asset::where('id',$assetID)->first();
-//dd($propertyID);
+
+
       $qnsCount = collect($qnsCount);
             return view("admin.managerlist",compact(['departGetName','qnsCount','datatypes','metanames','metanamess','assets','assetIDf','metanameCollects','pp','metas','qns','metaname_id','assetID','propertyID','sections','userActitivities','userMetanames','checkQnsProp','checkQns','assetPerc','answerPerc','answerCount','totalqns','qnsAppliedPerc','property_id']));
             //->layout("layouts.app");

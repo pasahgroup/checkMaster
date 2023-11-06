@@ -102,7 +102,6 @@ $uri =request()->path();
 
  $reportDailyReader=DB::select('select * from issue_report_view where property_id="'.$property->id.'"');
 
-//dd($reportDailyReader);
 
 $dataDaily = collect($reportDailyData);
 $dailyMetaCollects=$dataDaily->groupBy('metaname_name');
@@ -133,8 +132,6 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
    $badMonthly=$roomMonthly->where('answer_classification','Bad')->count();
    $criticalMonthly=$roomMonthly->where('answer_classification','Critical')->count();
 
-
-//dd('ddd');
 
      if(request('search') || request('print')){
        $property_id=$_GET['property_search'];
@@ -255,6 +252,8 @@ $date_end=date_format($date_end,"Y-m-d");
     $indicatorAll=array();
       //$param[]="active";
       //$param[]="inactive";
+      //dd($indicatorAll);
+
       $metanameAll=collect($metaArray);
       $metaString=str_replace('[','',$metanameAll);
       $metaString=str_replace(']','',$metaString);
@@ -264,6 +263,20 @@ $date_end=date_format($date_end,"Y-m-d");
       $indicatorString=str_replace(']','',$indicatorString);
   //  dd($indicatorString);
 //$param=collect($param);
+
+
+  //dd($indicatorString);
+
+   // dd($indicatorString);
+
+      if(request('indicator_search')=="All-not-Good")
+        {           
+  //$indicatorString=str_replace('"Good",', '', $indicatorString);
+              $indicatorString=str_replace(['"1":', '"2":', '"3":', '"4":','{','}'], '', $indicatorString);
+     // dd($indicatorString);
+        }
+
+
 //$datex=DateTime.Now(dd-MM-yyyy);
 //$d = new SimpleDateFormat("dd/MM/yyyy").format($P{datex});
   //$enddb = '2022-08-02';
@@ -274,7 +287,12 @@ $date_end=date_format($date_end,"Y-m-d");
 //dd($date);
 //$PHPJasperXML->sql="select * from answers";
 //dd($PHPJasperXML);
+
+// $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+
+
 $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+
 //$PHPJasperXML->arrayParameter =array("date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //dd($PHPJasperXML->arrayParameter);
 //$PHPJasperXML->arrayParameter =array();
@@ -301,7 +319,6 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
    $totalqns=DB::select('select a.metaname_id,metaname_name from assets a, qns_appliedtos q,metanames m where a.metaname_id=q.metaname_id and a.metaname_id=m.id and a.status="Active" and q.status="Active"');
 
    $totalqns = collect($totalqns);
-  // dd($reportDailyReader);   
 
         return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
             //return view('admin.settings.properties.dash.report-general',compact('properties','property','propertiesNames','metanames','keyIndicators','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns','prnt'));
@@ -516,7 +533,10 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
                   'answer'=>$optionalID->answer,
                    'user_id'=>auth()->id()
                 ]);
-                // {{ url()->previous() }}
+              
+  $update1=DB::select('UPDATE optional_answers set answer_classification="Good" where answer="Yes"');
+ $update2=DB::select('UPDATE optional_answers set answer_classification="Bad" where answer="No"');
+
 // return redirect()->back();
 //return back();
 // return redirect()->url()->previous();
@@ -561,6 +581,7 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
 }
 //End of print
 
+
           return redirect($uri->url)->with('info','Returned successfly');
           }
 
@@ -589,6 +610,8 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
              $properties = property::where('id',$id)
                ->where('status','Active')->first();
 
+//dd($property->id);
+
          $reportDailyReader = answer::join('properties','answers.property_id','properties.id')
          ->join('set_indicators','answers.indicator_id','set_indicators.id')
           ->join('users','answers.user_id','users.id')
@@ -596,19 +619,23 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
             ->join('optional_answers','answers.opt_answer_id','optional_answers.id')
           ->join('metanames','answers.metaname_id','metanames.id')
 
-          ->where('answers.property_id',$id)
-           ->where('answers.id',$sn)
+           ->where('answers.property_id',$property->id)
+            ->where('answers.id',$sn)
           ->whereColumn('answers.indicator_id',"optional_answers.indicator_id")
-          //->whereIn('metanames.metaname_name',$metaArray)
-          //->whereIn('optional_answers.answer_classification',$keyArray)
-           //->where('set_indicators.qns','!=',"")
-          //->whereBetween('answers.datex',[$start_date, $end_date])
+
+          // ->whereIn('metanames.metaname_name',$metaArray)
+          // ->whereIn('optional_answers.answer_classification',$keyArray)
+          //  ->where('set_indicators.qns','!=',"")
+          // ->whereBetween('answers.datex',[$start_date, $end_date])
+
          ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','optional_answers.answer_classification','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
          //->orderBy('set_indicators.id')
          ->first();
 
         //dd($reportDailyReader->property_id);
         //get optionals answers
+
+//dd($reportDailyReader);
 
         $updateUser = user::where('id',auth()->id())
             ->update([
@@ -620,6 +647,8 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
         //dd(request('uri'));
 
         $optAnswers = optionalAnswer::where('indicator_id',$reportDailyReader->indicator_id)->get();
+
+        //dd($optAnswers);
                 return view('admin.settings.action.report-view',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','id','optAnswers'));
     }
 
@@ -741,8 +770,6 @@ $updateUser = user::where('id',auth()->id())
  $optAnswers = optionalAnswer::where('indicator_id',$reportDailyReader->indicator_id)->get();
              return view('admin.settings.action.report-view',compact('properties','property','propertiesNames','metanames','keyIndicators','reportDailyReader','id','optAnswers'));
           }
-
-
 
 
 

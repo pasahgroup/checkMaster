@@ -131,7 +131,7 @@
     <?php endif; ?>
 
 
-<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin')): ?>
+<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|MaintenanceReport')): ?>
 <li class="nav-item
 <?php echo e((request()->is('report-general/{id}/dashboard')) ? 'active' : ''); ?>
 

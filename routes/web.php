@@ -175,9 +175,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('reportx/{x}/d/{y}',[ReportTestController::class,'viewreport'])->name('reportx');
 Route::get('jrf',[ReportTestController::class,'jrf'])->name('jrf');
   // Route::get('report/{report}', 'ReportTestController@viewreport')->name('report.show');
-
-
 });
+
 //END OF GROUP FUNCTIONS
 Route::get('/javaf', function () {
 $input ='../vendor/geekcom/phpjasper/examples/hello_world.jasper';
@@ -272,7 +271,7 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
 Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier']);
 
 
- Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier']);
+ Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier|MaintenanceReport']);
 
 
 

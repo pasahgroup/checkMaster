@@ -65,7 +65,7 @@ Manager Dashboard: (manager inspection)
 
   <script>
   // Set the date we're counting down to
-  var countDownDate = new Date("Jan 5, 20290 11:37:25").getTime();
+  var countDownDate = new Date("Jan 5, 2029000 11:37:25").getTime();
   //var countDownDate = new date("D m,Y H:i:s").getTime();
   // Update the count down every 1 second
   var x = setInterval(function() {
@@ -113,7 +113,7 @@ Manager Dashboard: (manager inspection)
                          <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
                         @endforeach
               </select>
-              </div>
+        </div>
 
   <div class="form-group">
        <form  method="GET"  action="{{ route('managers-inspection.index') }}" enctype="multipart/form-data">
@@ -124,7 +124,7 @@ Manager Dashboard: (manager inspection)
 
           <label class="text-dark">Asset name with issues</label>
             <div class="form-group">
-                        <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
+                      <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
                           <option value="">--- Select Asset name to apply ---</option>
 
                           @isset($propertyID->asset_name)
@@ -150,8 +150,9 @@ Manager Dashboard: (manager inspection)
   <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
 
+
     @foreach ($metas as $meta)
-    <h6 class="panel-title"></h6>
+    @if($qnsCount->where('metaname_id',$meta->id)->count()>0)
     <div class="card" data-toggle="collapse" href="#meta_{{$meta->id}}" id="pid{{$meta->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$meta->id}})" onkeyup ="setPropertyFunction({{$meta->id}})" style="background-color:#718275 !important">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
@@ -162,6 +163,7 @@ Manager Dashboard: (manager inspection)
   </div>
     </div>
     </div>
+@endif
   @foreach ($pp as $p)
  <div wire:ignore.self id="meta_{{$meta->id}}" class="panel-collapse collapse">
  <div class="row">
@@ -382,6 +384,15 @@ $('.qnNo').materialSelect();
 });
 </script>
 
+
+
+
+<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
+<!-- <script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery311.min.js"></script>
+
+ -->
+
 <script>
 const ages = [3, 10, 18,42, 20];
 
@@ -393,6 +404,8 @@ function checkAge(age) {
 </script>
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
+
+
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {
@@ -518,10 +531,21 @@ function setButtonFunction(id) {
 
 <script type="text/javascript">
   function setMetanameFunction(id) {
+    //alert(id);
     var elementM = document.getElementById("metaname_model").value;
-     alert(element);
  $('#metaname_id').val(elementM);
          document.getElementById("data_display").style.display = "none";
   }
 </script>
+
+
+
+<!-- <script>
+function myFunction() {
+  var x = document.getElementById("mySelect").value;
+  alert(x);
+  document.getElementById("demox").innerHTML = "You selected: " + x;
+}
+</script> -->
+
     @endsection

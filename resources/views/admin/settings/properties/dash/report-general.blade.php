@@ -59,7 +59,7 @@ table, th, td {
             <!--begin::Container-->
             <div class="container-fluid">
                 <div class="row">
- @role('Admin|GeneralAdmin|SuperAdmin')
+ @role('Admin|GeneralAdmin|SuperAdmin|MaintenanceReport')
                     <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">

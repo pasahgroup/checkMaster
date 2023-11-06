@@ -171,7 +171,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
 .btn-sm{
-  padding: 2px 8px 2px 8px !important;
+  padding: 2px 8px 2px 4px !important;
   font-size:15px !important;
 }
 .sub-active{

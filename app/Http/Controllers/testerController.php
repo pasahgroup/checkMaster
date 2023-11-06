@@ -29,7 +29,6 @@ class testerController extends Controller
     ->get();
 
 
-
         return view('admin.tester',compact('testers'));
     }
 }

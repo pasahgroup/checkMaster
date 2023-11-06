@@ -123,7 +123,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="d-flex flex-row flex-column-fluid page"  style="background-color:#fff !important">
 
       <!--begin::Aside-->
-  @role('Manager|Admin|GeneralManager|GeneralAdmin|SuperAdmin|User|Store|HouseKeeper|Maintenancier')
+  @role('Manager|Admin|GeneralManager|GeneralAdmin|SuperAdmin|User|Store|HouseKeeper|Maintenancier|MaintenanceReport')
 
   <?php
   $wrapper="wrapper";

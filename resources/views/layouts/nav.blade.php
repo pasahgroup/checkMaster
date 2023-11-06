@@ -121,7 +121,7 @@
     @endrole
 
 
-@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin')
+@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|MaintenanceReport')
 <li class="nav-item
 {{ (request()->is('report-general/{id}/dashboard')) ? 'active' : '' }}
 {{ (request()->is('admin')) ? 'active' : '' }}

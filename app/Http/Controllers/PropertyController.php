@@ -311,7 +311,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
     //dd($PHPJasperXML);
-    $PHPJasperXML->outpage("D");
+    $PHPJasperXML->outpage("I");
   }
 
    //dd('Not role');

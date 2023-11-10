@@ -60,7 +60,7 @@ table, th, td {
             <div class="container-fluid">
                 <div class="row">
  @role('Admin|GeneralAdmin|SuperAdmin|MaintenanceReport')
-                    <div class="col-12 col-md-12">
+                     <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
                             <form method="GET" action="{{ route('report-general',$id) }}" @if ($prnt=="2") target="_blank" @endif>
@@ -136,7 +136,7 @@ table, th, td {
                                           <x-jet-button class="ml-4 btn-success" name="search" value="search">
                                               {{ __('Search') }}
                                           </x-jet-button>
-                                          <x-jet-button class="ml-4 btn-primary" name="print" value="print">
+                                          <x-jet-button  class="ml-4 btn-primary" name="print" value="print" target="_blank">
                                               {{ __('Print') }}
                                           </x-jet-button>
                                           </div>
@@ -148,8 +148,6 @@ table, th, td {
                 </div>
 
                 <div class="col-lg-12 col-xl-12">
-                     <input  type="button" value="Print"               
-                onclick="convertHTMLtoPDF()">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
                             <div id="divID">
@@ -238,24 +236,6 @@ table, th, td {
                 </div>
             </div>
 
-
-
-
- <script type="text/javascript">
-        function convertHTMLtoPDF() {
-            const { jsPDF } = window.jspdf;
  
-            let doc = new jsPDF('p', 'mm', [1200, 1180]);
-            let pdfjs = document.querySelector('#divID');
- 
-            doc.html(pdfjs, {
-                callback: function(doc) {
-                    doc.save("newpdf.pdf");
-                },
-                x: 12,
-                y: 12
-            });               
-        }           
-    </script>            
 
 @endsection

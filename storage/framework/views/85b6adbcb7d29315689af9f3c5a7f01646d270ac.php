@@ -60,7 +60,7 @@ table, th, td {
             <div class="container-fluid">
                 <div class="row">
  <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Admin|GeneralAdmin|SuperAdmin|MaintenanceReport')): ?>
-                    <div class="col-12 col-md-12">
+                     <div class="col-12 col-md-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
                             <form method="GET" action="<?php echo e(route('report-general',$id)); ?>" <?php if($prnt=="2"): ?> target="_blank" <?php endif; ?>>
@@ -156,11 +156,11 @@ table, th, td {
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
                                           <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.button','data' => ['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.button','data' => ['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print','target' => '_blank']]); ?>
 <?php $component->withName('jet-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print']); ?>
+<?php $component->withAttributes(['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print','target' => '_blank']); ?>
                                               <?php echo e(__('Print')); ?>
 
                                            <?php echo $__env->renderComponent(); ?>
@@ -178,8 +178,6 @@ table, th, td {
                 </div>
 
                 <div class="col-lg-12 col-xl-12">
-                     <input  type="button" value="Print"               
-                onclick="convertHTMLtoPDF()">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
                             <div id="divID">
@@ -269,25 +267,7 @@ table, th, td {
                 </div>
             </div>
 
-
-
-
- <script type="text/javascript">
-        function convertHTMLtoPDF() {
-            const { jsPDF } = window.jspdf;
  
-            let doc = new jsPDF('p', 'mm', [1200, 1180]);
-            let pdfjs = document.querySelector('#divID');
- 
-            doc.html(pdfjs, {
-                callback: function(doc) {
-                    doc.save("newpdf.pdf");
-                },
-                x: 12,
-                y: 12
-            });               
-        }           
-    </script>            
 
 <?php $__env->stopSection(); ?>
 

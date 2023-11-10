@@ -52,9 +52,14 @@ class reportController extends Controller
 
     public function index()
     {
+
+          include_once(app_path().'/jrf/sample/setting.php');
+    $PHPJasperXML = new PHPJasperXML();
+    $v[]=1;
+
         //dd('dddd');
 $server="localhost";
-$db="ucrtdb";
+$db="horesydb";
 $user="root";
 $pass="";
 $version="1.1";
@@ -63,7 +68,8 @@ $pgport=3306; //only for postgresql
 
 $PHPJasperXML = new PHPJasper();
 // $PHPJasperXML->load_xml_file("report2.jrxml");
-$PHPJasperXML->load_xml_file("locationv.jrxml");
+//$PHPJasperXML->load_xml_file("locationv.jrxml");
+  $PHPJasperXML->load_xml_file(app_path().'/reports/locationv.jrxml');
 $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
 $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
 

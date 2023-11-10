@@ -290,8 +290,11 @@ $date_end=date_format($date_end,"Y-m-d");
 
 // $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 
+//dd('dsds');
 
 $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$metaString,"indicator"=>$indicatorString,"date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
+
+//dd($PHPJasperXML->arrayParameter);
 
 //$PHPJasperXML->arrayParameter =array("date_from"=> '"'.$date_start.'"',"date_to"=> '"'.$date_end.'"');
 //dd($PHPJasperXML->arrayParameter);
@@ -301,8 +304,10 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
      $PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
          //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
 
+//dd($PHPJasperXML);
+
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-    //dd('klopo print');
+  //  dd($PHPJasperXML);
     //$PHPJasperXML->outpage("D");
     ob_end_clean();
     //dd($PHPJasperXML);

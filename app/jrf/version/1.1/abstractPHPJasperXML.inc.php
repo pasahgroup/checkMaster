@@ -32,8 +32,7 @@ class abstractPHPJasperXML
         protected $groupnochange=0; //use for detect record change till which level of grouping (grouping support multilevel)
         protected $addedttffont=[];
         public function setErrorReport($error_report=0)
-        {
-            
+        {            
              error_reporting($error_report);             
         }
 

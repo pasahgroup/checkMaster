@@ -164,7 +164,7 @@
                 </a>
             </li>
 
-              <li class="nav-item {{ (request()->is('summary-report/{id}')) ? 'sub-active' : '' }}{{ (request()->is('filter-admin')) ? 'sub-active' : '' }}">
+           <!--    <li class="nav-item {{ (request()->is('summary-report/{id}')) ? 'sub-active' : '' }}{{ (request()->is('filter-admin')) ? 'sub-active' : '' }}">
                 <a href="/summary-report/{id}" class="nav-link sub-nav-link {{ (request()->is('summary-report/{id}')) ? 'active' : '' }} {{ (request()->is('filter-admin')) ? 'active' : '' }} ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
@@ -173,9 +173,9 @@
                     </span>
                     <span class="nav-text">Summary-report</span>
                 </a>
-            </li>
+            </li> -->
 
-            <li class="nav-item {{ (request()->is('dashboard-checklistx')) ? 'sub-active' : '' }}{{ (request()->is('filter-admin')) ? 'sub-active' : '' }}">
+          <!--   <li class="nav-item {{ (request()->is('dashboard-checklistx')) ? 'sub-active' : '' }}{{ (request()->is('filter-admin')) ? 'sub-active' : '' }}">
                 <a href="/dashboard-checklistx" class="nav-link sub-nav-link {{ (request()->is('dashboard-checklistx')) ? 'active' : '' }} {{ (request()->is('filter-admin')) ? 'active' : '' }} ">
                     <span class="svg-icon nav-icon d-flex justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
@@ -184,7 +184,7 @@
                     </span>
                     <span class="nav-text">Not answered</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </li>

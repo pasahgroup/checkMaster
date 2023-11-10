@@ -12,5 +12,4 @@ if(!isset($phpjasperversion) || $phpjasperversion=="")
 }
 
  $path =  __DIR__.'/version/'.$phpjasperversion."/PHPJasperXML.inc.php";
-
 include $path;

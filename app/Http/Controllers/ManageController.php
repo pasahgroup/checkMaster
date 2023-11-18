@@ -75,7 +75,17 @@ class ManageController extends Controller
              $assetIDf=$assetID;
           }
           // $indicators = setIndicator::get();
-      $metanames = metaname::get();
+      // $metanames = metaname::get();
+         
+         $metanames = answer::join('metanames','metanames.id','answers.metaname_id')
+     //->where('assets.metaname_id',$metaname_id)
+     ->where('answers.manager_checklist','!=',"Cleared")
+    ->groupby('answers.metaname_id')
+    ->select('metanames.id','metanames.metaname_name')
+    ->get();
+     //dd($metanames);
+
+
             // $metadatas = optionalAnswer::get();
       //Assign Activities to userActivities
       $departments=user::where('id',auth()->id())->first();

@@ -150,9 +150,8 @@ Manager Dashboard: (manager inspection)
   <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
 
-
     <?php $__currentLoopData = $metas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <?php if($qnsCount->where('metaname_id',$meta->id)->count()>0): ?>
+    <?php if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $meta->metaname_name==$propertyID->asset_name): ?>
     <div class="card" data-toggle="collapse" href="#meta_<?php echo e($meta->id); ?>" id="pid<?php echo e($meta->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($meta->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($meta->id); ?>)" style="background-color:#718275 !important">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">

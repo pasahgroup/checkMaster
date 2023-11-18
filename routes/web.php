@@ -256,6 +256,7 @@ Route::resource('user-activity',UserActivityLivewire::class)->middleware(['role:
   Route::resource('checklist', Checklist::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin']);
 
   Route::resource('managers-inspection', ManageController::class)->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin|Maintenancier']);
+  
   Route::get('managers-inspection/{id}',[ManageController::class,'index'])->middleware(['role:Admin|GeneralManager|Manager|SuperAdmin|GeneralAdmin|Maintenancier']);
 
   //Route::get('managers-inspection/{id}',Managerlist::class)->name('managers-inspection');

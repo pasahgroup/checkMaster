@@ -150,9 +150,8 @@ Manager Dashboard: (manager inspection)
   <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
 
-
     @foreach ($metas as $meta)
-    @if($qnsCount->where('metaname_id',$meta->id)->count()>0)
+    @if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $meta->metaname_name==$propertyID->asset_name)
     <div class="card" data-toggle="collapse" href="#meta_{{$meta->id}}" id="pid{{$meta->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$meta->id}})" onkeyup ="setPropertyFunction({{$meta->id}})" style="background-color:#718275 !important">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">

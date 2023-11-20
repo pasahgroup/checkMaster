@@ -235,10 +235,10 @@ class ManageController extends Controller
              //->whereIn('assets.metaname_id',[$metaname_id])
              // $metaname_id
              ->groupby('assets.metaname_id')
-             ->select('metanames.id','metanames.metaname_name')
+             ->select('metanames.id','metanames.metaname_name','assets.asset_name')
                ->orderBy('metanames.id')->get();
 
-//dd($a);
+//dd($metas);
 
           $qns = DB::select("select * from qnsview_answer where property_id in(".$departments->property_id.")");
           $qns=collect($qns);

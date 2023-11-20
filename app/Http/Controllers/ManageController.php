@@ -235,7 +235,7 @@ class ManageController extends Controller
              //->whereIn('assets.metaname_id',[$metaname_id])
              // $metaname_id
              ->groupby('assets.metaname_id')
-             ->select('metanames.id','metanames.metaname_name','assets.asset_name')
+             ->select('metanames.id','metanames.metaname_name')
                ->orderBy('metanames.id')->get();
 
 //dd($metas);

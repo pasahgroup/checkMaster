@@ -152,7 +152,7 @@ Manager Dashboard: (manager inspection)
 
 
     <?php $__currentLoopData = $metas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $answerCount->where('metaname_name',$meta->metaname_name)->count()>0 ): ?>
+      <?php if($qnsCount->where('metaname_id',$meta->id)->count()>0): ?>
     <div class="card" data-toggle="collapse" href="#meta_<?php echo e($meta->id); ?>" id="pid<?php echo e($meta->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($meta->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($meta->id); ?>)" style="background-color:#718275 !important">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">

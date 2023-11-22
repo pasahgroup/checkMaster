@@ -172,7 +172,7 @@ $options = [
 
 ];
 // dd('zz');
-dd('zzkx');
+//dd('zzkx');
 $jasper = new PHPJasper;
 //dd($jasper);
 $jasper->process(
@@ -181,7 +181,7 @@ $jasper->process(
         $options
 )->execute();
 
-//dd('zzkx');
+dd('zzkx back');
 //Send report
 $date=date('d-M-Y');
 $data["email"] = "buruwawa@gmail.com";

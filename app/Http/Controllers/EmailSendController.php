@@ -91,7 +91,7 @@ foreach ($files as $file){
 
 
 
-  public function emailSendFx()
+  public function emailSendFf()
     {
       $data = [
          'title' => 'Welcome to my PDF',
@@ -115,14 +115,14 @@ foreach ($files as $file){
 
    $filesx = Storage::allFiles($folderPath);
    foreach ($filesx as $file) {
-       Storage::delete('app/reportsx/examplexkl');
+       Storage::delete('app/reports/department');
    }
 
      $fileName = 'Daily_hotel_report_'.time().'.pdf';
      Storage::put("$folderPath/$fileName",$pdf);
 
    $files = [
-   storage_path('app/reportsx/examplexkl.pdf'),
+   storage_path('app/reports/department.pdf'),
    ];
 
    $date=date('d-M-Y');
@@ -142,7 +142,80 @@ foreach ($files as $file){
        return response()->json(['message' => 'HTML printed and stored successfully']);
 }
 
-    public function emailSendF()
+
+
+
+
+public function emailSendF()
+{
+//dd('bvncx');
+$input =app_path().'/reports/pieChart.jrxml';
+ //$input =app_path().'/reports/department.jrxml';
+$output =app_path().'/reports';
+
+$options = [
+    'format' => ['pdf'],
+    'locale' => 'en',
+    'params' => [
+ 'property_id'=>1,
+    ],
+    'db_connection' => [
+         'driver' => 'mysql', //mysql, ....
+         'username' => 'root',
+        //'password' => '',
+        'host' => '127.0.0.1',
+        'database' => 'horesydb',
+        'port' => '3306'
+    ]
+
+    // \Config::get('database.connections.mysql')
+
+];
+// dd('zz');
+//dd('zzkx');
+$jasper = new PHPJasper;
+//dd($jasper);
+$jasper->process(
+        $input,
+        $output,
+        $options
+)->execute();
+
+//dd('zzkx');
+//Send report
+$date=date('d-M-Y');
+$data["email"] = "buruwawa@gmail.com";
+
+$data["title"] = "Daily General Inspection Hotel Report (DGIR)";
+$data["body"] = "Manyara Best View Hotel: Daily General Inspection Report held on $date";
+$data["date"] = "Date: $date";
+//dd(app_path());
+
+$files = [
+app_path('reports/pieChart.pdf'),
+// public_path('files/reports.png'),
+];
+  //SendMailJobf::dispatch($data);
+
+Mail::send('email.email', $data, function($message)use($data, $files) {
+$message->to($data["email"], $data["email"])
+        ->subject($data["title"]);
+foreach ($files as $file){
+    $message->attach($file);
+}
+});
+
+dd('Mail sent successfully');
+}
+
+
+
+
+
+
+
+
+    public function emailSendFx()
     {
       //dd('ddsd');
       $input='/home3/hakunama/jvm/apache-tomcat-9.0.6/domains/test.hakunamatatas.net/app/reports';

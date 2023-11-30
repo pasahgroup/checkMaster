@@ -101,7 +101,7 @@
             @endrole
 
 
-@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeping')
+@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')
                          <li class="nav-item {{ (request()->is('managers-inspection')) ? 'sub-active' : '' }}">
                           <a href="/managers-inspection" class="nav-link sub-nav-link {{ (request()->is('managers-inspection')) ? 'active' : '' }}">
                               <span class="svg-icon nav-icon d-flex justify-content-center">

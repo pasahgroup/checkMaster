@@ -111,7 +111,7 @@
             <?php endif; ?>
 
 
-<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeping')): ?>
+<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')): ?>
                          <li class="nav-item <?php echo e((request()->is('managers-inspection')) ? 'sub-active' : ''); ?>">
                           <a href="/managers-inspection" class="nav-link sub-nav-link <?php echo e((request()->is('managers-inspection')) ? 'active' : ''); ?>">
                               <span class="svg-icon nav-icon d-flex justify-content-center">

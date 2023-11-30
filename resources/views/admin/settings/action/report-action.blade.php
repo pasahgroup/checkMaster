@@ -165,7 +165,7 @@ table, th, td {
                                             <td>{{ $dailyDataR->qns }}</td>
                                             <td>{{ $dailyDataR->answer }}</td>
                                             <td @if($dailyDataR->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyDataR->answer_classification ==='Critical') style="background-color:maroon;"@endif @if($dailyDataR->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyDataR->answer_classification }}</td>
-                                          																		 <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$dailyDataR->photo) }}" width="60" height="40"></div></td>
+                                          							<td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$dailyDataR->photo) }}" width="60" height="40"></div></td>
                                             <td>{{ $dailyDataR->name }}</td>
                                             <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
                                             <td>

@@ -147,7 +147,6 @@ table, th, td {
                     </div>
                 </div>
 
-{{$reportDailyReader}}
                 <div class="col-lg-12 col-xl-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">

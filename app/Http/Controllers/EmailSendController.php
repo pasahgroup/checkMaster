@@ -159,8 +159,8 @@ foreach ($files as $file){
 public function emailSendF()
 {
        include_once(app_path().'/jrf/sample/setting.php');
-       //$jasper = new PHPJasperXML();
-           $jasper = new PHPJasper;
+       $jasper = new PHPJasperXML();
+           // $jasper = new PHPJasper;
 
 //dd('bvncx');
 $input =app_path().'/reports/pieChart.jrxml';
@@ -189,14 +189,20 @@ $options = [
 //dd('zzkx');
 // $jasper = new PHPJasper;
 //dd($jasper);
-$jasper->process(
-        $input,
-        $output,
-        $options
-)->execute();
+
+// $jasper->process(
+//         $input,
+//         $output,
+//         $options
+// )->execute();
 
 //dd('zzkx back');
 //Send report
+
+
+
+
+
 $date=date('d-M-Y');
 $data["email"] = "buruwawa@gmail.com";
 

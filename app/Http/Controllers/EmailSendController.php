@@ -65,21 +65,21 @@ $dompdf->render();
 $pdf = $dompdf->output();
 
 
-  $folderPath = 'reportsx';
+  $folderPath = 'reports';
   if (!Storage::exists($folderPath)) {
       Storage::makeDirectory($folderPath);
   }
 
 $filesx = Storage::allFiles($folderPath);
 foreach ($filesx as $file) {
-    Storage::delete('app/reportsx/examplexkl');
+    Storage::delete('app/reports/department');
 }
 
   $fileName = 'Daily_hotel_report_'.time().'.pdf';
   Storage::put("$folderPath/$fileName",$pdf);
 
 $files = [
-storage_path('app/reportsx/examplexkl.pdf'),
+storage_path('app/reports/department.pdf'),
 ];
 
 $date=date('d-M-Y');
@@ -163,7 +163,7 @@ public function emailSendF()
            // $jasper = new PHPJasper;
 
 //dd('bvncx');
-$input =app_path().'/reports/pieChart.jrxml';
+$input =app_path().'/reports/itinerayReportf.jrxml';
  //$input =app_path().'/reports/department.jrxml';
 $output =app_path().'/reports';
 
@@ -212,7 +212,8 @@ $data["date"] = "Date: $date";
 //dd(app_path());
 
 $files = [
-app_path('reports/pieChart.pdf'),
+app_path('reports/itinerayReportf.pdf'),
+// app_path().'/reports/itinerayReportf.pdf',
 // public_path('files/reports.png'),
 ];
   //SendMailJobf::dispatch($data);

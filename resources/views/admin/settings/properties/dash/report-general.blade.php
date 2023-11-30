@@ -147,6 +147,7 @@ table, th, td {
                     </div>
                 </div>
 
+{{$reportDailyReader}}
                 <div class="col-lg-12 col-xl-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
@@ -189,8 +190,8 @@ table, th, td {
                                             </td>
                                        
                                               <td>{{ $dailyDataR->description }}</td>
-                                            <td>{{ $dailyDataR->PostedBy }}</td>
-                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->Date)) }}</td>
+                                            <td>{{ $dailyDataR->name }}</td>
+                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
                                             <td>
                                               <form method="post" action="{{ route('report-view-post',[$dailyDataR->id,$id]) }}">
                                                 @csrf

@@ -92,8 +92,8 @@ $uri =request()->path();
 //dd($properties);
 
    
-     $reportDailyData=DB::select('select * from reportdailydata_view where property_id="'.$property->id.'" order by metaname_name ASC');
-    // dd($reportDailyData);
+      $reportDailyData=DB::select('select * from reportdailydata_view where property_id="'.$property->id.'" order by metaname_name ASC');
+     // dd($reportDailyData);
 
     // $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.description,a.photo,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
 
@@ -101,7 +101,7 @@ $uri =request()->path();
     // $reportDailyReader=DB::select('select * from reportdailyreader_view where property_id="'.$property->id.'"');
 
  $reportDailyReader=DB::select('select * from issue_report_view where property_id="'.$property->id.'"');
-
+//dd($reportDailyReader);
 
 $dataDaily = collect($reportDailyData);
 $dailyMetaCollects=$dataDaily->groupBy('metaname_name');
@@ -211,7 +211,7 @@ $roomMonthly = $dataMonthly->where('metaname_name','Room')
       //->where('set_indicators.qns','!=',"")
      ->whereBetween('answers.datex',[$start_date, $end_date])
    
-   ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex','answers.answer_label','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name')
+   ->select('answers.id','answers.property_id','answers.indicator_id','answers.metaname_id','answers.asset_id','answers.opt_answer_id','answers.answer','answers.photo','answers.description','answers.datex as Date','answers.answer_label','metanames.metaname_name','assets.asset_name','properties.property_name','set_indicators.qns','users.name as PostedBy')
    ->orderBy('set_indicators.id')
 	 ->get();
 //dd($reportDailyReader);

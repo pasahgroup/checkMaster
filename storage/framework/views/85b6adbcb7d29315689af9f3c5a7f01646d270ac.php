@@ -177,8 +177,6 @@ table, th, td {
                     </div>
                 </div>
 
-<?php echo e($reportDailyReader); ?>
-
                 <div class="col-lg-12 col-xl-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body">
@@ -222,8 +220,8 @@ table, th, td {
                                             </td>
                                        
                                               <td><?php echo e($dailyDataR->description); ?></td>
-                                            <td><?php echo e($dailyDataR->name); ?></td>
-                                            <td><?php echo e(date("d-M-Y", strtotime($dailyDataR->datex))); ?></td>
+                                            <td><?php echo e($dailyDataR->PostedBy); ?></td>
+                                            <td><?php echo e(date("d-M-Y", strtotime($dailyDataR->Date))); ?></td>
                                             <td>
                                               <form method="post" action="<?php echo e(route('report-view-post',[$dailyDataR->id,$id])); ?>">
                                                 <?php echo csrf_field(); ?>

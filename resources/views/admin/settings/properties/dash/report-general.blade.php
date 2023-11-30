@@ -189,8 +189,8 @@ table, th, td {
                                             </td>
                                        
                                               <td>{{ $dailyDataR->description }}</td>
-                                            <td>{{ $dailyDataR->name }}</td>
-                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->datex)) }}</td>
+                                            <td>{{ $dailyDataR->PostedBy }}</td>
+                                            <td>{{ date("d-M-Y", strtotime($dailyDataR->Date)) }}</td>
                                             <td>
                                               <form method="post" action="{{ route('report-view-post',[$dailyDataR->id,$id]) }}">
                                                 @csrf

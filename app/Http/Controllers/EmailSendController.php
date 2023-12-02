@@ -56,7 +56,7 @@ class EmailSendController extends Controller
   ];
   // $pdf = PDF::loadView('image', $data);
   // return $pdf->download('document.pdf',$pdf);
-$html = view('image', $data)->render();
+  $html = view('image', $data)->render();
 
 
 $dompdf = new Dompdf();
@@ -163,7 +163,7 @@ public function emailSendF()
            // $jasper = new PHPJasper;
 
 //dd('bvncx');
-$input =app_path().'/reports/itinerayReportf.jrxml';
+$input =app_path().'/reports/pieChart.jrxml';
  //$input =app_path().'/reports/department.jrxml';
 $output =app_path().'/reports';
 
@@ -201,8 +201,6 @@ $options = [
 
 
 
-
-
 $date=date('d-M-Y');
 $data["email"] = "buruwawa@gmail.com";
 
@@ -212,7 +210,7 @@ $data["date"] = "Date: $date";
 //dd(app_path());
 
 $files = [
-app_path('reports/itinerayReportf.pdf'),
+app_path('reports/pieChart.pdf'),
 // app_path().'/reports/itinerayReportf.pdf',
 // public_path('files/reports.png'),
 ];

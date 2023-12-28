@@ -27,8 +27,12 @@ use App\Http\Controllers\testerController;
 use App\Http\Controllers\usersPermissionController;
 use App\Http\Controllers\warehouseController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\TitleController;
+use App\Http\Controllers\GallaryController;
 
 use App\Http\Controllers\ManageController;
+use App\Http\Controllers\WebController;
+use App\Http\Controllers\BankController;
 
 use App\Http\Livewire\Show;
 use App\Http\Livewire\Department;
@@ -68,6 +72,9 @@ use App\Http\Controllers\DailyController;
 
 use App\Http\Controllers\MetadataController;
 use App\Http\Controllers\MetanameController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SubcourseController;
+
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserRegisterController;
 //password Reset
@@ -101,6 +108,7 @@ use JasperPHP\JasperPHP as JasperPHP;
 
  // Route::get('image', [ImageController::class, 'index']);
  // Route::post('image', [ImageController::class, 'store']);
+
 
 
 Route::get('pdf', [EmailSendController::class, 'generatePDF']);
@@ -168,6 +176,7 @@ Route::get('emails/dev', function() {
 });
 
 Route::resource('yyy', ReportTestController::class);
+Route::resource('/', WebController::class);
 
 Route::middleware(['auth'])->group(function () {
   Route::group(['middleware' => ['auth','Admin']], function() {
@@ -296,10 +305,19 @@ Route::get('email-send/{id}',[EmailSendController::class,'emailSendF'])->name('e
   Route::resource('not-answered', DashChecklist::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account|GeneralManager']);
   Route::get('not-answered/{id}',DashChecklist::class)->name('not-answered');
 
-    Route::get('/', function () {
+    Route::get('/dashboard', function () {
         return redirect()->route('admin.index');
+         // return redirect()->route('admin.index');
         //return redirect()->route('register');
     });
+
+    //Bank
+  Route::resource('bank',BankController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
+   Route::get('delete-bank/{id}',[BankController::class,'destroy'])->name('delete-bank');
+   Route::get('edit-bank/{id}',[BankController::class,'show'])->name('edit-bank');
+  Route::get('update-bank/{id}',[BankController::class,'recoveryUpdate'])->name('update-bank');
+  Route::get('recovery-bank',[BankController::class,'recovery'])->name('recovery-bank');
+
 //TS wawa
    // Route::resource('user-register', UserRegisterController::class);
    Route::resource('user-register',UserRegisterController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
@@ -314,7 +332,37 @@ Route::get('email-send/{id}',[EmailSendController::class,'emailSendF'])->name('e
    Route::get('edit-metaname/{id}',[MetanameController::class,'show'])->name('edit-metaname');
   Route::get('update-metaname/{id}',[MetanameController::class,'recoveryUpdate'])->name('update-metaname');
   Route::get('recovery-metaname',[MetanameController::class,'recovery'])->name('recovery-metaname');
+
+  // Course name
+     Route::resource('course',CourseController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
+   Route::get('delete-course/{id}',[CourseController::class,'destroy'])->name('delete-course');
+   Route::get('edit-course/{id}',[CourseController::class,'show'])->name('edit-course');
+  Route::get('update-course/{id}',[CourseController::class,'recoveryUpdate'])->name('update-course');
+  Route::get('recovery-course',[CourseController::class,'recovery'])->name('recovery-course');
+
+    // Course name
+     Route::resource('subcourse',SubcourseController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
+   Route::get('delete-subcourse/{id}',[SubcourseController::class,'destroy'])->name('delete-subcourse');
+   Route::get('edit-subcourse/{id}',[SubcourseController::class,'show'])->name('edit-subcourse');
+  Route::get('update-subcourse/{id}',[SubcourseController::class,'recoveryUpdate'])->name('update-subcourse');
+  Route::get('recovery-subcourse',[SubcourseController::class,'recovery'])->name('recovery-subcourse');
+
+     // Titles name
+     Route::resource('titles',TitleController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
+   Route::get('delete-titles/{id}',[TitleController::class,'edit'])->name('delete-titles');
+   Route::get('edit-titles/{id}',[TitleController::class,'show'])->name('edit-titles');
+  Route::get('update-titles/{id}',[TitleController::class,'recoveryUpdate'])->name('update-titles');
+  Route::get('recovery-titles',[TitleController::class,'recovery'])->name('recovery-titles');
+
+
+     // Gallary name
+     Route::resource('gallary',GallaryController::class)->middleware(['role:Admin|SuperAdmin|GeneralAdmin']);
+   Route::get('delete-gallary/{id}',[GallaryController::class,'edit'])->name('delete-gallary');
+   Route::get('edit-gallary/{id}',[GallaryController::class,'show'])->name('edit-gallary');
+  Route::get('update-gallary/{id}',[GallaryController::class,'recoveryUpdate'])->name('update-gallary');
+  Route::get('recovery-gallary',[GallaryController::class,'recovery'])->name('recovery-gallary');
 //Metadata
+
 Route::resource('metadata',MetadataController::class)->middleware(['role:Admin|SuperAdmin']);
 Route::get('riq-Datatype',[MetadataController::class,'riqDatatype'])->name('riq-Datatype');
 Route::put('riq-update/{id}',[MetadataController::class,'updateDatatype'])->name('riq-update');

@@ -4,7 +4,7 @@
                     <strong style="color:#0a0215;">{{$company->company_name??'Set Company Profile'}}</strong>
               </div> -->
 
-    <div id="accordion" style="background-color:#f4f4f4; !important">
+    <div id="accordion" style="background-color:#3d4633; !important">
         <div class="text-center text-primary"><hr>
         </div>
 
@@ -485,6 +485,94 @@
             </li>
      @endrole
 
+
+ @role('GeneralAdmin|SuperAdmin|Admin')
+            <li class="nav-item
+            {{ (request()->is('subcourse')) ? 'active' : '' }}
+            {{ (request()->is('course')) ? 'active' : '' }}
+             {{ (request()->is('titles')) ? 'active' : '' }}
+              {{ (request()->is('bank')) ? 'active' : '' }}
+                      ">s
+                <a  class="nav-link" data-toggle="collapse" href="#course" role="button"
+                aria-expanded="false" aria-controls="course">
+                    <span class="svg-icon nav-icon">
+                        <i class="fas fa-cogs font-size-h4"></i>
+                    </span>
+                    <span class="btn-sm">Settings</span>
+                    <i class="fas fa-chevron-right fa-rotate-90"></i>
+                </a>
+
+                <div class="collapse nav-collapse
+                {{ (request()->is('subcourse')) ? 'show' : '' }}
+                {{ (request()->is('course')) ? 'show' : '' }}
+                 {{ (request()->is('titles')) ? 'show' : '' }}
+                {{ (request()->is('bank')) ? 'show' : '' }}
+
+                " id="course" data-parent="#accordiond">
+                    <div id="accordiond">
+                        <ul class="nav flex-column">                            
+
+                              <li class="nav-item {{ (request()->is('course')) ? 'sub-active' : '' }}">
+                                <a href="{{ route('course.index') }}" class="nav-link sub-nav-link {{ (request()->is('course')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text">Courses</span>
+                                </a>
+                            </li>
+
+  <li class="nav-item {{ (request()->is('titles')) ? 'sub-active' : '' }}">
+                                <a href="{{ route('titles.index') }}" class="nav-link sub-nav-link {{ (request()->is('titles')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text">titles</span>
+                                </a>
+                            </li>
+
+                              <li class="nav-item {{ (request()->is('subcourse')) ? 'sub-active' : '' }}">
+                                <a href="{{ route('subcourse.index') }}" class="nav-link sub-nav-link {{ (request()->is('subcourse')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text">Sub Courses</span>
+                                </a>
+                            </li>
+
+                               <li class="nav-item {{ (request()->is('gallary')) ? 'sub-active' : '' }}">
+                                <a href="{{ route('gallary.index') }}" class="nav-link sub-nav-link {{ (request()->is('gallary')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text">Gallaries</span>
+                                </a>
+                              </li>
+
+                              <li class="nav-item {{ (request()->is('bank')) ? 'sub-active' : '' }}">
+                                <a href="{{ route('bank.index') }}" class="nav-link sub-nav-link {{ (request()->is('bank')) ? 'active' : '' }}">
+                                    <span class="svg-icon nav-icon d-flex justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                          </svg>
+                                    </span>
+                                    <span class="nav-text">Bank</span>
+                                </a>
+                             </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </li>
+     @endrole
+
      @role('GeneralAdmin|SuperAdmin')
                 <li class="nav-item
                 {{ (request()->is('properties')) ? 'active' : '' }}
@@ -592,18 +680,6 @@
                                      </li>
                                    @endrole
 
-  @role('Admin')
-         <li class="nav-item {{ (request()->is('asset/{id}')) ? 'sub-active' : '' }}">
-                                  <a href="/asset/{id}" class="nav-link sub-nav-link {{ (request()->is('asset/{id}')) ? 'active' : '' }}">
-                                      <span class="svg-icon nav-icon d-flex justify-content-center">
-                                          <svg xmlns="" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                                              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                            </svg>
-                                      </span>
-                                      <span class="nav-text">Assets</span>
-                                  </a>
-                              </li>
-                            @endrole
 
   @role('GeneralAdmin|SuperAdmin')
   <br>
@@ -721,11 +797,11 @@
                 </div>
             </li>
             @endrole
-            <!-- <div style="margin: 100px 10px 10px 10px">
+             <div style="margin: 100px 10px 10px 10px">
                 <div class="text-center text-primary"><hr>
-                    <strong>Checklist Master</strong>
+                    <strong>24/7 Non Security Tanzania Ltd</strong>
                     <img style="height: 20px;" alt="Logo" src="../../assets/images/misc/moran.png" /></div>
-              </div> -->
+              </div>
 
                             </ul>
 

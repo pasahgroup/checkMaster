@@ -101,7 +101,7 @@ foreach ($files as $file){
 
 
 
-  public function emailSendFf()
+  public function emailSendF()
     {
       $data = [
          'title' => 'Welcome to my PDF',
@@ -118,7 +118,7 @@ foreach ($files as $file){
    $pdf = $dompdf->output();
 
 
-     $folderPath = 'reportsx';
+     $folderPath = 'reports';
      if (!Storage::exists($folderPath)) {
          Storage::makeDirectory($folderPath);
      }
@@ -156,7 +156,7 @@ foreach ($files as $file){
 
 
 
-public function emailSendF()
+public function emailSendF_org()
 {
        include_once(app_path().'/jrf/sample/setting.php');
        $jasper = new PHPJasperXML();

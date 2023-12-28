@@ -92,8 +92,8 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-                <form action="{{ route('customers.store') }}" method="POST">
+            <div class="modal-body"> 
+                <form action="{{ route('customers.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
@@ -133,7 +133,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('customers.update',$accounts->id) }}" method="POST">
+            <form action="{{ route('customers.update',$accounts->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
                 <div class="row">

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --artical-background-page: #d9c7a8;
+  --artical-background-page: #74885b;
   /*--artical-background-panel: #4d977e;*/
    --artical-background-panel: #fff;
   --artical-background-module: #f8f9fa;
@@ -264,7 +264,7 @@ sup {
 
 a {
   /* color: #0094d2; */
-  color:#b6814f;
+  color:#fff;
   text-decoration: none;
   background-color:;}
   a:hover {
@@ -13358,7 +13358,7 @@ div.equal:active {
   -webkit-transition: left 0.3s ease, right 0.3s ease, bottom 0.3s ease, top 0.3s ease;
   transition: left 0.3s ease, right 0.3s ease, bottom 0.3s ease, top 0.3s ease;
   left: -395px;
-  width: 375px;
+  width: 400px;
   background: var(--artical-background-panel);
   -webkit-box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.25); }

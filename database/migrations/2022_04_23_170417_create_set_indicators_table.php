@@ -16,6 +16,7 @@ class CreateSetIndicatorsTable extends Migration
         Schema::create('set_indicators', function (Blueprint $table) {
         $table->bigIncrements('id');
          $table->string('qns')->nullable();
+         $table->string('duration')->nullable();
           $table->string('status')->default('Active');
            $table->integer('user_id')->unsigned();
             $table->timestamps();

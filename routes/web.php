@@ -27,6 +27,8 @@ use App\Http\Controllers\testerController;
 use App\Http\Controllers\usersPermissionController;
 use App\Http\Controllers\warehouseController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\DailydutymanagerController;
+
 
 use App\Http\Controllers\ManageController;
 
@@ -274,6 +276,8 @@ Route::resource('weekly', ChecklistController::class)->middleware(['role:Admin|H
 
  Route::resource('daily', DailyController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier|MaintenanceReport']);
 
+//Manager Daily Inspection
+Route::resource('daily-duty-manager', DailydutymanagerController::class)->middleware(['role:Admin|HouseKeeper|GeneralManager|Manager|GeneralAdmin|SuperAdmin|Maintenancier|MaintenanceReport']);
 
 
  //Route::get('dailyx',[ChecklistController::class,'daily'])->name('daily');

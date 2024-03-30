@@ -177,8 +177,11 @@
                             <label class="text-dark" >Duration</label>
                             	<select class="arabic-select w-100 mb-3 h-30px" name="duration" >
                             		<option value="{{ $department->duration }}">{{ $department->duration }}</option>
-														<option value="Daily">Daily</option>
-														<option value="Weekly">Weekly</option>
+													  
+													  <option value="Daily">Daily</option>
+   <option value="Daily Morning">Daily Morning</option>
+    <option value="Daily Afternoon">Daily Afternoon</option>
+    <option value="Weekly">Weekly</option>
 													
 												</select>
                             <small  class="form-text text-muted">please edit Duration</small>

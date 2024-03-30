@@ -57,6 +57,8 @@
                         <select name="duration" id="duration" class="form-control" required>
                           <option value="">--- Select duration ---</option>
   <option value="Daily">Daily</option>
+   <option value="Daily Morning">Daily Morning</option>
+    <option value="Daily Afternoon">Daily Afternoon</option>
     <option value="Weekly">Weekly</option>
                     </select>
   </div>

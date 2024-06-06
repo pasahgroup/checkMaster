@@ -575,12 +575,23 @@ $constraint->aspectRatio();
 
     }
 
+    
+
     public function getA($p){
        // Fetch Employees by Departmentid
        $aData['dataA'] = checklist::getAsset($p);
        echo json_encode($aData);
        exit;
      }
+
+     public function getDDM($p){
+       // Fetch Employees by Departmentid
+       $aData['dataDD'] = checklist::getAssetManager($p);
+       echo json_encode($aData);
+       exit;
+     }
+
+
     /**
      * Display the specified resource.
      *

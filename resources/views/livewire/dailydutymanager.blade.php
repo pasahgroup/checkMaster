@@ -58,7 +58,7 @@ border-color: #dddddd;
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery311.min.js"></script>
 
-	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+  <link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   @if($message?? '')
                             <div class="alert alert-danger">
                               <h5 class="text-center">{{ $message }}</h5>
@@ -110,30 +110,46 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-   <div class="form-group">
+  <div class="form-group">
+    <!-- {{$metanames}} -->
+            <label class="text-dark">Metaname:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
+              <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
+                          <option value="">--- Select metaname to apply ---</option>
+
+          @isset($metanamess->metaname_name)
+                          @if($metanamess->metaname_name !=NULL)
+                          <option value="{{$metanamess->id}}" selected>{{$metanamess->metaname_name}}</option>
+                          @endif
+                          @endisset
+
+                         @foreach($metanames as $metaname)
+                         <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+                        @endforeach
+              </select>
+  </div>
+  
+
+  <div class="form-group">
        <form  method="GET"  action="{{ route('daily-duty-manager.index') }}" enctype="multipart/form-data">
             @csrf
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        {{--   <input type="hidden" name="metaname_id" id="metaname_id" value="{{$section->metaname_id}}"> --}}
+           <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
 
-
-
-          <label class="text-dark">Shifts</label>
+          <label class="text-dark">Asset name</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
-                          <option value="">--- Select shift ---</option>
+                          <option value="">--- Select Asset name to apply ---</option>
 
-                    <!--       @isset($users->asset_name)
+                          @isset($propertyID->asset_name)
                           @if($propertyID->asset_name !=NULL)
-                          <option value="{{$users->id}}" selected>{{$users->asset_name}}</option>
+                          <option value="{{$propertyID->id}}" selected>{{$propertyID->asset_name}}</option>
                           @endif
                           @endisset
- -->
-                      
-                         <option value="Morning shift">Morning shift</option>
-                          <option value="Afternoon shift">Afternoon shift</option>
-                       
+
+                         @foreach($assets as $asset)
+                         <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
+                            @endforeach
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
@@ -141,23 +157,24 @@ border-color: #dddddd;
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
     </div>
     </form>
-    </div>   
     </div>
 
+</div>
+ <div class="row" id="data_display">
 
-
- <div class="row" id="data_display">    
+<!-- {{ print_r($qns, true)}}  -->
+    
     @isset($assets)
     @if(!empty($selectedOption))
        @foreach ($sections as $section)
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="panel-heading">
 
-    <div class="" data-toggle="collapse" href="#collapp{{$section->metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$section->metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$section->metaname_id}}','{{$section->section}}')" style="background-color:#dfd6c4 !important">
+    <div class="" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" style="background-color:#dfd6c4 !important">
                     <div class="row">
                       <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
    @if($section->section !="")
-     <span style="background-color:#">{{$section->section}}</span>
+     <span style="background-color:#">{{$section->section}}:{{$section->metaname_id}}</span>
 
   <span class="float-right">
 
@@ -175,35 +192,35 @@ border-color: #dddddd;
     </div>
 
       <!-- <div class="" data-toggle="collapse" href="#collapccc" id="" class="panel-group btn-sm" style="background-color:#718275 !important"> -->
-      <div wire:ignore.self id="collapp{{$section->metaname_id}}_{{$section->section}}" class="panel-collapse collapse">
-    <!-- <div wire:ignore.self id="collapse{{$section->metaname_id}}" class="panel-collapse collapse"> -->
+      <div wire:ignore.self id="collapp{{$metaname_id}}_{{$section->section}}" class="panel-collapse collapse">
+    <!-- <div wire:ignore.self id="collapse{{$metaname_id}}" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
-    <form  method="post"  action="{{ route('daily-duty-manager.store') }}" enctype="multipart/form-data">
+    <form  method="post"  action="{{ route('daily.store') }}" enctype="multipart/form-data">
         @csrf
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
- <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$section->metaname_id}}">
- <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$users->property_id}}">
- <input type="hidden" name="assetID" id="assetID" value="{{$selectedOption}}">
+ <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
+ <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$propertyID->property_id}}">
+ <input type="text" name="assetID" id="assetID" value="{{$selectedOption}}">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
-    <input type="hidden" name="aID" id="aID{{$section->metaname_id}}_{{$section->section}}" value="{{$section->metaname_id}}">
-    <!-- <input type="hidden" name="section_name{{$section->metaname_id}}_{{$section->section}}" id="section_name{{$section->metaname_id}}_{{$section->section}}"> -->
+    <input type="text" name="aID" id="aID{{$metaname_id}}_{{$section->section}}" value="{{$metaname_id}}">
+    <!-- <input type="hidden" name="section_name{{$metaname_id}}_{{$section->section}}" id="section_name{{$metaname_id}}_{{$section->section}}"> -->
 
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-
+  
 
 
            @foreach ($qns as $qn)
-          
-          {{-- @if($metaname_id ==$section->metaname_id && $qn->section==$section->section) --}}
 
-               @if($qn->section==$section->section)
+           {{$qn->section==$section->section}}
+           @if($metaname_id ==$qn->metaname_id && $qn->section==$section->section)
+         
                           <div class="form-group card">
-                          <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> {{$section->metaname_id}}:{{$qn->id}}: {{$qn->section}} </b>: {{ $qn->qns  }}</div>
+                          <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> {{$metaname_id}}:{{$qn->id}}: {{$qn->section}} </b>: {{ $qn->qns  }}</div>
 
           <div class="row-card">
 
@@ -214,7 +231,7 @@ border-color: #dddddd;
                 {{$metadata->answer}}
 
                @if($metadata->datatype=="checkbox")
-              <input type="{{$metadata->datatype}}" name="ids{{$section->metaname_id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction('{{$qn->id}}')" onkeyup="myFunction('{{$qn->id}}')"
+              <input type="{{$metadata->datatype}}" name="ids{{$metaname_id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction('{{$qn->id}}')" onkeyup="myFunction('{{$qn->id}}')"
                  @foreach ($checkQns as $checkq)
                                    @if($selectedOption ==$checkq->asset_id && $checkq->indicator_id==$qn->id && $metadata->answer==$checkq->answer)
                @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer) checked @endif
@@ -224,7 +241,7 @@ border-color: #dddddd;
            @endif
 
                @if($metadata->datatype=="radio")
-              <input type="{{$metadata->datatype}}" name="idx{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}[]" id="idx{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$section->metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$section->metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')"
+              <input type="{{$metadata->datatype}}" name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')"
 
                  @foreach ($checkQns as $checkq)
                   @if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id)
@@ -238,8 +255,8 @@ border-color: #dddddd;
                 @endif
                 @endisset
 
-                <div id="popup{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}" style="display:none;">
-                  <select name="idx{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}[]" id="maintenance{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}"  class="form-control" required>
+                <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
+                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
 
                    @isset($checkq->answer_label)
                    @if($checkq->answer_label !="no_value")
@@ -263,9 +280,11 @@ border-color: #dddddd;
              @endif
 
 
+
+
 @if($metadata->answer=="Maintenance")
-   <div id="popup{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}" style="display:none;">
-     <select name="idx{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}[]" id="maintenance{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}"  class="form-control" required>
+   <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
+     <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
         <option value="no_value">--level of maintenance--</option>
                    <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
@@ -281,13 +300,13 @@ border-color: #dddddd;
     </div>
 
           <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee{{$section->metaname_id}}{{$qn->id}}">Description if any</a>
+            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee{{$metaname_id}}{{$qn->id}}">Description if any</a>
            </div>
           </div>
-          <div id="collapsee{{$section->metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
-      <textarea rows="4" cols="40" id="desc" name="desc{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
+          <div id="collapsee{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
+      <textarea rows="4" cols="40" id="desc" name="desc{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
           @foreach ($checkQns as $checkq)
-      @if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$users->property_id)
+      @if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$propertyID->property_id)
        @if($checkq->description !=null)
         {{$checkq->description}}
         @endif
@@ -297,22 +316,22 @@ border-color: #dddddd;
     </div>
 
         <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap{{$section->metaname_id}}{{$qn->id}}">Photo if any</a>
+            <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap{{$metaname_id}}{{$qn->id}}">Photo if any</a>
            </div>
         </div>
 
           <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
-          <div id="collap{{$section->metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
+          <div id="collap{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
          <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                   <div class="form-group">
                                 <!-- start webcam -->
-    <div id="my_camera{{$section->metaname_id}}_{{$qn->id}}"></div>
+    <div id="my_camera{{$metaname_id}}_{{$qn->id}}"></div>
     <br/>
-    <input type="file" name="attachment{{$section->metaname_id}}_{{$qn->id}}_{{$section->metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
-    <!-- <input type="text" name="vv" value="{{$section->metaname_id}}_{{$qn->id}}"> -->
-    <!-- <input type=button value="Take Photo" onClick="take_snapshot({{$section->metaname_id}},{{$qn->id}})"> -->
+    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
+    <!-- <input type="text" name="vv" value="{{$metaname_id}}_{{$qn->id}}"> -->
+    <!-- <input type=button value="Take Photo" onClick="take_snapshot({{$metaname_id}},{{$qn->id}})"> -->
     <!-- <input type="hidden" name="image" class="image-tag"> -->
 
     <!-- End -->
@@ -350,13 +369,16 @@ border-color: #dddddd;
     <div class="container">
      <div class="col-md-10 col-sm-10">
      <div style="background-color:#f6f7f2 !important">
-        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$section->metaname_id}}_{{$section->section}}">Save_{{$section->metaname_id}}</button>
+        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$section->section}}">Save</button>
      </div>
     </div>
     </div>
       <hr>
 
-       </div>
+       </div> 
+       <!-- end of If condition -->
+
+
        </div>
 
          <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">email_sent</button> -->
@@ -609,6 +631,8 @@ for (var i = 0; i < radios.length; i++) {
       $('#metaname_model').change(function(){
          // ward
          var v = $(this).val();
+
+        // alert(v);
            // Empty the dropdown
           $('#asset_model').find('option').not(':first').remove();
          // $('#village').find('option').not(':first').remove();
@@ -617,7 +641,7 @@ for (var i = 0; i < radios.length; i++) {
 
          // AJAX request
          $.ajax({
-           url: 'getA/'+v,
+           url: 'getDDM/'+v,
            type: 'get',
            dataType: 'json',
            success: function(response){

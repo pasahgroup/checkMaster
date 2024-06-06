@@ -286,6 +286,9 @@ Route::resource('daily-duty-manager', DailydutymanagerController::class)->middle
 
 //Route::get('/getA/{p}', 'ChecklistController@getA');
 Route::get('/getA/{p}', [ChecklistController::class,'getA']);
+Route::get('/getDDM/{p}', [ChecklistController::class,'getDDM']);
+
+
   // Route::post('emailSend',Checklisst::class,'emailSend')->name('emailSend');
   // Route::resource('emailSendx', [EmailSendController::class]);
 Route::resource('emailSend', EmailSendController::class)->middleware(['role:Admin|GeneralManager|GeneralAdmin|Manager|SuperAdmin']);

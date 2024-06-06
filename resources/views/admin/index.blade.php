@@ -167,7 +167,7 @@ table, th, td {
             </div>
 
                             @role('Admin|Account|SuperAdmin')
-                            @isset($pending_orders )
+                            @isset($pending_orders)
                                         <div class="col-lg-4  col-xl-4 col-md-4">
 
                                             <div class="card card-custom gutter-b bg-white border-0">

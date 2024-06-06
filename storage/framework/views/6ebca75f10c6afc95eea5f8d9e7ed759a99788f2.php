@@ -57,7 +57,7 @@ border-color: #dddddd;
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery311.min.js"></script>
 
-	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+  <link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
   <?php if($message?? ''): ?>
                             <div class="alert alert-danger">
                               <h5 class="text-center"><?php echo e($message); ?></h5>
@@ -109,30 +109,46 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-   <div class="form-group">
+  <div class="form-group">
+    <!-- <?php echo e($metanames); ?> -->
+            <label class="text-dark">Metaname:: <?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
+              <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction(<?php echo e($metaname_id); ?>)" onkeyup="setMetanameFunction(<?php echo e($metaname_id); ?>)"  class="form-control" required>
+                          <option value="">--- Select metaname to apply ---</option>
+
+          <?php if(isset($metanamess->metaname_name)): ?>
+                          <?php if($metanamess->metaname_name !=NULL): ?>
+                          <option value="<?php echo e($metanamess->id); ?>" selected><?php echo e($metanamess->metaname_name); ?></option>
+                          <?php endif; ?>
+                          <?php endif; ?>
+
+                         <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metaname): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </select>
+  </div>
+  
+
+  <div class="form-group">
        <form  method="GET"  action="<?php echo e(route('daily-duty-manager.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
-        
+           <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
 
-
-
-          <label class="text-dark">Shifts</label>
+          <label class="text-dark">Asset name</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction(<?php echo e($assetID); ?>)"  class="form-control" required>
-                          <option value="">--- Select shift ---</option>
+                          <option value="">--- Select Asset name to apply ---</option>
 
-                    <!--       <?php if(isset($users->asset_name)): ?>
+                          <?php if(isset($propertyID->asset_name)): ?>
                           <?php if($propertyID->asset_name !=NULL): ?>
-                          <option value="<?php echo e($users->id); ?>" selected><?php echo e($users->asset_name); ?></option>
+                          <option value="<?php echo e($propertyID->id); ?>" selected><?php echo e($propertyID->asset_name); ?></option>
                           <?php endif; ?>
                           <?php endif; ?>
- -->
-                      
-                         <option value="Morning shift">Morning shift</option>
-                          <option value="Afternoon shift">Afternoon shift</option>
-                       
+
+                         <?php $__currentLoopData = $assets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $asset): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <option value="<?php echo e($asset->id); ?>"><?php echo e($asset->asset_name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
@@ -140,23 +156,24 @@ border-color: #dddddd;
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
     </div>
     </form>
-    </div>   
     </div>
 
+</div>
+ <div class="row" id="data_display">
 
-
- <div class="row" id="data_display">    
+<!-- <?php echo e(print_r($qns, true)); ?>  -->
+    
     <?php if(isset($assets)): ?>
     <?php if(!empty($selectedOption)): ?>
        <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="panel-heading">
 
-    <div class="" data-toggle="collapse" href="#collapp<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction('<?php echo e($section->metaname_id); ?>','<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction('<?php echo e($section->metaname_id); ?>','<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important">
+    <div class="" data-toggle="collapse" href="#collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important">
                     <div class="row">
                       <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
    <?php if($section->section !=""): ?>
-     <span style="background-color:#"><?php echo e($section->section); ?></span>
+     <span style="background-color:#"><?php echo e($section->section); ?>:<?php echo e($section->metaname_id); ?></span>
 
   <span class="float-right">
 
@@ -175,35 +192,36 @@ border-color: #dddddd;
     </div>
 
       <!-- <div class="" data-toggle="collapse" href="#collapccc" id="" class="panel-group btn-sm" style="background-color:#718275 !important"> -->
-      <div wire:ignore.self id="collapp<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" class="panel-collapse collapse">
-    <!-- <div wire:ignore.self id="collapse<?php echo e($section->metaname_id); ?>" class="panel-collapse collapse"> -->
+      <div wire:ignore.self id="collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" class="panel-collapse collapse">
+    <!-- <div wire:ignore.self id="collapse<?php echo e($metaname_id); ?>" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
-    <form  method="post"  action="<?php echo e(route('daily-duty-manager.store')); ?>" enctype="multipart/form-data">
+    <form  method="post"  action="<?php echo e(route('daily.store')); ?>" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 
- <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($section->metaname_id); ?>">
- <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="<?php echo e($users->property_id); ?>">
- <input type="hidden" name="assetID" id="assetID" value="<?php echo e($selectedOption); ?>">
+ <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
+ <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="<?php echo e($propertyID->property_id); ?>">
+ <input type="text" name="assetID" id="assetID" value="<?php echo e($selectedOption); ?>">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
-    <input type="hidden" name="aID" id="aID<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($section->metaname_id); ?>">
-    <!-- <input type="hidden" name="section_name<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" id="section_name<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>"> -->
+    <input type="text" name="aID" id="aID<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($metaname_id); ?>">
+    <!-- <input type="hidden" name="section_name<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="section_name<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>"> -->
 
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-
+  
 
 
            <?php $__currentLoopData = $qns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $qn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          
-          
 
-               <?php if($qn->section==$section->section): ?>
+           <?php echo e($qn->section==$section->section); ?>
+
+           <?php if($metaname_id ==$qn->metaname_id && $qn->section==$section->section): ?>
+         
                           <div class="form-group card">
-                          <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> <?php echo e($section->metaname_id); ?>:<?php echo e($qn->id); ?>: <?php echo e($qn->section); ?> </b>: <?php echo e($qn->qns); ?></div>
+                          <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> <?php echo e($metaname_id); ?>:<?php echo e($qn->id); ?>: <?php echo e($qn->section); ?> </b>: <?php echo e($qn->qns); ?></div>
 
           <div class="row-card">
 
@@ -215,7 +233,7 @@ border-color: #dddddd;
 
 
                <?php if($metadata->datatype=="checkbox"): ?>
-              <input type="<?php echo e($metadata->datatype); ?>" name="ids<?php echo e($section->metaname_id); ?>[]" id="indicator_id" value="<?php echo e($metadata->id); ?>" onclick="myFunction('<?php echo e($qn->id); ?>')" onkeyup="myFunction('<?php echo e($qn->id); ?>')"
+              <input type="<?php echo e($metadata->datatype); ?>" name="ids<?php echo e($metaname_id); ?>[]" id="indicator_id" value="<?php echo e($metadata->id); ?>" onclick="myFunction('<?php echo e($qn->id); ?>')" onkeyup="myFunction('<?php echo e($qn->id); ?>')"
                  <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                    <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id==$qn->id && $metadata->answer==$checkq->answer): ?>
                <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer): ?> checked <?php endif; ?>
@@ -225,7 +243,7 @@ border-color: #dddddd;
            <?php endif; ?>
 
                <?php if($metadata->datatype=="radio"): ?>
-              <input type="<?php echo e($metadata->datatype); ?>" name="idx<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>[]" id="idx<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($metadata->id); ?>" onclick="myFunctionMaintenance('<?php echo e($section->metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($section->section); ?>','<?php echo e($metadata->answer); ?>')" onkeyup="myFunctionMaintenance('<?php echo e($section->metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($section->section); ?>','<?php echo e($metadata->answer); ?>')"
+              <input type="<?php echo e($metadata->datatype); ?>" name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" id="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($metadata->id); ?>" onclick="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($section->section); ?>','<?php echo e($metadata->answer); ?>')" onkeyup="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($section->section); ?>','<?php echo e($metadata->answer); ?>')"
 
                  <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id): ?>
@@ -239,8 +257,8 @@ border-color: #dddddd;
                 <?php endif; ?>
                 <?php endif; ?>
 
-                <div id="popup<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" style="display:none;">
-                  <select name="idx<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>[]" id="maintenance<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>"  class="form-control" required>
+                <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" style="display:none;">
+                  <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>"  class="form-control" required>
 
                    <?php if(isset($checkq->answer_label)): ?>
                    <?php if($checkq->answer_label !="no_value"): ?>
@@ -264,9 +282,11 @@ border-color: #dddddd;
              <?php endif; ?>
 
 
+
+
 <?php if($metadata->answer=="Maintenance"): ?>
-   <div id="popup<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>" style="display:none;">
-     <select name="idx<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>[]" id="maintenance<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>"  class="form-control" required>
+   <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" style="display:none;">
+     <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>"  class="form-control" required>
         <option value="no_value">--level of maintenance--</option>
                    <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
@@ -282,13 +302,13 @@ border-color: #dddddd;
     </div>
 
           <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee<?php echo e($section->metaname_id); ?><?php echo e($qn->id); ?>">Description if any</a>
+            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>">Description if any</a>
            </div>
           </div>
-          <div id="collapsee<?php echo e($section->metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
-      <textarea rows="4" cols="40" id="desc" name="desc<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
+          <div id="collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
+      <textarea rows="4" cols="40" id="desc" name="desc<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
           <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$users->property_id): ?>
+      <?php if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$propertyID->property_id): ?>
        <?php if($checkq->description !=null): ?>
         <?php echo e($checkq->description); ?>
 
@@ -299,22 +319,22 @@ border-color: #dddddd;
     </div>
 
         <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap<?php echo e($section->metaname_id); ?><?php echo e($qn->id); ?>">Photo if any</a>
+            <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>">Photo if any</a>
            </div>
         </div>
 
           <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
-          <div id="collap<?php echo e($section->metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
+          <div id="collap<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
          <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                   <div class="form-group">
                                 <!-- start webcam -->
-    <div id="my_camera<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>"></div>
+    <div id="my_camera<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>"></div>
     <br/>
-    <input type="file" name="attachment<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>[]" accept="image/*" capture="camera">
-    <!-- <input type="text" name="vv" value="<?php echo e($section->metaname_id); ?>_<?php echo e($qn->id); ?>"> -->
-    <!-- <input type=button value="Take Photo" onClick="take_snapshot(<?php echo e($section->metaname_id); ?>,<?php echo e($qn->id); ?>)"> -->
+    <input type="file" name="attachment<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" accept="image/*" capture="camera">
+    <!-- <input type="text" name="vv" value="<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>"> -->
+    <!-- <input type=button value="Take Photo" onClick="take_snapshot(<?php echo e($metaname_id); ?>,<?php echo e($qn->id); ?>)"> -->
     <!-- <input type="hidden" name="image" class="image-tag"> -->
 
     <!-- End -->
@@ -352,13 +372,16 @@ border-color: #dddddd;
     <div class="container">
      <div class="col-md-10 col-sm-10">
      <div style="background-color:#f6f7f2 !important">
-        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($section->metaname_id); ?>_<?php echo e($section->section); ?>">Save_<?php echo e($section->metaname_id); ?></button>
+        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>">Save</button>
      </div>
     </div>
     </div>
       <hr>
 
-       </div>
+       </div> 
+       <!-- end of If condition -->
+
+
        </div>
 
          <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">email_sent</button> -->
@@ -622,6 +645,8 @@ for (var i = 0; i < radios.length; i++) {
       $('#metaname_model').change(function(){
          // ward
          var v = $(this).val();
+
+        // alert(v);
            // Empty the dropdown
           $('#asset_model').find('option').not(':first').remove();
          // $('#village').find('option').not(':first').remove();
@@ -630,7 +655,7 @@ for (var i = 0; i < radios.length; i++) {
 
          // AJAX request
          $.ajax({
-           url: 'getA/'+v,
+           url: 'getDDM/'+v,
            type: 'get',
            dataType: 'json',
            success: function(response){
@@ -658,5 +683,4 @@ for (var i = 0; i < radios.length; i++) {
     });
      </script>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\checkmaster\resources\views/livewire/dailydutymanager.blade.php ENDPATH**/ ?>

@@ -27,4 +27,15 @@ class checklist extends Model
       return $value;
     }
 
+
+
+        public static function getAssetManager($n){
+
+      $value = DB::select('select p.id,p.asset_name,p.property_id,p.metaname_id from dutymanagers d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and p.metaname_id="'.$n.'" and d.status="Active" and d.manager_checklist!="Cleared" group by p.asset_name');
+
+//dd($value);
+      return $value;
+    }
+
+
 }

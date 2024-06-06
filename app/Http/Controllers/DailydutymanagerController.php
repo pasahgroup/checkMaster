@@ -89,13 +89,18 @@ class DailydutymanagerController extends Controller
       //dd($departments->property_id);
 
 
-       $metaname_id=request('metaname_id');
+       $metaname_id= metaname::where('metanames.metaname_name',"Managers")->first();
+        $metaname_id=$metaname_id->id;
+
+
         $assetID=request('assetID');
         $assetIDf=request('assetID');
        //dd($metaname_id);
        if($metaname_id==null)
        {
-         $metaname_id=1;
+          //$metaname_id=1;
+             $metaname_id = metaname::where('metanames.metaname_name',"Managers")->first();
+           
        }
 
 
@@ -110,22 +115,22 @@ class DailydutymanagerController extends Controller
        }
 
     //$metaname_id=$this->metaname_model;
-    $metanamess = metaname::where('metanames.id',$metaname_id)->first();
-  //  $assetss = asset::where('assets.id',$assetID)->first();
+    $metanamess = metaname::where('metanames.metaname_name',"Managers")->first();
+   $assetss = asset::where('assets.id',$assetID)->first();
+   
     $users=user::where('id',auth()->id())->first();
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
-
-//dd($users);
+//dd($metanamess);
     // $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
     //  ->select('metanames.id','metanames.metaname_name')
     //  ->groupby('metanames.id')
     //  ->get();
 
     $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
-     // ->where('qns_appliedtos.department_id',$users->department_id)
-    ->where('qns_appliedtos.department_id',14)
+      ->where('qns_appliedtos.department_id',$users->department_id)
+    //->where('qns_appliedtos.department_id',14)
      ->select('metanames.id','metanames.metaname_name')
      ->groupby('metanames.id')
      ->get();
@@ -140,7 +145,7 @@ class DailydutymanagerController extends Controller
           $metadatasCollects = collect($metadatasCollects);
           //$subset = $metadatas->map->only(['id', 'name', 'email']);
 
-      $assets = asset::where('assets.metaname_id',$metaname_id)
+      $assets = asset::where('assets.asset_name',"Managers")
       ->select('assets.id','assets.asset_name')
       ->get();
 
@@ -152,7 +157,7 @@ class DailydutymanagerController extends Controller
 
     // get sections from database
     //$sectionCollects = collect($sections);
-   // $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+   // $checkQnsProp = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'" group by asset_id');
 
    //dd($metadatasCollects);
 
@@ -210,23 +215,25 @@ class DailydutymanagerController extends Controller
    //  $dailyMorning=collect($dailyMorning);
 
 //dd($dailyMorning);
-   $sections = DB::select('select section,metaname_id from qnsview where department_id in(14) and metaname_id in(select metaname_id from qnsview where duration="'.$daily_morning.'") group by section');
+   $sections = DB::select("select section,metaname_id from qnsview where department_id in(".$users->department_id.") and metaname_id in(select metaname_id from qnsview where duration='".$daily_morning."') group by section");
 
     // $sections = DB::select("select * from qnsview where department_id in(".trim($dailyMorning,'[]').") and duration='Weekly' and metaname_id in(".$metaname_id.")");
 
 //dd($sections);
-
+//".trim($qnsapply,'[]')."
 
     $sectionCollects = collect($sections);
     $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+      // $checkQnsProp = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'" group by asset_id');
+//dd($checkQnsProp);
 
-
+ // $departNames=collect($users->department_id);
   // $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='Weekly' and metaname_id in(".$metaname_id.")");
-   $qns = DB::select('select * from qnsview where department_id in(14) and metaname_id in(select metaname_id from qnsview where duration="'.$daily_morning.'")');
+   $qns = DB::select("select * from qnsview where department_id in(".$users->department_id.") and metaname_id in(select metaname_id from qnsview where duration='".$daily_morning."')");
 
-//dd($qns);
+//dd($daily_morning);
 
-    $checkQns = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'"');
+    $checkQns = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'"');
     //$answerPerc=DB::select('select * from answers_view');
      $answerPerc=DB::select('select * from answers_view_summary');
 

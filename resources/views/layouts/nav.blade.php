@@ -100,6 +100,12 @@
                             </li>
 
 
+            @endrole
+
+
+@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')
+
+
                               <li class="nav-item {{ (request()->is('daily-duty-manager')) ? 'sub-active' : '' }}">
                                 <a href="/daily-duty-manager" class="nav-link sub-nav-link {{ (request()->is('daily-duty-manager')) ? 'active' : '' }}">
                                     <span class="svg-icon nav-icon d-flex justify-content-center">
@@ -110,10 +116,7 @@
                                     <span class="nav-text" data-toggle="tooltip" data-placement="bottom" title="Assign Indicators to Metaname">Daily Duty Manager</span>
                                 </a>
                             </li>
-            @endrole
-
-
-@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')
+                            
                          <li class="nav-item {{ (request()->is('managers-inspection')) ? 'sub-active' : '' }}">
                           <a href="/managers-inspection" class="nav-link sub-nav-link {{ (request()->is('managers-inspection')) ? 'active' : '' }}">
                               <span class="svg-icon nav-icon d-flex justify-content-center">

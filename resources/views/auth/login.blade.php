@@ -1,8 +1,24 @@
+<style>
+.bg-bannerw{
+  
+background-image:url({{URL::asset('../../assets/images/misc/bg-login.png')}});
+    height: 70vh;
+    width: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size:cover;
+};
+
+</style>
+
+
 <x-guest-layout>
+   
     <x-jet-authentication-card>
+        <div class="bg-bannerwx"> 
         <x-slot name="logo">
             <span class="brand-text"><img style="height: 60px;" alt="Logo"
-                src="../../assets/images/misc/logo.svg" /></span>
+                src="../../assets/images/misc/bg-login.png" /></span>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -39,5 +55,7 @@
             </div>
             <a href="{{ route('forget.password.get') }}">Forget Password</a>
         </form>
+   </div>
     </x-jet-authentication-card>
 </x-guest-layout>
+  

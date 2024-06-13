@@ -88,7 +88,7 @@ class DailydutymanagerController extends Controller
 
 
        $metaname_id= metaname::where('metanames.metaname_name',"Managers")->first();
-        dd($metaname_id);
+        dd($metaname_id->id);
 
         $metaname_id=$metaname_id->id;
 

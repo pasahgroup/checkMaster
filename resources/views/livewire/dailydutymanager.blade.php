@@ -78,7 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-  DAILY MANAGER DUTIES QUESTIONNAIRE
+  DAILY MANAGER DUTIES QUESTIONNAIRE bbbb
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 

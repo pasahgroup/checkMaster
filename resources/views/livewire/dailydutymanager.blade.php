@@ -78,7 +78,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-  DAILY MANAGER DUTIES QUESTIONNAIRE bbbb
+  DAILY MANAGER DUTIES QUESTIONNAIRE
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -111,7 +111,7 @@ border-color: #dddddd;
 
 <div class="row">
   <div class="form-group">
-    <!-- {{$metanames}} -->
+
             <label class="text-dark">Metaname:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>

@@ -62,8 +62,6 @@ require base_path().'/vendor/autoload.php';
 
 
 
-
-
 use App\Models\dailydutymanager;
 use App\Http\Requests\StoredailydutymanagerRequest;
 use App\Http\Requests\UpdatedailydutymanagerRequest;
@@ -113,6 +111,7 @@ class DailydutymanagerController extends Controller
           $selectedOption=$assetID;
           $assetIDf=$assetID;
        }
+
 
     //$metaname_id=$this->metaname_model;
     $metanamess = metaname::where('metanames.metaname_name',"Managers")->first();
@@ -301,7 +300,9 @@ class DailydutymanagerController extends Controller
 
       dd('Mail sent successfully');
     }
-    //dd('ddd');
+    
+
+    dd($metaname_id);
 
              return view("livewire.dailydutymanager",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','users','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
 

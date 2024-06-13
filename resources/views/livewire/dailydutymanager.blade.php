@@ -113,7 +113,7 @@ border-color: #dddddd;
   <div class="form-group">
 
 
-{{$metaname_id}}
+
             <label class="text-dark">Metaname22:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>

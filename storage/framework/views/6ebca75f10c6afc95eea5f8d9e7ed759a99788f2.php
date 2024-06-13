@@ -111,6 +111,9 @@ border-color: #dddddd;
 <div class="row">
   <div class="form-group">
 
+
+<?php echo e($metaname_id); ?>
+
             <label class="text-dark">Metaname22:: <?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction(<?php echo e($metaname_id); ?>)" onkeyup="setMetanameFunction(<?php echo e($metaname_id); ?>)"  class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>

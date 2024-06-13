@@ -88,11 +88,12 @@ class DailydutymanagerController extends Controller
 
 
        $metaname_id= metaname::where('metanames.metaname_name',"Managers")->first();
-        dd($metaname_id->id);
+      
 
-        $metaname_id=$metaname_id->id;
+       // dd($metaname_id->id);
+         $metaname_id=$metaname_id->id;
 
-
+      
         $assetID=request('assetID');
         $assetIDf=request('assetID');
        
@@ -100,7 +101,7 @@ class DailydutymanagerController extends Controller
      
        if($metaname_id==null)
        {
-          //$metaname_id=1;
+          //dd($metaname_id);
              $metaname_id = metaname::where('metanames.metaname_name',"Managers")->first();
            
        }
@@ -306,7 +307,7 @@ class DailydutymanagerController extends Controller
     }
     
 
-    dd($metaname_id);
+    // dd($metaname_id);
 
              return view("livewire.dailydutymanager",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','users','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
 

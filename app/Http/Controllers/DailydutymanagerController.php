@@ -93,7 +93,9 @@ class DailydutymanagerController extends Controller
 
         $assetID=request('assetID');
         $assetIDf=request('assetID');
-       //dd($metaname_id);
+       
+       dd($metaname_id);
+     
        if($metaname_id==null)
        {
           //$metaname_id=1;

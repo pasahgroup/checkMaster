@@ -101,7 +101,8 @@ $qns_type=$this->qns_type;
 $qn_no=$this->qn_no;
   
             $properties = property::get();
-            $metanames = metaname::get();
+            $metanames = metaname::orderby('metaname_name')
+            ->get();
 
             $sessions = sessionm::get();
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();

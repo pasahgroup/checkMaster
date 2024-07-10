@@ -479,8 +479,9 @@ $answerTableUpdate2=DB::statement('update dutymanagers a set a.manager_checklist
     ]);
 
     //Update value
-    // $answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
-    $answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer,a.answer_label=o.answer_classification where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
+   // $answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer,a.answer_label=o.answer_classification where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
+    
+    $answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
 
 
 $answerTableUpdate2=DB::statement('update dutymanagers a set a.manager_checklist="Action required" where a.answer !="Yes" and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');

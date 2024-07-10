@@ -195,7 +195,7 @@ border-color: #dddddd;
       <div wire:ignore.self id="collapp{{$metaname_id}}_{{$section->section}}" class="panel-collapse collapse">
     <!-- <div wire:ignore.self id="collapse{{$metaname_id}}" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
-    <form  method="post"  action="{{ route('daily.store') }}" enctype="multipart/form-data">
+    <form  method="post"  action="{{ route('daily-duty-manager.store') }}" enctype="multipart/form-data">
         @csrf
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">

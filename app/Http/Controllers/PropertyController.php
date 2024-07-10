@@ -356,6 +356,7 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
 
         //Daily Report
        $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'" order by m.metaname_name ASC');
+     
        //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
 
        $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.description,a.photo,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
@@ -389,6 +390,11 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
       ->whereIn('answer_classification',['Bad','Critical']);
       $badMonthly=$roomMonthly->where('answer_classification','Bad')->count();
       $criticalMonthly=$roomMonthly->where('answer_classification','Critical')->count();
+
+       
+
+
+
 
         if(request('search') || request('print')){
           $id=$_GET['property_search'];
@@ -972,6 +978,26 @@ $updateUser = user::where('id',auth()->id())
       $totalqns=DB::select('select a.metaname_id,metaname_name from assets a, qns_appliedtos q,metanames m where a.metaname_id=q.metaname_id and a.metaname_id=m.id and a.status="Active" and q.status="Active"');
       $totalqns = collect($totalqns);
 
+
+$man="Managers";
+
+    //Daily manager Report
+   $reportManagerMonthlyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id  and m.metaname_name="'.$man.'" and month(a.datex)=month(NOW()) order by m.metaname_name ASC');
+
+   $dataManagerMonthly = collect($reportManagerMonthlyData);
+   $monthlyManagerMetaCollects=$dataManagerMonthly->groupBy('metaname_name');
+   $roomManagerMonthly = $dataManagerMonthly->where('metaname_name','Room')
+      ->whereIn('answer_classification',['Bad','Critical']);
+      $badManagerMonthly=$roomManagerMonthly->where('answer_classification','Bad')->count();
+      $criticalManagerMonthly=$roomManagerMonthly->where('answer_classification','Critical')->count();
+//End of Manager Report
+
+//dd($dataManagerMonthly);
+
+
+
+
+//dd('print');
           return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns'));
        }
 

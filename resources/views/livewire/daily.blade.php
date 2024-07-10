@@ -159,11 +159,10 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
     </div>
     </form>
     </div>
-
 </div>
- <div class="row" id="data_display">
 
-    
+
+ <div class="row" id="data_display">    
     @isset($assets)
     @if(!empty($selectedOption))
        @foreach ($sections as $section)
@@ -185,8 +184,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
      <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
      @endif
      @endforeach
-  </span>
+  
   @endif
+  </span>
     </div>
     </div>
     </div>
@@ -503,7 +503,6 @@ var maintenance_name="maintenance"+(meta)+'_'+(qn)+'_'+meta+'_'+sec;
 
 
 
-
 <script type="text/javascript">
   $(document).ready(function() {
 $('.qnNo').materialSelect();
@@ -519,9 +518,6 @@ function checkAge(age) {
   return age >18;
 }
 </script>
-
-
-
 
 
 

@@ -195,7 +195,7 @@ border-color: #dddddd;
       <div wire:ignore.self id="collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" class="panel-collapse collapse">
     <!-- <div wire:ignore.self id="collapse<?php echo e($metaname_id); ?>" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
-    <form  method="post"  action="<?php echo e(route('daily.store')); ?>" enctype="multipart/form-data">
+    <form  method="post"  action="<?php echo e(route('daily-duty-manager.store')); ?>" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">

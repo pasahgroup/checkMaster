@@ -81,14 +81,14 @@ class DailydutymanagerController extends Controller
       //Extract date
       $datet=Carbon::now();
 
-     // dd($current_date);
+    
 
-      $datet=$datet->format('H:i:s');
+      $datet=$datet->format('H:i');
       //dd($departments->property_id);
 
+ // dd($datet);
 
-       $metaname_id= metaname::where('metanames.metaname_name',"Managers")->first();
-      
+       $metaname_id= metaname::where('metanames.metaname_name',"Managers")->first();     
 
        // dd($metaname_id->id);
          $metaname_id=$metaname_id->id;
@@ -153,17 +153,7 @@ class DailydutymanagerController extends Controller
       ->select('assets.id','assets.asset_name')
       ->get();
 
-      // $sections = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
-      // ->groupby('qns_appliedtos.section')
-      // ->select('qns_appliedtos.section')
-      // ->get();
-    //dd($sections);
-
-    // get sections from database
-    //$sectionCollects = collect($sections);
-   // $checkQnsProp = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'" group by asset_id');
-
-   //dd($metadatasCollects);
+  
 
     $departApply= department::where('status','Active')->get();
     //dd('axssa');
@@ -218,30 +208,52 @@ class DailydutymanagerController extends Controller
      $dailyMorning=DB::select('select * from qnsview where duration="'.$daily_morning.'"');
    //  $dailyMorning=collect($dailyMorning);
 
-//dd($dailyMorning);
+// dd($dailyMorning);
+
    $sections = DB::select("select section,metaname_id from qnsview where department_id in(".$users->department_id.") and metaname_id in(select metaname_id from qnsview where duration='".$daily_morning."') group by section");
 
     // $sections = DB::select("select * from qnsview where department_id in(".trim($dailyMorning,'[]').") and duration='Weekly' and metaname_id in(".$metaname_id.")");
-
 //dd($sections);
 //".trim($qnsapply,'[]')."
 
     $sectionCollects = collect($sections);
     $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
       // $checkQnsProp = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'" group by asset_id');
+
+
 //dd($checkQnsProp);
+
+  if($datet<="12:01")
+    {
+     //dd($users->department_id);
+       $daily_morningb="Daily Morning";
+      // dd(DB::select("select * from qnsview where duration='".$daily_morningb."'"));
+       //dd(DB::select("select * from qnsview where department_id in(".$users->department_id.") and  duration='".$daily_morningb."'"));
+
+
+       $qns = DB::select("select * from qnsview where department_id in(".$users->department_id.") and duration='".$daily_morningb."' and metaname_id in(select metaname_id from qnsview where duration='".$daily_morningb."')");
+  
+  //dd($qns);
+    }else{
+
+ $daily_afternoon="Daily Afternoon";
+  $qns = DB::select("select * from qnsview where department_id in(".$users->department_id.") and duration='".$daily_afternoon."' and metaname_id in(select metaname_id from qnsview where duration='".$daily_afternoon."')");  
+
+  /// dd('popo cc');
+    }
 
  // $departNames=collect($users->department_id);
   // $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='Weekly' and metaname_id in(".$metaname_id.")");
-   $qns = DB::select("select * from qnsview where department_id in(".$users->department_id.") and metaname_id in(select metaname_id from qnsview where duration='".$daily_morning."')");
+ 
 
-//dd($daily_morning);
+//dd($qns);
 
-    $checkQns = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'"');
+    // $checkQns = DB::select('select * from checkqnsdutymanager_view where datex="'.$current_date.'"');
+      $checkQns = DB::select('select * from dutymanagers where datex="'.$current_date.'"');
     //$answerPerc=DB::select('select * from answers_view');
      $answerPerc=DB::select('select * from answers_view_summary');
 
-     //dd($qns);    
+     //dd($checkQns);   
     //sqlite
 
     $answerPerc = collect($answerPerc);
@@ -334,6 +346,7 @@ class DailydutymanagerController extends Controller
      */
     public function store(Request $request)
     {
+
        //$rad=$this->rad;
     //dd('sdsd');
 
@@ -417,7 +430,7 @@ if($nameStr===$idxKey)
   if(count($value)>1){
 
  if($value[1]!=null){
-//dd($data[1]);
+//dd($value[1]);
 
 $insetqnsAns = dutymanager::UpdateOrCreate([
   'property_id'=>$property_id,
@@ -437,7 +450,10 @@ $insetqnsAns = dutymanager::UpdateOrCreate([
 
 //dd('Updated');
 
-$answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer,a.answer_label=o.answer_classification where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
+// $answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer,a.answer_label=o.answer_classification where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
+
+
+$answerTableUpdate1=DB::statement('update dutymanagers a,optional_answers o set a.answer=o.answer where a.opt_answer_id=o.id and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
 
 $answerTableUpdate2=DB::statement('update dutymanagers a set a.manager_checklist="Action required" where a.answer !="Yes" and a.datex="'.$current_date .'" and a.property_id="'.$property_id.'" and a.asset_id="'.$asset_id.'"');
 //dd('Updated');

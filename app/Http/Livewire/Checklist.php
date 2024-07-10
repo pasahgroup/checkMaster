@@ -640,6 +640,7 @@ $qns = qnsAppliedto::join('set_indicators','qns_appliedtos.indicator_id','set_in
 //  [
 //     'options' => ['option1', 'option2', 'option3'],
 // ]);
+
 //dd($qnsAppliedPerc);
 
 

@@ -113,7 +113,7 @@
             <?php endif; ?>
 
 
-<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')): ?>
+<?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin')): ?>
 
 
                               <li class="nav-item <?php echo e((request()->is('daily-duty-manager')) ? 'sub-active' : ''); ?>">

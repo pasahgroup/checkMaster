@@ -103,7 +103,7 @@
             @endrole
 
 
-@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin|HouseKeeper')
+@role('SuperAdmin|GeneralAdmin|GeneralManager|Manager|Admin')
 
 
                               <li class="nav-item {{ (request()->is('daily-duty-manager')) ? 'sub-active' : '' }}">

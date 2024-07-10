@@ -8,7 +8,7 @@
 // Color system
 
 $white:    #16695e !default;
-$gray-100: #f8f9fa !default;
+$gray-100: #a0b58c !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
@@ -1145,8 +1145,8 @@ $print-page-size:                   a3 !default;
 $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 :root{
-  --artical-background-page : #{$gray-100};
-  --artical-background-panel : #e6d4b3;
+  --artical-background-page: #a0b58c;
+  --artical-background-panel : #a0b58c;
   --artical-background-module : #{$light};
   --artical-ligth-dark :#{$light-dark};
   --artical-background-element : #{$gray-200};
@@ -1177,7 +1177,7 @@ $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 }
 
 .dark{
-  --artical-background-page : #{#3473b2};
+  --artical-background-page : #a0b58c;
   --artical-background-panel : #{#16695e};
   --artical-background-module : #{#2a193b};
   --artical-background-element : #{#301d43};
@@ -1200,7 +1200,7 @@ $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 
 .color-theme-default{
-  --artical-background-page : #{$gray-100};
+  --artical-background-page : #a0b58c;
   --artical-background-panel : #{#16695e};
   --artical-background-module : #{$light};
   --artical-ligth-dark :#{$light-dark};

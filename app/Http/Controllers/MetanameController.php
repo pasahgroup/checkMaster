@@ -110,6 +110,8 @@ foreach ($metadatas as $metadata) {
                return redirect()->back()->with('success','Metaname deleted successfly');
             }
 
+            
+
     /**
      * Update the specified resource in storage.
      *

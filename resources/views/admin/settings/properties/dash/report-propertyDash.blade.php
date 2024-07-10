@@ -35,8 +35,8 @@ table, th, td {
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container-fluid">
+                
                 <div class="row">
-
  @role('Admin|GeneralAdmin|SuperAdmin')
                           <div class="col-lg-4  col-xl-4 col-md-4">
                         <div class="card card-custom gutter-b bg-white border-0">
@@ -241,11 +241,124 @@ table, th, td {
                                               </div>
                                         </div>
 
+                                       
+
                                          <div class="col-lg-4  col-xl-4 col-md-4">
                                             <div class="card card-custom gutter-b bg-white border-0">
                                                 <div class="card-header align-items-center  border-0">
                                                     <div class="card-title mb-0">
                                                         <h6 class="card-label text-body font-weight-bold mb-0">Monthly Report : Inspection
+                                                        </h6>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-body px-0">
+                                                    <ul class="list-group scrollbar-1" style="height: 300px;">
+
+                                                    @foreach($monthlyMetaCollects as $keyM=>$monthlyMetaCollect)
+                                                      <li class="list-group-item list-group-item-action border-0 d-flex align-items-center justify-content-between py-2">
+                    <div class="list-left d-flex align-items-center">
+                    <span class="d-flex align-items-center justify-content-center rounded svg-icon w-45px h-45px bg-primary text-white mr-2">
+        <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+     <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                </svg>
+                                                     </span>
+                             <div class="list-content">
+                        <span class="list-title text-body"><strong>{{$keyM}}</strong>: Issues </span>
+            <span class="text-muted d-block text-success">
+                <div class="col-md-12">
+                <div class="row">
+            @isset($keyM)
+            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Good')->count()>0)
+       <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Good']) }}" method="PUT" >
+                @csrf
+    <input type="hidden" name="_method" value="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+        <input type="hidden" name="property_id" id="property_id" value="{{$monthlyMetaCollect->pluck('property_id')->first()}}">
+        <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
+        <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
+
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+    </form>
+@endif
+
+            @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Bad')->count()>0)
+            <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Bad']) }}" method="PUT" >
+                @csrf
+    <input type="hidden" name="_method" value="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+        <input type="hidden" name="property_id" id="property_id" value="{{$monthlyMetaCollect->pluck('property_id')->first()}}">
+        <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
+        <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
+
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+    </form>
+        |@endif
+
+        @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Critical')->count()>0)
+          <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Critical']) }}" method="PUT" >
+                @csrf
+    <input type="hidden" name="_method" value="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+        <input type="hidden" name="property_id" id="property_id" value="{{$monthlyMetaCollect->pluck('property_id')->first()}}">
+        <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
+        <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
+
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+    </form>
+          @endif
+
+
+
+          @if($monthlyMetaCollect->where('metaname_name',$keyM)->where('answer_classification','Maintenance')->count()>0)
+            <form action="{{ route('monthly-reportx',[$monthlyMetaCollect->pluck('property_id')->first(),'Maintenance']) }}" method="PUT" >
+                  @csrf
+      <input type="hidden" name="_method" value="POST">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+          <input type="hidden" name="property_id" id="property_id" value="{{$monthlyMetaCollect->pluck('property_id')->first()}}">
+          <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
+          <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
+
+          <button type="submit" name="maintenance" id="maintenance" style="background-color:yellow"><strong style="color:red;">Maint.: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+      </form>
+            @endif
+        @endisset
+</div>
+</div>
+  </span>
+                                                          </div>
+
+                                                        </div>
+                                                        <span>
+                                                            <span>
+
+                                                         </span>
+                                                    </span>
+                                                      </li>
+
+
+@endforeach
+
+                                                    </ul>
+                                                  </div>
+                                              </div>
+                                        </div>
+
+
+
+
+
+
+
+  <div class="col-lg-4  col-xl-4 col-md-4">
+                                            <div class="card card-custom gutter-b bg-white border-0">
+                                                <div class="card-header align-items-center  border-0">
+                                                    <div class="card-title mb-0">
+                                                        <h6 class="card-label text-body font-weight-bold mb-0">Daily Duty Manager Report : Inspection
                                                         </h6>
                                                     </div>
 

@@ -112,7 +112,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 <div class="row">
   <div class="form-group">
     <!-- {{$metanames}} -->
-            <label class="text-dark">Metaname:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
+            <label class="text-dark">Metaname::{{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>
 
@@ -126,9 +126,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                          <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
                         @endforeach
               </select>
-
   </div>
   
+
 
   <div class="form-group">
        <form  method="GET"  action="{{ route('daily.index') }}" enctype="multipart/form-data">
@@ -171,14 +171,12 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
     <div class="" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" style="background-color:#dfd6c4 !important">
                     <div class="row">
-                      <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
+                      <div class="col-lg-10 col-md-10 col-sm-10" style="color:">
    @if($section->section !="")
      <span style="background-color:#">{{$section->section}}</span>
 
   <span class="float-right">
-
    @foreach ($checkQnsProp as $chkp)
-
         @if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0)
       {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()}}
      <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
@@ -541,6 +539,7 @@ function checkAge(age) {
   }
 </script>
 
+
 <script type="text/javascript">
 function setAssetFunction(id) {
   var elementA = document.getElementById("asset_model").value;
@@ -610,6 +609,7 @@ for (var i = 0; i < radios.length; i++) {
        document.getElementById("popup").style.display = "none";
      }
      </script>
+
 
      <script type="text/javascript">
        $(document).ready(function(){

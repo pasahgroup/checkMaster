@@ -343,7 +343,8 @@ Route::put('riq-update/{id}',[MetadataController::class,'updateDatatype'])->name
 // Roles ontroller
   Route::resource('sessionm', SessionmController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
     Route::get('delete-sessionm/{id}',[SessionmController::class,'destroy'])->name('delete-sessionm');
-
+    
+route::resource('/roles',roleController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
   Route::resource('role-register', rolesController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
   Route::get('delete-role/{id}',[rolesController::class,'edit'])->name('delete-role');
   Route::get('update-role/{id}',[rolesController::class,'recoveryUpdate'])->name('update-role');
@@ -426,7 +427,7 @@ Route::get('/summary-report/{id}', [reportController::class,'summaryReport'])->n
 
 Route::post('orders',[posController::class,'orders'])->name('orders','orders');
 
-route::resource('/roles',roleController::class)->middleware(['role:SuperAdmin|GeneralAdmin|Admin|Account']);
+
 route::resource('/expenses',expensesController::class)->middleware(['role:Admin|Account']);
 route::resource('/stores',storeController::class)->middleware(['role:Admin|Store']);
 route::resource('/account',accountController::class)->middleware(['role:Admin|Account']);

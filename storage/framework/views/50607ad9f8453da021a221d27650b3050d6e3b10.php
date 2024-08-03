@@ -111,7 +111,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 <div class="row">
   <div class="form-group">
     <!-- <?php echo e($metanames); ?> -->
-            <label class="text-dark">Metaname:: <?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
+            <label class="text-dark">Metaname::<?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction(<?php echo e($metaname_id); ?>)" onkeyup="setMetanameFunction(<?php echo e($metaname_id); ?>)"  class="form-control" required>
                           <option value="">--- Select metaname to apply ---</option>
 
@@ -125,9 +125,9 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                          <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
-
   </div>
   
+
 
   <div class="form-group">
        <form  method="GET"  action="<?php echo e(route('daily.index')); ?>" enctype="multipart/form-data">
@@ -170,14 +170,12 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 
     <div class="" data-toggle="collapse" href="#collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important">
                     <div class="row">
-                      <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
+                      <div class="col-lg-10 col-md-10 col-sm-10" style="color:">
    <?php if($section->section !=""): ?>
      <span style="background-color:#"><?php echo e($section->section); ?></span>
 
   <span class="float-right">
-
    <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
         <?php if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0): ?>
       <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()); ?>
 
@@ -554,6 +552,7 @@ function checkAge(age) {
   }
 </script>
 
+
 <script type="text/javascript">
 function setAssetFunction(id) {
   var elementA = document.getElementById("asset_model").value;
@@ -623,6 +622,7 @@ for (var i = 0; i < radios.length; i++) {
        document.getElementById("popup").style.display = "none";
      }
      </script>
+
 
      <script type="text/javascript">
        $(document).ready(function(){

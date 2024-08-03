@@ -128,6 +128,7 @@ class ChecklistController extends Controller
           //$subset = $metadatas->map->only(['id', 'name', 'email']);
 
       $assets = asset::where('assets.metaname_id',$metaname_id)
+       ->where('assets.property_id',auth()->user()->property_id)
       ->select('assets.id','assets.asset_name')
       ->get();
 
@@ -586,7 +587,7 @@ $constraint->aspectRatio();
 
      public function getDDM($p){
        // Fetch Employees by Departmentid
-       $aData['dataDD'] = checklist::getAssetManager($p);
+       $aData['dataA'] = checklist::getAssetManager($p);
        echo json_encode($aData);
        exit;
      }

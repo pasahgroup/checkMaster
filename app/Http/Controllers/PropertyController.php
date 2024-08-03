@@ -787,6 +787,9 @@ $updateUser = user::where('id',auth()->id())
 
     public function reportProperty(Request $request,$id)
        {
+
+//dd($id);
+
            $segments = request()->segments();
            $last  = end($segments);
     $first = reset($segments);

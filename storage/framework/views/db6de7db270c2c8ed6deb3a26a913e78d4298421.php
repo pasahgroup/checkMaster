@@ -38,7 +38,7 @@
          <div class="form-group">
 
       <label>Metaname</label>
-                           <select name="metaname" id="metaname" class="form-control">
+                           <select name="metaname" id="metaname" class="form-control" required>
                              <option value="">--- Select metaname ---</option>
   <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metaname): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
      <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
@@ -49,8 +49,7 @@
  </div>
 
    <div class="form-group">
-     <label>Section</label>
-
+    
                <label class="text-dark">Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
@@ -65,7 +64,7 @@
    <div class="form-group"> -->
     <!-- <?php echo e($deps); ?> -->
   <label>Department</label>
-  <select name="depart" id="depart" class="form-control">
+  <select name="depart" id="depart" class="form-control" required>
                            <option value="">--- Select deoartment ---</option>
                         <?php $__currentLoopData = $deps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $depart): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
      <option value="<?php echo e($depart->id); ?>"><?php echo e($depart->unit_name); ?></option>

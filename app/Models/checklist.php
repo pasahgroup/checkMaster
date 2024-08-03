@@ -21,8 +21,11 @@ class checklist extends Model
 //dd($value);
 
 
-      $value = DB::select('select p.id,p.asset_name,p.property_id,p.metaname_id from answers d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and p.metaname_id="'.$n.'" and d.status="Active" and d.manager_checklist!="Cleared" group by p.asset_name');
+      // $value = DB::select('select p.id,p.asset_name,p.property_id,p.metaname_id from answers d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and p.metaname_id="'.$n.'" and d.status="Active" and d.manager_checklist!="Cleared" group by p.asset_name');
 
+
+
+  $value = DB::select('select id,asset_name from assets where property_id ="'.auth()->user()->property_id.'" and metaname_id="'.$n.'" and status="Active"');
 //dd($value);
       return $value;
     }
@@ -30,8 +33,9 @@ class checklist extends Model
 
 
         public static function getAssetManager($n){
+      // $value = DB::select('select p.id,p.asset_name,p.property_id,p.metaname_id from dutymanagers d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and p.metaname_id="'.$n.'" and d.status="Active" and d.manager_checklist!="Cleared" group by p.asset_name');
 
-      $value = DB::select('select p.id,p.asset_name,p.property_id,p.metaname_id from dutymanagers d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and p.metaname_id="'.$n.'" and d.status="Active" and d.manager_checklist!="Cleared" group by p.asset_name');
+            $value = DB::select('select id,asset_name from assets where property_id ="'.auth()->user()->property_id.'" and metaname_id="'.$n.'" and status="Active"');
 
 //dd($value);
       return $value;

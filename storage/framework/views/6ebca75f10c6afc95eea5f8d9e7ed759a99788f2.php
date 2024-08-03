@@ -178,7 +178,6 @@ border-color: #dddddd;
   <span class="float-right">
 
    <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
         <?php if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0): ?>
       <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()); ?>
 
@@ -200,13 +199,13 @@ border-color: #dddddd;
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 
- <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
+ <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="<?php echo e($propertyID->property_id); ?>">
- <input type="text" name="assetID" id="assetID" value="<?php echo e($selectedOption); ?>">
+ <input type="hidden" name="assetID" id="assetID" value="<?php echo e($selectedOption); ?>">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
-    <input type="text" name="aID" id="aID<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($metaname_id); ?>">
+    <input type="hidden" name="aID" id="aID<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" value="<?php echo e($metaname_id); ?>">
     <!-- <input type="hidden" name="section_name<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="section_name<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>"> -->
 
     <div class="row">
@@ -215,23 +214,17 @@ border-color: #dddddd;
 
 
            <?php $__currentLoopData = $qns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $qn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-           <?php echo e($qn->section==$section->section); ?>
-
            <?php if($metaname_id ==$qn->metaname_id && $qn->section==$section->section): ?>
          
                           <div class="form-group card">
                           <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> <?php echo e($metaname_id); ?>:<?php echo e($qn->id); ?>: <?php echo e($qn->section); ?> </b>: <?php echo e($qn->qns); ?></div>
 
           <div class="row-card">
-
            <?php $__currentLoopData = $metadatasCollects->where('indicator_id',$qn->id); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metadata): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
            <?php if($metadata->indicator_id ==$qn->id): ?>
 
               <div class="col-xl-3 col-md-3 col-sm-3" id="<?php echo e($metadata->answer); ?>">
-                <?php echo e($metadata->answer); ?>
-
-
+            
                <?php if($metadata->datatype=="checkbox"): ?>
               <input type="<?php echo e($metadata->datatype); ?>" name="ids<?php echo e($metaname_id); ?>[]" id="indicator_id" value="<?php echo e($metadata->id); ?>" onclick="myFunction('<?php echo e($qn->id); ?>')" onkeyup="myFunction('<?php echo e($qn->id); ?>')"
                  <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -278,7 +271,7 @@ border-color: #dddddd;
                <?php endif; ?>
                <?php endif; ?>
                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-               >
+              >
              <?php endif; ?>
 
 

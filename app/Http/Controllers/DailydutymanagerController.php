@@ -150,6 +150,7 @@ class DailydutymanagerController extends Controller
           //$subset = $metadatas->map->only(['id', 'name', 'email']);
 
       $assets = asset::where('assets.asset_name',"Managers")
+      ->where('assets.property_id',auth()->user()->property_id)
       ->select('assets.id','assets.asset_name')
       ->get();
 

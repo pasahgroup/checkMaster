@@ -82,6 +82,8 @@ class roleController extends Controller
 
         elseif(request('permission')){
 
+           // dd('printz');
+
             if(Permission::where('name',request('name'))->exists()){
                 return redirect()->back()->with('error','This permission already created');
             }
@@ -104,6 +106,7 @@ class roleController extends Controller
        //        ]);
        // return redirect()->back()->with('success','Department recovered successfly');
 //dd('role');
+
  $user = User::where('id',request('user_id'))->first();
  $user->assignRole(request('role_name'));
 
@@ -132,12 +135,16 @@ class roleController extends Controller
         }
 
         elseif(request('roletopermission')){
+
+                // dd('printz');
             $role = Role::where('id',request('role_id'))->first();
             $permission = Permission::where('id',request('permission_id'))->first();
             $role->givePermissionTo($permission);
             return redirect()->back()->with('success','Permission given to the role successefuly');
         }
         elseif(request('permission_to_assign')){
+
+            // dd(auth()->user()->id);
          //dd(request('permission_to_assign'));
            
         $user = User::findorfail(request('user_id'));
@@ -145,6 +152,16 @@ class roleController extends Controller
             'property_id'=>request('permission_to_assign'),
             'user_id'=>auth()->id()
            ]);
+
+
+
+  // $user = user::where('id',auth()->user()->id)
+  //              ->update([
+  //               'department_id'=>"",
+  //                'user_id'=>auth()->id()
+
+  //             ]);
+
 
  // $userSiteReg = userProperty::UpdateOrCreate([
  //        'sys_user_id'=>request('user_id'),

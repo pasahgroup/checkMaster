@@ -103,6 +103,8 @@ return redirect()->back()->with('error','Indicators not selected');
                   ->get();
               //dd($dep);
             $metadatas = metanameDatatype::where('metaname_id',$this->metaname_id)->get();
+
+            //dd($metanames);
              $sessions = sessionm::get();
       return view('livewire.assign-indicator',compact('metadatas','metanames','properties','indicators','deps','sessions'))
       ->layout('layouts.app');

@@ -179,7 +179,6 @@ border-color: #dddddd;
   <span class="float-right">
 
    @foreach ($checkQnsProp as $chkp)
-
         @if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0)
       {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()}}
      <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
@@ -200,13 +199,13 @@ border-color: #dddddd;
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
- <input type="text" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
+ <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$propertyID->property_id}}">
- <input type="text" name="assetID" id="assetID" value="{{$selectedOption}}">
+ <input type="hidden" name="assetID" id="assetID" value="{{$selectedOption}}">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
-    <input type="text" name="aID" id="aID{{$metaname_id}}_{{$section->section}}" value="{{$metaname_id}}">
+    <input type="hidden" name="aID" id="aID{{$metaname_id}}_{{$section->section}}" value="{{$metaname_id}}">
     <!-- <input type="hidden" name="section_name{{$metaname_id}}_{{$section->section}}" id="section_name{{$metaname_id}}_{{$section->section}}"> -->
 
     <div class="row">
@@ -215,21 +214,17 @@ border-color: #dddddd;
 
 
            @foreach ($qns as $qn)
-
-           {{$qn->section==$section->section}}
            @if($metaname_id ==$qn->metaname_id && $qn->section==$section->section)
          
                           <div class="form-group card">
                           <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> {{$metaname_id}}:{{$qn->id}}: {{$qn->section}} </b>: {{ $qn->qns  }}</div>
 
           <div class="row-card">
-
            @foreach ($metadatasCollects->where('indicator_id',$qn->id) as $metadata)
            @if($metadata->indicator_id ==$qn->id)
 
               <div class="col-xl-3 col-md-3 col-sm-3" id="{{$metadata->answer}}">
-                {{$metadata->answer}}
-
+            
                @if($metadata->datatype=="checkbox")
               <input type="{{$metadata->datatype}}" name="ids{{$metaname_id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction('{{$qn->id}}')" onkeyup="myFunction('{{$qn->id}}')"
                  @foreach ($checkQns as $checkq)
@@ -276,7 +271,7 @@ border-color: #dddddd;
                @endif
                @endif
                @endforeach
-               >
+              >
              @endif
 
 

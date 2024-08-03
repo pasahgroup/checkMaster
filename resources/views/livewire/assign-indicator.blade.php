@@ -38,7 +38,7 @@
          <div class="form-group">
 
       <label>Metaname</label>
-                           <select name="metaname" id="metaname" class="form-control">
+                           <select name="metaname" id="metaname" class="form-control" required>
                              <option value="">--- Select metaname ---</option>
   @foreach($metanames as $metaname)
      <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
@@ -49,8 +49,7 @@
  </div>
 
    <div class="form-group">
-     <label>Section</label>
-
+    
                <label class="text-dark">Section</label>
                         <select name="section" id="section" class="form-control" required>
                           <option value="">--- Select section ---</option>
@@ -65,7 +64,7 @@
    <div class="form-group"> -->
     <!-- {{$deps}} -->
   <label>Department</label>
-  <select name="depart" id="depart" class="form-control">
+  <select name="depart" id="depart" class="form-control" required>
                            <option value="">--- Select deoartment ---</option>
                         @foreach($deps as $depart)
      <option value="{{$depart->id}}">{{$depart->unit_name}}</option>

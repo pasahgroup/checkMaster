@@ -108,7 +108,7 @@ class DailyController extends Controller
     $propertyID=asset::where('id',$assetID)->first();
   //  $assetss=$propertyID;
 
-   //dd($departments->department_id);
+  // dd($assetID);
 
     $metanames = metaname::join('qns_appliedtos','qns_appliedtos.metaname_id','metanames.id')
      ->where('qns_appliedtos.department_id',$departments->department_id)
@@ -118,6 +118,9 @@ class DailyController extends Controller
 
 
 
+//dd($metanames);
+//dd(auth()->user()->property_id);
+
 //$metanames = metaname::get();
 //dd($metanames);
 
@@ -126,36 +129,16 @@ class DailyController extends Controller
           $metadatasCollects = collect($metadatasCollects);
           //$subset = $metadatas->map->only(['id', 'name', 'email']);
 
+
+
       $assets = asset::where('assets.metaname_id',$metaname_id)
-      ->select('assets.id','assets.asset_name')
+      ->where('assets.property_id',auth()->user()->property_id)
+      ->select('assets.id','assets.asset_name','assets.property_id')
       ->get(); 
 
- //      $sectionsx = qnsAppliedto::where('qns_appliedtos.metaname_id',$metaname_id)
- //      //->where('qns_appliedtos.section','General')
- //      ->groupby('qns_appliedtos.section')
- //      ->select('qns_appliedtos.section')
- //      ->get();
 
-
- //       $sectionsx = qnsAppliedto::join('qnsview','qnsview.id','qns_appliedtos.indicator_id')
- //      //->join('set_indicators','set_indicators.id','qns_appliedtos.indicator_id')
- //   // ->leftjoin
- //   // ->join('departments','departments.id','qns_appliedtos.department_id')
- // //->join('departments','departments.id','qns_appliedtos.department_id')
- //   //->where('qns_appliedtos.section','!=','Active')
- //   //->where('qns_appliedtos.status','Active')
- //   //->orderBy('metanames.metaname_name')
- //    ->where('qnsview.duration','Daily')
- //    ->groupby('qns_appliedtos.section')
- //      ->select('qns_appliedtos.section')
- //   ->get();
-
-   
-
-    // get sections from database
  
-   //dd($metadatasCollects);
-
+   //dd($assets);
     $departApply= department::where('status','Active')->get();
     //dd('axssa');
     if($departments->hasRole('SuperAdmin') || $departments->hasRole('GeneralAdmin')){

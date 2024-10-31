@@ -1,10 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app_login_pwd')
 @section('content')
 
-<main class="login-form">
-
+<main class="login-form" style="padding-top:80px;">
   <div class="cotainer">
-
       <div class="row justify-content-center">
 
           <div class="col-md-8">
@@ -13,7 +11,6 @@
                   <div class="card-header">Reset Password</div>
 
                   <div class="card-body">
-
   
 
                     @if (Session::has('message'))
@@ -53,9 +50,7 @@
                           <div class="col-md-6 offset-md-4">
 
                               <button type="submit" class="btn btn-primary">
-
                                   Send Password Reset Link
-
                               </button>
 
                           </div>

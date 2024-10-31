@@ -1,8 +1,13 @@
+
+
+  
+  @extends('layouts.app_login_pwd')
+@section('content')
 <style>
 .bg-bannerw{
   
-background-image:url({{URL::asset('../../assets/images/misc/bg-login.png')}});
-    height: 70vh;
+background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
+    height: 100%
     width: 100%;
     position: relative;
     background-repeat: no-repeat;
@@ -10,15 +15,22 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.png')}});
 };
 
 </style>
+<main class="login-form" style="padding-top:60px;">
+  <div class="cotainer">
+      <div class="row justify-content-center">
 
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-header">Login Form</div>
+                  <div class="card-body ">
+    
 
-<x-guest-layout>
-   
+<x-guest-layout>   
     <x-jet-authentication-card>
-        <div class="bg-bannerwx"> 
+        <div class=""> 
         <x-slot name="logo">
-            <span class="brand-text"><img style="height: 60px;" alt="Logo"
-                src="../../assets/images/misc/bg-login.png" /></span>
+            <span class="brand-text"><img style="height: 150px;" alt="Logo"
+                src="../../assets/images/misc/bg-login.jpg" /></span>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -56,6 +68,24 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.png')}});
             <a href="{{ route('forget.password.get') }}">Forget Password</a>
         </form>
    </div>
+
     </x-jet-authentication-card>
 </x-guest-layout>
-  
+        <div class="text-dark order-2 order-md-1">
+                            <span class="text-muted font-weight-bold mr-2 float-right">©2022</span>
+                            <span class="ext-muted font-weight-bold mr-2 text-center" style="color: #000;">Licensed to: {{$company->company_name??'Set Company Profile'}}</span>
+                        </div>            
+
+                        
+
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+</main>
+
+@endsection

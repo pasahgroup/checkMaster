@@ -19,10 +19,8 @@ class accountController extends Controller
      */
     public function index()
     {
-        //
         $accounts = account::get();
         $categories = paymentCategory::get();
-
         return view('admin.payments.account',compact('accounts','categories'));
     }
 

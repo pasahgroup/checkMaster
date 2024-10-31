@@ -55,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
             ->where('property_id',$property_id)
              ->where('status','Active')
             ->get());
+
             //->select('properties.property_name')->first());
              //$view->with('qnsCount', collect($qnsCount));
 

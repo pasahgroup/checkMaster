@@ -75,7 +75,6 @@ License: You must have a valid license purchased only from themeforest(the above
 	</div>
   </div> -->
 
-
 	<!--begin::Header Mobile-->
 	<div id="tc_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 		<!--begin::Logo-->
@@ -88,14 +87,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Logo-->
 		<!--begin::Toolbar-->
 		<div class="d-flex align-items-center">
-            <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Sales')): ?>
-			 <div class="posicon">
-				<a href="/pos" class="btn btn-primary d-flex align-items-center justify-content-center white mr-2">POS</a>
-			</div>
-			<div class="posicon">
-				<a href="/pos-final" class="btn btn-primary d-flex align-items-center justify-content-center white mr-2">POS2</a>
-			</div>
-         <?php endif; ?>
 			<button class="btn p-0" id="tc_aside_mobile_toggle">
 				<svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-justify-right" fill="currentColor"
 					xmlns="#">
@@ -182,7 +173,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										data-menu-toggle="click" aria-haspopup="true">
 										<!--begin::Toggle-->
 										<div class="btn  btn-clean btn-dropdown mr-0 p-0" id="tc_aside_toggle">
-											<span class="svg-icon svg-icon-xl svg-icon-primary">
+											<span class="svg-icon svg-icon-xl svg-icon-primary" style="padding:20px;">
 
 												<svg width="24px" height="24px" viewBox="0 0 16 16" class="bi bi-list"
 													fill="currentColor" xmlns="#">
@@ -201,13 +192,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 						<!--end::Header Menu Wrapper-->
 						<!--begin::Topbar-->
-						<div class="topbar">
-                            <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Sales')): ?>
-							<div class="posicon d-lg-block d-none">
-								<!-- <a href="/pos" class="btn btn-primary white mr-2">POS</a>
-								<a href="/pos-final" class="btn btn-primary white mr-2">POS2</a> -->
-							</div>
-                            <?php endif; ?>
+						<div class="topbar">                          
 							<div class="topbar-item">
 								<div class="quick-search quick-search-inline ml-20 mr-1 w-300px"
 									id="kt_quick_search_inline">
@@ -291,9 +276,6 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 							</div>
 							<!--end::Notifications-->
-
-
-
 							<!--begin::user-->
 							<div class="dropdown">
 								<div class="topbar-item" data-toggle="dropdown" data-display="static">
@@ -312,7 +294,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									</div>
 								</div>
 
-								<div class="dropdown-menu dropdown-menu-right" style="min-width: 150px;">
+								<div class="dropdown-menu dropdown-menu-right" style="min-width: 150px;background-color:#;">
 
 									<a href="#" class="dropdown-item">
 										<span class="svg-icon svg-icon-xl svg-icon-primary mr-2">
@@ -404,7 +386,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 
                         <div class="text-dark order-2 order-md-1">
-                            <span class="text-muted font-weight-bold mr-2 text-center">©2022</span>
+                            <span class="text-muted font-weight-bold mr-2 float-right">©2022</span>
                             <span class="ext-muted font-weight-bold mr-2 text-center" style="color: #000;">Licensed to: <?php echo e($company->company_name??'Set Company Profile'); ?></span>
                         </div>
                     </div>

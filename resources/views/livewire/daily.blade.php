@@ -38,11 +38,10 @@ text-decoration: none;
 
 #bot .panel-heading:hover {
 
-color: #333333;
+color: #fff;
 background: blue ;
 padding-left: 45px;
 border-color: #dddddd;
-
 }
 .txtarea{
     border-right: 1px solid #ddd;
@@ -154,7 +153,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
-  <br>
+
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
     </div>
     </form>
@@ -169,7 +168,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="panel-heading">
 
-    <div class="" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" style="background-color:#dfd6c4 !important">
+    <div class="card" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" style="background-color:#979186 !important">
                     <div class="row">
                       <div class="col-lg-10 col-md-10 col-sm-10" style="color:">
    @if($section->section !="")
@@ -291,10 +290,12 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
     </div>
 
           <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee{{$metaname_id}}{{$qn->id}}">Description if any</a>
+            <h4 class="panel-title"> 
+              <div class="card"><a data-toggle="collapse" href="#collapsee{{$metaname_id}}{{$qn->id}}">Description if any</a>
            </div>
           </div>
-          <div id="collapsee{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
+       
+      <div id="collapsee{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
       <textarea rows="4" cols="40" id="desc" name="desc{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
           @foreach ($checkQns as $checkq)
       @if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$propertyID->property_id)
@@ -311,6 +312,23 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
            </div>
         </div>
 
+           <div id="collap{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
+      <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="form-group">
+                                <!-- start webcam -->
+    <div id="my_camera{{$metaname_id}}_{{$qn->id}}"></div>
+    <br/>
+    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
+   
+                                    </div>
+                                    </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+
+    </div>
+    </div>
+    </div>
+
           <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
           <div id="collap{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
@@ -318,15 +336,10 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                   <div class="form-group">
                                 <!-- start webcam -->
-    <div id="my_camera{{$metaname_id}}_{{$qn->id}}"></div>
+    <div id="my_camera{{$metaname_id}}_{{$qn->id}}">Browse</div>
     <br/>
     <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
-    <!-- <input type="text" name="vv" value="{{$metaname_id}}_{{$qn->id}}"> -->
-    <!-- <input type=button value="Take Photo" onClick="take_snapshot({{$metaname_id}},{{$qn->id}})"> -->
-    <!-- <input type="hidden" name="image" class="image-tag"> -->
-
-    <!-- End -->
-
+   
                                     </div>
                                     </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -358,14 +371,13 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
        @endforeach
 
     <div class="container">
-     <div class="col-md-10 col-sm-10">
+     <div class="col-md-11 col-sm-11">
      <div style="background-color:#f6f7f2 !important">
         <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$section->section}}">Save</button>
      </div>
     </div>
     </div>
-      <hr>
-
+  
        </div>
        </div>
 
@@ -391,19 +403,24 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
   <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">Finish2</button> -->
 
 
-           </div>
-           </div>
+          
    <!-- <div class="row">
      <div class="col-md-6 col-sm-6">
      </div>
 
 </div> -->
-<div class="row">
+<br>
+   <a href="/email-send/{id}" class="btn-sm btn btn-primary float-right" role="button">Finish</a>
+ </div>
+
+           </div>
+
+<!-- <div class="row">
  <div class="col-md-12 col-sm-12 wawa-bgcolor">
               <a href="/email-send/{id}" class="btn btn-primary float-right" role="button">Finish</a>
 
  </div>
-</div>
+</div> -->
 
       @endisset
                </div>

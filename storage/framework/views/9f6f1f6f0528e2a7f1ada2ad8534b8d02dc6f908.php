@@ -1,5 +1,5 @@
 
-<hr>
+<br>
 <!-- <div class="text-center text-primary">
                     <strong style="color:#0a0215;"><?php echo e($company->company_name??'Set Company Profile'); ?></strong>
               </div> -->
@@ -9,7 +9,7 @@
         </div>
 
 <ul class="nav flex-column">
-    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'GeneralAdmin|SuperAdmin')): ?>
+    <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'GeneralAdmin|SuperAdmin|GeneralManager|Manager')): ?>
 <li class="nav-item
 <?php echo e((request()->is('dash-property/{id}')) ? 'active' : ''); ?>
 

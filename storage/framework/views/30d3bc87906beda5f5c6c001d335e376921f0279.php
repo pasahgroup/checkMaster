@@ -159,7 +159,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!--begin::Wrapper-->
 			<div class='d-flex flex-column flex-row-fluid <?php if(isset($wrapper)): ?><?php echo $wrapper ?><?php endif; ?>' id="tc_wrapper">
 				<!--begin::Header-->
-				<div id="tc_header" class="header header-fixed" style="background-color: #">
+				<div id="tc_header" class="header header-fixed" style="background-color:#f2f0ec">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex align-items-stretch justify-content-between">
 						<!--begin::Header Menu Wrapper-->

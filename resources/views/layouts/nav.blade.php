@@ -1,5 +1,5 @@
 
-<hr>
+<br>
 <!-- <div class="text-center text-primary">
                     <strong style="color:#0a0215;">{{$company->company_name??'Set Company Profile'}}</strong>
               </div> -->
@@ -9,7 +9,7 @@
         </div>
 
 <ul class="nav flex-column">
-    @role('GeneralAdmin|SuperAdmin')
+    @role('GeneralAdmin|SuperAdmin|GeneralManager|Manager')
 <li class="nav-item
 {{ (request()->is('dash-property/{id}')) ? 'active' : '' }}
 {{ (request()->is('admin')) ? 'active' : '' }}

@@ -37,11 +37,10 @@ text-decoration: none;
 
 #bot .panel-heading:hover {
 
-color: #333333;
+color: #fff;
 background: blue ;
 padding-left: 45px;
 border-color: #dddddd;
-
 }
 .txtarea{
     border-right: 1px solid #ddd;
@@ -153,7 +152,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
-  <br>
+
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
     </div>
     </form>
@@ -168,7 +167,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="panel-heading">
 
-    <div class="" data-toggle="collapse" href="#collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important">
+    <div class="card" data-toggle="collapse" href="#collapp<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction('<?php echo e($metaname_id); ?>','<?php echo e($section->section); ?>')" style="background-color:#979186 !important">
                     <div class="row">
                       <div class="col-lg-10 col-md-10 col-sm-10" style="color:">
    <?php if($section->section !=""): ?>
@@ -292,10 +291,12 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
     </div>
 
           <div class="panel-heading">
-            <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>">Description if any</a>
+            <h4 class="panel-title"> 
+              <div class="card"><a data-toggle="collapse" href="#collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>">Description if any</a>
            </div>
           </div>
-          <div id="collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
+       
+      <div id="collapsee<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
       <textarea rows="4" cols="40" id="desc" name="desc<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
           <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$propertyID->property_id): ?>
@@ -313,6 +314,23 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
            </div>
         </div>
 
+           <div id="collap<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
+      <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="form-group">
+                                <!-- start webcam -->
+    <div id="my_camera<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>"></div>
+    <br/>
+    <input type="file" name="attachment<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" accept="image/*" capture="camera">
+   
+                                    </div>
+                                    </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+
+    </div>
+    </div>
+    </div>
+
           <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
           <div id="collap<?php echo e($metaname_id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
@@ -320,15 +338,10 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                   <div class="form-group">
                                 <!-- start webcam -->
-    <div id="my_camera<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>"></div>
+    <div id="my_camera<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>">Browse</div>
     <br/>
     <input type="file" name="attachment<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>[]" accept="image/*" capture="camera">
-    <!-- <input type="text" name="vv" value="<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>"> -->
-    <!-- <input type=button value="Take Photo" onClick="take_snapshot(<?php echo e($metaname_id); ?>,<?php echo e($qn->id); ?>)"> -->
-    <!-- <input type="hidden" name="image" class="image-tag"> -->
-
-    <!-- End -->
-
+   
                                     </div>
                                     </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -360,14 +373,13 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     <div class="container">
-     <div class="col-md-10 col-sm-10">
+     <div class="col-md-11 col-sm-11">
      <div style="background-color:#f6f7f2 !important">
         <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($metaname_id); ?>_<?php echo e($section->section); ?>">Save</button>
      </div>
     </div>
     </div>
-      <hr>
-
+  
        </div>
        </div>
 
@@ -404,19 +416,24 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
   <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">Finish2</button> -->
 
 
-           </div>
-           </div>
+          
    <!-- <div class="row">
      <div class="col-md-6 col-sm-6">
      </div>
 
 </div> -->
-<div class="row">
+<br>
+   <a href="/email-send/{id}" class="btn-sm btn btn-primary float-right" role="button">Finish</a>
+ </div>
+
+           </div>
+
+<!-- <div class="row">
  <div class="col-md-12 col-sm-12 wawa-bgcolor">
               <a href="/email-send/{id}" class="btn btn-primary float-right" role="button">Finish</a>
 
  </div>
-</div>
+</div> -->
 
       <?php endif; ?>
                </div>

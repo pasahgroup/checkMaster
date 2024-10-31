@@ -3430,7 +3430,8 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+/*  border: 1px solid rgba(0,112,112, 0.3);*/
+border: 1px solid rgba(255,255,123, 0.3);
   border-radius: 0rem; }
   .card > hr {
     margin-right: 0;

@@ -216,7 +216,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($weeklyMetaCollect->pluck('metaname_id')->first()); ?>">
         <input type="hidden" name="asset_id" id="asset_id" value="<?php echo e($weeklyMetaCollect->pluck('asset_id')->first()); ?>">
 
-        <button type="submit" name="maintenance" id="maintenance" style="background-color:yellow"><strong style="color:red;">Maint.: <?php echo e($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer',['Maintenance-low','Maintenance-medium','Maintenance-high'])->count()); ?> | <?php echo e(number_format(($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer',['Maintenance'])->count()/$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)); ?>%</strong></button>
+        <button type="submit" name="maintenance" id="maintenance" style="background-color:yellow"><strong style="color:red;">Maint.: <?php echo e($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer',['Maintenance'])->count()); ?> | <?php echo e(number_format(($weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer',['Maintenance'])->count()/$weeklyMetaCollect->where('metaname_name',$keyW)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)); ?>%</strong></button>
     </form>
         <?php endif; ?>
                <?php endif; ?>

@@ -787,9 +787,7 @@ $updateUser = user::where('id',auth()->id())
 
     public function reportProperty(Request $request,$id)
        {
-
 //dd($id);
-
            $segments = request()->segments();
            $last  = end($segments);
     $first = reset($segments);
@@ -810,7 +808,8 @@ $updateUser = user::where('id',auth()->id())
        //$reportDailyData2=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.property_id="'.$id.'" and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
 
        $reportDailyReader=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,o.answer_classification,a.photo,a.description,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.opt_answer_id=o.id and p.id=a.property_id and a.datex="'.$current_date.'" and a.property_id="'.$id.'"');
-    //dd($reportDailyData2);
+    
+    //dd($reportDailyData);
 
     $dataDaily = collect($reportDailyData);
     $dailyMetaCollects=$dataDaily->groupBy('metaname_name');
@@ -918,6 +917,7 @@ $updateUser = user::where('id',auth()->id())
       }
 
       //dd($metaArray);
+
      if(request('print')){
        $datex=$_GET['date'];
 
@@ -997,10 +997,6 @@ $man="Managers";
 
 //dd($dataManagerMonthly);
 
-
-
-
-//dd('print');
           return view('admin.settings.properties.dash.report-propertyDash',compact('properties','metanames','keyIndicators','reportDailyReader','dailyMetaCollects','weeklyMetaCollects','monthlyMetaCollects','badDaily','badWeekly','badMonthly','criticalDaily','criticalWeekly','criticalMonthly','id','uri','answerCount','totalqns'));
        }
 

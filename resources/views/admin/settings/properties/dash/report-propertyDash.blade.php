@@ -37,7 +37,7 @@ table, th, td {
             <div class="container-fluid">
                 
                 <div class="row">
- @role('Admin|GeneralAdmin|SuperAdmin')
+ @role('Manager|Admin|GeneralAdmin|SuperAdmin')
                           <div class="col-lg-4  col-xl-4 col-md-4">
                         <div class="card card-custom gutter-b bg-white border-0">
                         <div class="card-header align-items-center  border-0">

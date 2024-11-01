@@ -279,7 +279,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
 @endif
 
@@ -293,7 +293,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
         |@endif
 
@@ -307,7 +307,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
           @endif
 
@@ -390,7 +390,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:darkGreen"><strong style="color:#fff;">Good: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
 @endif
 
@@ -404,7 +404,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:yellow;">Bad: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Bad'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
         |@endif
 
@@ -418,7 +418,7 @@ table, th, td {
         <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
         <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+        <button type="submit" name="critical" id="critical" style="background-color:#000"><strong style="color:red;">Critical: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Critical'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
     </form>
           @endif
 
@@ -434,7 +434,7 @@ table, th, td {
           <input type="hidden" name="metaname_id" id="metaname_id" value="{{$monthlyMetaCollect->pluck('metaname_id')->first()}}">
           <input type="hidden" name="asset_id" id="asset_id" value="{{$monthlyMetaCollect->pluck('asset_id')->first()}}">
 
-          <button type="submit" name="maintenance" id="maintenance" style="background-color:yellow"><strong style="color:red;">Maint.: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance','NA'])->count()* 100),1)}}%</strong></button>
+          <button type="submit" name="maintenance" id="maintenance" style="background-color:yellow"><strong style="color:red;">Maint.: {{$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()}} | {{number_format(($monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Maintenance'])->count()/$monthlyMetaCollect->where('metaname_name',$keyM)->whereIn('answer_classification',['Good','Bad','Critical','Maintenance-low','Maintenance-medium','Maintenance-high','NA'])->count()* 100),1)}}%</strong></button>
       </form>
             @endif
         @endisset

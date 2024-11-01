@@ -94,13 +94,23 @@ $reportTime="Daily Reports";
 $segments = request()->segments();
 $last_segment  = end($segments);
 $first_segment = reset($segments);
-//dd($segments);
+
+//dd($last_segment);
 	if($id>0)
 	{
+if($last_segment=="Maintenance")
+{
+$col='o.answer';
+}else{
+$col='o.answer_classification';
+}
+
     $metaID=(request('metaname_id'));
-		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,a.answer_label,o.answer_classification,a.photo,a.description,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and o.answer_classification="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and a.datex="'.$current_date.'"');
+		 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,a.answer_label,o.answer_classification,a.photo,a.description,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.$id.'"  and '.$col.'="'.$last_segment.'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.$metaID.'" and a.datex="'.$current_date.'"');
 	  $property=property::where('id',$id)->first();
 	}
+
+
   //else{
 	// 	 $reportDailyData=DB::select('select a.id,a.property_id,p.property_name,a.metaname_id,m.metaname_name,a.answer,a.indicator_id,s.qns,a.asset_id,t.asset_name,u.name, a.opt_answer_id,a.answer,o.answer_classification,a.datex from answers a,properties p,set_indicators s,users u,assets t,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.user_id=u.id and a.asset_id=t.id and a.indicator_id=s.id and a.property_id="'.request('property_id').'" and a.opt_answer_id=o.id and p.id=a.property_id and a.metaname_id="'.request('metaname_id').'" and a.datex="'.$current_date.'"');
 	// $property=property::where('id',request('property_id'))->first();

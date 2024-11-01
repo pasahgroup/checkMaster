@@ -581,7 +581,7 @@ $PHPJasperXML->arrayParameter =array("answer_id"=>$sn);
 //$PHPJasperXML->arrayParameter =array();
 //$PHPJasperXML->arrayParameter = array("param" => array('1' =>1, '3' =>3));
 
-   $PHPJasperXML->load_xml_file(app_path().'/reports/detailDailyReport.jrxml');
+$PHPJasperXML->load_xml_file(app_path().'/reports/detailDailyReport.jrxml');
   //$PHPJasperXML->load_xml_file(app_path().'/reports/propertyReportf.jrxml');
 
   $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);

@@ -413,7 +413,9 @@ Route::resource('payment', paymentController::class);
 Route::get('invoices/{id}', [paymentController::class,'viewInvoice'])->name('invoices');
 // Route::get('order', [salesController::class,'order'])->name('order','order');
 Route::get('/daily-report/id}', [reportController::class,'dailyReport'])->name('daily-report','daily-report');
+
 Route::get('/daily-report/property/{id}/{x}', [reportController::class,'dailyReport'])->name('daily-reportx','daily-reportx');
+
 Route::get('/weekly-report/property/{id}/{x}', [reportController::class,'weeklyReport'])->name('weekly-reportx','weekly-reportx');
 
 Route::get('/monthly-report/property/{id}/{x}', [reportController::class,'monthlyReport'])->name('monthly-reportx','monthly-reportx');

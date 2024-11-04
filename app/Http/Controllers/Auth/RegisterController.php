@@ -98,8 +98,7 @@ class RegisterController extends Controller
             'referal' => trim($data['ref']),
             'reg_date' => date('d-m-Y'),
             'currency' => $this->st->currency,
-        ]);
-       
+        ]);     
         
         
     }

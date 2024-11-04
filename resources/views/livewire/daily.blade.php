@@ -200,7 +200,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
  <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$propertyID->property_id}}">
- <input type="text" name="assetID" id="assetID" value="{{$selectedOption}}">
+ <input type="text" name="assetID" id="assetID" value="{{$asset->id}}">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->

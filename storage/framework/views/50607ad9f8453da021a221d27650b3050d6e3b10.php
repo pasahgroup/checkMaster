@@ -192,7 +192,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 
  <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="<?php echo e($propertyID->property_id); ?>">
- <input type="text" name="assetID" id="assetID" value="<?php echo e($selectedOption); ?>">
+ <input type="text" name="assetID" id="assetID" value="<?php echo e($asset->id); ?>">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->

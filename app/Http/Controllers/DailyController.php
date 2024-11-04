@@ -211,7 +211,7 @@ class DailyController extends Controller
     $qnsAppliedPerc=DB::select('select * from qns_appliedtos where department_id="'.$departments->department_id.'"');
     $qnsAppliedPerc = collect($qnsAppliedPerc);
 
-dd($qnsAppliedPerc);
+//dd($qnsAppliedPerc);
 
 //dd($qnsAppliedPerc->where('metaname_id',1)->where('section',"General")->where('department_id',5)->count());
 

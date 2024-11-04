@@ -176,10 +176,10 @@ border-color: #dddddd;
   <span class="float-right">
 
    <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->asset_name)->count()>0): ?>
-      <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count()); ?>
+        <?php if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()>0): ?>
+      <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()); ?>
 
-     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($asset->id==$chkp->asset_id): ?> checked hhh2 <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count())*100),2); ?>)%
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($asset->id==$chkp->asset_id): ?> checked <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2); ?>)%
      <?php endif; ?>
      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
    
@@ -228,7 +228,7 @@ border-color: #dddddd;
                  <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                    <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id==$qn->id && $metadata->answer==$checkq->answer): ?>
             
-               <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer): ?> checked hhh 
+               <?php if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer): ?> checked 
                <?php endif; ?> 
       
               <?php endif; ?>
@@ -362,7 +362,7 @@ border-color: #dddddd;
 
                   <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php if($asset->id==$checkq->asset_id && $checkq->indicator_id ==$qn->id): ?>
-             checked hhh
+             checked
                <?php endif; ?>
                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                >

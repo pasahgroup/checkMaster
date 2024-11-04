@@ -81,7 +81,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {        
-        $this->token = mt_rand(0000, 9999).strtotime(date("Y-m-d H:i:s"));
+        $this->token = mt_rand(111111, 999999).strtotime(date("Y-m-d H:i:s"));
         //Session::forget('ref');
         $this->email = $data['email'];
         $this->usr = $data['username'];
@@ -98,9 +98,7 @@ class RegisterController extends Controller
             'referal' => trim($data['ref']),
             'reg_date' => date('d-m-Y'),
             'currency' => $this->st->currency,
-        ]);     
-        
-        
+        ]);        
     }
 
     public function redirectTo()

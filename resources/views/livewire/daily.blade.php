@@ -76,7 +76,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <i>{{$departGetName->unit_name ?? ''}}:  DAILY QUESTIONNAIRE
+    DAILY QUESTIONNAIRE
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -175,14 +175,14 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
      <span style="background-color:#">{{$asset->asset_name}}</span>
 
   <span class="float-right">
-    {{--
+
    @foreach ($checkQnsProp as $chkp)
-        @if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->asset_name)->count()>0)
-      {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()}}
-     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked hhh2 @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
+        @if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->asset_name)->count()>0)
+      {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count()}}
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($asset->id==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count())*100),2}})%
      @endif
      @endforeach
-    --}}
+   
   
   @endif
   </span>
@@ -227,7 +227,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                  @foreach ($checkQns as $checkq)
                                    @if($selectedOption ==$checkq->asset_id && $checkq->indicator_id==$qn->id && $metadata->answer==$checkq->answer)
             
-               @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer) checked hhh 
+               @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer) checked 
                @endif 
       
               @endif
@@ -360,7 +360,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
                   @foreach ($checkQns as $checkq)
                   @if($asset->id==$checkq->asset_id && $checkq->indicator_id ==$qn->id)
-             checked hhh
+             checked
                @endif
                @endforeach
                >

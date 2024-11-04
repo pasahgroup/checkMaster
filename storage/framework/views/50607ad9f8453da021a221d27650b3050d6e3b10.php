@@ -75,7 +75,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> | Unit name: <i><?php echo e($departGetName->unit_name ?? ''); ?>:  DAILY QUESTIONNAIRE
+    DAILY QUESTIONNAIRE
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -174,7 +174,15 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
      <span style="background-color:#"><?php echo e($asset->asset_name); ?></span>
 
   <span class="float-right">
-    
+
+   <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->asset_name)->count()>0): ?>
+      <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count()); ?>
+
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($asset->id==$chkp->asset_id): ?> checked hhh2 <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->id)->count())*100),2); ?>)%
+     <?php endif; ?>
+     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   
   
   <?php endif; ?>
   </span>
@@ -224,8 +232,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                <?php endif; ?> 
       
               <?php endif; ?>
-               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-           
+               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>           
            <?php endif; ?>
 
                <?php if($metadata->datatype=="radio"): ?>

@@ -1146,7 +1146,7 @@ $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 :root{
   --artical-background-page: #a0b58c;
-  --artical-background-panel : #a0b58c;
+  --artical-background-panel : #fff;
   --artical-background-module : #{$light};
   --artical-ligth-dark :#{$light-dark};
   --artical-background-element : #{$gray-200};

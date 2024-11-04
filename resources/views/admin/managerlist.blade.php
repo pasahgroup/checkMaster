@@ -29,6 +29,7 @@ border-color: #dddddd;
 </style>
 
 	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
@@ -101,7 +102,7 @@ Manager Dashboard: (manager inspection)
   <div class="form-group">
             <label class="text-dark">Metaname:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
-                          <option value="">--- Select metaname to apply ---</option>
+                          <option value="">--- Select section to apply ---</option>
 
           @isset($metanamess->metaname_name)
                           @if($metanamess->metaname_name !=NULL)
@@ -170,7 +171,7 @@ Manager Dashboard: (manager inspection)
     @if($p->metaname_id ==$meta->id)
       <div class="panel-heading">
         <!-- <h5 class="panel-title"></h5> -->
-         <div class="" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#718275 !important">
+         <div class="" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#63886c !important">
 <div class="row">
 @if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()>0)
 
@@ -198,7 +199,7 @@ Manager Dashboard: (manager inspection)
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel-heading">
 
-<div class="" data-toggle="collapse" href="#collapp{{$p->id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" onkeyup ="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" style="background-color:#dfd6c4 !important">
+<div class="" data-toggle="collapse" href="#collapp{{$p->id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction({{$p->id}},{{$section->id}} bb,'{{$section->section}}')" onkeyup ="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" style="background-color:#dfd6c4 !important;border-color:red;">
 
 
 @if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0)
@@ -270,7 +271,7 @@ Manager Dashboard: (manager inspection)
 </div>
 
       <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee{{$p->id}}{{$qn->id}}">Description if any</a>
+        <h4 class="panel-title"> <div class="card"><a data-toggle="collapse" href="#collapsee{{$p->id}}{{$qn->id}}">Description if any</a>
        </div>
       </div>
       <div id="collapsee{{$p->id}}{{$qn->id}}" class="panel-collapse collapse">
@@ -287,7 +288,7 @@ Manager Dashboard: (manager inspection)
           </div>
 
     <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap{{$p->id}}{{$qn->id}}">Photo if any</a>
+        <h4 class="panel-title"> <div class="card">   <a data-toggle="collapse" href="#collap{{$p->id}}{{$qn->id}}">Photo if any</a>
        </div>
     </div>
 
@@ -525,7 +526,7 @@ function setButtonFunction(id) {
 //$('#assetID').val(element);
 }
 </script>
-<script type="text/javascript" src="../js/activityManagerdata.js"></script>
+<!-- <script type="text/javascript" src="../js/activityManagerdata.js"></script> -->
 <script type="text/javascript" src="../../js/jquery.js"></script>
 
 <script type="text/javascript">

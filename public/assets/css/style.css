@@ -1,6 +1,8 @@
 @charset "UTF-8";
 :root {
-  --artical-background-page: #d9c7a8;
+/*  --artical-background-page: #d9c7a8;*/
+    --artical-background-page: #d9c7a8;
+
   /*--artical-background-panel: #4d977e;*/
    --artical-background-panel: #fff;
   --artical-background-module: #f8f9fa;
@@ -1515,7 +1517,7 @@ pre {
     border: 0; }
 
 .form-control {
-  display: block;
+/*  display: block;*/
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;

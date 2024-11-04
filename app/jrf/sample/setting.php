@@ -1,6 +1,6 @@
 <?php
 // $server="198.38.86.875";
-$server="localhost";
+$server="127.0.0.1";
 $db="checkmasterdb";
 $user="root";
 $pass="";

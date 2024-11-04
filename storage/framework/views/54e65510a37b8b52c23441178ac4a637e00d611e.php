@@ -28,6 +28,7 @@ border-color: #dddddd;
 </style>
 
 	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
@@ -100,7 +101,7 @@ Manager Dashboard: (manager inspection)
   <div class="form-group">
             <label class="text-dark">Metaname:: <?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
               <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction(<?php echo e($metaname_id); ?>)" onkeyup="setMetanameFunction(<?php echo e($metaname_id); ?>)"  class="form-control" required>
-                          <option value="">--- Select metaname to apply ---</option>
+                          <option value="">--- Select section to apply ---</option>
 
           <?php if(isset($metanamess->metaname_name)): ?>
                           <?php if($metanamess->metaname_name !=NULL): ?>
@@ -170,7 +171,7 @@ Manager Dashboard: (manager inspection)
     <?php if($p->metaname_id ==$meta->id): ?>
       <div class="panel-heading">
         <!-- <h5 class="panel-title"></h5> -->
-         <div class="" data-toggle="collapse" href="#collapse<?php echo e($p->id); ?>" id="pid<?php echo e($p->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($p->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($p->id); ?>)" style="background-color:#718275 !important">
+         <div class="" data-toggle="collapse" href="#collapse<?php echo e($p->id); ?>" id="pid<?php echo e($p->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($p->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($p->id); ?>)" style="background-color:#63886c !important">
 <div class="row">
 <?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()>0): ?>
 
@@ -199,7 +200,7 @@ Manager Dashboard: (manager inspection)
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel-heading">
 
-<div class="" data-toggle="collapse" href="#collapp<?php echo e($p->id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important">
+<div class="" data-toggle="collapse" href="#collapp<?php echo e($p->id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?> bb,'<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important;border-color:red;">
 
 
 <?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0): ?>
@@ -271,7 +272,7 @@ Manager Dashboard: (manager inspection)
 </div>
 
       <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee<?php echo e($p->id); ?><?php echo e($qn->id); ?>">Description if any</a>
+        <h4 class="panel-title"> <div class="card"><a data-toggle="collapse" href="#collapsee<?php echo e($p->id); ?><?php echo e($qn->id); ?>">Description if any</a>
        </div>
       </div>
       <div id="collapsee<?php echo e($p->id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
@@ -289,7 +290,7 @@ Manager Dashboard: (manager inspection)
           </div>
 
     <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap<?php echo e($p->id); ?><?php echo e($qn->id); ?>">Photo if any</a>
+        <h4 class="panel-title"> <div class="card">   <a data-toggle="collapse" href="#collap<?php echo e($p->id); ?><?php echo e($qn->id); ?>">Photo if any</a>
        </div>
     </div>
 
@@ -527,7 +528,7 @@ function setButtonFunction(id) {
 //$('#assetID').val(element);
 }
 </script>
-<script type="text/javascript" src="../js/activityManagerdata.js"></script>
+<!-- <script type="text/javascript" src="../js/activityManagerdata.js"></script> -->
 <script type="text/javascript" src="../../js/jquery.js"></script>
 
 <script type="text/javascript">

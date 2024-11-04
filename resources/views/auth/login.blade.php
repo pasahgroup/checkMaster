@@ -43,6 +43,11 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
 
         <form method="post" action="{{ route('login') }}">
             @csrf
+
+                  <div>
+                <x-jet-label for="code" value="{{ __('Code') }}" />
+                <input id="code" class="form-control" type="text" name="code" :value="old('code')" required autofocus />
+            </div>
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
@@ -59,13 +64,15 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
+            
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
-            <a href="{{ route('forget.password.get') }}">Forget Password</a>
+            <a href="{{ route('forget.password.get') }}"><u>Forget Password</u></a><br>
+              <a href="{{ url('company-profile-web') }}"><strong style="color:green"><u>Register Lodge</u></strong></a>
         </form>
    </div>
 

@@ -16,17 +16,27 @@ class profileController extends Controller
     public function index()
     {
         $profile = myCompany::first();
-        return view('admin.profile.profile',compact('profile'));
+         $pin=rand(111111, 999999);
+        return view('admin.profile.profile',compact('profile','pin'));
     }
 
+ public function companyWeb()
+    {
+        //dd('here');
+      //  $profile = myCompany::first();
+         $pin=rand(111111, 999999);
+         //dd($pin);
+        return view('admin.profile.profile_web',compact('pin'));
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       //register company from web
+        dd('print');
     }
 
     /**
@@ -53,7 +63,7 @@ class profileController extends Controller
                      //upload the image
                      $path =$attached->storeAs('public/logo/', $imageToStore);
 
-                      $comp = myCompany::where('status','Active')->first();
+                    $comp = myCompany::where('company_name',request('business_name'))->first();
                      //dd($comp);
                     if($comp == null)
                       {
@@ -66,6 +76,7 @@ class profileController extends Controller
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+          'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
@@ -73,7 +84,7 @@ class profileController extends Controller
                       }
                       else
                       {
-$insetqnsy = myCompany::where('status','Active')
+$insetqnsy = myCompany::where('company_name',request('business_name'))
              ->update([
  'company_name'=>request('business_name'),
            'logo'=>$imageToStore,
@@ -82,6 +93,7 @@ $insetqnsy = myCompany::where('status','Active')
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+           'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
             ]);
@@ -91,8 +103,10 @@ $insetqnsy = myCompany::where('status','Active')
 }
 else
 {
-         $comp = myCompany::where('status','Active')->first();
-                     //dd($comp);
+
+    //dd(request('business_name'));
+         $comp = myCompany::where('company_name',request('business_name'))->first();
+                    // dd($comp);
                     if($comp == null)
                       {
 
@@ -104,14 +118,16 @@ else
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+           'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
+                
 
                 }
                       else
                       {
-$insetqnsy = myCompany::where('status','Active')
+$insetqnsy = myCompany::where('company_name',request('business_name'))
              ->update([
  'company_name'=>request('business_name'),
           // 'logo'=>'',
@@ -120,12 +136,23 @@ $insetqnsy = myCompany::where('status','Active')
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+           'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
               }
      }
-     return redirect()->route('company-profile.index')->with('success','Updated successfully');
+
+       $code=request('code');
+     if(request('profile_web'))
+     {
+        return redirect()->route('login',compact('code'))->with('success','Registered successfully, Now Login');
+     
+     }else{
+        return redirect()->route('company-profile.index')->with('success','Updated successfully');
+     }
+
+  
     }
 
     /**

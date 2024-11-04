@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\answer;
 use App\Models\myCompany;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
       $userCount=0;
-
+Paginator::useBootstrap();
 
          // Using view composer to set following variables globally
            view()->composer('*',function($view) {
@@ -55,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
             ->where('property_id',$property_id)
              ->where('status','Active')
             ->get());
+            //dd($view->qnsCount);
 
             //->select('properties.property_name')->first());
              //$view->with('qnsCount', collect($qnsCount));

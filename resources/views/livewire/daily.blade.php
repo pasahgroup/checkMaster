@@ -53,7 +53,6 @@ border-color: #dddddd;
 }
 </style>
 
-<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../js/jquery311.min.js"></script>
 
@@ -151,7 +150,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                          <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
                             @endforeach
                      </select>
-                     <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
+                     <input type="text" name="assetID" id="assetID" value="{{$assetID}}" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
 
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
@@ -164,23 +163,26 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
  <div class="row" id="data_display">    
     @isset($assets)
     @if(!empty($selectedOption))
-       @foreach ($sections as $section)
+       @foreach ($assets as $asset)
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="panel-heading">
 
-    <div class="card" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$section->section}}')" style="background-color:#979186 !important">
+
+    <div class="card" data-toggle="collapse" href="#collapp{{$metaname_id}}_{{$asset->id}}" id="" class="panel-group btn-sm" onclick="setSectionFunction('{{$metaname_id}}','{{$asset->asset_name}}')" onkeyup ="setSectionFunction('{{$metaname_id}}','{{$asset->asset_name}}')" style="background-color:#979186 !important">
                     <div class="row">
                       <div class="col-lg-10 col-md-10 col-sm-10" style="color:">
-   @if($section->section !="")
-     <span style="background-color:#">{{$section->section}}</span>
+   @if($asset->asset_name !="")
+     <span style="background-color:#">{{$asset->asset_name}}</span>
 
   <span class="float-right">
+    {{--
    @foreach ($checkQnsProp as $chkp)
-        @if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()>0)
+        @if($selectedOption ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$asset->asset_name)->count()>0)
       {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()}}
-     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($selectedOption==$chkp->asset_id) checked hhh2 @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$section->section)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count())*100),2}})%
      @endif
      @endforeach
+    --}}
   
   @endif
   </span>
@@ -188,8 +190,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
     </div>
     </div>
 
-      <!-- <div class="" data-toggle="collapse" href="#collapccc" id="" class="panel-group btn-sm" style="background-color:#718275 !important"> -->
-      <div wire:ignore.self id="collapp{{$metaname_id}}_{{$section->section}}" class="panel-collapse collapse">
+      <div wire:ignore.self id="collapp{{$metaname_id}}_{{$asset->id}}" class="panel-collapse collapse">
     <!-- <div wire:ignore.self id="collapse{{$metaname_id}}" class="panel-collapse collapse"> -->
     <!-- TEst form here -->
     <form  method="post"  action="{{ route('daily.store') }}" enctype="multipart/form-data">
@@ -199,46 +200,50 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
  <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$propertyID->property_id}}">
- <input type="hidden" name="assetID" id="assetID" value="{{$selectedOption}}">
+ <input type="text" name="assetID" id="assetID" value="{{$selectedOption}}">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
-    <input type="hidden" name="aID" id="aID{{$metaname_id}}_{{$section->section}}" value="{{$metaname_id}}">
-    <!-- <input type="hidden" name="section_name{{$metaname_id}}_{{$section->section}}" id="section_name{{$metaname_id}}_{{$section->section}}"> -->
+    <input type="hidden" name="aID" id="aID{{$metaname_id}}_{{$asset->asset_name}}" value="{{$metaname_id}}">
+
 
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
 
            @foreach ($qns as $qn)
-           @if($metaname_id ==$qn->metaname_id && $qn->section==$section->section)
+           @if($metaname_id ==$qn->metaname_id && $qn->metaname_id==$asset->metaname_id)
                           <div class="form-group card">
                           <div class="panel-group btn-sm" style="background-color:#c0e3c4 !important"><b> {{$metaname_id}}:{{$qn->id}}: {{$qn->section}} </b>: {{ $qn->qns  }}</div>
 
           <div class="row-card">
-
            @foreach ($metadatasCollects->where('indicator_id',$qn->id) as $metadata)
            @if($metadata->indicator_id ==$qn->id)
 
               <div class="col-xl-3 col-md-3 col-sm-3" id="{{$metadata->answer}}">
-                {{$metadata->answer}}
+                {{$metadata->answer}} {{$selectedOption}}
 
                @if($metadata->datatype=="checkbox")
               <input type="{{$metadata->datatype}}" name="ids{{$metaname_id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction('{{$qn->id}}')" onkeyup="myFunction('{{$qn->id}}')"
                  @foreach ($checkQns as $checkq)
                                    @if($selectedOption ==$checkq->asset_id && $checkq->indicator_id==$qn->id && $metadata->answer==$checkq->answer)
-               @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer) checked @endif
+            
+               @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->answer==$checkq->answer) checked hhh 
+               @endif 
+      
               @endif
                @endforeach
-            >
+           
            @endif
 
                @if($metadata->datatype=="radio")
-              <input type="{{$metadata->datatype}}" name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$section->section}}','{{$metadata->answer}}')"
+              <input type="{{$metadata->datatype}}" name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')"
+
 
                  @foreach ($checkQns as $checkq)
-                  @if($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id)
-               @if ($selectedOption ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id) checked
+                  @if($asset->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id)
+               @if ($asset->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $metadata->id==$checkq->opt_answer_id) checked 
               @endif
+
                @if($metadata->answer=="Maintenance")
                <br>
                @isset($checkq->answer_label)
@@ -247,8 +252,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                 @endif
                 @endisset
 
+ {{--
                 <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
-                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
+                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
 
                    @isset($checkq->answer_label)
                    @if($checkq->answer_label !="no_value")
@@ -261,8 +267,8 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
                    <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
                   </select>
-
                 </div>
+                --}}
                 <br>
 
                @endif
@@ -273,8 +279,8 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
 
 @if($metadata->answer=="Maintenance")
-   <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
-     <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
+   <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}" style="display:none;">
+     <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}"  class="form-control" required>
         <option value="no_value">--level of maintenance--</option>
                    <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
@@ -296,7 +302,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
           </div>
        
       <div id="collapsee{{$metaname_id}}{{$qn->id}}" class="panel-collapse collapse">
-      <textarea rows="4" cols="40" id="desc" name="desc{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
+      <textarea rows="4" cols="40" id="desc" name="desc{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" placeholder="---enter description if any---" class="txtarea" style="white-space: normal;overflow:hidden">
           @foreach ($checkQns as $checkq)
       @if($assetID ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$propertyID->property_id)
        @if($checkq->description !=null)
@@ -319,7 +325,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                                 <!-- start webcam -->
     <div id="my_camera{{$metaname_id}}_{{$qn->id}}"></div>
     <br/>
-    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
+    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" accept="image/*" capture="camera">
    
                                     </div>
                                     </div>
@@ -338,7 +344,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                                 <!-- start webcam -->
     <div id="my_camera{{$metaname_id}}_{{$qn->id}}">Browse</div>
     <br/>
-    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}[]" accept="image/*" capture="camera">
+    <input type="file" name="attachment{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" accept="image/*" capture="camera">
    
                                     </div>
                                     </div>
@@ -357,7 +363,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
                   @foreach ($checkQns as $checkq)
                   @if($selectedOption==$checkq->asset_id && $checkq->indicator_id ==$qn->id)
-             checked
+             checked hhh
                @endif
                @endforeach
                >
@@ -373,14 +379,14 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
     <div class="container">
      <div class="col-md-11 col-sm-11">
      <div style="background-color:#f6f7f2 !important">
-        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$section->section}}">Save</button>
+        <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$metaname_id}}_{{$asset->asset_name}}_{{$asset->id}}">Save</button>
      </div>
     </div>
     </div>
-  
-       </div>
-       </div>
 
+       </div>
+       </div>
+  <hr>
          <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">email_sent</button> -->
   </form>
 
@@ -388,32 +394,20 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
       </div>
       </div>
 
+
       @endforeach
+       
+   <hr>                                            
+  {!! $assets->links() !!}
+                                 
       @endif
-      @endisset
+      @endisset  
       </div>
-
-
-<!-- set form to send Email here -->
-<!-- <x-jet-button type="submit" class="btn-sm btn btn-secondary float-right" name="email_send" value="email_send">
-   {{ __('Finish') }}
-</x-jet-button> -->
-
-  <!-- <button class="btn-sm btn btn-dark float-right" type="submit" role="button" name="email_send" value="email_send">Finish</button> -->
-  <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">Finish2</button> -->
-
-
-          
-   <!-- <div class="row">
-     <div class="col-md-6 col-sm-6">
-     </div>
-
-</div> -->
+ 
 <br>
    <a href="/email-send/{id}" class="btn-sm btn btn-primary float-right" role="button">Finish</a>
  </div>
-
-           </div>
+</div>
 
 <!-- <div class="row">
  <div class="col-md-12 col-sm-12 wawa-bgcolor">

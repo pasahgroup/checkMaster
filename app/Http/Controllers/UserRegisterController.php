@@ -60,10 +60,19 @@ $properties=property::get();
 
   validator([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+           // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' =>['required', 'string', 'max:64'],
             //'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
+//dd(request('email'));
+// $email_data = user::findOrFail(request('email'));
+  $email_data = user::where('email',request('email'))->first();
+//dd($email_data);
+if($email_data->email !=null)
+        {
+            //dd($email_data);
+           return redirect()->back()->with('err_msg',"Email exists");
+        }
 
         if(request('password') != request('password_confirmation'))
         {

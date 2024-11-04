@@ -123,7 +123,7 @@ License: You must have a valid license purchased only from themeforest(the above
        <div>
 			<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="tc_aside">
 				<!--begin::Brand-->
-				<div class="brand flex-column-auto" id="tc_brand" style="background-color:#">
+				<div class="brand flex-column-auto" id="tc_brand">
 						<a href="/" class="brand-logo">
 
             @isset($company->logo)
@@ -139,7 +139,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 				<!--end::Brand-->
 				<!--begin::Aside Menu-->
-				<div class="aside-menu-wrapper flex-column-fluid overflow-auto h-100" id="tc_aside_menu_wrapper">
+				<div class="aside-menu-wrapper flex-column-fluid overflow-auto h-100" id="tc_aside_menu_wrapper" style="background-color:#">
 					<!--begin::Menu Container-->
 					<div id="tc_aside_menu" class="aside-menu  mb-5" data-menu-vertical="1" data-menu-scroll="1"
 						data-menu-dropdown-timeout="500">
@@ -158,7 +158,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!--begin::Wrapper-->
 			<div class='d-flex flex-column flex-row-fluid @isset($wrapper)<?php echo $wrapper ?>@endisset' id="tc_wrapper">
 				<!--begin::Header-->
-				<div id="tc_header" class="header header-fixed" style="background-color:#f2f0ec">
+				<div id="tc_header" class="header header-fixed" style="background-color:#d9c7a8">
 					<!--begin::Container-->
 					<div class="container-fluid d-flex align-items-stretch justify-content-between">
 						<!--begin::Header Menu Wrapper-->

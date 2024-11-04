@@ -69,7 +69,7 @@
                                                       <th>User</th>
                                                      <th>E-mail</th>
                                                      <th>Role</th>
-                                             @role('Admin|SuperAdmin')
+                                             @role('Admin|GeneralAdmin|SuperAdmin')
                                            <th>Permission</th>
                                         <th>Department</th>
                                       @endrole
@@ -96,10 +96,10 @@
                  <input type="hidden" name="users" value="users">
                  <input type="hidden" name="revoke" value="revoke">
                                                                                     {{ csrf_field() }}
-                                                                            <button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="{{$role->role_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
-                                                                                <span class="text-white btn-sm bg-danger">-</span>
-                                                                                {{$role->role_name}}
-                                                                            </button>
+<button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="{{$role->role_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
+      <span class="text-white btn-sm bg-danger">-</span>
+      {{$role->role_name}}
+           </button>
 
                                                                         </form>
                                                                         @endif
@@ -131,25 +131,25 @@
                                                             <div class="row">
                                                                     <div class="col-md-12 col-lg-12">
                                                                         <div class="form-group row">
-                                                                            <label for="name" class="col-form-label ">{{ __('Roles') }}</label>
-                                                                            <select name="role_name" id="" class="form-control" required>
-                                                                                <option value="" selected>--Assign role --</option>
-                                                                                @foreach ($roles as $role)
-                                                                                <option value="{{$role->id}}">{{ $role->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
+                      <label for="name" class="col-form-label ">{{ __('Roles') }}</label>
+                        <select name="role_name" id="" class="form-control" required>
+                         <option value="" selected>--Assign role --</option>
+                                @foreach ($roles as $role)
+                              <option value="{{$role->id}}">{{ $role->name }}</option>
+                                         @endforeach
+                                                        </select>
 
-                                                                            <input type="hidden" name="addrole" value="addrole">
-                                                                            <input type="hidden" name="user_id" value="{{ $value->id}}">
-                                                                    </div>
+                                         <input type="hidden" name="addrole" value="addrole">
+                                         <input type="hidden" name="user_id" value="{{ $value->id}}">
+                                                         </div>
                                                                 </div>
                                                                 </div>
 
-                                                                            {{-- form Ends here --}}
+                                                     {{-- form Ends here --}}
 
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                 <div class="modal-footer">
+                                                 <button class="btn ripple btn-primary" type="submit">Save changes</button>
                                                                         </form>
 
                                                                         </div>
@@ -164,63 +164,61 @@
                                                                 <!-- {{$value->department_id}} -->
                                                                         @forelse($permissions as $permission)
                                                                         @if($permission->model_id == $value->id)
-                                                                        <form action="{{ route('users.destroy', $value->id) }}" method="POST" >
-                                                                            @method('PUT')
-                                                                            <input type="hidden" name="_method" value="delete">
-                                                                            <input type="hidden" name="users" value="users">
-                                                                            <input type="hidden" name="revoke" value="revoke">
-                                                                            <input type="hidden" name="siteid" value="{{$permission->id}}">
+                                    <form action="{{ route('users.destroy', $value->id) }}" method="POST" >
+                                                         @method('PUT')
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="users" value="users">
+                                     <input type="hidden" name="revoke" value="revoke">
+                                     <input type="hidden" name="siteid" value="{{$permission->id}}">
 
                                                                                     {{ csrf_field() }}
-                                                                        <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="{{$permission->permission_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> {{$permission->permission_name}}</button>
+    <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="{{$permission->permission_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> {{$permission->permission_name}}</button>
 
                                                                         </form>
                                                                         @endif
                                                                     @empty
-                                                                        <span class="alert alert-danger">No separate permission</span>
+                                        <span class="alert alert-danger">No separate permission</span>
                                                                     @endforelse
 
-                                                                    <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#permission{{ $value->id }}" data-toggle="modal"> <i class="fa fa-plus"></i></button>
-
-
-                                                    {{-- start of role modal --}}
-                                                    <div class="modal" id="permission{{ $value->id }}" style="display: none;" aria-hidden="true">
-                                                        <div class="modal-dialog modal-md" role="document">
-                                                            <div class="modal-content modal-content-demo">
-                                                                <div class="modal-header">
-                                                                    <h6 class="modal-title">Assign permission to {{ $value->name }} </h6>
-                                                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                                                        <span aria-hidden="true">×</span></button>
+                                 <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#permission{{ $value->id }}" data-toggle="modal"> <i class="fa fa-plus"></i></button>
+{{-- start of role modal --}}
+                                <div class="modal" id="permission{{ $value->id }}" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-md" role="document">
+                                    <div class="modal-content modal-content-demo">
+                                         <div class="modal-header">
+                                        <h6 class="modal-title">Assign permission to {{ $value->name }} </h6>
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                 <span aria-hidden="true">×</span></button>
                                                                     </div>
-                                                                    <form method="POST" action="{{ route('roles.store') }}">
+                                        <form method="POST" action="{{ route('roles.store') }}">
                                                                         @csrf
-                                                                    <div class="modal-body">
+                                            <div class="modal-body">
 
-                                                                            {{-- form start here --}}
+                                               {{-- form start here --}}
 
 
-                                                            <div class="container">
+                                            <div class="container">
                                                             <div class="row">
-                                                                    <div class="col-md-12 col-lg-12">
-                                                                        <div class="form-group row">
-                                                                            <label for="name" class="col-form-label ">{{ __('Permission Level') }}</label>
-                                                        <select name="permission_to_assign" id="" class="form-control" required>
-                                                        <option value="" selected>--Accessing level permission --</option>
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group row">
+                                           <label for="name" class="col-form-label ">{{ __('Permission Level') }}</label>
+                                            <select name="permission_to_assign" id="" class="form-control" required>
+                                                <option value="" selected>--Accessing level permission --</option>
                                                         @foreach ($permit as $permitted)
                                                     <option value="{{ $permitted->id }}">{{ $permitted->property_name }}</option>
-                                                                                @endforeach
+                                                   @endforeach
 
-                                                                            </select>
-                                                                            <input type="hidden" name="user_id" value="{{ $value->id}}">
+                                                         </select>
+                                         <input type="hidden" name="user_id" value="{{ $value->id}}">
                                                                     </div>
                                                                 </div>
                                                                 </div>
 
-                                                                            {{-- form Ends here --}}
+                                                       {{-- form Ends here --}}
 
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                 <div class="modal-footer">
+                                              <button class="btn ripple btn-primary" type="submit">Save changes</button>
                                                                         </form>
 
                                                                         </div>
@@ -240,13 +238,12 @@
                                                                         @if($department->id == $value->department_id)
                                                                         <form action="{{ route('users.destroy', $value->id) }}" method="POST" >
                                                                             @method('PUT')
-                                                                            <input type="hidden" name="_method" value="delete">
-                                                                            <input type="hidden" name="users" value="users">
-                                                                            <input type="hidden" name="revoke" value="revoke">
-                                                                            <input type="hidden" name="department_id" value="{{$department->id}}">
+                         <input type="hidden" name="_method" value="delete">
+                         <input type="hidden" name="users" value="users">
+                        <input type="hidden" name="revoke" value="revoke">
+                    <input type="hidden" name="department_id" value="{{$department->id}}">
 
-                                                                                    {{ csrf_field() }}
-                                                                        <button type="submit" name="department" class="btn btn-sm  btn-outline-primary" value="{{$department->unit_name}}" onclick="return confirm(id='Are you sure you want to revoke this Department to this $value->name?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> {{$department->unit_name}}</button>
+                                                                                    {{ csrf_field() }} <button type="submit" name="department" class="btn btn-sm  btn-outline-primary" value="{{$department->unit_name}}" onclick="return confirm(id='Are you sure you want to revoke this Department to this $value->name?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> {{$department->unit_name}}</button>
 
                                                                         </form>
                                                                         @endif

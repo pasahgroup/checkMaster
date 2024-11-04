@@ -133,12 +133,12 @@ class DailyController extends Controller
 
       $assets = asset::where('assets.metaname_id',$metaname_id)
       ->where('assets.property_id',auth()->user()->property_id)
-      ->select('assets.id','assets.asset_name','assets.property_id')
-      ->get(); 
+      ->select('assets.id','assets.metaname_id','assets.asset_name','assets.property_id')
+      ->paginate(8);
 
 
- 
    //dd($assets);
+
     $departApply= department::where('status','Active')->get();
     //dd('axssa');
     if($departments->hasRole('SuperAdmin') || $departments->hasRole('GeneralAdmin')){
@@ -188,9 +188,11 @@ class DailyController extends Controller
  $qnsapply=collect($qnsapply); 
   $sections = DB::select("select section from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.") group by section");
 
-   $sectionCollects = collect($sections);
-    $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+  //dd($sections);
 
+    $sectionCollects = collect($sections);
+    $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');
+//dd($checkQnsProp);
 
    // $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
 
@@ -320,10 +322,11 @@ class DailyController extends Controller
    $save = request("save");
       //dd($save); eg 1_
    $save = explode("_", $save);
-   $asset_id=request('assetID');
+   //$asset_id=request('assetID');
    $section_id=$save[1];
+   $asset_id=$save[2];
    //Section request
- //dd(request('assetID'));
+ //dd($asset_id);
 
    $section_name="section_name".$asset_id."_".$section_id."";
 

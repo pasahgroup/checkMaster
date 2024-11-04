@@ -63,6 +63,22 @@ background-image:url(<?php echo e(URL::asset('../../assets/images/misc/bg-login.
 
         <form method="post" action="<?php echo e(route('login')); ?>">
             <?php echo csrf_field(); ?>
+
+                  <div>
+                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.label','data' => ['for' => 'code','value' => ''.e(__('Code')).'']]); ?>
+<?php $component->withName('jet-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['for' => 'code','value' => ''.e(__('Code')).'']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
+                <input id="code" class="form-control" type="text" name="code" :value="old('code')" required autofocus />
+            </div>
             <div>
                 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.label','data' => ['for' => 'email','value' => ''.e(__('Email')).'']]); ?>
@@ -134,6 +150,7 @@ background-image:url(<?php echo e(URL::asset('../../assets/images/misc/bg-login.
                     <span class="ml-2 text-sm text-gray-600"><?php echo e(__('Remember me')); ?></span>
                 </label>
             </div>
+            
 
             <div class="flex items-center justify-end mt-4">
                 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
@@ -151,7 +168,8 @@ background-image:url(<?php echo e(URL::asset('../../assets/images/misc/bg-login.
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
             </div>
-            <a href="<?php echo e(route('forget.password.get')); ?>">Forget Password</a>
+            <a href="<?php echo e(route('forget.password.get')); ?>"><u>Forget Password</u></a><br>
+              <a href="<?php echo e(url('company-profile-web')); ?>"><strong style="color:green"><u>Register Lodge</u></strong></a>
         </form>
    </div>
 

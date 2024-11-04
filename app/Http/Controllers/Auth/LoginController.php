@@ -50,6 +50,7 @@ class LoginController extends Controller
     {
         $user = Auth::User();
 
+
         $act = new activities;
         $act->action = "User logged in to account";
         $act->user_id = $user->id;

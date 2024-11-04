@@ -42,7 +42,6 @@ class accountController extends Controller
      */
     public function store(Request $request)
     {
-        //
         if(request('account_name')){
         $account  = account::create([
             'account_name'=>request('account_name'),

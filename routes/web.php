@@ -106,7 +106,9 @@ use JasperPHP\JasperPHP as JasperPHP;
 
 
 Route::get('pdf', [EmailSendController::class, 'generatePDF']);
-
+Route::get('company-profile-web', [profileController::class, 'companyWeb'])->name('company-profile-web');
+// Route::resource('company-profile-create', [profileController::class, 'create']);
+Route::resource('company-profile-create', profileController::class);
 
 Route::get('send-mail', [pdfController::class, 'sendMail']);
 //Send MessageFormatter
@@ -486,14 +488,13 @@ Route::post('addrentItem', [rentalController::class,'addRentItem'])->name('addre
 Route::post('createOrder', [rentalController::class,'createOrder'])->name('createOrder');
 Route::get('shops',[warehouseController::class,'shops']);
 
-Route::resource('company-profile',profileController::class);//changed
+ Route::resource('company-profile',profileController::class);//changed
 
 Route::resource('custom-users', customRegisterController::class);
 
 
 // test
 Route::get('tester',[testerController::class,'test']);
-
 // Route::get('possale/{post}',Show::class)->name('possale');
 // Route::get('posfinal/{post}',Showfinal::class)->name('posfinal');
 

@@ -491,7 +491,6 @@ $PHPJasperXML->arrayParameter =array("property_id"=>$property_id,"metanames"=>$m
        include_once(app_path().'/jrf/sample/setting.php');
        $PHPJasperXML = new PHPJasperXML();
        $v[]=1;
-
        $metanameAll=array();
        $indicatorAll=array();
          //$param[]="active";

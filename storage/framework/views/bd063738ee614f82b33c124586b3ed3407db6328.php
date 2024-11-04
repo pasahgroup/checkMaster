@@ -68,7 +68,7 @@
                                                       <th>User</th>
                                                      <th>E-mail</th>
                                                      <th>Role</th>
-                                             <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Admin|SuperAdmin')): ?>
+                                             <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Admin|GeneralAdmin|SuperAdmin')): ?>
                                            <th>Permission</th>
                                         <th>Department</th>
                                       <?php endif; ?>
@@ -96,11 +96,11 @@
                  <input type="hidden" name="revoke" value="revoke">
                                                                                     <?php echo e(csrf_field()); ?>
 
-                                                                            <button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="<?php echo e($role->role_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
-                                                                                <span class="text-white btn-sm bg-danger">-</span>
-                                                                                <?php echo e($role->role_name); ?>
+<button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="<?php echo e($role->role_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
+      <span class="text-white btn-sm bg-danger">-</span>
+      <?php echo e($role->role_name); ?>
 
-                                                                            </button>
+           </button>
 
                                                                         </form>
                                                                         <?php endif; ?>
@@ -132,25 +132,25 @@
                                                             <div class="row">
                                                                     <div class="col-md-12 col-lg-12">
                                                                         <div class="form-group row">
-                                                                            <label for="name" class="col-form-label "><?php echo e(__('Roles')); ?></label>
-                                                                            <select name="role_name" id="" class="form-control" required>
-                                                                                <option value="" selected>--Assign role --</option>
-                                                                                <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                                <option value="<?php echo e($role->id); ?>"><?php echo e($role->name); ?></option>
-                                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                                            </select>
+                      <label for="name" class="col-form-label "><?php echo e(__('Roles')); ?></label>
+                        <select name="role_name" id="" class="form-control" required>
+                         <option value="" selected>--Assign role --</option>
+                                <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <option value="<?php echo e($role->id); ?>"><?php echo e($role->name); ?></option>
+                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
 
-                                                                            <input type="hidden" name="addrole" value="addrole">
-                                                                            <input type="hidden" name="user_id" value="<?php echo e($value->id); ?>">
-                                                                    </div>
+                                         <input type="hidden" name="addrole" value="addrole">
+                                         <input type="hidden" name="user_id" value="<?php echo e($value->id); ?>">
+                                                         </div>
                                                                 </div>
                                                                 </div>
 
-                                                                            
+                                                     
 
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                 <div class="modal-footer">
+                                                 <button class="btn ripple btn-primary" type="submit">Save changes</button>
                                                                         </form>
 
                                                                         </div>
@@ -165,64 +165,62 @@
                                                                 <!-- <?php echo e($value->department_id); ?> -->
                                                                         <?php $__empty_1 = true; $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                                                         <?php if($permission->model_id == $value->id): ?>
-                                                                        <form action="<?php echo e(route('users.destroy', $value->id)); ?>" method="POST" >
-                                                                            <?php echo method_field('PUT'); ?>
-                                                                            <input type="hidden" name="_method" value="delete">
-                                                                            <input type="hidden" name="users" value="users">
-                                                                            <input type="hidden" name="revoke" value="revoke">
-                                                                            <input type="hidden" name="siteid" value="<?php echo e($permission->id); ?>">
+                                    <form action="<?php echo e(route('users.destroy', $value->id)); ?>" method="POST" >
+                                                         <?php echo method_field('PUT'); ?>
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="users" value="users">
+                                     <input type="hidden" name="revoke" value="revoke">
+                                     <input type="hidden" name="siteid" value="<?php echo e($permission->id); ?>">
 
                                                                                     <?php echo e(csrf_field()); ?>
 
-                                                                        <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="<?php echo e($permission->permission_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> <?php echo e($permission->permission_name); ?></button>
+    <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="<?php echo e($permission->permission_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> <?php echo e($permission->permission_name); ?></button>
 
                                                                         </form>
                                                                         <?php endif; ?>
                                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                                                        <span class="alert alert-danger">No separate permission</span>
+                                        <span class="alert alert-danger">No separate permission</span>
                                                                     <?php endif; ?>
 
-                                                                    <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#permission<?php echo e($value->id); ?>" data-toggle="modal"> <i class="fa fa-plus"></i></button>
+                                 <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#permission<?php echo e($value->id); ?>" data-toggle="modal"> <i class="fa fa-plus"></i></button>
 
-
-                                                    
-                                                    <div class="modal" id="permission<?php echo e($value->id); ?>" style="display: none;" aria-hidden="true">
-                                                        <div class="modal-dialog modal-md" role="document">
-                                                            <div class="modal-content modal-content-demo">
-                                                                <div class="modal-header">
-                                                                    <h6 class="modal-title">Assign permission to <?php echo e($value->name); ?> </h6>
-                                                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                                                        <span aria-hidden="true">×</span></button>
+                                <div class="modal" id="permission<?php echo e($value->id); ?>" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-md" role="document">
+                                    <div class="modal-content modal-content-demo">
+                                         <div class="modal-header">
+                                        <h6 class="modal-title">Assign permission to <?php echo e($value->name); ?> </h6>
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                 <span aria-hidden="true">×</span></button>
                                                                     </div>
-                                                                    <form method="POST" action="<?php echo e(route('roles.store')); ?>">
+                                        <form method="POST" action="<?php echo e(route('roles.store')); ?>">
                                                                         <?php echo csrf_field(); ?>
-                                                                    <div class="modal-body">
+                                            <div class="modal-body">
 
-                                                                            
+                                               
 
 
-                                                            <div class="container">
+                                            <div class="container">
                                                             <div class="row">
-                                                                    <div class="col-md-12 col-lg-12">
-                                                                        <div class="form-group row">
-                                                                            <label for="name" class="col-form-label "><?php echo e(__('Permission Level')); ?></label>
-                                                        <select name="permission_to_assign" id="" class="form-control" required>
-                                                        <option value="" selected>--Accessing level permission --</option>
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group row">
+                                           <label for="name" class="col-form-label "><?php echo e(__('Permission Level')); ?></label>
+                                            <select name="permission_to_assign" id="" class="form-control" required>
+                                                <option value="" selected>--Accessing level permission --</option>
                                                         <?php $__currentLoopData = $permit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permitted): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($permitted->id); ?>"><?php echo e($permitted->property_name); ?></option>
-                                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                                                            </select>
-                                                                            <input type="hidden" name="user_id" value="<?php echo e($value->id); ?>">
+                                                         </select>
+                                         <input type="hidden" name="user_id" value="<?php echo e($value->id); ?>">
                                                                     </div>
                                                                 </div>
                                                                 </div>
 
-                                                                            
+                                                       
 
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                 <div class="modal-footer">
+                                              <button class="btn ripple btn-primary" type="submit">Save changes</button>
                                                                         </form>
 
                                                                         </div>
@@ -242,14 +240,12 @@
                                                                         <?php if($department->id == $value->department_id): ?>
                                                                         <form action="<?php echo e(route('users.destroy', $value->id)); ?>" method="POST" >
                                                                             <?php echo method_field('PUT'); ?>
-                                                                            <input type="hidden" name="_method" value="delete">
-                                                                            <input type="hidden" name="users" value="users">
-                                                                            <input type="hidden" name="revoke" value="revoke">
-                                                                            <input type="hidden" name="department_id" value="<?php echo e($department->id); ?>">
+                         <input type="hidden" name="_method" value="delete">
+                         <input type="hidden" name="users" value="users">
+                        <input type="hidden" name="revoke" value="revoke">
+                    <input type="hidden" name="department_id" value="<?php echo e($department->id); ?>">
 
-                                                                                    <?php echo e(csrf_field()); ?>
-
-                                                                        <button type="submit" name="department" class="btn btn-sm  btn-outline-primary" value="<?php echo e($department->unit_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this Department to this $value->name?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> <?php echo e($department->unit_name); ?></button>
+                                                                                    <?php echo e(csrf_field()); ?> <button type="submit" name="department" class="btn btn-sm  btn-outline-primary" value="<?php echo e($department->unit_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this Department to this $value->name?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> <?php echo e($department->unit_name); ?></button>
 
                                                                         </form>
                                                                         <?php endif; ?>

@@ -179,6 +179,7 @@ border-color: #dddddd;
    @foreach ($checkQnsProp as $chkp)
         @if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()>0)
       {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()}}
+     
      <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($asset->id==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2}})%
      @endif
      @endforeach

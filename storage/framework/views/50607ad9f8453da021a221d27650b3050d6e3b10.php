@@ -75,7 +75,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-    DAILY QUESTIONNAIRE
+    Daily Questinnaire
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -107,50 +107,32 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-  <div class="form-group">
-    <!-- <?php echo e($metanames); ?> -->
-            <label class="text-dark">Metaname::<?php echo e($metaname_id); ?>::<?php echo e($metanamess->metaname_name?? ''); ?></label>
-              <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction(<?php echo e($metaname_id); ?>)" onkeyup="setMetanameFunction(<?php echo e($metaname_id); ?>)"  class="form-control" required>
-                          <option value="">--- Select metaname to apply ---</option>
-
-          <?php if(isset($metanamess->metaname_name)): ?>
-                          <?php if($metanamess->metaname_name !=NULL): ?>
-                          <option value="<?php echo e($metanamess->id); ?>" selected><?php echo e($metanamess->metaname_name); ?></option>
-                          <?php endif; ?>
-                          <?php endif; ?>
-
-                         <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metaname): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                         <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              </select>
-  </div>
-  
-
-
-  <div class="form-group">
+    <div class="form-group">
        <form  method="GET"  action="<?php echo e(route('daily.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
            <input type="hidden" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
 
-          <label class="text-dark">Asset name</label>
+          <label class="text-dark">Metaname name</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction(<?php echo e($assetID); ?>)"  class="form-control" required>
-                          <option value="">--- Select Asset name to apply ---</option>
+                          <option value="">--- Select metaname ---</option>
 
-                          <?php if(isset($propertyID->asset_name)): ?>
-                          <?php if($propertyID->asset_name !=NULL): ?>
-                          <option value="<?php echo e($propertyID->id); ?>" selected><?php echo e($propertyID->asset_name); ?></option>
+                         <?php if(isset($metanamess->metaname_name)): ?>
+                          <?php if($metanamess->metaname_name !=NULL): ?>
+                          <option value="<?php echo e($metanamess->id); ?>" selected><?php echo e($metanamess->metaname_name); ?></option>
                           <?php endif; ?>
                           <?php endif; ?>
 
-                         <?php $__currentLoopData = $assets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $asset): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                         <option value="<?php echo e($asset->id); ?>"><?php echo e($asset->asset_name); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                          <?php $__currentLoopData = $metanames; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $metaname): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <option value="<?php echo e($metaname->id); ?>"><?php echo e($metaname->metaname_name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
+
 
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
     </div>
@@ -180,7 +162,7 @@ border-color: #dddddd;
       <?php echo e($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count()); ?> | <?php echo e($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()); ?>
 
      
-     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($asset->id==$chkp->asset_id): ?> checked <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2); ?>)%
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" <?php if($asset->id==$chkp->asset_id): ?> checked <?php endif; ?>> | (<?php echo e(number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2); ?>)%
      <?php endif; ?>
      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
    

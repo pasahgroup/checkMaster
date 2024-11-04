@@ -75,16 +75,12 @@ class DailyController extends Controller
       //Extract date
       $datet=Carbon::now();
 
-     //dd($current_date);
-
       $datet=$datet->format('H:i:s');
-      //dd($departments->property_id);
-
-
-       $metaname_id=request('metaname_id');
+    
+        $metaname_id=request('asset_model');
         $assetID=request('assetID');
-        $assetIDf=request('assetID');
-       //dd($metaname_id);
+        $assetIDf=request('assetID');       
+      
        if($metaname_id==null)
        {
          $metaname_id=1;
@@ -116,13 +112,6 @@ class DailyController extends Controller
      ->groupby('metanames.id')
      ->get();
 
-
-
-//dd($metanames);
-//dd(auth()->user()->property_id);
-
-//$metanames = metaname::get();
-//dd($metanames);
 
       //$metadatas = optionalAnswer::get();
           $metadatasCollects = optionalAnswer::get();
@@ -274,7 +263,7 @@ class DailyController extends Controller
       dd('Mail sent successfully');
     }
 
-            return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','assetID','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
+            return view("livewire.daily",compact(['checkQnsProp','metadatasCollects','selectedOption','assetID','assetIDf','metanames','assets','departments','sections','qns','metaname_id','metanamess','checkQns','propertyID','answerPerc','qnsAppliedPerc']));
            // return view('livewire.checklistTest',compact('properties'));
           }
 

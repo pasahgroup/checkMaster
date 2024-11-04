@@ -76,7 +76,7 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-    DAILY QUESTIONNAIRE
+    Daily Questinnaire
 <div class="">
  <div class="card-body"  style="background-color:#f6f7f2 !important"></i>
 
@@ -108,50 +108,32 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-  <div class="form-group">
-    <!-- {{$metanames}} -->
-            <label class="text-dark">Metaname::{{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
-              <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
-                          <option value="">--- Select metaname to apply ---</option>
-
-          @isset($metanamess->metaname_name)
-                          @if($metanamess->metaname_name !=NULL)
-                          <option value="{{$metanamess->id}}" selected>{{$metanamess->metaname_name}}</option>
-                          @endif
-                          @endisset
-
-                         @foreach($metanames as $metaname)
-                         <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
-                        @endforeach
-              </select>
-  </div>
-  
-
-
-  <div class="form-group">
+    <div class="form-group">
        <form  method="GET"  action="{{ route('daily.index') }}" enctype="multipart/form-data">
             @csrf
            <input type="hidden" name="_method" value="GET">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
            <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
 
-          <label class="text-dark">Asset name</label>
+          <label class="text-dark">Metaname name</label>
             <div class="form-group">
                         <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
-                          <option value="">--- Select Asset name to apply ---</option>
+                          <option value="">--- Select metaname ---</option>
 
-                          @isset($propertyID->asset_name)
-                          @if($propertyID->asset_name !=NULL)
-                          <option value="{{$propertyID->id}}" selected>{{$propertyID->asset_name}}</option>
+                         @isset($metanamess->metaname_name)
+                          @if($metanamess->metaname_name !=NULL)
+                          <option value="{{$metanamess->id}}" selected>{{$metanamess->metaname_name}}</option>
                           @endif
                           @endisset
 
-                         @foreach($assets as $asset)
-                         <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
-                            @endforeach
+                          @foreach($metanames as $metaname)
+                         <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+                        @endforeach
+
                      </select>
                      <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
+
 
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
     </div>
@@ -180,7 +162,7 @@ border-color: #dddddd;
         @if($asset->id ==$chkp->asset_id && $qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()>0)
       {{$answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count()}} | {{$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count()}}
      
-     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($asset->id==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->where('section',$asset->id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2}})%
+     <input type="checkbox"  onclick="myFunctionxx()" id="statusx" name="statusx" value="0" @if ($asset->id==$chkp->asset_id) checked @endif> | ({{ number_format(($answerPerc->where('metaname_id',$chkp->metaname_id)->where('asset_id',$chkp->asset_id)->count())/($qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->count())*100),2}})%
      @endif
      @endforeach
    

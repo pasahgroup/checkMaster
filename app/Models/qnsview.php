@@ -11,6 +11,9 @@ class qnsview extends Model
     protected $fillable = [
         'department_id',
         'metaname_id',
-        'section'
+        'section',
+        'duration',
+        'id',
+        'qns'
     ];
 }

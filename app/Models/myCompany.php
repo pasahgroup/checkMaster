@@ -15,6 +15,7 @@ class myCompany extends Model
         'logo',
         'address',
         'phone_number',
+        'code',
         'email',
         'status',
         'user_id',

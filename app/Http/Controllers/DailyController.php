@@ -29,6 +29,7 @@ use App\Models\userRole;
 use App\Models\departmentRole;
 use App\Models\department;
 use App\Models\user;
+use App\Models\qnsview;
 
 use App\Models\answerUpdatePhoto;
 use App\Models\answerDescPhoto;
@@ -185,9 +186,20 @@ class DailyController extends Controller
 
    // $qns = DB::select("select * from qnsview where department_id in(".trim($qnsapply,'[]').") and duration='daily' and metaname_id in(".$metaname_id.")");
 
+//$qnsd=qnsview::get();
+//dd($qnsd);
   
     $qns = DB::select("select * from qnsview where department_id=$departments->department_id and duration='daily' and metaname_id in(".$metaname_id.")");
 
+
+  //$users = DB::table('qnsview')->paginate(15);
+
+// $qns=qnsview::where('department_id',$departments->department_id)
+// ->where('duration','daily')
+// //->whereIn('metaname_id',$metaname_id)
+// ->paginate(1);
+
+//dd($qns);
     // $qns = DB::select("select * from qnsview where department_id=$departments->department_id and section='General' and metaname_id in(".$metaname_id.")");
   //dd($qns);
 

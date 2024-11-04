@@ -188,7 +188,6 @@ border-color: #dddddd;
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
     <input type="hidden" name="aID" id="aID<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>" value="<?php echo e($metaname_id); ?>">
 
-
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
 

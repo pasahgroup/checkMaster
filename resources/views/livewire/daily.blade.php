@@ -188,7 +188,6 @@ border-color: #dddddd;
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
     <input type="hidden" name="aID" id="aID{{$metaname_id}}_{{$asset->asset_name}}" value="{{$metaname_id}}">
 
-
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
 

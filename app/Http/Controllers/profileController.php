@@ -48,6 +48,7 @@ class profileController extends Controller
     public function store(Request $request)
     {
 
+//dd(request('code'));
   if(request('attachment')){
             $attach = request('attachment');
             foreach($attach as $attached){
@@ -109,7 +110,7 @@ else
                     // dd($comp);
                     if($comp == null)
                       {
-
+    dd('print1');
  $insetqns = myCompany::Create([
           'company_name'=>request('business_name'),
            'logo'=>'',
@@ -127,6 +128,8 @@ else
                 }
                       else
                       {
+                        dd('print2');
+
 $insetqnsy = myCompany::where('company_name',request('business_name'))
              ->update([
  'company_name'=>request('business_name'),

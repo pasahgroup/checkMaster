@@ -231,8 +231,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                @endif 
       
               @endif
-               @endforeach
-           
+               @endforeach           
            @endif
 
                @if($metadata->datatype=="radio")
@@ -252,9 +251,9 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                 @endif
                 @endisset
 
- {{--
-                <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}" style="display:none;">
-                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$section->section}}"  class="form-control" required>
+
+                <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->id}}" style="display:none;">
+                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->id}}"  class="form-control" required>
 
                    @isset($checkq->answer_label)
                    @if($checkq->answer_label !="no_value")
@@ -268,9 +267,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                    <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
                   </select>
                 </div>
-                --}}
                 <br>
-
                @endif
                @endif
                @endforeach

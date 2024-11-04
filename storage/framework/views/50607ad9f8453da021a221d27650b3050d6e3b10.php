@@ -245,9 +245,23 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                 <?php endif; ?>
                 <?php endif; ?>
 
- 
-                <br>
 
+                <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->id); ?>" style="display:none;">
+                  <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->id); ?>"  class="form-control" required>
+
+                   <?php if(isset($checkq->answer_label)): ?>
+                   <?php if($checkq->answer_label !="no_value"): ?>
+                   <option value="<?php echo e($checkq->answer_label); ?>"><?php echo e($checkq->answer_label); ?></option>
+                   <?php endif; ?>
+                   <?php endif; ?>
+
+                   <option value="no_value">--level of maintenance--</option>
+                   <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
+                   <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>
+                   <option style="background-color:red" value="Maintenance-high">Maintenance-high</option>
+                  </select>
+                </div>
+                <br>
                <?php endif; ?>
                <?php endif; ?>
                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

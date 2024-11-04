@@ -137,7 +137,7 @@ border-color: #dddddd;
     </div>
     </form>
     </div>
-<br>
+<hr>
 
 
  <div class="row" id="data_display">    
@@ -378,8 +378,7 @@ border-color: #dddddd;
 
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
        
-   <hr> 
-   <div>                                           
+   <hr>                                            
   <?php echo $assets->links(); ?>
 
                                  

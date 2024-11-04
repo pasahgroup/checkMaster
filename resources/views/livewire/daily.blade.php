@@ -138,7 +138,7 @@ border-color: #dddddd;
     </div>
     </form>
     </div>
-<br>
+<hr>
 
 
  <div class="row" id="data_display">    
@@ -376,8 +376,7 @@ border-color: #dddddd;
 
       @endforeach
        
-   <hr> 
-   <div>                                           
+   <hr>                                            
   {!! $assets->links() !!}
                                  
       @endif

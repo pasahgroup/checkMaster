@@ -107,7 +107,6 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-    <div class="form-group">
        <form  method="GET"  action="<?php echo e(route('daily.index')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
            <input type="hidden" name="_method" value="GET">
@@ -138,7 +137,7 @@ border-color: #dddddd;
     </div>
     </form>
     </div>
-</div>
+<br>
 
 
  <div class="row" id="data_display">    
@@ -379,7 +378,8 @@ border-color: #dddddd;
 
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
        
-   <hr>                                            
+   <hr> 
+   <div>                                           
   <?php echo $assets->links(); ?>
 
                                  

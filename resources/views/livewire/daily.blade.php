@@ -108,7 +108,6 @@ border-color: #dddddd;
 </label>
 
 <div class="row">
-    <div class="form-group">
        <form  method="GET"  action="{{ route('daily.index') }}" enctype="multipart/form-data">
             @csrf
            <input type="hidden" name="_method" value="GET">
@@ -139,7 +138,7 @@ border-color: #dddddd;
     </div>
     </form>
     </div>
-</div>
+<br>
 
 
  <div class="row" id="data_display">    
@@ -377,7 +376,8 @@ border-color: #dddddd;
 
       @endforeach
        
-   <hr>                                            
+   <hr> 
+   <div>                                           
   {!! $assets->links() !!}
                                  
       @endif

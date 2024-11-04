@@ -149,7 +149,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                          <option value="<?php echo e($asset->id); ?>"><?php echo e($asset->asset_name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      </select>
-                     <input type="text" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
+                     <input type="hidden" name="assetID" id="assetID" value="<?php echo e($assetID); ?>" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="<?php echo e($assetIDf); ?>">
 
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="<?php echo e($assetID); ?>" id="ff" onclick="setButtonFunction('<?php echo e($assetID); ?>')">View</button>
@@ -192,7 +192,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
 
  <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="<?php echo e($metaname_id); ?>">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="<?php echo e($propertyID->property_id); ?>">
- <input type="text" name="assetID" id="assetID" value="<?php echo e($asset->id); ?>">
+ <input type="hidden" name="assetID" id="assetID" value="<?php echo e($asset->id); ?>">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
@@ -212,7 +212,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
            <?php if($metadata->indicator_id ==$qn->id): ?>
 
               <div class="col-xl-3 col-md-3 col-sm-3" id="<?php echo e($metadata->answer); ?>">
-                <?php echo e($metadata->answer); ?> <?php echo e($selectedOption); ?>
+                <?php echo e($metadata->answer); ?>
 
 
                <?php if($metadata->datatype=="checkbox"): ?>
@@ -340,7 +340,7 @@ Department Name: <i><?php echo e($departGetName->department_name ?? ''); ?></i> 
                    <input type="checkbox"  onclick="myFunction()" id="status" name="status" value="0" disabled="true"
 
                   <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($selectedOption==$checkq->asset_id && $checkq->indicator_id ==$qn->id): ?>
+                  <?php if($asset->id==$checkq->asset_id && $checkq->indicator_id ==$qn->id): ?>
              checked hhh
                <?php endif; ?>
                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

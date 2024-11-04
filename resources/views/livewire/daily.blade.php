@@ -150,7 +150,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                          <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
                             @endforeach
                      </select>
-                     <input type="text" name="assetID" id="assetID" value="{{$assetID}}" readonly>
+                     <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
                     <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
 
 <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
@@ -200,7 +200,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
 
  <input type="hidden" wire.model="metaname_id" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
  <input type="hidden" wire.model="propertyID" name="propertyID" id="propertyID" value="{{$propertyID->property_id}}">
- <input type="text" name="assetID" id="assetID" value="{{$asset->id}}">
+ <input type="hidden" name="assetID" id="assetID" value="{{$asset->id}}">
 
     <!-- <input type="hidden" name="qnID" id="qnID" value=""> -->
     <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
@@ -220,7 +220,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
            @if($metadata->indicator_id ==$qn->id)
 
               <div class="col-xl-3 col-md-3 col-sm-3" id="{{$metadata->answer}}">
-                {{$metadata->answer}} {{$selectedOption}}
+                {{$metadata->answer}}
 
                @if($metadata->datatype=="checkbox")
               <input type="{{$metadata->datatype}}" name="ids{{$metaname_id}}[]" id="indicator_id" value="{{$metadata->id}}" onclick="myFunction('{{$qn->id}}')" onkeyup="myFunction('{{$qn->id}}')"
@@ -362,7 +362,7 @@ Department Name: <i>{{$departGetName->department_name ?? ''}}</i> | Unit name: <
                    <input type="checkbox"  onclick="myFunction()" id="status" name="status" value="0" disabled="true"
 
                   @foreach ($checkQns as $checkq)
-                  @if($selectedOption==$checkq->asset_id && $checkq->indicator_id ==$qn->id)
+                  @if($asset->id==$checkq->asset_id && $checkq->indicator_id ==$qn->id)
              checked hhh
                @endif
                @endforeach

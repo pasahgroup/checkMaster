@@ -110,7 +110,7 @@ else
                     // dd($comp);
                     if($comp == null)
                       {
-    dd('print1');
+    //dd('print1');
  $insetqns = myCompany::Create([
           'company_name'=>request('business_name'),
            'logo'=>'',

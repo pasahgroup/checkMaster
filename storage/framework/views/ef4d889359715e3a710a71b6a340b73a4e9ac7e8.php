@@ -195,7 +195,7 @@ table, th, td {
                                             <td><?php echo e($dailyData->qns); ?></td>
                                             <td><?php echo e($dailyData->answer); ?></td>
 
-                                            <td <?php if($dailyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyData->answer_classification ==='maintenance'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyData->answer_classification); ?>:<?php if($dailyData->answer_label !='no_value'): ?> (<?php echo e($dailyData->answer_label); ?>) <?php endif; ?></td>
+                                            <td <?php if($dailyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyData->answer_classification ==='Maintenance-medium'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyData->answer_classification); ?>:<?php if($dailyData->answer_label !='no_value'): ?> (<?php echo e($dailyData->answer_label); ?>) <?php endif; ?></td>
 
                                            <!-- <td><div class="logo mr-auto"><img src="<?php echo e(URL::asset('storage/img/'.$dailyData->photo)); ?>" width="60" height="40"></div></td> -->
                                            <td><?php echo e($dailyData->description); ?></td>

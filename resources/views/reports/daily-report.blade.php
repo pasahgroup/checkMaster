@@ -165,7 +165,9 @@ table, th, td {
                                             <td>{{ $dailyData->qns }}</td>
                                             <td>{{ $dailyData->answer }}</td>
 
-                                            <td @if($dailyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyData->answer_classification ==='Maintenance-medium') style="background-color:maroon;"@endif @if($dailyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyData->answer_classification }}:@if($dailyData->answer_label !='no_value') ({{$dailyData->answer_label}}) @endif</td>
+                                            <td @if($dailyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($dailyData->answer_label ==='Maintenance-low') style="background-color:#efca1f;"@endif @if($dailyData->answer_label ==='Maintenance-medium') style="background-color:#db6515;"@endif @if($dailyData->answer_label ==='Maintenance-high') style="background-color:maroon;"@endif 
+
+                                                @if($dailyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $dailyData->answer_classification }}:@if($dailyData->answer_label !='no_value') ({{$dailyData->answer_label}}) @endif</td>
 
                                            <!-- <td><div class="logo mr-auto"><img src="{{ URL::asset('storage/img/'.$dailyData->photo) }}" width="60" height="40"></div></td> -->
                                            <td>{{ $dailyData->description }}</td>

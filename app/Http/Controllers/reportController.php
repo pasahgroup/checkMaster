@@ -191,6 +191,9 @@ $keyIndicators = keyIndicator::get();
   //dd('Not role');
   }
 
+//dd($reportDailyData);
+
+
   if(request('print')){
     $datex=$_GET['date'];
 

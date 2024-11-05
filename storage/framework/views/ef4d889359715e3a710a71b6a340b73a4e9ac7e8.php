@@ -195,7 +195,7 @@ table, th, td {
                                             <td><?php echo e($dailyData->qns); ?></td>
                                             <td><?php echo e($dailyData->answer); ?></td>
 
-                                            <td <?php if($dailyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-low'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-medium'): ?> style="background-color:maroon;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-high'): ?> style="background-color:maroon;"<?php endif; ?> 
+                                            <td <?php if($dailyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-low'): ?> style="background-color:#efca1f;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-medium'): ?> style="background-color:#db6515;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-high'): ?> style="background-color:maroon;"<?php endif; ?> 
 
                                                 <?php if($dailyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyData->answer_classification); ?>:<?php if($dailyData->answer_label !='no_value'): ?> (<?php echo e($dailyData->answer_label); ?>) <?php endif; ?></td>
 

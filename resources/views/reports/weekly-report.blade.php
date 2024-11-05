@@ -161,7 +161,10 @@
                                             <td>{{ $weeklyData->asset_name }}</td>
                                             <td>{{ $weeklyData->qns }}</td>
                                             <td>{{ $weeklyData->answer }}</td>
-                                              <td @if($weeklyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif @if($weeklyData->answer_classification ==='maintenance') style="background-color:maroon;"@endif @if($weeklyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $weeklyData->answer_classification }}:@if($weeklyData->answer_label !='no_value') ({{$weeklyData->answer_label}}) @endif</td>
+                                              <td @if($weeklyData->answer_classification ==='Bad') style="background-color:yellowGreen;"@endif 
+  @if($weeklyData->answer_label ==='Maintenance-low') style="background-color:#efca1f;"@endif @if($dailyData->answer_label ==='Maintenance-medium') style="background-color:#db6515;"@endif @if($dailyData->answer_label ==='Maintenance-high') style="background-color:#db5a5a;"@endif
+
+                                                @if($weeklyData->answer_classification ==='Good') style="background-color:green;"@endif>{{ $weeklyData->answer_classification }}:@if($weeklyData->answer_label !='no_value') ({{$weeklyData->answer_label}}) @endif</td>
                                             <!-- <td><div class="logo mr-auto"><img src="{{ URL::asset('/storage/img/'.$weeklyData->photo) }}" width="60" height="40"></div></td> -->
                                             <td>{{ $weeklyData->description }}</td>
                                             <td>{{ $weeklyData->name }}</td>

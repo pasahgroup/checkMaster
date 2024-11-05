@@ -206,7 +206,7 @@ Manager Dashboard: (manager inspection)
 <?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0): ?>
                 <div class="row">
                   <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
- <span style="background-color:#"><?php echo e($section->section); ?> </span>
+ <span style="background-color:#"><?php echo e($section->section); ?> fgf</span>
 
 <span class="float-right">Section qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()); ?> |</span>
  <span class="float-right">
@@ -385,14 +385,6 @@ $('.qnNo').materialSelect();
 });
 </script>
 
-
-
-
-<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
-<!-- <script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery311.min.js"></script>
-
- -->
 
 <script>
 const ages = [3, 10, 18,42, 20];

@@ -200,7 +200,7 @@ Manager Dashboard: (manager inspection)
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel-heading">
 
-<div class="" data-toggle="collapse" href="#collapp<?php echo e($p->id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?> bb,'<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important;border-color:red;">
+<div class="" data-toggle="collapse" href="#collapp<?php echo e($p->id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important; border: 1px solid yellowgreen;">
 
 
 <?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0): ?>

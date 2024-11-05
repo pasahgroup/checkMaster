@@ -344,7 +344,6 @@ $departments=user::where('id',auth()->id())->first();
 //Get Department name
   $departGetName= department::where('status','Active')
   ->where('id',$departments->department_id)->first();
-//dd($departGetName);
 
 
 $userMetanames = userActivity::join('metanames','metanames.id','user_activities.activity_id')

@@ -185,6 +185,7 @@ class ManageController extends Controller
       //dd($datet);
       if($datet>="23:45")
       {
+        
       $date_time = date('H:i:s',strtotime(date($asset_show->extra_time, mktime()) . " + 1 hours"));
       $date_time_init=date('H:i:s',strtotime(date($asset_show->extra_time, mktime()) . " + 0 hours"));
       //$date_timex=date('H:i:s',strtotime("1 hours"));
@@ -193,7 +194,7 @@ class ManageController extends Controller
       //if($asset_show->asset_show==1 && $date_time<$datet)
       if($asset_show->asset_show==1 && $date_time>$datet && $date_time_init!="00:00:00")
       {
-
+//dd('overtime');
         $update = asset::where('property_id',$departments->property_id)->update([
             'time_show'=>1,
             'asset_show'=>1,
@@ -248,8 +249,9 @@ class ManageController extends Controller
           ->groupby('qns_appliedtos.metaname_id')
           ->groupby('qns_appliedtos.section')
           ->get();
-        // dd($sections);
+         //dd($sections);
 
+        
          $datatypes = datatype::get();
         // $checkQnsProp = DB::select('select d.property_id,d.metaname_id,d.asset_id,d.value from dynamic_ind_updates d,assets p where d.property_id=p.property_id and d.metaname_id=p.metaname_id and d.asset_id=p.id and d.datex="'.$current_date.'" and d.status="Active" group by d.asset_id');
          $checkQnsProp = DB::select('select * from checkqnsprop_view where datex="'.$current_date.'" group by asset_id');

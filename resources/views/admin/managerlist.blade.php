@@ -28,7 +28,7 @@ border-color: #dddddd;
 }
 </style>
 
-	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+  <link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
@@ -234,7 +234,6 @@ Manager Dashboard: (manager inspection)
 <input type="hidden" name="meta" id="meta" value="{{$meta->id}}">
 <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
 <input type="hidden" name="aID" id="aID{{$p->id}}_{{$section->id}}" value="{{$p->id}}">
-<!-- <input type="hidden" name="section_name{{$p->id}}_{{$section->id}}" id="section_name{{$p->id}}_{{$section->id}}"> -->
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -537,15 +536,5 @@ function setButtonFunction(id) {
          document.getElementById("data_display").style.display = "none";
   }
 </script>
-
-
-
-<!-- <script>
-function myFunction() {
-  var x = document.getElementById("mySelect").value;
-  alert(x);
-  document.getElementById("demox").innerHTML = "You selected: " + x;
-}
-</script> -->
 
     @endsection

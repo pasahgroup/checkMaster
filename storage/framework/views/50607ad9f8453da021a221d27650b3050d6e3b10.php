@@ -217,7 +217,7 @@ border-color: #dddddd;
            <?php endif; ?>
 
                <?php if($metadata->datatype=="radio"): ?>
-              <input type="<?php echo e($metadata->datatype); ?>" name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>[]" id="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>" value="<?php echo e($metadata->id); ?>" onclick="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($asset->asset_name); ?>','<?php echo e($metadata->answer); ?>')" onkeyup="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($asset->asset_name); ?>','<?php echo e($metadata->answer); ?>')"
+              <input type="<?php echo e($metadata->datatype); ?>" name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>_<?php echo e($qn->section); ?>[]" id="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>" value="<?php echo e($metadata->id); ?>" onclick="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($asset->asset_name); ?>','<?php echo e($metadata->answer); ?>')" onkeyup="myFunctionMaintenance('<?php echo e($metaname_id); ?>','<?php echo e($qn->id); ?>','<?php echo e($asset->asset_name); ?>','<?php echo e($metadata->answer); ?>')"
 
 
                  <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -235,7 +235,7 @@ border-color: #dddddd;
 
 
                 <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->id); ?>" style="display:none;">
-                  <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->id); ?>"  class="form-control" required>
+                  <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>_<?php echo e($qn->section); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->id); ?>"  class="form-control" required>
 
                    <?php if(isset($checkq->answer_label)): ?>
                    <?php if($checkq->answer_label !="no_value"): ?>
@@ -259,7 +259,7 @@ border-color: #dddddd;
 
 <?php if($metadata->answer=="Maintenance"): ?>
    <div id="popup<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>" style="display:none;">
-     <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>"  class="form-control" required>
+     <select name="idx<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>_<?php echo e($qn->section); ?>[]" id="maintenance<?php echo e($metaname_id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($asset->asset_name); ?>"  class="form-control" required>
         <option value="no_value">--level of maintenance--</option>
                    <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>

@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script> -->
-   <script src="../../js/webcam.js" type="text/javascript"></script>
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" /> -->
+
+   <!-- <script src="../../js/webcam.js" type="text/javascript"></script> -->
 
   <style>
 #bot {
@@ -30,7 +28,8 @@ border-color: #dddddd;
 }
 </style>
 
-	<link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+  <link href="../../../css/bootstrap335.css" rel="stylesheet" type="text/css" />
+
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
@@ -61,14 +60,13 @@ border-color: #dddddd;
                                   <div class="card-body">
 
     <!-- Old form was placed here -->
-Manager Dashboard:
+Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="card-body"  style="background-color:#f6f7f2 !important">
-<label class="text-dark" ><b>Manager Inspection:<i style="color:#f6f7f4">(Metaname:)</i></b>
-<!-- <p id="demo"></p> -->
+
   <script>
   // Set the date we're counting down to
-  var countDownDate = new Date("Jan 5, 20290 11:37:25").getTime();
+  var countDownDate = new Date("Jan 5, 2029000 11:37:25").getTime();
   //var countDownDate = new date("D m,Y H:i:s").getTime();
   // Update the count down every 1 second
   var x = setInterval(function() {
@@ -100,31 +98,80 @@ Manager Dashboard:
   </script>
 </label>
 
+<div class="row">
+  <div class="form-group">
+            <label class="text-dark">Metaname:: {{$metaname_id}}::{{$metanamess->metaname_name?? ''}}</label>
+              <select  name="metaname_model" id="metaname_model" onchange="setMetanameFunction({{$metaname_id}})" onkeyup="setMetanameFunction({{$metaname_id}})"  class="form-control" required>
+                          <option value="">--- Select section to apply ---</option>
+
+          @isset($metanamess->metaname_name)
+                          @if($metanamess->metaname_name !=NULL)
+                          <option value="{{$metanamess->id}}" selected>{{$metanamess->metaname_name}}</option>
+                          @endif
+                          @endisset
+
+                         @foreach($metanames as $metaname)
+                         <option value="{{$metaname->id}}">{{$metaname->metaname_name}}</option>
+                        @endforeach
+              </select>
+        </div>
+
+  <div class="form-group">
+       <form  method="GET"  action="{{ route('managers-inspection.index') }}" enctype="multipart/form-data">
+            @csrf
+           <input type="hidden" name="_method" value="GET">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+           <input type="hidden" name="metaname_id" id="metaname_id" value="{{$metaname_id}}">
+
+          <label class="text-dark">Asset name with issues</label>
+            <div class="form-group">
+                      <select name="asset_model" id="asset_model" onchange="setAssetFunction({{$assetID}})"  class="form-control" required>
+                          <option value="">--- Select Asset name to apply ---</option>
+
+                          @isset($propertyID->asset_name)
+                          @if($propertyID->asset_name !=NULL)
+                          <option value="{{$propertyID->id}}" selected>{{$propertyID->asset_name}}</option>
+                          @endif
+                          @endisset
+
+                         @foreach($assets as $asset)
+                         <option value="{{$asset->id}}">{{$asset->asset_name}}</option>
+                            @endforeach
+                     </select>
+                    <input type="hidden" name="assetID" id="assetID" value="{{$assetID}}" readonly>
+                    <input type="hidden" name="assetIDf" id="assetIDf" value="{{$assetIDf}}">
+    <br>
+    <button  class="btn-sm btn btn-primary float-right" type="submit" name="ff" value="{{$assetID}}" id="ff" onclick="setButtonFunction('{{$assetID}}')">View</button>
+    </div>
+    </form>
+    </div>
+  </div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
-  <!-- {{$metas}} -->
+
     @foreach ($metas as $meta)
-    <h6 class="panel-title"></h6>
+      @if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $meta->metaname_name==$metanamess->metaname_name)
     <div class="card" data-toggle="collapse" href="#meta_{{$meta->id}}" id="pid{{$meta->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$meta->id}})" onkeyup ="setPropertyFunction({{$meta->id}})" style="background-color:#718275 !important">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
     {{ $meta->metaname_name }}
   <!-- </div>
   <div class="col-lg-2 col-md-2 col-sm-2" style="color: #fff"> -->
-    <span class="float-right">Meta qns:{{$qnsCount->where('metaname_id',$meta->id)->count()}} | Progress: <b style="color:#9af219">{{number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1}}% </b></span>
+  <span class="float-right">Meta qns:{{$qnsCount->where('metaname_id',$meta->id)->count()}} | Progress: <b style="color:#9af219">{{number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1}}% </b></span>
   </div>
-    <!--  -->
     </div>
     </div>
-
+@endif
   @foreach ($pp as $p)
-  <!-- {{$pp}} -->
-    <div wire:ignore.self id="meta_{{$meta->id}}" class="panel-collapse collapse">
+ <div wire:ignore.self id="meta_{{$meta->id}}" class="panel-collapse collapse">
  <div class="row">
    <div class="col-md-12 col-sm-12">
     @if($p->metaname_id ==$meta->id)
       <div class="panel-heading">
         <!-- <h5 class="panel-title"></h5> -->
-         <div class="" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#718275 !important">
+         <div class="" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#63886c !important">
 <div class="row">
 @if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()>0)
 
@@ -142,9 +189,7 @@ Manager Dashboard:
 </div>
 @endif
 </div>
-
-    <!-- <input type="hidden" name="prop[]" value="{{$p->id}}"> -->
-       </div>
+ </div>
               <!-- Start of Asset loop -->
   <div wire:ignore.self id="collapse{{$p->id}}" class="panel-collapse collapse">
 
@@ -154,7 +199,7 @@ Manager Dashboard:
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel-heading">
 
-<div class="" data-toggle="collapse" href="#collapp{{$p->id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" onkeyup ="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" style="background-color:#dfd6c4 !important">
+<div class="" data-toggle="collapse" href="#collapp{{$p->id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction({{$p->id}},{{$section->id}} bb,'{{$section->section}}')" onkeyup ="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" style="background-color:#dfd6c4 !important;border-color:red;">
 
 
 @if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0)
@@ -175,13 +220,6 @@ Manager Dashboard:
 @endif
 </div>
 
-<!-- <div wire:ignore.self id="collapsexxx" class="panel-collapse collapse"> -->
-
-               <!-- <div class="form-group card">
-                 <div class="row">
-
-    </div>
-  </div> -->
   <!-- <div class="" data-toggle="collapse" href="#collapccc" id="" class="panel-group btn-sm" style="background-color:#718275 !important"> -->
 <div wire:ignore.self id="collapp{{$p->id}}_{{$section->section}}" class="panel-collapse collapse">
 <!-- <div wire:ignore.self id="collapse{{$p->id}}" class="panel-collapse collapse"> -->
@@ -196,11 +234,9 @@ Manager Dashboard:
 <input type="hidden" name="meta" id="meta" value="{{$meta->id}}">
 <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
 <input type="hidden" name="aID" id="aID{{$p->id}}_{{$section->id}}" value="{{$p->id}}">
-<!-- <input type="hidden" name="section_name{{$p->id}}_{{$section->id}}" id="section_name{{$p->id}}_{{$section->id}}"> -->
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-
        @foreach ($qns as $qn )
        @if($p->metaname_id ==$qn->metaname_id && $qn->section==$section->section && $qn->asset_id==$p->id)
        <!-- <input type="text" name="aID" id="aID{{$qn->id}}" value="{{$qn->id}}"> -->
@@ -223,7 +259,6 @@ Manager Dashboard:
  @endif
  >
 
-
   Answer: {{$qn->answer}}({{$qn->answer_label}}):{{$qn->opt_answer_id}}   |   Proposed answer:({{$qn->description}})
   <select name="idx{{$p->id}}_{{$qn->id}}_{{$meta->id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$meta->id}}[]" id="indicator_id"  onclick="setQnFunction({{$p->id}},{{$qn->id}})" onkeyup="setQnFunction({{$p->id}},{{$qn->id}})" class="form-control">
     <option value="">-- Action --</option>
@@ -235,7 +270,7 @@ Manager Dashboard:
 </div>
 
       <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx"><a data-toggle="collapse" href="#collapsee{{$p->id}}{{$qn->id}}">Description if any</a>
+        <h4 class="panel-title"> <div class="card"><a data-toggle="collapse" href="#collapsee{{$p->id}}{{$qn->id}}">Description if any</a>
        </div>
       </div>
       <div id="collapsee{{$p->id}}{{$qn->id}}" class="panel-collapse collapse">
@@ -252,7 +287,7 @@ Manager Dashboard:
           </div>
 
     <div class="panel-heading">
-        <h4 class="panel-title"> <div class="cardx">   <a data-toggle="collapse" href="#collap{{$p->id}}{{$qn->id}}">Photo if any</a>
+        <h4 class="panel-title"> <div class="card">   <a data-toggle="collapse" href="#collap{{$p->id}}{{$qn->id}}">Photo if any</a>
        </div>
     </div>
 
@@ -270,9 +305,6 @@ Manager Dashboard:
 
                                 </div>
                                 </div>
-<div class="col-lg-6 col-md-6 col-sm-6">
-
-</div>
 </div>
 
       </div>
@@ -297,7 +329,7 @@ Manager Dashboard:
 <div class="row">
  <div class="col-md-11 col-sm-11">
  <div class="wawa-bgcolor">
-    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$meta->id}}">Save{{$p->id}}_{{$section->id}}_{{$meta->id}}</button>
+    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$meta->id}}">Save</button>
  </div>
 </div>
 <hr>
@@ -318,8 +350,6 @@ Manager Dashboard:
 
 </div>
 <!-- End of asset loop -->
-
-
  @endif
 </div>
 </div>
@@ -327,9 +357,11 @@ Manager Dashboard:
        @endforeach
          @endforeach
              </div>
+              </div>
+                </div>
 <hr/>
              <button class="btn-sm btn btn-dark float-right" role="button" name="email_send" value="email_send">Finish</button>
-             <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}">Save{{$p->id}}_{{$section->id}}</button>  -->
+             {{-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}">Save{{$p->id}}_{{$section->id}}</button>  --}}
 
            </div>
            </div>
@@ -351,6 +383,15 @@ $('.qnNo').materialSelect();
 });
 </script>
 
+
+
+
+<!-- <script type="text/javascript" src="../js/activitydata.js"></script> -->
+<!-- <script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery311.min.js"></script>
+
+ -->
+
 <script>
 const ages = [3, 10, 18,42, 20];
 
@@ -362,6 +403,8 @@ function checkAge(age) {
 </script>
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
+
+
 
 <script type="text/javascript">
   function setSectionFunction(aid,sid,ssn) {
@@ -409,9 +452,7 @@ const fruits = new Array('Apple', 'Banana');
      }
 
 function myFunction(id) {
-
  var v1=document.getElementById(status).value;
-
 
   var urv="ur_"+(id);
     var upv="up_"+(id);
@@ -424,8 +465,6 @@ function myFunction(id) {
      var up=document.getElementById(upv).value;
      var unitPrice=document.getElementById(aprice).value;
     var StoreQty=document.getElementById(antQty).value;
-
-
 
   var sum_amount = 0;
   $('#'+urv+'').each(function(){
@@ -465,4 +504,37 @@ var my_camera="my_camera"+(dashcanten);
         Webcam.attach('#'+my_camera+'');
     }
 </script>
+
+<script type="text/javascript">
+function setAssetFunction(id) {
+  var elementA = document.getElementById("asset_model").value;
+  var elementOld = document.getElementById("assetIDf").value;
+  //alert(elementA);
+  //   alert(elementOld);
+$('#assetID').val(elementA);
+
+if(elementA==elementOld){
+        document.getElementById("data_display").style.display = "block";
+}
+else{document.getElementById("data_display").style.display = "none";}
+}
+
+function setButtonFunction(id) {
+  var elementB = document.getElementById("ff").value;
+  document.getElementById("data_display").style.display = "block";
+//$('#assetID').val(element);
+}
+</script>
+<!-- <script type="text/javascript" src="../js/activityManagerdata.js"></script> -->
+<script type="text/javascript" src="../../js/jquery.js"></script>
+
+<script type="text/javascript">
+  function setMetanameFunction(id) {
+    //alert(id);
+    var elementM = document.getElementById("metaname_model").value;
+ $('#metaname_id').val(elementM);
+         document.getElementById("data_display").style.display = "none";
+  }
+</script>
+
     @endsection

@@ -216,7 +216,7 @@ border-color: #dddddd;
            @endif
 
                @if($metadata->datatype=="radio")
-              <input type="{{$metadata->datatype}}" name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')"
+              <input type="{{$metadata->datatype}}" name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}_{{$qn->section}}[]" id="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}" value="{{$metadata->id}}" onclick="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')" onkeyup="myFunctionMaintenance('{{$metaname_id}}','{{$qn->id}}','{{$asset->asset_name}}','{{$metadata->answer}}')"
 
 
                  @foreach ($checkQns as $checkq)
@@ -234,7 +234,7 @@ border-color: #dddddd;
 
 
                 <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->id}}" style="display:none;">
-                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->id}}"  class="form-control" required>
+                  <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}_{{$qn->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->id}}"  class="form-control" required>
 
                    @isset($checkq->answer_label)
                    @if($checkq->answer_label !="no_value")
@@ -258,7 +258,7 @@ border-color: #dddddd;
 
 @if($metadata->answer=="Maintenance")
    <div id="popup{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}" style="display:none;">
-     <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}"  class="form-control" required>
+     <select name="idx{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}_{{$qn->section}}[]" id="maintenance{{$metaname_id}}_{{$qn->id}}_{{$metaname_id}}_{{$asset->asset_name}}"  class="form-control" required>
         <option value="no_value">--level of maintenance--</option>
                    <option style="background-color:yellow" value="Maintenance-low">Maintenance-low</option>
                    <option style="background-color:salmon" value="Maintenance-medium">Maintenance-medium</option>

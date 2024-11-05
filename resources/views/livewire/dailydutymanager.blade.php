@@ -160,10 +160,8 @@ border-color: #dddddd;
     </div>
 
 </div>
+ 
  <div class="row" id="data_display">
-
-<!-- {{ print_r($qns, true)}}  -->
-    
     @isset($assets)
     @if(!empty($selectedOption))
        @foreach ($sections as $section)
@@ -389,28 +387,14 @@ border-color: #dddddd;
       </div>
 
 
-<!-- set form to send Email here -->
-<!-- <x-jet-button type="submit" class="btn-sm btn btn-secondary float-right" name="email_send" value="email_send">
-   {{ __('Finish') }}
-</x-jet-button> -->
-
-  <!-- <button class="btn-sm btn btn-dark float-right" type="submit" role="button" name="email_send" value="email_send">Finish</button> -->
-  <!-- <button  class="btn-sm btn btn-secondary float-right" type="submit" name="email_send" value="email_send">Finish2</button> -->
-
-
            </div>
            </div>
-   <!-- <div class="row">
-     <div class="col-md-6 col-sm-6">
-     </div>
-
-</div> -->
+  
+<br>
 <div class="row">
- <div class="col-md-12 col-sm-12 wawa-bgcolor">
-              <a href="/email-send/{id}" class="btn btn-primary float-right" role="button">Finish</a>
-
+ <div class="col-md-11 col-sm-11">
+              <a href="/email-send/{id}" class="btn-sm btn btn-dark float-right" role="button">Finish</a>
  </div>
-</div>
 
       @endisset
                </div>

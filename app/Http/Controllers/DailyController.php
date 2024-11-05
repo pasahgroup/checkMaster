@@ -214,9 +214,6 @@ class DailyController extends Controller
 
 //dd($qnsAppliedPerc);
 
-//dd($qnsAppliedPerc->where('metaname_id',1)->where('section',"General")->where('department_id',5)->count());
-
-//$qnsAppliedPerc->where('metaname_id',$chkp->metaname_id)->where('section',$section->section)->count()
 
     if(request('email_send')){
     $input =app_path().'/reports/pieChart.jrxml';
@@ -340,7 +337,8 @@ class DailyController extends Controller
    $section = request($section_name);
    $keyValue=$save[0].'_'.$save[1];
  //$data = $request->except(['_token','_method','qnID','qnAID','aID','col','prop']);
- //dd($asset_id);
+ //dd($section);
+//dd($section_id);
  // $query = $request->query();
  //$input = $request->all();
  $input = $request->except(['_token','_method','qnID','qnAID','aID','col','prop',$section_name]);
@@ -349,7 +347,7 @@ class DailyController extends Controller
 //  $arrayDataf=$arrayData;
 //  $arrayPhoto=$arrayData;
 
-//dd($arrayData);
+
 
 foreach ($arrayData as $key=>$val) {
 
@@ -383,7 +381,8 @@ if($nameStr===$idxKey)
   if(count($value)>1){
 
  if($value[1]!=null){
-//dd($data[3]);
+//dd($data[6]);
+
 
 $insetqnsAns = answer::UpdateOrCreate([
   'property_id'=>$property_id,
@@ -391,7 +390,7 @@ $insetqnsAns = answer::UpdateOrCreate([
   'asset_id'=>$asset_id,
   'indicator_id'=>$data[1],
 
-  'section'=>$data[3],
+  'section'=>$data[6],
   'datex'=>$current_date,
 ],[
   'opt_answer_id'=>$value[0],
@@ -417,7 +416,7 @@ $answerTableUpdate2=DB::statement('update answers a set a.manager_checklist="Act
       'asset_id'=>$asset_id,
       'indicator_id'=>$data[1],
 
-      'section'=>$data[3],
+      'section'=>$data[6],
       'datex'=>$current_date,
     ],[
       'opt_answer_id'=>$value[0],
@@ -445,7 +444,7 @@ $updateqnsF = answer::where('property_id',$property_id)
 ->where('metaname_id',request('metaname_id'))
  ->where('asset_id',$asset_id)
    ->where('indicator_id',$data[1])
-    ->where('section',$data[3])
+    ->where('section',$data[6])
    ->where('datex',$current_date)
    ->where('indicator_id',$data[1])
 ->update([
@@ -496,7 +495,7 @@ $constraint->aspectRatio();
                       ->where('metaname_id',request('metaname_id'))
                        ->where('asset_id',$asset_id)
                          ->where('indicator_id',$data[1])
-                          ->where('section',$data[3])
+                          ->where('section',$data[6])
                          ->where('datex',$current_date)
                          ->where('indicator_id',$data[1])
                       ->update([

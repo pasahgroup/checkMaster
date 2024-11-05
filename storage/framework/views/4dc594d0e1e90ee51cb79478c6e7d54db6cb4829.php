@@ -1,10 +1,4 @@
 <?php $__env->startSection('content'); ?>
-<style>
-table, th, td {
-  border: 0px solid green;
-  border-collapse: collapse;
-}
-</style>
 
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
@@ -12,10 +6,9 @@ table, th, td {
     <div class="subheader py-2 py-lg-6 subheader-solid">
         <div class="container-fluid">
             <nav aria-label="breadcrumb">
-
                 <ol class="breadcrumb bg-white mb-0 px-0 py-2">
 				<li class="breadcrumb-item " aria-current="page"><a href="/dash-property/{id}" role="button" class="btn-sm btn-primary"><<</a></li>
-                    <li class="breadcrumb-item " aria-current="page"><?php echo e($property->property_name?? ''); ?></li>
+                    <li class="breadcrumb-item " aria-current="page"><?php echo e($property->property_name); ?></li>
                     <li class="breadcrumb-item active" aria-current="page"><strong><?php echo e($reportTime); ?></strong></li>
                 </ol>
             </nav>
@@ -31,7 +24,7 @@ table, th, td {
                     <div class="card card-custom gutter-b bg-transparent shadow-none border-0" >
                         <div class="card-header align-items-center   border-bottom-dark px-0">
                             <div class="card-title mb-0">
-                                <h5 class="card-label mb-0 font-weight-bold text-body"><?php echo e($property->property_name?? ''); ?>
+                                <h5 class="card-label mb-0 font-weight-bold text-body"><?php echo e($property->property_name); ?>
 
                                 </h5>
                             </div>
@@ -58,15 +51,19 @@ table, th, td {
 
                             </div>
                         </div>
+
                     </div>
+
+
                 </div>
             </div>
             <div class="row">
+
               <div class="col-12 col-md-12">
                  <div class="card card-custom gutter-b bg-white border-0" >
 
                      <div class="card-body">
-                         <form method="GET" action="<?php echo e(route('daily-reportx',[$property_id,$status])); ?>">
+                         <form method="GET" action="<?php echo e(route('monthly-reportx',[$property_id,$status])); ?>">
                              <div class="form-group row justify-content-center mb-0">
 
                                  <div class="col-md-3">
@@ -144,11 +141,11 @@ table, th, td {
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
                                        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.button','data' => ['class' => 'button ml-4 btn-primary','name' => 'print','value' => 'print']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.button','data' => ['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print']]); ?>
 <?php $component->withName('jet-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['class' => 'button ml-4 btn-primary','name' => 'print','value' => 'print']); ?>
+<?php $component->withAttributes(['class' => 'ml-4 btn-primary','name' => 'print','value' => 'print']); ?>
                                            <?php echo e(__('Print')); ?>
 
                                         <?php echo $__env->renderComponent(); ?>
@@ -157,18 +154,17 @@ table, th, td {
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-                                  </div>
+                                       </div>
                                  </div>
                              </div>
                            </form>
                      </div>
                  </div>
              </div>
-
                 <div class="col-lg-12 col-xl-12">
                     <div class="card card-custom gutter-b bg-white border-0" >
                         <div class="card-body" >
-                            <div>
+                            <div >
                                 <div class=" table-responsive" id="printableTable">
                                     <table id="orderTable" class="display" style="width:100%">
 
@@ -179,7 +175,7 @@ table, th, td {
                                             <th>Asset name</th>
                                             <th>Questions</th>
                                             <th>Answer</th>
-                                            <th>Status</th>
+                                            <th>status</th>
                                             <th>Description</th>
                                             <th>Posted by</th>
                                             <th>Date</th>
@@ -187,25 +183,25 @@ table, th, td {
                                         </tr>
                                     </thead>
                                     <tbody class="kt-table-tbody text-dark">
-                                        <?php $__currentLoopData = $reportDailyData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dailyData): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $reportMonthlyData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $monthlyData): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr class="kt-table-row kt-table-row-level-0">
-                                            <td><?php echo e($dailyData->id); ?></td>
-                                            <td><?php echo e($dailyData->metaname_name); ?></td>
-                                            <td><?php echo e($dailyData->asset_name); ?></td>
-                                            <td><?php echo e($dailyData->qns); ?></td>
-                                            <td><?php echo e($dailyData->answer); ?></td>
+                                            <td><?php echo e($monthlyData->id); ?></td>
+                                            <td><?php echo e($monthlyData->metaname_name); ?></td>
+                                            <td><?php echo e($monthlyData->asset_name); ?></td>
+                                            <td><?php echo e($monthlyData->qns); ?></td>
+                                            <td><?php echo e($monthlyData->answer); ?></td>
+                                                <td <?php if($monthlyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> 
 
-                                            <td <?php if($dailyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-low'): ?> style="background-color:#efca1f;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-medium'): ?> style="background-color:#db6515;"<?php endif; ?> <?php if($dailyData->answer_label ==='Maintenance-high'): ?> style="background-color:#db5a5a;"<?php endif; ?> 
 
-                                                <?php if($dailyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($dailyData->answer); ?><?php if($dailyData->answer_label !='no_value'): ?> (<?php echo e($dailyData->answer_label); ?>) <?php endif; ?></td>
-
-                                           <!-- <td><div class="logo mr-auto"><img src="<?php echo e(URL::asset('storage/img/'.$dailyData->photo)); ?>" width="60" height="40"></div></td> -->
-                                           <td><?php echo e($dailyData->description); ?></td>
-                                            <td><?php echo e($dailyData->name); ?></td>
-                                            <td><?php echo e(date("d-M-Y", strtotime($dailyData->datex))); ?></td>
+ <?php if($monthlyData->answer_label ==='Maintenance-low'): ?> style="background-color:#efca1f;"<?php endif; ?> <?php if($monthlyData->answer_label ==='Maintenance-medium'): ?> style="background-color:#db6515;"<?php endif; ?> <?php if($monthlyData->answer_label ==='Maintenance-high'): ?> style="background-color:#db5a5a;"<?php endif; ?>
+                                                 <?php if($monthlyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($monthlyData->answer); ?><?php if($monthlyData->answer_label !='no_value'): ?> (<?php echo e($monthlyData->answer_label); ?>) <?php endif; ?></td>
+   <!-- <td><div class="logo mr-auto"><img src="<?php echo e(URL::asset('/storage/img/'.$monthlyData->photo)); ?>" width="60" height="40"></div></td> -->
+   <td><?php echo e($monthlyData->description); ?></td>                             
+   
+   <td><?php echo e($monthlyData->name); ?></td>
+                                            <td><?php echo e(date("d-M-Y", strtotime($monthlyData->datex))); ?></td>
                                             <td>
-
-                                                <form method="post" action="<?php echo e(route('report-view-print',[$dailyData->id,$dailyData->property_id])); ?>">
+                                                <form method="post" action="<?php echo e(route('report-view-print',[$monthlyData->id,$monthlyData->property_id])); ?>">
                                                 <?php echo csrf_field(); ?>
                                                 <input type="hidden" name="_method" value="post">
                                                 <input type="hidden" name="uri" value="<?php echo e($_SERVER['REQUEST_URI']); ?>">
@@ -235,7 +231,11 @@ table, th, td {
         </div>
 
     </div>
+
 </div>
+
+
+
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\checkmaster\resources\views/reports/daily-report.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\checkmaster\resources\views/reports/monthly-report.blade.php ENDPATH**/ ?>

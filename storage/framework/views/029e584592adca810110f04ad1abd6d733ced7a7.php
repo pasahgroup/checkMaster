@@ -194,7 +194,7 @@
                                               <td <?php if($weeklyData->answer_classification ==='Bad'): ?> style="background-color:yellowGreen;"<?php endif; ?> 
   <?php if($weeklyData->answer_label ==='Maintenance-low'): ?> style="background-color:#efca1f;"<?php endif; ?> <?php if($weeklyData->answer_label ==='Maintenance-medium'): ?> style="background-color:#db6515;"<?php endif; ?> <?php if($weeklyData->answer_label ==='Maintenance-high'): ?> style="background-color:#db5a5a;"<?php endif; ?>
 
-                                                <?php if($weeklyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($weeklyData->answer_classification); ?>:<?php if($weeklyData->answer_label !='no_value'): ?> (<?php echo e($weeklyData->answer_label); ?>) <?php endif; ?></td>
+                                                <?php if($weeklyData->answer_classification ==='Good'): ?> style="background-color:green;"<?php endif; ?>><?php echo e($weeklyData->answer); ?><?php if($weeklyData->answer_label !='no_value'): ?> (<?php echo e($weeklyData->answer_label); ?>) <?php endif; ?></td>
                                             <!-- <td><div class="logo mr-auto"><img src="<?php echo e(URL::asset('/storage/img/'.$weeklyData->photo)); ?>" width="60" height="40"></div></td> -->
                                             <td><?php echo e($weeklyData->description); ?></td>
                                             <td><?php echo e($weeklyData->name); ?></td>

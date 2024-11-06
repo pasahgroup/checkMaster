@@ -88,6 +88,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="kt-table-tbody text-dark">
+                                                                    @isset($users)
                                                                     @foreach ($users as $user)
                                                                     <tr class="kt-table-row kt-table-row-level-0">
                                                                         <td >{{ $user->id }}</td>
@@ -140,7 +141,9 @@
                         <label class="text-dark" >Edit Property/Accommodation</label>
                         <select name="property" id="property" class="form-control">
 
-                                        <option value="{{$user->property_id}}">  @foreach ($properties as $property)
+                                        <option value="{{$user->property_id}}">  
+                                            @isset($properties)
+                                            @foreach ($properties as $property)
                                                                         @if($user->property_id==$property->id)
                                                                        {{ $property->property_name }}
                                                                         @endif
@@ -149,6 +152,7 @@
                                           <option value="{{$property->id}}">{{$property->property_name}}</option>
 
                                        @endforeach
+                                       @endisset
                         </select>
                     </div>
 
@@ -191,8 +195,8 @@
 
                                                                             <div class="card-toolbar text-right">
                                                                                 <button class="btn p-0 shadow-none" type="button" id="dropdowneditButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                    <span class="svg-icon">
-                                                                                        <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-three-dots text-body" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <span class="svg-icon">
+                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-three-dots text-body" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                                                             <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
                                                                                         </svg>
                                                                                     </span>
@@ -211,7 +215,7 @@
 
                                                                     </tr>
                                                                     @endforeach
-
+                                                                @endisset
                                                                 </tbody>
                                                             </table>
                                                         </div>

@@ -1,1 +1,0 @@
-**Mantenha seu código limpo.**

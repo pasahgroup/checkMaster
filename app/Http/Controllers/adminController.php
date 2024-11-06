@@ -189,8 +189,6 @@ $properties=property::get();
 if($user->hasRole('Manager')){
   $current_date = date('Y-m-d');
 
-//dd($current_date);
-
   $properties=property::get();
   $reportDailyData=DB::select('select a.property_id,a.metaname_id,m.metaname_name,a.indicator_id,a.asset_id, a.opt_answer_id,a.answer,o.answer_classification from answers a,optional_answers o,metanames m where a.indicator_id=o.indicator_id and a.metaname_id=m.id and a.opt_answer_id=o.id and a.datex="'.$current_date.'"');
    $dataDaily = collect($reportDailyData);

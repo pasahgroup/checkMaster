@@ -50,7 +50,7 @@ class adminController extends Controller
  public function index()
     {
 //dd(request()->getHost());
-      //dd(request()->segments());
+      //dd(request('code'));
 
        if(auth())
        {
@@ -162,7 +162,7 @@ $properties=property::get();
     return redirect('dash-property/{id}');
   }
 
-//dd('ddd');
+
        // sales users
         if($user->hasRole('GeneralManager|HouseKeeper|Maintenancier|MaintenanceReport')){
           $current_date = date('Y-m-d');

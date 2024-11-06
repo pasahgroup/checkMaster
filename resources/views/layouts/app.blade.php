@@ -354,6 +354,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<strong>Well done!</strong> {{ $message }}
 </div>
 @endif
+
 @if($message= Session::get('delete'))
 <div class="alert alert-danger" role="alert">
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
@@ -362,13 +363,13 @@ License: You must have a valid license purchased only from themeforest(the above
 </div>
 @endif
 @if($message= Session::get('error'))
-
 <div class="alert alert-danger" role="alert">
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
 	<span aria-hidden="true">&times;</span></button>
 	<strong>Sorry!</strong> {{ $message }}
 </div>
 @endif
+
 {{-- Validation error message --}}
 @if ($errors->any())
 <div class="alert alert-danger">

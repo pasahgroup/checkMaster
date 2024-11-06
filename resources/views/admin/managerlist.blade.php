@@ -150,35 +150,20 @@ Manager Dashboard: (manager inspection)
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
-
-    @foreach ($metas as $meta)
-      @if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $meta->metaname_name==$metanamess->metaname_name)
-    <div class="card" data-toggle="collapse" href="#meta_{{$meta->id}}" id="pid{{$meta->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$meta->id}})" onkeyup ="setPropertyFunction({{$meta->id}})" style="background-color:#718275 !important">
-    <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
-    {{ $meta->metaname_name }}
-  <!-- </div>
-  <div class="col-lg-2 col-md-2 col-sm-2" style="color: #fff"> -->
-  <span class="float-right">Meta qns:{{$qnsCount->where('metaname_id',$meta->id)->count()}} | Progress: <b style="color:#9af219">{{number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1}}% </b></span>
-  </div>
-    </div>
-    </div>
-@endif
   @foreach ($pp as $p)
- <div wire:ignore.self id="meta_{{$meta->id}}" class="panel-collapse collapse">
  <div class="row">
    <div class="col-md-12 col-sm-12">
-    @if($p->metaname_id ==$meta->id)
+    @if($p->metaname_id ==$metaname_id)
       <div class="panel-heading">
         <!-- <h5 class="panel-title"></h5> -->
          <div class="" data-toggle="collapse" href="#collapse{{$p->id}}" id="pid{{$p->id}}" class="panel-group btn-sm" onclick="setPropertyFunction({{$p->id}})" onkeyup ="setPropertyFunction({{$p->id}})" style="background-color:#63886c !important">
 <div class="row">
-@if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()>0)
+@if($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->count()>0)
 
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
       {{$p->asset_name}}
 
-<span class="float-right">Asset qns:{{$qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()}} |</span>
+<span class="float-right">Asset qns:{{$qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->count()}} |</span>
 <span class="float-right">
 @foreach ($checkQnsProp as $chkp)
 @if($p->id ==$chkp->asset_id)
@@ -202,12 +187,12 @@ Manager Dashboard: (manager inspection)
 <div class="" data-toggle="collapse" href="#collapp{{$p->id}}_{{$section->section}}" id="" class="panel-group btn-sm" onclick="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" onkeyup ="setSectionFunction({{$p->id}},{{$section->id}},'{{$section->section}}')" style="background-color:#dfd6c4 !important; border: 1px solid yellowgreen;">
 
 
-@if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0)
+@if($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0)
                 <div class="row">
                   <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
- <span style="background-color:#">{{$section->section}} fgf</span>
+ <span style="background-color:#">{{$section->section}}</span>
 
-<span class="float-right">Section qns:{{$qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()}} |</span>
+<span class="float-right">Section qns:{{$qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->where('section',$section->section)->count()}} |</span>
  <span class="float-right">
  @foreach ($checkQnsProp as $chkp)
  @if($p->id ==$chkp->asset_id)
@@ -231,7 +216,7 @@ Manager Dashboard: (manager inspection)
 <input type="hidden" name="property_id" id="property_id" value="{{$property_id}}">
 
 <input type="hidden" name="qnID" id="qnID" value="">
-<input type="hidden" name="meta" id="meta" value="{{$meta->id}}">
+<input type="hidden" name="meta" id="meta" value="{{$asset->id}}">
 <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
 <input type="hidden" name="aID" id="aID{{$p->id}}_{{$section->id}}" value="{{$p->id}}">
 
@@ -260,7 +245,7 @@ Manager Dashboard: (manager inspection)
  >
 
   Answer: {{$qn->answer}}({{$qn->answer_label}}):{{$qn->opt_answer_id}}   |   Proposed answer:({{$qn->description}})
-  <select name="idx{{$p->id}}_{{$qn->id}}_{{$meta->id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$meta->id}}[]" id="indicator_id"  onclick="setQnFunction({{$p->id}},{{$qn->id}})" onkeyup="setQnFunction({{$p->id}},{{$qn->id}})" class="form-control">
+  <select name="idx{{$p->id}}_{{$qn->id}}_{{$metaname_id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$metaname_id}}[]" id="indicator_id"  onclick="setQnFunction({{$p->id}},{{$qn->id}})" onkeyup="setQnFunction({{$p->id}},{{$qn->id}})" class="form-control">
     <option value="">-- Action --</option>
     <option>Cleared</option>
     <option>Not cleared</option>
@@ -275,7 +260,7 @@ Manager Dashboard: (manager inspection)
       </div>
       <div id="collapsee{{$p->id}}{{$qn->id}}" class="panel-collapse collapse">
 
-  <textarea rows="4" cols="40" id="desc" name="desc{{$p->id}}_{{$qn->id}}_{{$meta->id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$meta->id}}[]" placeholder="---enter description if any---" class="form-control" style="white-space: normal;overflow:hidden" maxlength="680">
+  <textarea rows="4" cols="40" id="desc" name="desc{{$p->id}}_{{$qn->id}}_{{$metaname_id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$metaname_id}}[]" placeholder="---enter description if any---" class="form-control" style="white-space: normal;overflow:hidden" maxlength="680">
       @foreach ($checkQns as $checkq)
   @if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$p->property_id)
    @if($checkq->description !=null)
@@ -300,7 +285,7 @@ Manager Dashboard: (manager inspection)
                             <!-- start webcam -->
 <div id="my_camera{{$p->id}}_{{$qn->id}}"></div>
 <br/>
-<input type="file" name="attachment{{$p->id}}_{{$qn->id}}_{{$meta->id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$meta->id}}[]" accept="image/*" capture="camera">
+<input type="file" name="attachment{{$p->id}}_{{$qn->id}}_{{$metaname_id}}_{{$qn->opt_answer_id}}_{{$qn->indicator_id}}_{{$p->id}}_{{$section->id}}_{{$metaname_id}}[]" accept="image/*" capture="camera">
 
 
                                 </div>
@@ -329,7 +314,7 @@ Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="col-md-11 col-sm-11">
  <div class="wawa-bgcolor">
-    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$meta->id}}">Save</button>
+    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="{{$p->id}}_{{$section->id}}_{{$metaname_id}}">Save</button>
  </div>
 </div>
 <hr>
@@ -353,8 +338,7 @@ Manager Dashboard: (manager inspection)
  @endif
 </div>
 </div>
-</div>
-       @endforeach
+
          @endforeach
              </div>
               </div>

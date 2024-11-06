@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('content'); ?>
 
    <!-- <script src="../../js/webcam.js" type="text/javascript"></script> -->
@@ -149,37 +150,21 @@ Manager Dashboard: (manager inspection)
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="" id="data_display">
   <div class="panel panel-default" style="background-color:#fff !important">
-
-    <?php $__currentLoopData = $metas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meta): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php if($qnsCount->where('metaname_id',$meta->id)->count()>0 && $meta->metaname_name==$metanamess->metaname_name): ?>
-    <div class="card" data-toggle="collapse" href="#meta_<?php echo e($meta->id); ?>" id="pid<?php echo e($meta->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($meta->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($meta->id); ?>)" style="background-color:#718275 !important">
-    <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
-    <?php echo e($meta->metaname_name); ?>
-
-  <!-- </div>
-  <div class="col-lg-2 col-md-2 col-sm-2" style="color: #fff"> -->
-  <span class="float-right">Meta qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->count()); ?> | Progress: <b style="color:#9af219"><?php echo e(number_format($answerCount->where('metaname_name',$meta->metaname_name)->count()/$totalqns->where('metaname_name',$meta->metaname_name)->count()*100),1); ?>% </b></span>
-  </div>
-    </div>
-    </div>
-<?php endif; ?>
   <?php $__currentLoopData = $pp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
- <div wire:ignore.self id="meta_<?php echo e($meta->id); ?>" class="panel-collapse collapse">
  <div class="row">
    <div class="col-md-12 col-sm-12">
-    <?php if($p->metaname_id ==$meta->id): ?>
+    <?php if($p->metaname_id ==$metaname_id): ?>
       <div class="panel-heading">
         <!-- <h5 class="panel-title"></h5> -->
          <div class="" data-toggle="collapse" href="#collapse<?php echo e($p->id); ?>" id="pid<?php echo e($p->id); ?>" class="panel-group btn-sm" onclick="setPropertyFunction(<?php echo e($p->id); ?>)" onkeyup ="setPropertyFunction(<?php echo e($p->id); ?>)" style="background-color:#63886c !important">
 <div class="row">
-<?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()>0): ?>
+<?php if($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->count()>0): ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12" style="color: #fff">
       <?php echo e($p->asset_name); ?>
 
 
-<span class="float-right">Asset qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->count()); ?> |</span>
+<span class="float-right">Asset qns:<?php echo e($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->count()); ?> |</span>
 <span class="float-right">
 <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <?php if($p->id ==$chkp->asset_id): ?>
@@ -203,12 +188,12 @@ Manager Dashboard: (manager inspection)
 <div class="" data-toggle="collapse" href="#collapp<?php echo e($p->id); ?>_<?php echo e($section->section); ?>" id="" class="panel-group btn-sm" onclick="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" onkeyup ="setSectionFunction(<?php echo e($p->id); ?>,<?php echo e($section->id); ?>,'<?php echo e($section->section); ?>')" style="background-color:#dfd6c4 !important; border: 1px solid yellowgreen;">
 
 
-<?php if($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0): ?>
+<?php if($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->where('section',$section->section)->count()>0): ?>
                 <div class="row">
                   <div class="col-lg-10 col-md-10 col-sm-10" style="color: #black">
- <span style="background-color:#"><?php echo e($section->section); ?> fgf</span>
+ <span style="background-color:#"><?php echo e($section->section); ?></span>
 
-<span class="float-right">Section qns:<?php echo e($qnsCount->where('metaname_id',$meta->id)->where('asset_id',$p->id)->where('section',$section->section)->count()); ?> |</span>
+<span class="float-right">Section qns:<?php echo e($qnsCount->where('metaname_id',$metaname_id)->where('asset_id',$p->id)->where('section',$section->section)->count()); ?> |</span>
  <span class="float-right">
  <?php $__currentLoopData = $checkQnsProp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chkp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
  <?php if($p->id ==$chkp->asset_id): ?>
@@ -232,7 +217,7 @@ Manager Dashboard: (manager inspection)
 <input type="hidden" name="property_id" id="property_id" value="<?php echo e($property_id); ?>">
 
 <input type="hidden" name="qnID" id="qnID" value="">
-<input type="hidden" name="meta" id="meta" value="<?php echo e($meta->id); ?>">
+<input type="hidden" name="meta" id="meta" value="<?php echo e($asset->id); ?>">
 <!-- <input type="hidden" name="qnAID[]" id="qnAID" value=""> -->
 <input type="hidden" name="aID" id="aID<?php echo e($p->id); ?>_<?php echo e($section->id); ?>" value="<?php echo e($p->id); ?>">
 
@@ -261,7 +246,7 @@ Manager Dashboard: (manager inspection)
  >
 
   Answer: <?php echo e($qn->answer); ?>(<?php echo e($qn->answer_label); ?>):<?php echo e($qn->opt_answer_id); ?>   |   Proposed answer:(<?php echo e($qn->description); ?>)
-  <select name="idx<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($meta->id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>[]" id="indicator_id"  onclick="setQnFunction(<?php echo e($p->id); ?>,<?php echo e($qn->id); ?>)" onkeyup="setQnFunction(<?php echo e($p->id); ?>,<?php echo e($qn->id); ?>)" class="form-control">
+  <select name="idx<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($metaname_id); ?>[]" id="indicator_id"  onclick="setQnFunction(<?php echo e($p->id); ?>,<?php echo e($qn->id); ?>)" onkeyup="setQnFunction(<?php echo e($p->id); ?>,<?php echo e($qn->id); ?>)" class="form-control">
     <option value="">-- Action --</option>
     <option>Cleared</option>
     <option>Not cleared</option>
@@ -276,7 +261,7 @@ Manager Dashboard: (manager inspection)
       </div>
       <div id="collapsee<?php echo e($p->id); ?><?php echo e($qn->id); ?>" class="panel-collapse collapse">
 
-  <textarea rows="4" cols="40" id="desc" name="desc<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($meta->id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>[]" placeholder="---enter description if any---" class="form-control" style="white-space: normal;overflow:hidden" maxlength="680">
+  <textarea rows="4" cols="40" id="desc" name="desc<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($metaname_id); ?>[]" placeholder="---enter description if any---" class="form-control" style="white-space: normal;overflow:hidden" maxlength="680">
       <?php $__currentLoopData = $checkQns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $checkq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <?php if($p->id ==$checkq->asset_id && $checkq->indicator_id ==$qn->id && $checkq->property_id ==$p->property_id): ?>
    <?php if($checkq->description !=null): ?>
@@ -302,7 +287,7 @@ Manager Dashboard: (manager inspection)
                             <!-- start webcam -->
 <div id="my_camera<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>"></div>
 <br/>
-<input type="file" name="attachment<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($meta->id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>[]" accept="image/*" capture="camera">
+<input type="file" name="attachment<?php echo e($p->id); ?>_<?php echo e($qn->id); ?>_<?php echo e($metaname_id); ?>_<?php echo e($qn->opt_answer_id); ?>_<?php echo e($qn->indicator_id); ?>_<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($metaname_id); ?>[]" accept="image/*" capture="camera">
 
 
                                 </div>
@@ -331,7 +316,7 @@ Manager Dashboard: (manager inspection)
 <div class="row">
  <div class="col-md-11 col-sm-11">
  <div class="wawa-bgcolor">
-    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($meta->id); ?>">Save</button>
+    <button  class="btn-sm btn btn-secondary float-right" type="submit" name="save" value="<?php echo e($p->id); ?>_<?php echo e($section->id); ?>_<?php echo e($metaname_id); ?>">Save</button>
  </div>
 </div>
 <hr>
@@ -355,8 +340,7 @@ Manager Dashboard: (manager inspection)
  <?php endif; ?>
 </div>
 </div>
-</div>
-       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
              </div>
               </div>

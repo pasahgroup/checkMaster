@@ -43,11 +43,17 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
 
         <form method="post" action="{{ route('login') }}">
             @csrf
-
-                  <div>
-                <x-jet-label for="code" value="{{ __('Code') }}" />
-                <input id="code" class="form-control" type="text" name="code" :value="old('code')" required autofocus />
+            <div class="row">
+               <div class="col-md-2">                   
+                               <x-jet-label for="code" value="{{ __('Code') }}" />
+                </div>
+                  <div class="col-md-10"> 
+                <input id="code" class="form-control" type="text" name="code" value="{{ app('request')->input('code') }}" required autofocus readonly />
+               
+                </div>
             </div>
+           
+
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />

@@ -99,7 +99,7 @@ class ManageController extends Controller
      ->where('assets.metaname_id',$metaname_id)
      ->where('answers.manager_checklist','!=',"Cleared")
      ->groupby('assets.asset_name')
-    ->select('assets.id','assets.asset_name')
+    ->select('assets.id','assets.metaname_id','assets.asset_name')
       ->get();
 //dd($assets);
 

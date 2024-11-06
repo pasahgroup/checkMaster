@@ -348,6 +348,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 </div>
 <?php endif; ?>
+
 <?php if($message= Session::get('delete')): ?>
 <div class="alert alert-danger" role="alert">
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
@@ -357,7 +358,6 @@ License: You must have a valid license purchased only from themeforest(the above
 </div>
 <?php endif; ?>
 <?php if($message= Session::get('error')): ?>
-
 <div class="alert alert-danger" role="alert">
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
 	<span aria-hidden="true">&times;</span></button>
@@ -365,6 +365,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 </div>
 <?php endif; ?>
+
 
 <?php if($errors->any()): ?>
 <div class="alert alert-danger">

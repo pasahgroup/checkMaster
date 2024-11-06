@@ -128,7 +128,7 @@ else
                 }
                       else
                       {
-                        dd('print2');
+                        //dd('print2');
 
 $insetqnsy = myCompany::where('company_name',request('business_name'))
              ->update([

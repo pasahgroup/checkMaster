@@ -78,15 +78,14 @@ background-image:url(<?php echo e(URL::asset('../../assets/images/misc/bg-login.
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
                 </div>
-                  <div class="col-md-10"> 
-                <input id="code" class="form-control" type="text" name="code" value="<?php echo e(app('request')->input('code')); ?>" required autofocus readonly />
+                  <div class="col-md-9"> 
+                <input id="code" class="form-control" type="text" name="code" value="<?php echo e(app('request')->input('code')); ?>" required autofocus/>
                
                 </div>
             </div>
-
            
-
-            <div>
+    <div class="mt-4">
+        
                 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.label','data' => ['for' => 'email','value' => ''.e(__('Email')).'']]); ?>
 <?php $component->withName('jet-label'); ?>
@@ -113,7 +112,8 @@ background-image:url(<?php echo e(URL::asset('../../assets/images/misc/bg-login.
 <?php endif; ?>
             </div>
 
-            <div class="mt-4">
+
+         <div class="mt-4">
                 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.label','data' => ['for' => 'password','value' => ''.e(__('Password')).'']]); ?>
 <?php $component->withName('jet-label'); ?>

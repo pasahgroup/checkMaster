@@ -47,19 +47,20 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
                <div class="col-md-2">                   
                                <x-jet-label for="code" value="{{ __('Code') }}" />
                 </div>
-                  <div class="col-md-10"> 
-                <input id="code" class="form-control" type="text" name="code" value="{{ app('request')->input('code') }}" required autofocus readonly />
+                  <div class="col-md-9"> 
+                <input id="code" class="form-control" type="text" name="code" value="{{ app('request')->input('code') }}" required autofocus/>
                
                 </div>
             </div>
            
-
-            <div>
+    <div class="mt-4">
+        
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="mt-4">
+
+         <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
             </div>

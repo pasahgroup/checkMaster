@@ -10,6 +10,7 @@ use Dotenv\Validator;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Models\department;
+use App\Models\userProperty;
 
 class profileController extends Controller
 {
@@ -127,12 +128,8 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'status'=>'Active',
           'user_id'=>auth()->id()
             ]);
-     
-     dd('print');                 
-
-
-
-                      }
+  
+            }
 
          }
 }
@@ -160,6 +157,25 @@ else
           'user_id'=>auth()->id()
         ]);
                 
+
+        //Insert to user
+  $userReg = user::UpdateOrCreate([
+        'name'=>request('first_name').' '.request('last_name'),
+        'department_id'=>$department->id,
+        'property_id'=>$insetqnsy->id,
+         'email'=>request('email'),
+         'password'=>Hash::make(request('password')),
+         'status'=>'Active',
+          'user_id'=>auth()->id()
+        ]);
+
+        $userSiteReg = userProperty::UpdateOrCreate([
+        'sys_user_id'=>$userReg->id,
+        'property_id'=>request('property'),
+        'status'=>'Active',
+        'user_id'=>auth()->id()
+        ]);        
+
 
                 }
                       else

@@ -43,6 +43,7 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
 
         <form method="post" action="{{ route('login') }}">
             @csrf
+            {{--
             <div class="row">
                <div class="col-md-2">                   
                                <x-jet-label for="code" value="{{ __('Code') }}" />
@@ -52,6 +53,7 @@ background-image:url({{URL::asset('../../assets/images/misc/bg-login.jpg')}});
                
                 </div>
             </div>
+            --}}
            
     <div class="mt-4">
         

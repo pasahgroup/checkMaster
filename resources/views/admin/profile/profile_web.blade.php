@@ -38,7 +38,7 @@
                              @csrf
     <input type="hidden" name="_method" value="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-       <input type="text"  id="profile_web" name="profile_web" class="form-control" value="profile_web">
+       <input type="hidden"  id="profile_web" name="profile_web" class="form-control" value="profile_web">
 
         <div id="sf1" class="frm">
           <fieldset>
@@ -79,14 +79,6 @@
           <fieldset>
             <legend>Step 2 of 3</legend>
 
-  <div class="form-group">
-              <label class="col-lg-2 control-label" for="upass1">User Email: </label>
-              <div class="col-lg-6">
-                <input class="form-control" type="email" id="email" name="email" placeholder="company email">
-              </div>
-            </div>
-            <div class="clearfix" style="height: 10px;clear: both;"></div>
-
            
             <div class="form-group">
               <label class="col-lg-2 control-label" for="upass1">Address: </label>
@@ -105,6 +97,24 @@
                                   </fieldset>
                                 </div>
 
+<div class="clearfix" style="height: 10px;clear: both;"></div>
+<label class="col-lg-2 control-label" for="upass1">Who Registered: </label>
+<div class="clearfix" style="height: 10px;clear: both;"></div>
+  <div class="form-group">
+              <label class="col-lg-2 control-label" for="upass1">First name: </label>
+              <div class="col-lg-6">
+               <input class="form-control" type="text" name="first_name" placeholder="first name">
+              </div>
+            </div>
+
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+              <div class="form-group">
+              <label class="col-lg-2 control-label" for="upass1">Last name: </label>
+              <div class="col-lg-6">
+               <input class="form-control" type="text" name="last_name" placeholder="last name">
+              </div>
+            </div>
+<div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
               <div class="col-lg-10 col-lg-offset-2">
@@ -123,6 +133,13 @@
               <label class="col-lg-2 control-label" for="upass1">User code: </label>
               <div class="col-lg-6">
                 <input type="text" value="{{$pin}}" id="code" name="code" class="form-control" autocomplete="off" required readonly>
+              </div>
+            </div>
+             <div class="clearfix" style="height: 10px;clear: both;"></div>
+              <div class="form-group">
+              <label class="col-lg-2 control-label" for="upass1">User Email: </label>
+              <div class="col-lg-6">
+                <input class="form-control" type="email" id="email" name="email" placeholder="company email">
               </div>
             </div>
             <div class="clearfix" style="height: 10px;clear: both;"></div>
@@ -175,6 +192,21 @@
           maxlength: 16
         },
          business_name: {
+          required: true,
+          minlength: 2,
+          maxlength: 64
+        },
+ address: {
+          required: true,
+          minlength: 2,
+          maxlength: 64
+        },
+        first_name: {
+          required: true,
+          minlength: 2,
+          maxlength: 64
+        },
+        last_name: {
           required: true,
           minlength: 2,
           maxlength: 64

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\answer;
 use App\Models\myCompany;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
+    
     public function register()
     {
         //dd('register');
@@ -30,13 +31,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
       $userCount=0;
-Paginator::useBootstrap();
+       Paginator::useBootstrap();
 
          // Using view composer to set following variables globally
            view()->composer('*',function($view) {
 
   $view->with('userCount', Auth::user());
-  //dd($view->userCount;
+  //dd($view->userCount);
 
              if($view->userCount !=NULL)
              {
@@ -57,7 +58,8 @@ Paginator::useBootstrap();
              ->where('status','Active')
             ->get());
             //dd($view->qnsCount);
-
+            
+  
             //->select('properties.property_name')->first());
              //$view->with('qnsCount', collect($qnsCount));
 

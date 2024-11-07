@@ -9,6 +9,8 @@ use App\Models\user;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 use Carbon\Carbon;
 use App\Models\expenseCategory;
@@ -30,6 +32,9 @@ include_once(app_path().'/jrf/PHPJasperXML.inc.php');
   //include_once(app_path().'/fpdf184/mysql_table.php');
   //include_once(app_path().'/fpdf184/pdfg.php');
  use PHPJasperXML;
+ include(app_path().'/db/dbconn.php');
+
+  //include_once(app_path().'/fpdf184/pdfg.php');
   //require base_path().'/vendor/autoload.php';
  // use PHPJasperXM;
 //use PDF;
@@ -49,9 +54,48 @@ class PropertyController extends Controller
 
  public function dashProperty($id)
     {
+         $auth_user = Auth::user();
+          $db="checkmasterdb";
+
+        Config::set('database.connections.clientdb', [   
+    'driver' => 'mysql',  
+        'host' =>'127.0.0.1',  
+        'database' =>$db,  
+        'username' =>'root',  
+        'password' =>'',  
+        'charset' => 'utf8mb4',  
+        'collation' => 'utf8mb4_unicode_ci',  
+        'prefix' => '',  
+        'strict' => true,  
+        'engine' => null,  
+   // all the other params from config
+]);
+
+
+
+         //dd($auth_user);
+     // {{session("current-country")}} retrive data onblade
+
+        //DB::purge('mynewconnection');
+         // $properties = property::where('status','Active')->get();
+      
+ // $databaseName = Helper::getDatabaseName();
+ //    DB::connection($databaseName)
+ //    ->table('your table name')
+ //    ->select('*')
+ //    ->get();
+
+   //dd(session("auth_user"));
+
       $properties = property::where('status','Active')->get();
       //$propertyName = Property::where('id',1)->first();
-    //dd($properties);
+    
+     //$usersx=property::on('clientdb')->where('status','Active')->get(); 
+
+     // $users = DB::connection('conn2')->select('Select * from users');
+       $users = DB::connection('clientdb')->select('Select * from users');
+    //dd($users);
+
     return view('admin.settings.properties.dash.dash-property',compact('properties'));
     }
 

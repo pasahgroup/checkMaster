@@ -113,6 +113,33 @@ return [
             'prefix_indexes' => true,
         ],
 
+        //Custom db connection
+        'conn1' => [  
+        'driver' => 'mysql',  
+        'host' => env('DB_HOST', '127.0.0.1'),  
+        'database' => env('DB_DATABASE', 'checkmasterdb'),  
+        'username' => env('DB_USERNAME', 'root'),  
+        'password' => env('DB_PASSWORD', ''),  
+        'charset' => 'utf8mb4',  
+        'collation' => 'utf8mb4_unicode_ci',  
+        'prefix' => '',  
+        'strict' => true,  
+        'engine' => null,  
+    ],  
+
+    'clientdb' => [  
+        'driver' => 'mysql',  
+        'host' =>'127.0.0.1',  
+        'database' =>'assetdb',  
+        'username' =>'root',  
+        'password' =>'',  
+        'charset' => 'utf8mb4',  
+        'collation' => 'utf8mb4_unicode_ci',  
+        'prefix' => '',  
+        'strict' => true,  
+        'engine' => null,  
+    ],  
+
     ],
 
     /*

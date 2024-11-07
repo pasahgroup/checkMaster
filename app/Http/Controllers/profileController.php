@@ -77,6 +77,8 @@ class profileController extends Controller
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+          'first_name'=>request('first_name'),
+          'last_name'=>request('last_name'),
           'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
@@ -94,6 +96,8 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+          'first_name'=>request('first_name'),
+          'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
@@ -119,6 +123,8 @@ else
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+          'first_name'=>request('first_name'),
+          'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
@@ -139,6 +145,8 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'phone_number'=>request('phone_number'),
           'email'=>request('email'),
           'address'=>request('address'),
+          'first_name'=>request('first_name'),
+          'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
@@ -147,6 +155,27 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
      }
 
        $code=request('code');
+//Create user credential
+  $userReg = user::UpdateOrCreate([
+        'name'=>request('name'),
+        'department_id'=>request('department'),
+        'property_id'=>request('property'),
+         'email'=>request('email'),
+         'password'=>Hash::make(request('password')),
+         'status'=>'Active',
+          'user_id'=>auth()->id()
+        ]);
+
+        $userSiteReg = userProperty::UpdateOrCreate([
+        'sys_user_id'=>$userReg->id,
+        'property_id'=>request('property'),
+        'status'=>'Active',
+        'user_id'=>auth()->id()
+        ]);
+ //End of user credential      
+
+
+
      if(request('profile_web'))
      {
         return redirect()->route('login',compact('code'))->with('success','Registered successfully, Now Login');     

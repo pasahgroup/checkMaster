@@ -28,11 +28,10 @@
                                                     </div>
 
                                                     <div class="d-flex">
-                                                      <button  class="btn ml-2 p-0 kt_notes_panel_toggle"
-                                                          data-toggle="tooltip" title="" data-placement="right"
-                                                                            data-original-title="Check out more demos" >
-                                                            <span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">
-                                                                <i class="fa fa-print"></i>
+    <button class="btn ml-2 p-0 kt_notes_panel_toggle"
+    data-toggle="tooltip" title="" data-placement="right"data-original-title="Check out more demos">
+                                    <span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">
+                                    <i class="fa fa-print"></i>
                                                             </span>
 
                                                         </button>
@@ -94,29 +93,26 @@
                 <input type="hidden" name="_method" value="delete">
                  <input type="hidden" name="users" value="users">
                  <input type="hidden" name="revoke" value="revoke">
-                                                                                    <?php echo e(csrf_field()); ?>
+<?php echo e(csrf_field()); ?>
 
 <button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="<?php echo e($role->role_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
       <span class="text-white btn-sm bg-danger">-</span>
-      <?php echo e($role->role_name); ?>
-
+      <?php echo e($role->role_name); ?> nbbn
            </button>
 
-                                                                        </form>
-                                                                        <?php endif; ?>
-
-                                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                                                    <span class="alert alert-danger">No Role</span>
-                                                                    <?php endif; ?>
-
-                                                                    <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role<?php echo e($value->id); ?>" data-toggle="modal"> <i class="fa fa-plus"></i></button>
-
+                        </form>
+                                                               <?php endif; ?>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        <span class="alert alert-danger">No Role</span>
+                                                        <?php endif; ?>
+<button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role<?php echo e($value->id); ?>" data-toggle="modal"> 
+    <i class="fa fa-plus"></i></button>
 
                                                     
                                                     <div class="modal" id="role<?php echo e($value->id); ?>" style="display: none;" aria-hidden="true">
-                                                        <div class="modal-dialog modal-md" role="document">
-                                                            <div class="modal-content modal-content-demo">
-                                                                <div class="modal-header">
+                                            <div class="modal-dialog modal-md" role="document">
+                                            <div class="modal-content modal-content-demo">
+                                                <div class="modal-header">
                                                                     <h6 class="modal-title">Assign role to <?php echo e($value->name); ?> </h6>
                                                                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                                                         <span aria-hidden="true">×</span></button>

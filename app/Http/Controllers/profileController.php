@@ -109,13 +109,13 @@ $department = department::where('department_name','Manager')->first();
         'user_id'=>auth()->id()
         ]);
 
-         $userRoleReg = userRole::UpdateOrCreate([
-        'sys_user_id'=>$userReg->id,
-        'property_id'=>request('property'),
-        'status'=>'Active',
-        'user_id'=>auth()->id()
-        ]);
 
+$appliedto =userRole::Create([
+        'sys_user_id'=>request('user_id'),
+        'role_id'=>request('role_name'),        
+        'status'=>'Active',
+        'user_id'=>auth()->id()        
+        ]);
                       
 
                       }
@@ -184,6 +184,12 @@ else
         'user_id'=>auth()->id()
         ]);        
 
+$appliedto =userRole::Create([
+        'sys_user_id'=>request('user_id'),
+        'role_id'=>request('role_name'),        
+        'status'=>'Active',
+        'user_id'=>auth()->id()        
+        ]);
 
                 }
                       else

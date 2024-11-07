@@ -62,15 +62,7 @@ class roleController extends Controller
         return redirect()->back()->with('success','Role created successefuly');
             }
         }
-        elseif(request('department_id')){
-          
-            // if(User::where('department_id',request('department_id'))->exists()){
-            //      //dd('ddddv');
-            //     return redirect()->back()->with('error','This Department ha already assigned this user');
-            //  //dd('ddddx');
-            // }
-            // else{ 
-                // dd('dddd'); 
+        elseif(request('department_id')){           
                 $user = User::where('id',request('user_id'))
                 ->update([
                  'department_id'=>request('department_id'),
@@ -81,31 +73,15 @@ class roleController extends Controller
         }
 
         elseif(request('permission')){
-
-           // dd('printz');
-
             if(Permission::where('name',request('name'))->exists()){
                 return redirect()->back()->with('error','This permission already created');
             }
-            else{ 
-                //dd('sd');
+            else{
             $permission = Permission::create(['name' => request('name')]);
             return redirect()->back()->with('success','Permission created successefuly');
             }
         }
         elseif(request('addrole')){
-
-                 // $user = User::where('id',request('user_id'))->first();
-                 // $user->assignRole(request('role_name'));
-                 // return redirect()->back()->with('success','Role assigned successefuly');
-       //          $user = user::where('id',$id)
-       //         ->update([
-       //          'department_id'=>"",
-       //           'user_id'=>auth()->id()
-
-       //        ]);
-       // return redirect()->back()->with('success','Department recovered successfly');
-//dd('role');
 
  $user = User::where('id',request('user_id'))->first();
  $user->assignRole(request('role_name'));

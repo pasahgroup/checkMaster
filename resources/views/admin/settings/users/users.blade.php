@@ -100,28 +100,27 @@
       {{$role->role_name}}
            </button>
 
-                                                                        </form>
-                                                                        @endif
-
-                                                                    @empty
-                                                                    <span class="alert alert-danger">No Role</span>
-                                                                    @endforelse
-
-                                                                    <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role{{ $value->id }}" data-toggle="modal"> <i class="fa fa-plus"></i></button>
-
+                        </form>
+                                                               @endif
+                                                                @empty
+                        <span class="alert alert-danger">No Role</span>
+                                                        @endforelse
+      }
+<button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role{{ $value->id }}" data-toggle="modal"> 
+    <i class="fa fa-plus"></i></button>
 
                                                     {{-- start of role modal --}}
                                                     <div class="modal" id="role{{ $value->id }}" style="display: none;" aria-hidden="true">
-                                                        <div class="modal-dialog modal-md" role="document">
-                                                            <div class="modal-content modal-content-demo">
-                                                                <div class="modal-header">
-                                                                    <h6 class="modal-title">Assign role to {{ $value->name }} </h6>
-                                                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                                                        <span aria-hidden="true">×</span></button>
-                                                                    </div>
-                                                                    <form method="POST" action="{{ route('roles.store') }}" method="POST">
-                                                                        @csrf
-                                                                    <div class="modal-body">
+                                            <div class="modal-dialog modal-md" role="document">
+                                            <div class="modal-content modal-content-demo">
+                                                <div class="modal-header">
+                                             <h6 class="modal-title">Assign role to {{ $value->name }} </h6>
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">×</span></button>
+                                                            </div>
+                                                <form method="POST" action="{{ route('roles.store') }}" method="POST">
+                                                    @csrf
+                                                     <div class="modal-body">
 
                                                                             {{-- form start here --}}
 

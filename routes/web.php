@@ -402,6 +402,7 @@ Route::get('pos-final', [posController::class,'posFinal'])->middleware(['role:Sa
 Route::resource('customers', customerController::class);
 Route::resource('stocking', stockingController::class);
 Route::get('issued-stock', [stockingController::class,'pendingIndex'])->name('pending-stock');
+
 Route::get('returned-stock', [stockingController::class,'returnedIndex'])->name('returned-stock');
 
 Route::post('pending', [stockingController::class,'pendingStock'])->name('pending');

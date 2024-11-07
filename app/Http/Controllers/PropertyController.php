@@ -55,7 +55,7 @@ class PropertyController extends Controller
  public function dashProperty($id)
     {
          $auth_user = Auth::user();
-          $db="checkmasterdb";
+          $db="checkmasterdb2";
 
         Config::set('database.connections.clientdb', [   
     'driver' => 'mysql',  
@@ -71,6 +71,8 @@ class PropertyController extends Controller
    // all the other params from config
 ]);
 
+$ggh=Authentication::Test();
+dd($ggh);
 
 
          //dd($auth_user);

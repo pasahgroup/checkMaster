@@ -37,9 +37,6 @@ class checklist extends Model
 
             $value = DB::select('select id,asset_name from assets where property_id ="'.auth()->user()->property_id.'" and metaname_id="'.$n.'" and status="Active"');
 
-//dd($value);
       return $value;
     }
-
-
 }

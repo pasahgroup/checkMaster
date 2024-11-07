@@ -97,7 +97,8 @@
 
 <button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="<?php echo e($role->role_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
       <span class="text-white btn-sm bg-danger">-</span>
-      <?php echo e($role->role_name); ?> nbbn
+      <?php echo e($role->role_name); ?>
+
            </button>
 
                         </form>
@@ -105,6 +106,7 @@
                                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <span class="alert alert-danger">No Role</span>
                                                         <?php endif; ?>
+      
 <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role<?php echo e($value->id); ?>" data-toggle="modal"> 
     <i class="fa fa-plus"></i></button>
 
@@ -113,21 +115,21 @@
                                             <div class="modal-dialog modal-md" role="document">
                                             <div class="modal-content modal-content-demo">
                                                 <div class="modal-header">
-                                                                    <h6 class="modal-title">Assign role to <?php echo e($value->name); ?> </h6>
-                                                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                                                        <span aria-hidden="true">×</span></button>
-                                                                    </div>
-                                                                    <form method="POST" action="<?php echo e(route('roles.store')); ?>" method="POST">
-                                                                        <?php echo csrf_field(); ?>
-                                                                    <div class="modal-body">
+                                             <h6 class="modal-title">Assign role to <?php echo e($value->name); ?> </h6>
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">×</span></button>
+                                                            </div>
+                                                <form method="POST" action="<?php echo e(route('roles.store')); ?>" method="POST">
+                                                    <?php echo csrf_field(); ?>
+                                                     <div class="modal-body">
 
                                                                             
 
 
-                                                            <div class="container">
-                                                            <div class="row">
-                                                                    <div class="col-md-12 col-lg-12">
-                                                                        <div class="form-group row">
+                                        <div class="container">
+                                            <div class="row">
+                                         <div class="col-md-12 col-lg-12">
+                         <div class="form-group row">
                       <label for="name" class="col-form-label "><?php echo e(__('Roles')); ?></label>
                         <select name="role_name" id="" class="form-control" required>
                          <option value="" selected>--Assign role --</option>
@@ -144,13 +146,13 @@
 
                                                      
 
-                                                                        </div>
-                                                 <div class="modal-footer">
-                                                 <button class="btn ripple btn-primary" type="submit">Save changes</button>
-                                                                        </form>
+                                                                </div>
+                                            <div class="modal-footer">
+                                <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                        </form>
 
-                                                                        </div>
-                                                                    </div>
+                                                         </div>
+                                                        </div>
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -159,16 +161,15 @@
                                                             </td>
                                                             <?php if(\Spatie\Permission\PermissionServiceProvider::bladeMethodWrapper('hasRole', 'Admin|SuperAdmin|GeneralAdmin')): ?>  <td>
                                                                 <!-- <?php echo e($value->department_id); ?> -->
-                                                                        <?php $__empty_1 = true; $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                                                        <?php if($permission->model_id == $value->id): ?>
-                                    <form action="<?php echo e(route('users.destroy', $value->id)); ?>" method="POST" >
+                                                  <?php $__empty_1 = true; $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                             <?php if($permission->model_id == $value->id): ?>
+                
+                <form action="<?php echo e(route('users.destroy', $value->id)); ?>" method="POST" >
                                                          <?php echo method_field('PUT'); ?>
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="hidden" name="users" value="users">
                                      <input type="hidden" name="revoke" value="revoke">
-                                     <input type="hidden" name="siteid" value="<?php echo e($permission->id); ?>">
-
-                                                                                    <?php echo e(csrf_field()); ?>
+                                     <input type="hidden" name="siteid" value="<?php echo e($permission->id); ?>">                                                                    <?php echo e(csrf_field()); ?>
 
     <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="<?php echo e($permission->permission_name); ?>" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> <?php echo e($permission->permission_name); ?></button>
 
@@ -188,7 +189,7 @@
                                             <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                                  <span aria-hidden="true">×</span></button>
                                                                     </div>
-                                        <form method="POST" action="<?php echo e(route('roles.store')); ?>">
+                <form method="POST" action="<?php echo e(route('roles.store')); ?>">
                                                                         <?php echo csrf_field(); ?>
                                             <div class="modal-body">
 

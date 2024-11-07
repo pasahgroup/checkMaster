@@ -60,20 +60,12 @@ License: You must have a valid license purchased only from themeforest(the above
 }
     </script>
     <script src="../../js/jQuery311.min.js" type="text/javascript"></script>
-       <!-- <script src="../../js/activitydata.js" type="text/javascript"></script> -->
-
-
+   
 <link rel="shortcut icon" href="../../assets/images/misc/logo.svg" />
 </head>
 
 <body id="tc_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-fixed">
    <!-- Paste this code after body tag -->
-
-    <!-- <div class="se-pre-con">
-	<div class="pre-loader">
-	  <img class="img-fluid" src="./assets/images/loadergif.gif" alt="loading">
-	</div>
-  </div> -->
 
 	<!--begin::Header Mobile-->
 	<div id="tc_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
@@ -331,16 +323,9 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 
 							</div>
-							<!--end::user-->
+													</div>
 
-
-						</div>
-						<!--end::Topbar-->
-					</div>
-					<!--end::Container-->
-				</div>
-				<!--end::Header-->
-                <?php if($message= Session::get('success')): ?>
+													      <?php if($message= Session::get('success')): ?>
 <div class="alert alert-success" role="alert">
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
 	<span aria-hidden="true">&times;</span></button>
@@ -354,6 +339,14 @@ License: You must have a valid license purchased only from themeforest(the above
 	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
 	<span aria-hidden="true">&times;</span></button>
 	<strong>Attention!</strong> <?php echo e($message); ?>
+
+</div>
+<?php endif; ?>
+<?php if($message= Session::get('info')): ?>
+<div class="alert alert-info" role="alert">
+	<button aria-label="Close" class="close" data-dismiss="alert" type="button">
+	<span aria-hidden="true">&times;</span></button>
+	<strong>Sorry!</strong> <?php echo e($message); ?>
 
 </div>
 <?php endif; ?>
@@ -376,6 +369,12 @@ License: You must have a valid license purchased only from themeforest(the above
     </ul>
 </div>
 <?php endif; ?>
+						
+					</div>
+					<!--end::Container-->
+				</div>
+				<!--end::Header-->
+          
 
  <?php if(isset($slot)): ?>
  <?php echo e($slot); ?>

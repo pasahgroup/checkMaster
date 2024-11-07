@@ -67,11 +67,17 @@ $properties=property::get();
 //dd(request('email'));
 // $email_data = user::findOrFail(request('email'));
   $email_data = user::where('email',request('email'))->first();
-//dd($email_data);
-if($email_data->email !=null)
+//dd($email_data->email);
+
+
+// if (is_null($value)) {  
+//     $value = ''; // Convert null to an empty string or handle as needed  
+// }  
+
+if($email_data->email !==null)
         {
             //dd($email_data);
-           return redirect()->back()->with('err_msg',"Email exists");
+           return redirect()->back()->with('info',"Email exists");
         }
 
         if(request('password') != request('password_confirmation'))

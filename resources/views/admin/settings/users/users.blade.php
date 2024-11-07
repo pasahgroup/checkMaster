@@ -105,7 +105,7 @@
                                                                 @empty
                         <span class="alert alert-danger">No Role</span>
                                                         @endforelse
-      }
+      
 <button type="button" class="btn btn-success btn-sm ripple my-2 btn-icon-text text-right" data-target="#role{{ $value->id }}" data-toggle="modal"> 
     <i class="fa fa-plus"></i></button>
 
@@ -125,10 +125,10 @@
                                                                             {{-- form start here --}}
 
 
-                                                            <div class="container">
-                                                            <div class="row">
-                                                                    <div class="col-md-12 col-lg-12">
-                                                                        <div class="form-group row">
+                                        <div class="container">
+                                            <div class="row">
+                                         <div class="col-md-12 col-lg-12">
+                         <div class="form-group row">
                       <label for="name" class="col-form-label ">{{ __('Roles') }}</label>
                         <select name="role_name" id="" class="form-control" required>
                          <option value="" selected>--Assign role --</option>
@@ -145,13 +145,13 @@
 
                                                      {{-- form Ends here --}}
 
-                                                                        </div>
-                                                 <div class="modal-footer">
-                                                 <button class="btn ripple btn-primary" type="submit">Save changes</button>
-                                                                        </form>
+                                                                </div>
+                                            <div class="modal-footer">
+                                <button class="btn ripple btn-primary" type="submit">Save changes</button>
+                                                        </form>
 
-                                                                        </div>
-                                                                    </div>
+                                                         </div>
+                                                        </div>
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -160,16 +160,15 @@
                                                             </td>
                                                             @role('Admin|SuperAdmin|GeneralAdmin')  <td>
                                                                 <!-- {{$value->department_id}} -->
-                                                                        @forelse($permissions as $permission)
-                                                                        @if($permission->model_id == $value->id)
-                                    <form action="{{ route('users.destroy', $value->id) }}" method="POST" >
+                                                  @forelse($permissions as $permission)
+                                             @if($permission->model_id == $value->id)
+                
+                <form action="{{ route('users.destroy', $value->id) }}" method="POST" >
                                                          @method('PUT')
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="hidden" name="users" value="users">
                                      <input type="hidden" name="revoke" value="revoke">
-                                     <input type="hidden" name="siteid" value="{{$permission->id}}">
-
-                                                                                    {{ csrf_field() }}
+                                     <input type="hidden" name="siteid" value="{{$permission->id}}">                                                                    {{ csrf_field() }}
     <button type="submit"  name="permission" class="btn btn-sm  btn-outline-primary" value="{{$permission->permission_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;"><span class="text-white btn-sm bg-danger">-</span> {{$permission->permission_name}}</button>
 
                                                                         </form>
@@ -188,7 +187,7 @@
                                             <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                                  <span aria-hidden="true">×</span></button>
                                                                     </div>
-                                        <form method="POST" action="{{ route('roles.store') }}">
+                <form method="POST" action="{{ route('roles.store') }}">
                                                                         @csrf
                                             <div class="modal-body">
 

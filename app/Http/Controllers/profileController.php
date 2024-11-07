@@ -6,6 +6,8 @@ use App\Models\myCompany;
 use App\Models\myPayment;
 use Illuminate\Http\Request;
 use App\Models\user;
+use App\Models\role;
+
 use Dotenv\Validator;
 use Illuminate\Support\Facades\Hash;
 use DB;
@@ -56,7 +58,10 @@ class profileController extends Controller
     {
 
 $department = department::where('department_name','Manager')->first();
-//dd(request('code'));
+$role_name = role::where('name','Manager')->first();
+
+//dd($role_name);
+
   if(request('attachment')){
             $attach = request('attachment');
             foreach($attach as $attached){
@@ -89,8 +94,8 @@ $department = department::where('department_name','Manager')->first();
           'last_name'=>request('last_name'),
           'code'=>request('code'),
           'status'=>'Active',
-          'user_id'=>auth()->id()
-        ]);
+          'user_id'=>0
+             ]);
 //Insert to user
   $userReg = user::UpdateOrCreate([
         'name'=>request('first_name').' '.request('last_name'),
@@ -99,22 +104,22 @@ $department = department::where('department_name','Manager')->first();
          'email'=>request('email'),
          'password'=>Hash::make(request('password')),
          'status'=>'Active',
-          'user_id'=>auth()->id()
+          'user_id'=>0
         ]);
 
         $userSiteReg = userProperty::UpdateOrCreate([
         'sys_user_id'=>$userReg->id,
-        'property_id'=>request('property'),
+        'property_id'=>$insetqnsy->id,
         'status'=>'Active',
-        'user_id'=>auth()->id()
+        'user_id'=>0
         ]);
 
 
 $appliedto =userRole::Create([
         'sys_user_id'=>$userReg->id,
-        'role_id'=>request('role_name'),        
+        'role_id'=>$role_name->id,        
         'status'=>'Active',
-        'user_id'=>auth()->id()        
+        'user_id'=>0      
         ]);
                       
 
@@ -134,7 +139,7 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
-          'user_id'=>auth()->id()
+          'user_id'=>0
             ]);
   
             }
@@ -162,7 +167,7 @@ else
           'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
-          'user_id'=>auth()->id()
+          'user_id'=>0
         ]);               
 
         //Insert to user
@@ -173,21 +178,21 @@ else
          'email'=>request('email'),
          'password'=>Hash::make(request('password')),
          'status'=>'Active',
-          'user_id'=>auth()->id()
+          'user_id'=>0
         ]);
 
         $userSiteReg = userProperty::UpdateOrCreate([
         'sys_user_id'=>$userReg->id,
-        'property_id'=>request('property'),
+        'property_id'=>$insetqnsy->id,
         'status'=>'Active',
-        'user_id'=>auth()->id()
+        'user_id'=>0
         ]);        
 
 $appliedto =userRole::Create([
         'sys_user_id'=>$userReg->id,
-        'role_id'=>request('role_name'),        
+         'role_id'=>$role_name->id,         
         'status'=>'Active',
-        'user_id'=>auth()->id()        
+        'user_id'=>0   
         ]);
 
                 }
@@ -208,7 +213,7 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'last_name'=>request('last_name'),
            'code'=>request('code'),
           'status'=>'Active',
-          'user_id'=>auth()->id()
+          'user_id'=>0
         ]);
               }
      }

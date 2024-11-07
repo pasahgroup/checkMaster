@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\myCompany;
 use App\Models\myPayment;
 use Illuminate\Http\Request;
+use App\Models\user;
+use Dotenv\Validator;
+use Illuminate\Support\Facades\Hash;
+use DB;
+use App\Models\department;
 
 class profileController extends Controller
 {
@@ -156,8 +161,10 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
 
        $code=request('code');
 //Create user credential
+   $department = department::where('department_name','Manager')->first();
+  dd($department);
   $userReg = user::UpdateOrCreate([
-        'name'=>request('name'),
+        'name'=>request('first_name').' '.request('last_name'),
         'department_id'=>request('department'),
         'property_id'=>request('property'),
          'email'=>request('email'),

@@ -74,7 +74,7 @@ class profileController extends Controller
                     if($comp == null)
                       {
 
- $insetqns = myCompany::Create([
+ $insetqnsy = myCompany::Create([
           'company_name'=>request('business_name'),
            'logo'=>$imageToStore,
           'tin'=>request('tin'),
@@ -120,7 +120,7 @@ else
                     if($comp == null)
                       {
     //dd('print1');
- $insetqns = myCompany::Create([
+ $insetqnsy = myCompany::Create([
           'company_name'=>request('business_name'),
            'logo'=>'',
           'tin'=>request('tin'),
@@ -162,11 +162,11 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
        $code=request('code');
 //Create user credential
    $department = department::where('department_name','Manager')->first();
-  dd($department);
+  //dd($department->id);
   $userReg = user::UpdateOrCreate([
         'name'=>request('first_name').' '.request('last_name'),
-        'department_id'=>request('department'),
-        'property_id'=>request('property'),
+        'department_id'=>$department->id,
+        'property_id'=>$insetqnsy->id,
          'email'=>request('email'),
          'password'=>Hash::make(request('password')),
          'status'=>'Active',

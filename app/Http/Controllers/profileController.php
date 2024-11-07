@@ -111,7 +111,7 @@ $department = department::where('department_name','Manager')->first();
 
 
 $appliedto =userRole::Create([
-        'sys_user_id'=>request('user_id'),
+        'sys_user_id'=>$userReg->id,
         'role_id'=>request('role_name'),        
         'status'=>'Active',
         'user_id'=>auth()->id()        
@@ -163,8 +163,7 @@ else
            'code'=>request('code'),
           'status'=>'Active',
           'user_id'=>auth()->id()
-        ]);
-                
+        ]);               
 
         //Insert to user
   $userReg = user::UpdateOrCreate([
@@ -185,7 +184,7 @@ else
         ]);        
 
 $appliedto =userRole::Create([
-        'sys_user_id'=>request('user_id'),
+        'sys_user_id'=>$userReg->id,
         'role_id'=>request('role_name'),        
         'status'=>'Active',
         'user_id'=>auth()->id()        

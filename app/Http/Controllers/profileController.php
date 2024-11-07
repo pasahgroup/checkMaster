@@ -53,6 +53,7 @@ class profileController extends Controller
     public function store(Request $request)
     {
 
+$department = department::where('department_name','Manager')->first();
 //dd(request('code'));
   if(request('attachment')){
             $attach = request('attachment');
@@ -88,6 +89,25 @@ class profileController extends Controller
           'status'=>'Active',
           'user_id'=>auth()->id()
         ]);
+//Insert to user
+  $userReg = user::UpdateOrCreate([
+        'name'=>request('first_name').' '.request('last_name'),
+        'department_id'=>$department->id,
+        'property_id'=>$insetqnsy->id,
+         'email'=>request('email'),
+         'password'=>Hash::make(request('password')),
+         'status'=>'Active',
+          'user_id'=>auth()->id()
+        ]);
+
+        $userSiteReg = userProperty::UpdateOrCreate([
+        'sys_user_id'=>$userReg->id,
+        'property_id'=>request('property'),
+        'status'=>'Active',
+        'user_id'=>auth()->id()
+        ]);
+
+                      
 
                       }
                       else
@@ -107,6 +127,11 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
           'status'=>'Active',
           'user_id'=>auth()->id()
             ]);
+     
+     dd('print');                 
+
+
+
                       }
 
          }
@@ -161,24 +186,9 @@ $insetqnsy = myCompany::where('company_name',request('business_name'))
 
        $code=request('code');
 //Create user credential
-   $department = department::where('department_name','Manager')->first();
+   
   //dd($department->id);
-  $userReg = user::UpdateOrCreate([
-        'name'=>request('first_name').' '.request('last_name'),
-        'department_id'=>$department->id,
-        'property_id'=>$insetqnsy->id,
-         'email'=>request('email'),
-         'password'=>Hash::make(request('password')),
-         'status'=>'Active',
-          'user_id'=>auth()->id()
-        ]);
 
-        $userSiteReg = userProperty::UpdateOrCreate([
-        'sys_user_id'=>$userReg->id,
-        'property_id'=>request('property'),
-        'status'=>'Active',
-        'user_id'=>auth()->id()
-        ]);
  //End of user credential      
 
 

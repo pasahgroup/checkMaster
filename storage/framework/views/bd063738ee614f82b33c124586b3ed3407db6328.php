@@ -27,7 +27,8 @@
                                                         </h6>
                                                     </div>
 
-                                                    <div class="d-flex">
+
+<div class="d-flex">
     <button class="btn ml-2 p-0 kt_notes_panel_toggle"
     data-toggle="tooltip" title="" data-placement="right"data-original-title="Check out more demos">
                                     <span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">

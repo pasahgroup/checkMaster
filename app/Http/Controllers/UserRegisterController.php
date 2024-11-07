@@ -70,13 +70,8 @@ $properties=property::get();
 //dd($email_data->email);
 
 
-// if (is_null($value)) {  
-//     $value = ''; // Convert null to an empty string or handle as needed  
-// }  
-
     if(!is_null($email_data))
         {
-            //dd($email_data);
            return redirect()->back()->with('info',"Email exists");
         }
 

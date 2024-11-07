@@ -29,11 +29,10 @@
                                                     </div>
 
                                                     <div class="d-flex">
-                                                      <button  class="btn ml-2 p-0 kt_notes_panel_toggle"
-                                                          data-toggle="tooltip" title="" data-placement="right"
-                                                                            data-original-title="Check out more demos" >
-                                                            <span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">
-                                                                <i class="fa fa-print"></i>
+    <button class="btn ml-2 p-0 kt_notes_panel_toggle"
+    data-toggle="tooltip" title="" data-placement="right"data-original-title="Check out more demos">
+                                    <span class="bg-secondary h-30px font-size-h5 w-30px d-flex align-items-center justify-content-center  rounded-circle shadow-sm ">
+                                    <i class="fa fa-print"></i>
                                                             </span>
 
                                                         </button>
@@ -95,7 +94,7 @@
                 <input type="hidden" name="_method" value="delete">
                  <input type="hidden" name="users" value="users">
                  <input type="hidden" name="revoke" value="revoke">
-                                                                                    {{ csrf_field() }}
+{{ csrf_field() }}
 <button type="submit"  name="role" title="Remove this role" class="btn btn-outline-primary btn-sm" value="{{$role->role_name}}" onclick="return confirm(id='Are you sure you want to revoke this permission to this role?')" style="margin-bottom:3px;">
       <span class="text-white btn-sm bg-danger">-</span>
       {{$role->role_name}}

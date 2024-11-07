@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Models\department;
 use App\Models\userProperty;
+use App\Models\userRole;
 
 class profileController extends Controller
 {
@@ -102,6 +103,13 @@ $department = department::where('department_name','Manager')->first();
         ]);
 
         $userSiteReg = userProperty::UpdateOrCreate([
+        'sys_user_id'=>$userReg->id,
+        'property_id'=>request('property'),
+        'status'=>'Active',
+        'user_id'=>auth()->id()
+        ]);
+
+         $userRoleReg = userRole::UpdateOrCreate([
         'sys_user_id'=>$userReg->id,
         'property_id'=>request('property'),
         'status'=>'Active',

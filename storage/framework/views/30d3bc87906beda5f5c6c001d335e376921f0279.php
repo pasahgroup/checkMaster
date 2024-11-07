@@ -371,11 +371,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <?php endif; ?>
 						
 					</div>
-					<!--end::Container-->
 				</div>
-				<!--end::Header-->
-          
-
+				
  <?php if(isset($slot)): ?>
  <?php echo e($slot); ?>
 

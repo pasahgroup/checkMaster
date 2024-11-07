@@ -60,7 +60,7 @@ $properties=property::get();
 
   validator([
             'name' => ['required', 'string', 'max:255'],
-           // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' =>['required', 'string', 'max:64'],
             //'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
@@ -74,7 +74,7 @@ $properties=property::get();
 //     $value = ''; // Convert null to an empty string or handle as needed  
 // }  
 
-if($email_data->email !==null)
+    if(!is_null($email_data))
         {
             //dd($email_data);
            return redirect()->back()->with('info',"Email exists");
